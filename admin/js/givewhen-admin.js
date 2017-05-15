@@ -1,32 +1,55 @@
-(function( $ ) {
-	'use strict';
+(function ($) {
+    'use strict';
+    jQuery(document).ready(function ($) {
+        $('#upload-btn').click(function (e) {
+            e.preventDefault();
+            var image = wp.media({
+                title: 'Upload Image',
+                // mutiple: true if you want to upload multiple files at once
+                multiple: false
+            }).open()
+                    .on('select', function (e) {
+                        // This will return the selected image from the Media Uploader, the result is an object
+                        var uploaded_image = image.state().get('selection').first();
+                        // We convert uploaded_image to a JSON object to make accessing it easier
+                        // Output to the console uploaded_image                    
+                        var image_url = uploaded_image.toJSON().url;
+                        // Let's assign the url value to the input field
+                        $('#image_url').val(image_url);
+                    });
+        });
+        
+        $(document).on('click','#fixed_radio',function () {
+            if ($(this).is(':checked')) {
+                $('#fixed_amount_input_div').removeClass('hidden');
+                $('#dynamic_options').addClass('hidden');
+            }
+        });
+        
+        $(document).on('click','#option_radio',function () {
+            if ($(this).is(':checked')) {
+                $('#fixed_amount_input_div').addClass('hidden');
+                $('#dynamic_options').removeClass('hidden');
+            }
+        });
+        
+        var room = 1;
+        $('#add_dynamic_field').click(function(){            
+             room++;
+            var objTo = document.getElementById('education_fields');
+            var divtest = document.createElement("div");
+                divtest.setAttribute("class", "form-group removeclass"+room);
+                var rdiv = 'removeclass'+room;
+            divtest.innerHTML = '<div class="col-sm-1 nopadding"><label class="control-label">Option </label></div><div class="col-sm-3 nopadding"><div class="form-group"><input type="text" class="form-control" id="option_name" name="option_name[]" value="" placeholder="Option Name"></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"><input type="text" class="form-control" id="option_amount" name="option_amount[]" value="" placeholder="Option Amount"><div class="input-group-btn"> <button class="btn btn-danger" type="button" id="remove_dynamic_fields" data-fieldid="'+room+'"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+            objTo.appendChild(divtest);
+        });
+        
+        $(document).on('click','#remove_dynamic_fields',function(){            
+           var rid = $(this).attr('data-fieldid');
+           $('.removeclass'+rid).remove();
+        });
+        
+    });
+    
 
-	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
-
-})( jQuery );
+})(jQuery);

@@ -51,7 +51,7 @@ class Givewhen_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
+                $this->load_dependencies();
 	}
 
 	/**
@@ -71,8 +71,11 @@ class Givewhen_Admin {
 		 * The Givewhen_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
-		 */
-
+		 */                 
+                $screen = get_current_screen();
+                if($screen->post_type == 'give_when'){
+                   wp_enqueue_style($this->plugin_name . 'eight', plugin_dir_url(__FILE__) . 'css/bootstrap/css/bootstrap.css', array(), $this->version, 'all');
+                }
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/givewhen-admin.css', array(), $this->version, 'all' );
 
 	}
@@ -95,9 +98,17 @@ class Givewhen_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
+                $screen = get_current_screen();
+                if($screen->post_type == 'give_when'){
+                     wp_enqueue_script($this->plugin_name . 'six', plugin_dir_url(__FILE__) . 'css/bootstrap/js/bootstrap.min.js', array('jquery'), $this->version, false);
+                }
+                wp_enqueue_media();
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/givewhen-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
+        
+        private function load_dependencies() {
+            require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types.php';
+        }
 
 }

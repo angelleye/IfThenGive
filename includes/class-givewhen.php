@@ -112,6 +112,11 @@ class Givewhen {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-givewhen-admin.php';
+                
+                  /**
+                * Givewhen create/edit interface code written
+                */
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-html-format.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
