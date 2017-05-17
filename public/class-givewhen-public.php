@@ -51,6 +51,7 @@ class Givewhen_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->load_dependencies();
 
 	}
 
@@ -99,5 +100,12 @@ class Givewhen_Public {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/givewhen-public.js', array( 'jquery' ), $this->version, false );
 
 	}
+
+	public function load_dependencies() {
+	/**
+	* The class responsible for defining all actions that occur in the Frontend
+	         */        
+	require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/givewhen-public-display.php';
+	    }
 
 }

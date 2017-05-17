@@ -51,7 +51,7 @@ class Givewhen_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-                $this->load_dependencies();
+        $this->load_dependencies();
 	}
 
 	/**
@@ -104,11 +104,22 @@ class Givewhen_Admin {
                 }
                 wp_enqueue_media();
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/givewhen-admin.js', array( 'jquery' ), $this->version, false );
+		$shortcodes = array();
+		$shortcodes_values = array();
+		if (empty($shortcodes)) {
+
+			$shortcodes_values = array('0' => 'No shortcode Available');
+		} else {
+			$shortcodes_values = $shortcodes;
+		}
+		wp_localize_script('paypal-wp-button-manager', 'shortcodes_button_array', apply_filters('paypal_wp_button_manager_shortcode', array(
+		'shortcodes_button' => $shortcodes_values
+		)));
 
 	}
         
-        private function load_dependencies() {
-            require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types.php';
-        }
+    private function load_dependencies() {
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types.php';
+    }
 
 }

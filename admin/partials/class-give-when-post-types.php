@@ -19,6 +19,10 @@ class AngellEYE_Give_When_Post_types {
         add_action('init', array(__CLASS__, 'give_when_register_post_types'), 5);
         add_action('add_meta_boxes', array(__CLASS__, 'give_when_add_meta_boxes'), 10);
         add_action('save_post', array(__CLASS__, 'give_when_save_data'));
+        add_filter('manage_edit-give_when_columns', array(__CLASS__, 'give_when_edit_give_when_columns'));
+        add_action('manage_give_when_posts_custom_column', array(__CLASS__, 'give_when_buttons_columns'), 10, 2);
+        /* custom **/
+        add_filter('post_row_actions',array(__CLASS__, 'my_action_row'), 10, 2);
     }
 
     /**
@@ -37,22 +41,22 @@ class AngellEYE_Give_When_Post_types {
 
         register_post_type('give_when', apply_filters('give_when_register_post_types', array(
                     'labels' => array(
-                        'name' => __('Give Trigger', 'angelleye_give_when'),
-                        'singular_name' => __('Give Trigger', 'angelleye_give_when'),
-                        'menu_name' => _x('Give Trigger', 'Admin menu name', 'angelleye_give_when'),
-                        'add_new' => __('Add Trigger', 'angelleye_give_when'),
-                        'add_new_item' => __('Add New Trigger', 'angelleye_give_when'),
+                        'name' => __('Give When', 'angelleye_give_when'),
+                        'singular_name' => __('Give When', 'angelleye_give_when'),
+                        'menu_name' => _x('Give When', 'Admin menu name', 'angelleye_give_when'),
+                        'add_new' => __('Add Goal', 'angelleye_give_when'),
+                        'add_new_item' => __('Add New Goal', 'angelleye_give_when'),
                         'edit' => __('Edit', 'angelleye_give_when'),
-                        'edit_item' => __('View Trigger', 'angelleye_give_when'),
-                        'new_item' => __('New Trigger', 'angelleye_give_when'),
-                        'view' => __('View Trigger', 'angelleye_give_when'),
-                        'view_item' => __('View Trigger', 'angelleye_give_when'),
-                        'search_items' => __('Search Trigger', 'angelleye_give_when'),
-                        'not_found' => __('No Trigger found', 'angelleye_give_when'),
-                        'not_found_in_trash' => __('No Trigger found in trash', 'angelleye_give_when'),
-                        'parent' => __('Parent Trigger', 'angelleye_give_when')
+                        'edit_item' => __('View Goal', 'angelleye_give_when'),
+                        'new_item' => __('New Goal', 'angelleye_give_when'),
+                        'view' => __('View Goal', 'angelleye_give_when'),
+                        'view_item' => __('View Goal', 'angelleye_give_when'),
+                        'search_items' => __('Search Goal', 'angelleye_give_when'),
+                        'not_found' => __('No Goal found', 'angelleye_give_when'),
+                        'not_found_in_trash' => __('No Goal found in trash', 'angelleye_give_when'),
+                        'parent' => __('Parent Goal', 'angelleye_give_when')
                     ),
-                    'description' => __('This is where you can create new Trigger.', 'angelleye_give_when'),
+                    'description' => __('This is where you can create new Goal.', 'angelleye_give_when'),
                     'public' => false,
                     'show_ui' => true,
                     'capability_type' => 'post',
@@ -70,6 +74,53 @@ class AngellEYE_Give_When_Post_types {
                 )
         );
     }
+
+    /**
+     * paypal_wp_button_manager_edit_paypal_buttons_columns function
+     * is use for register button shortcode column.
+     * @param type $columns returns attribute for custom column.
+     * @since 1.0.0
+     * @access public
+     */
+    public static function give_when_edit_give_when_columns($columns) {
+
+        $columns = array(
+            'cb' => '<input type="checkbox" />',
+            'title' => __('Give Goal Name'),
+            'shortcodes' => __('Shortcodes'),
+            'date' => __('Date')
+        );
+
+        return $columns;
+    }
+
+    /**
+     * give_when_buttons_columns function is use
+     * for write content in custom registered column.
+     * @global type $post returns the post variable values.
+     * @param type $column Column name in which we want to write content.
+     * @param type $post_id Post id of post in which content will be written for
+     * the column.
+     * @since 1.0.0
+     * @access public
+     */
+    public static function give_when_buttons_columns($column, $post_id) {
+        global $post;
+        switch ($column) {
+            case 'shortcodes' :
+                $shortcode_avalabilty = get_post_meta($post_id, 'trigger_name', true);
+                if (isset($shortcode_avalabilty) && !empty($shortcode_avalabilty)) {
+                    echo '[give_when id=' . $post_id . ']';
+                } else {
+                    echo __('Not Available');
+                }
+
+                break;
+            case 'publisher' :
+                echo get_post_meta($post_id, 'publisher', true);
+                break;
+        }
+    }
     
     /**
      * give_trigger_add_meta_boxes function is use for
@@ -78,7 +129,7 @@ class AngellEYE_Give_When_Post_types {
      * @access public
      */
     public static function give_when_add_meta_boxes() {
-        add_meta_box('give-when-meta-id', __('Create New Trigger'), array(__CLASS__, 'give_when_metabox'), 'give_when', 'normal', 'high');
+        add_meta_box('give-when-meta-id', __('Create New Goal'), array(__CLASS__, 'give_when_metabox'), 'give_when', 'normal', 'high');
     }
     
      /**
@@ -120,6 +171,17 @@ class AngellEYE_Give_When_Post_types {
             }
         }
         
+    }
+
+    public static function my_action_row($actions, $post){
+        //check for your post type
+        if ($post->post_type == "give_when") {
+            /* do you stuff here
+              you can unset to remove actions
+              and to add actions ex: */
+            $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">View</a>';            
+        }
+        return $actions;
     }
     
     
