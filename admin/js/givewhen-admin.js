@@ -32,8 +32,14 @@
                 $('#dynamic_options').removeClass('hidden');
             }
         });
-        
-        var room = 1;
+                
+        var room = jQuery("button#remove_dynamic_fields").length;
+        if(room === 0){
+            room = 1;
+        }
+        else{
+            room++;
+        }
         $('#add_dynamic_field').click(function(){            
              room++;
             var objTo = document.getElementById('education_fields');

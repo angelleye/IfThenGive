@@ -54,6 +54,12 @@ class AngellEYE_Give_When_interface {
             $dynamic_options_check = '';
             $dynamic_options_class = 'hidden';
         }
+        
+        $screen = get_current_screen();
+        if($screen->action=='add'){
+             $fixed_amount_check = 'checked';
+             $fixed_amount_input_class = "";
+        }
 ?>
         
         <div style="padding-top: 25px"></div>
@@ -83,11 +89,15 @@ class AngellEYE_Give_When_interface {
                     <input type="text" name="fixed_amount_input" value="<?php echo $fixed_amount_input_value; ?>" class="form-control" autocomplete="off" id="fixed_amount_input" placeholder="Enter Amount"/>
                 </div>
                 <?php //print_r($dynamic_options_name); ?>
-                <div id="dynamic_options" class="hidden">
-                    <div id="education_fields"></div>
+                <div id="dynamic_options" class="<?php echo $dynamic_options_class; ?>">                    
                     <?php 
+                    if(!empty($dynamic_options_name)) {
                     $i=0;
-                    foreach($dynamic_options_name as $name){ ?>
+                    $total_options = count($dynamic_options_name);
+                    ?> <div id="education_fields"> 
+                    <?php
+                    foreach($dynamic_options_name as $name){ ?>       
+                        <div class="form-group removeclass<?php echo ($i+1); ?>">
                         <div class="col-sm-1 nopadding">
                             <label class="control-label">Option </label>
                         </div>
@@ -101,14 +111,24 @@ class AngellEYE_Give_When_interface {
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="option_amount" name="option_amount[]" value="<?php echo $dynamic_option_amount[$i]; ?>" placeholder="Option Amount">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-success" type="button" id="add_dynamic_field"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+                                        <?php if(($i+1) == $total_options) { ?>
+                                            <button class="btn btn-success" type="button" id="add_dynamic_field"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+                                        <?php } else { ?>                                            
+                                            <button class="btn btn-danger" type="button" id="remove_dynamic_fields" data-fieldid="<?php echo ($i+1); ?>"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>                                            
+                                        <?php } ?>    
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="clear"></div>
-                    <?php $i++; } ?>
-                    <!-- <div class="col-sm-1 nopadding">
+                       </div>
+                        
+                    <?php $i++; } ?> </div> <?php   
+                    }
+                    else{
+                    ?>
+                    <div id="education_fields">
+                    <div class="col-sm-1 nopadding">
                         <label class="control-label">Option </label>
                     </div>
                     <div class="col-sm-3 nopadding">
@@ -126,7 +146,9 @@ class AngellEYE_Give_When_interface {
                             </div>
                         </div>
                     </div>
-                    <div class="clear"></div> -->
+                    <div class="clear"></div>
+                    </div>
+                    <?php } ?>                    
                 </div>    
             </form>
         </div>

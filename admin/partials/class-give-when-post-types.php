@@ -76,7 +76,7 @@ class AngellEYE_Give_When_Post_types {
     }
 
     /**
-     * paypal_wp_button_manager_edit_paypal_buttons_columns function
+     * give_when_edit_give_when_columns function
      * is use for register button shortcode column.
      * @param type $columns returns attribute for custom column.
      * @since 1.0.0
@@ -175,10 +175,7 @@ class AngellEYE_Give_When_Post_types {
 
     public static function my_action_row($actions, $post){
         //check for your post type
-        if ($post->post_type == "give_when") {
-            /* do you stuff here
-              you can unset to remove actions
-              and to add actions ex: */
+        if ($post->post_type == "give_when") {           
             $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">View</a>';            
         }
         return $actions;
