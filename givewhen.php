@@ -31,6 +31,32 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
+ *  define GT_PLUGIN_DIR constant for global use
+ */
+if (!defined('GW_PLUGIN_DIR'))
+    define('GW_PLUGIN_DIR', dirname(__FILE__));
+
+/**
+ * define GT_PLUGIN_URL constant for global use
+ */
+if (!defined('GW_PLUGIN_URL'))
+    define('GW_PLUGIN_URL', plugin_dir_url(__FILE__));
+
+/**
+ *  define log file path
+ */
+if (!defined('GW_LOG_DIR')) {
+    define('GW_LOG_DIR', ABSPATH . 'wp-content/uploads/give-when-logs/');
+}
+
+/**
+ * define plugin basename
+ */
+if (!defined('GT_PLUGIN_BASENAME')) {
+    define('GT_PLUGIN_BASENAME', plugin_basename(__FILE__));
+}
+
+/**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-givewhen-activator.php
  */

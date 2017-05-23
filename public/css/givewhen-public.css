@@ -2,3 +2,27 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+.give_when_container{
+    max-width: 100%;    
+}
+.give_when_container h1{
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.give_when_container p{
+    margin: 0 0 10px;
+    orphans: 3;
+    widows: 3;
+    font-size: 22px
+} 
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.row:before,
+.row:after{
+  display: table;
+  content: " ";
+}

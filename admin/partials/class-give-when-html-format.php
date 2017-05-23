@@ -15,19 +15,20 @@ class AngellEYE_Give_When_interface {
      * @access   static
      */
     public static function init() {        
-        add_action('give_when_interface', array(__CLASS__, 'give_when_interface_html'));          
+        add_action('give_when_interface', array(__CLASS__, 'give_when_interface_html'));
+        add_action('give_when_shortcode_interface',array(__CLASS__, 'give_when_shortcode_interface_html'));
     }
     
     /**
      * give_when_interface_html function is for
-     * html of interface.
+     * html of interface when action is Edit.
      * @since 1.0.0
      * @access public
      */
     public static function give_when_interface_html() {    
         $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';    
         if ($action_request=='true') {
-
+            
         }
         global $post;           
         $trigger_name = !empty(get_post_meta($post->ID,'trigger_name',true)) ? get_post_meta($post->ID,'trigger_name',true) : '';
@@ -154,5 +155,28 @@ class AngellEYE_Give_When_interface {
         </div>
 <?php
     }    
+    
+    /**
+     * give_when_shortcode_interface_html function is for
+     * html of interface when action is View.
+     * @since 1.0.0
+     * @access public
+     */
+    public static function give_when_shortcode_interface_html(){
+         global $post, $post_ID;
+    ?>        
+        <div class="give_when_container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.</p>
+                    <div class="zero-clipboard"><span class="btn-clipboard" data-toggle="tooltip" data-placement="left" title="Copy To Clipboard">Copy</span></div>
+                    <div class="give_when_highlight">
+                        <h4><?php echo '[give_when id=' . $post_ID . ']'; ?></h4>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php
+    }
 }
 AngellEYE_Give_When_interface::init();

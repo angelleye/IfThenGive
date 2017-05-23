@@ -129,7 +129,7 @@ class AngellEYE_Give_When_Post_types {
      * @access public
      */
     public static function give_when_add_meta_boxes() {
-        add_meta_box('give-when-meta-id', __('Create New Goal'), array(__CLASS__, 'give_when_metabox'), 'give_when', 'normal', 'high');
+        add_meta_box('give-when-meta-id', __('Goal Generator'), array(__CLASS__, 'give_when_metabox'), 'give_when', 'normal', 'high');
     }
     
      /**
@@ -142,7 +142,13 @@ class AngellEYE_Give_When_Post_types {
      */
     
     public static function give_when_metabox() {
-        do_action('give_when_interface');
+        $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';    
+        if ($action_request=='true') {
+            do_action('give_when_shortcode_interface');
+        }
+        else{
+            do_action('give_when_interface');
+        }        
     }
     
     /**

@@ -15,8 +15,22 @@ class AngellEYE_Give_When_Public_Display {
 
     public static function init() {
         add_shortcode('give_when', array(__CLASS__, 'give_when_create_shortcode'));
+        add_action( 'wp_enqueue_scripts', array(__CLASS__,'give_when_detect_shortcode'));
     }
 
+    public static function give_when_detect_shortcode()
+    {
+        global $post;
+        $pattern = get_shortcode_regex();
+
+        if (   preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches )
+            && array_key_exists( 2, $matches )
+            && in_array( 'give_when', $matches[2] ) )
+        {            
+            wp_enqueue_style( 'givewhen-one', GW_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
+        }
+    }
+    
     /**
      * give_when_create_shortcode function is for generate
      * @since 1.0.0
@@ -24,8 +38,7 @@ class AngellEYE_Give_When_Public_Display {
      */
     public static function give_when_create_shortcode($atts, $content = null) {
 
-        global $post, $post_ID;
-
+        global $post, $post_ID;        
         extract(shortcode_atts(array(
                     'id' => ''), $atts));
         $html = '';
@@ -33,44 +46,44 @@ class AngellEYE_Give_When_Public_Display {
         if( !empty($id) ) {
             $post = get_post($id);
             if(!empty($post->post_type) && $post->post_type == 'give_when' && $post->post_status == 'publish') {
-                $html .= '<div class="container">';
-                $html .= '<div class="row">';
-                $html .= '<h2>View Event</h2>';
-                $html .= '<div class="col-md-6">';
-                $html .= '<img src="'.get_post_meta( $post->ID, 'image_url', true ).'" height="200px" width="200px">';
-                $html .= $post->post_content;
-                $html .= '</div>';
-                $html .= '<div class="col-md-6">';
-                $html .= '<h2>'.get_post_meta( $post->ID, 'trigger_name', true ).'</h2>';
-                $html .= '<p>'.get_post_meta( $post->ID, 'trigger_desc', true ).'</p>';
-                $amount = get_post_meta($post->ID,'amount',true);
-                if($amount == 'fixed'){
-                    $html .= get_post_meta($post->ID,'fixed_amount_input',true);
-                }else{
-                    $option_name = get_post_meta($post->ID,'option_name',true);
-                    $option_amount = get_post_meta($post->ID,'option_amount',true);
-                    $i=0;
-                    //$html .= '<table><tr><td>#</td><td>Name</td><td>Value</td></tr>';
-                    $html .= '<div class="form-group">';
-                    $html .= '<select class="form-control" name="option_amount">';
-                    foreach ($option_name as $name) {
-                        $html .= '<option value="'.$option_amount[$i].'">'.$name.'</option>';
-                        $i++;
-                    }
-                    $html .= '</select>';
-                    $html .= '</div>';
-                }
-                $html .= '</div>';
-                $html .= '</div>';
-                $html .= '</div>';
-                $html .= $post->post_title;
-                
-                return $html;
-                
+        ?>
+                <div class="give_when_container">
+                    <div class="row">
+                        <div class="col-md-12"><h1><?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></h1></div>
+                        <div class="col-md-12">
+                            <img src="<?php echo get_post_meta( $post->ID, 'image_url', true ) ?>">
+                            <br><br>
+                            <p> <?php echo get_post_meta( $post->ID, 'trigger_desc', true ); ?></p>
+                            <?php echo $post->post_content; ?>
+                        </div>
+                        <div class="col-md-6">
+                            <?php 
+                                $amount = get_post_meta($post->ID,'amount',true);
+                                if($amount == 'fixed'){
+                                    $html .= get_post_meta($post->ID,'fixed_amount_input',true);
+                                } else{
+                                    $option_name = get_post_meta($post->ID,'option_name',true);
+                                    $option_amount = get_post_meta($post->ID,'option_amount',true);
+                                    $i=0;
+                            ?>
+                            <div class="form-group">
+                                <select class="form-control" name="option_amount">
+                                <?php
+                                    foreach ($option_name as $name) {
+                                        echo '<option value="'.$option_amount[$i].'">'.$name.$option_amount[$i].'</option>';
+                                        $i++;
+                                    }
+                                ?>
+                                </select>
+                            </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            <?php
             }
         }
     }
-
 }
 
 AngellEYE_Give_When_Public_Display::init();
