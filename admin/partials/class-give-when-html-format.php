@@ -168,6 +168,15 @@ class AngellEYE_Give_When_interface {
         <div class="give_when_container">
             <div class="row">
                 <div class="col-md-12">
+                    <p>You can easily place this button in your pages and posts using this tool....</p>
+                    <img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/give_when_tool.png" class="img-responsive" style="margin: 0 auto;"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">OR</div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <p>You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.</p>
                     <div class="zero-clipboard"><span class="btn-clipboard" data-toggle="tooltip" data-placement="left" title="Copy To Clipboard">Copy</span></div>
                     <div class="give_when_highlight">
