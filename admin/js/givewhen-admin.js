@@ -54,22 +54,31 @@
            var rid = $(this).attr('data-fieldid');
            $('.removeclass'+rid).remove();
         });
-        
-        $('[data-toggle="tooltip"]').tooltip();
-        
-        var clipboard = new Clipboard('.btn-clipboard', {
-            target: function() {
-                return document.querySelector('.give_when_highlight');
-            }
-        });  
-        /* Below code will use whenever we want further clipboard work */
-        /*clipboard.on('success', function(e) {
-            console.log(e);
-        });
+                        
+        if(typeof tinymce != 'undefined') {
+            tinymce.PluginManager.add('pushortcodes', function( editor )
+            {
+                var shortcodeValues = [];
+                jQuery.each(shortcodes_button_array.shortcodes_button, function( post_id, post_title )
+                {
+                    shortcodeValues.push({
+                        text: post_title, 
+                        value: post_id
+                    });
 
-        clipboard.on('error', function(e) {
-            console.log(e);
-        });*/
+                });
+                editor.addButton('pushortcodes', {
+                    text: 'Shortcodes',
+                    type: 'listbox',
+                    title: 'Give When',
+                    icon: 'mce-ico mce-i-wp_more',
+                    onselect: function() {
+                         tinyMCE.activeEditor.selection.setContent( '[give_when id=' + this.value() + ']' );
+                    },
+                    values: shortcodeValues
+                });
+            });
+        }
     });
     
 

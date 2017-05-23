@@ -105,15 +105,28 @@ class Givewhen_Admin {
                 }
                 wp_enqueue_media();
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/givewhen-admin.js', array( 'jquery' ), $this->version, false );
+                
+                global $post;
+                $args = array(
+                    'post_type' => 'give_when',
+                    'post_status' => 'publish',
+                    'posts_per_page' => '100'                    
+                );
+
+                $posts = get_posts($args);
+		$give_when_posts = get_posts($args);                
 		$shortcodes = array();
 		$shortcodes_values = array();
+                foreach ($give_when_posts as $key_post => $give_when_posts_value) {
+			$shortcodes[$give_when_posts_value->ID] = $give_when_posts_value->post_title;
+		}
 		if (empty($shortcodes)) {
 
 			$shortcodes_values = array('0' => 'No shortcode Available');
 		} else {
 			$shortcodes_values = $shortcodes;
 		}
-		wp_localize_script('paypal-wp-button-manager', 'shortcodes_button_array', apply_filters('paypal_wp_button_manager_shortcode', array(
+		wp_localize_script($this->plugin_name, 'shortcodes_button_array', apply_filters('give_when_shortcode', array(
 		'shortcodes_button' => $shortcodes_values
 		)));
 
@@ -121,6 +134,31 @@ class Givewhen_Admin {
         
     private function load_dependencies() {
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types.php';
+    }
+    
+    /**
+     *  give_when_shortcode_button_init function process for registering our button.
+     *
+     */
+    public function give_when_shortcode_button_init() {
+        if (!current_user_can('edit_posts') && !current_user_can('edit_pages') && get_user_option('rich_editing') == 'true')
+		return;
+
+        //Add a callback to regiser our tinymce plugin
+        add_filter('mce_external_plugins', array($this, 'give_when_register_tinymce_plugin'));
+
+        // Add a callback to add our button to the TinyMCE toolbar
+        add_filter('mce_buttons', array($this, 'give_when_add_tinymce_button'));
+    }
+    
+    public function give_when_register_tinymce_plugin($plugin_array) {
+        $plugin_array['pushortcodes'] = plugin_dir_url(__FILE__) . 'js/givewhen-admin.js';
+	return $plugin_array;                
+    }
+
+    public function give_when_add_tinymce_button($buttons) {
+        array_push($buttons, 'pushortcodes');
+        return $buttons;
     }
 
 }

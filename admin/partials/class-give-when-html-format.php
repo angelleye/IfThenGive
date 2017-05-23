@@ -176,6 +176,23 @@ class AngellEYE_Give_When_interface {
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            $('[data-toggle="tooltip"]').tooltip();
+
+            var clipboard = new Clipboard('.btn-clipboard', {
+                target: function() {
+                    return document.querySelector('.give_when_highlight');
+                }
+            });  
+            /* Below code will use whenever we want further clipboard work */
+            /*clipboard.on('success', function(e) {
+                console.log(e);
+            });
+
+            clipboard.on('error', function(e) {
+                console.log(e);
+            });*/
+        </script>
     <?php
     }
 }
