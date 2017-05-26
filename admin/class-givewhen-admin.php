@@ -51,7 +51,7 @@ class Givewhen_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-        $this->load_dependencies();
+                $this->load_dependencies();
 	}
 
 	/**
@@ -170,5 +170,32 @@ class Givewhen_Admin {
         array_push($buttons, 'pushortcodes');
         return $buttons;
     }
+      
+    public function give_when_messages(){
+        
+        global $post, $post_ID;
+        $post_ID = $post->ID;
+        $post_type = get_post_type($post_ID);
+        
+        $custom_message = 'Goal Created Successfully';
+        $messages['give_when'] = array(
+		0 => '', // Unused. Messages start at index 1.
+		1 => sprintf(__('Goal Updated Successfully')),
+		2 => __('Custom field updated.'),
+		3 => __('Custom field deleted.'),
+		4 => __($custom_message),
+		/* translators: %s: date and time of the revision */
+		5 => isset($_GET['revision']) ? sprintf(__('Goal restored to revision from %s'), wp_post_revision_title((int) $_GET['revision'], false)) : false,
+		6 => sprintf(__($custom_message)),
+		7 => __('Goal saved.'),
+		8 => sprintf(__('Goal submitted. <a target="_blank" href="%s">Preview Goal</a>'), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+		9 => sprintf(__('Goal scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Goal</a>'),
+		// translators: Publish box date format, see http://php.net/date
+		date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date)), esc_url(get_permalink($post_ID))),
+		10 => sprintf(__('Goal draft updated. <a target="_blank" href="%s">Preview Goal</a>'), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+		);
+		return $messages;
 
+        return $messages;
+    } 
 }

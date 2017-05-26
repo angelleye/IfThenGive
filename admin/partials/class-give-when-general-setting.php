@@ -30,17 +30,17 @@ class AngellEYE_Give_When_General_Setting {
     public static function give_when_general_setting_fields() {
         $Logger = new AngellEYE_Give_When_Logger();
         $fields[] = array(
-            'title' => __('General Settings', 'give-when'),
+            'title' => __('General Settings', 'angelleye_give_when'),
             'type' => 'title',
             'id' => 'general_options_setting'
         );
         $fields[] = array(
-            'title' => __('Debug Log', 'give-when'),
+            'title' => __('Debug Log', 'angelleye_give_when'),
             'id' => 'log_enable_give_when',
             'type' => 'checkbox',
-            'label' => __('Enable logging', 'give-when'),
+            'label' => __('Enable logging', 'angelleye_give_when'),
             'default' => 'no',
-            'desc' => sprintf(__('Log PayPal WP Button Manager events in <code>%s</code>', 'give-when'), $Logger->give_when_for_wordpress_wordpress_get_log_file_path('give-when'))
+            'desc' => sprintf(__('Log PayPal WP Button Manager events in <code>%s</code>', 'angelleye_give_when'), $Logger->give_when_for_wordpress_wordpress_get_log_file_path('angelleye_give_when'))
         );
         $fields[] = array('type' => 'sectionend', 'id' => 'general_options_setting');
         return $fields;
@@ -83,7 +83,7 @@ class AngellEYE_Give_When_General_Setting {
         if (isset($_POST['give_when_intigration'])):
             ?>
             <div id="setting-error-settings_updated" class="updated settings-error"> 
-                <p><?php echo '<strong>' . __('Settings were saved successfully.', 'give-when') . '</strong>'; ?></p></div>
+                <p><?php echo '<strong>' . __('Settings were saved successfully.', 'angelleye_give_when') . '</strong>'; ?></p></div>
 
             <?php
         endif;
