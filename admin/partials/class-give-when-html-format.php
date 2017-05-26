@@ -186,7 +186,7 @@ class AngellEYE_Give_When_interface {
             </div>
         </div>
         <script type="text/javascript">
-            $('[data-toggle="tooltip"]').tooltip();
+            jQuery('[data-toggle="tooltip"]').tooltip();
 
             var clipboard = new Clipboard('.btn-clipboard', {
                 target: function() {

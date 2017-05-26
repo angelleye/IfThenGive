@@ -102,6 +102,12 @@ class Givewhen {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-givewhen-loader.php';
 
+                /**
+                * The class responsible for writing log in log file.
+                * core plugin.
+                */
+                require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-give-when-logger.php';
+                
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.

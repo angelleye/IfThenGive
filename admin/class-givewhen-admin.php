@@ -136,8 +136,14 @@ class Givewhen_Admin {
         /*The class responsible for defining all actions that occur in the Dashboard for Give When Goals. */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types.php';
         
-        /* The class responsible for defining function for display general setting tab*/
-        //require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-paypal-wp-button-manager-general-setting.php';
+        /* The class responsible for defining function for display general setting tab */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-general-setting.php';
+        
+        /* The class responsible for defining all actions that occur in the Dashboard */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/givewhen-admin-display.php';
+        
+        /* The class responsible for defining function for display Html element */
+	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-html-output.php';
     }
     
     /**
