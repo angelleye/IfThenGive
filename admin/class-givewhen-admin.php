@@ -129,6 +129,7 @@ class Givewhen_Admin {
 		wp_localize_script($this->plugin_name, 'shortcodes_button_array', apply_filters('give_when_shortcode', array(
 		'shortcodes_button' => $shortcodes_values
 		)));
+                wp_localize_script($this->plugin_name, 'admin_ajax_url', admin_url('admin-ajax.php'));
 
 	}
         
@@ -144,6 +145,9 @@ class Givewhen_Admin {
         
         /* The class responsible for defining function for display Html element */
 	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-html-output.php';
+        /* The class responsible for defining function for display company setting tab */
+	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-connet_paypal.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/Permission_Callback.php';
     }
     
     /**

@@ -46,3 +46,6 @@
     border: 1px solid #e1e1e8;
     border-radius: 0 4px 0 4px;
 }
+.div_log_settings .form-table th{
+    width: 100px !important;
+}

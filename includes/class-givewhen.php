@@ -119,11 +119,23 @@ class Givewhen {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-givewhen-admin.php';
                 
-                  /**
+                /**
                 * Givewhen create/edit interface code written
                 */
                 require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-html-format.php';
+                
+                /**
+                * Autoload file included for paypal intigrate paypal library.
+                */
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/autoload.php';
 
+                /**
+                 * PayPal php class file included.
+                 */
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/Angelleye_PayPal.php';
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/Adaptive.php';
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/PPAuth.php';
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/AuthUtil.php';                
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.

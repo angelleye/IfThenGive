@@ -4,8 +4,8 @@
  * This class defines all code necessary to General Setting from admin side
  * @class       AngellEYE_Give_When_General_Setting
  * @version	1.0.0
- * @package    Givewhen
- * @subpackage Givewhen/admin/partials
+ * @package     Givewhen
+ * @subpackage  Givewhen/admin/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
@@ -40,7 +40,7 @@ class AngellEYE_Give_When_General_Setting {
             'type' => 'checkbox',
             'label' => __('Enable logging', 'angelleye_give_when'),
             'default' => 'no',
-            'desc' => sprintf(__('Log PayPal WP Button Manager events in <code>%s</code>', 'angelleye_give_when'), $Logger->give_when_for_wordpress_wordpress_get_log_file_path('angelleye_give_when'))
+            'desc' => sprintf(__('Log Give When plugin events in <code>%s</code>', 'angelleye_give_when'), $Logger->give_when_for_wordpress_wordpress_get_log_file_path('angelleye_give_when'))
         );
         $fields[] = array('type' => 'sectionend', 'id' => 'general_options_setting');
         return $fields;

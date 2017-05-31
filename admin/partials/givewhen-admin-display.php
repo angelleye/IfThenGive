@@ -39,7 +39,7 @@ class AngellEYE_Give_When_Admin_Display {
      * @access   public
      */
     public static function give_when_options() {
-        $setting_tabs = apply_filters('give_when__setting_tab', array('general' => 'General', 'company' => 'Companies', 'logs' => 'Logs'));
+        $setting_tabs = apply_filters('give_when__setting_tab', array('general' => 'General', 'connect_to_paypal' => 'Connect To PayPal', 'logs' => 'Logs'));
         $current_tab = (isset($_GET['tab'])) ? $_GET['tab'] : 'general';
         ?>
         <h2 class="nav-tab-wrapper">
