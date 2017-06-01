@@ -146,8 +146,7 @@ class Givewhen_Admin {
         /* The class responsible for defining function for display Html element */
 	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-html-output.php';
         /* The class responsible for defining function for display company setting tab */
-	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-connet_paypal.php';
-        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/Permission_Callback.php';
+	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-connet_paypal.php';        
     }
     
     /**

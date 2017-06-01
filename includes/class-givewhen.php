@@ -75,7 +75,8 @@ class Givewhen {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
+                //Handle callback response.
+                add_action('parse_request', array($this, 'handle_callback_permission'), 0);                
 	}
 
 	/**
@@ -135,7 +136,8 @@ class Givewhen {
                 require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/Angelleye_PayPal.php';
                 require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/Adaptive.php';
                 require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/PPAuth.php';
-                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/AuthUtil.php';                
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/AuthUtil.php';                     
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-paypal-helper.php';
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -235,5 +237,41 @@ class Givewhen {
 	public function get_version() {
 		return $this->version;
 	}
+        
+        /**
+        * API request - Trigger any API requests
+        *
+        * @access public
+        * @since 1.0.0
+        * @return void
+        */
+        public function handle_callback_permission() {                       
+            global $wp;            
+            if (isset($_GET['action']) && $_GET['action'] == 'permission_callback') {
+                 if(!empty($_GET['request_token']) && !empty($_GET['verification_code'])){                     
+                    $PayPal = new Adaptive(Give_When_PayPal_Helper::get_configuration());
+                    // Prepare request arrays
+                    $GetAccessTokenFields = array(
+                      'Token' => $_REQUEST['request_token'], 	
+                      'Verifier' => $_REQUEST['verification_code']
+                    );
+                    $PayPalRequestData = array('GetAccessTokenFields' => $GetAccessTokenFields);
+                    // Pass data into class for processing with PayPal and load the response array into $PayPalResult
+                    $PayPalResult = $PayPal->GetAccessToken($PayPalRequestData);
+                    if($PayPalResult['Ack'] == 'Success'){
+                        update_option( 'give_when_permission_connected_to_paypal', 'Yes');
+                        update_option( 'give_when_permission_token', $PayPalResult['Token'] );
+                        update_option( 'give_when_permission_token_secret', $PayPalResult['TokenSecret'] );
+                        update_option( 'give_when_permission_connect_to_paypal_success_notice', 'You are successfully connected with PayPal.');
+                    }
+                    else{
+                        update_option( 'give_when_permission_connect_to_paypal_failed_notice', $PayPalResult['Ack'].' : Something went wrong. Please try again.');
+                    }
+                    
+                    wp_redirect(admin_url('admin.php?page=give-when-option&tab=connect_to_paypal'));
+                    die();
+                 }
+            }
+        }
 
 }

@@ -38,7 +38,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
      * @access   static
      */
     public static function init() {
-        add_action('give_when_connect_to_paypal_create_setting', array(__CLASS__, 'paypal_wp_button_manager_company_create_setting'));
+        add_action('give_when_connect_to_paypal_create_setting', array(__CLASS__, 'give_when_connect_to_paypal_create_setting'));
         //add_action('give_when_connect_to_paypal_setting_save_field', array(__CLASS__, 'paypal_wp_button_manager_company_setting_save_field'));
         //add_action('give_when_connect_to_paypal_setting', array(__CLASS__, 'paypal_wp_button_manager_company_setting'));
         add_action( 'wp_ajax_request_permission', array(__CLASS__,'request_permission'));
@@ -51,33 +51,58 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
 
     }
 
-    public static function paypal_wp_button_manager_company_create_setting() {       
-?>
-        <table class="form-table" id="give_when_callback_url">
+    public static function give_when_connect_to_paypal_create_setting() {        
+        
+        $success_notice = get_option('give_when_permission_connect_to_paypal_success_notice');
+        if($success_notice){
+            echo '<div class="notice notice-success">';
+                echo "<p>{$success_notice}</p>";                
+            echo '</div>';
+            delete_option('give_when_permission_connect_to_paypal_success_notice');
+        }
+        
+        $failed_notice = get_option('give_when_permission_connect_to_paypal_failed_notice');
+        if($failed_notice){
+            echo '<div class="notice notice-error">';
+                echo "<p>{$failed_notice}</p>";
+            echo '</div>';
+        }
+        $conncet_to_paypal_flag = get_option('give_when_permission_connected_to_paypal');
+        if($conncet_to_paypal_flag == 'Yes'){
+        ?>
+            <table class="form-table" id="give_when_callback_url">
                 <tbody>
-<!--                    <tr valign="top">
-                        <th scope="row"><label for="give_when_callback_url"><?php echo __('PayPal Permission Callback URL:', 'angelleye_give_when') ?></label></th>
-                        <td>
-                            <input type="text" class="large-text code" name="give_when_callback_url_input" value="<?php echo site_url('?AngellEYE_Give_When&action=permission_callback'); ?>" readonly>                           
-                        </td>                        
-                    </tr>-->
                     <tr valign="top">                        
-                        <td><button name="angelleye_connect_to_paypal" id="angelleye_connect_to_paypal" class="button button-primary">Connect To PayPal</button></td>
+                        <td>You are already connected to PayPal.</td>
+                    </tr>
+                    <tr valign="top">                        
+                        <td>Your PayPal Details will display here.</td>
                     </tr>
                 </tbody> 
             </table>
-            <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;z-index: 1031;text-align: center; display: none;">
-                <div style="display: table; width:100%; height: 100%;">
-                    <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/loading.gif"  style=" position: relative;top: 50%;"/>
-                    <h2>Please Don't Go back , We are redirecting you to PayPal.</h2></div>
-                </div>            
-            </div>
-            <div class="notice notice-error" id="connect_paypal_error" style="display: none">
-                <p id="connect_paypal_error_p"></p>
-            </div>
+        <?php    
+        }
+        else {
+        ?>
+        <table class="form-table" id="give_when_callback_url">
+            <tbody>
+                <tr valign="top">                        
+                    <td><button name="angelleye_connect_to_paypal" id="angelleye_connect_to_paypal" class="button button-primary">Connect To PayPal</button></td>
+                </tr>
+            </tbody> 
+        </table>
+        <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;z-index: 1031;text-align: center; display: none;">
+            <div style="display: table; width:100%; height: 100%;">
+                <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/loading.gif"  style=" position: relative;top: 50%;"/>
+                <h2>Please Don't Go back , We are redirecting you to PayPal.</h2></div>
+            </div>            
+        </div>
+        <div class="notice notice-error" id="connect_paypal_error" style="display: none">
+            <p id="connect_paypal_error_p"></p>
+        </div>
 
 <?php
-        
+        }   
     }
 
     /**
@@ -87,36 +112,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
      */
     public function request_permission() {
         
-        $sandbox=TRUE;
-        $developer_account_email = '';
-        $application_id = 'APP-80W284485P519543T';
-        $device_id = '';
-        $api_username =  'tejasm-merchant_api2.itpathsolutions.co.in';
-        $api_password =  'GJA2TBCF3U9H4VK9';
-        $api_signature = 'AFcWxV21C7fd0v3bYYYRCpSSRl31A47TBRQKcZyw6Bx9aDcmqr9ipPmt';
-        $api_subject = '';
-        $print_headers = '';
-        $log_results = '';
-        $log_path = '';
-                
-        // Create PayPal object.
-        $PayPalConfig = array(
-            'Sandbox' => $sandbox,
-            'DeveloperAccountEmail' => $developer_account_email,
-            'ApplicationID' => $application_id,
-            'DeviceID' => $device_id,
-            'IPAddress' => $_SERVER['REMOTE_ADDR'],
-            'APIUsername' => $api_username,
-            'APIPassword' => $api_password,
-            'APISignature' => $api_signature,
-            'APISubject' => $api_subject,
-            'PrintHeaders' => $print_headers, 
-            'LogResults' => $log_results, 
-            'LogPath' => $log_path,
-        );
-        //$PayPal = new Angelleye_PayPal($PayPalConfig);
-        $PayPal = new Adaptive($PayPalConfig);
-        
+        $PayPal = new Adaptive(Give_When_PayPal_Helper::get_configuration());
         // Prepare request arrays        
         $Scope = array(
             'EXPRESS_CHECKOUT', 
@@ -141,8 +137,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         );
 
         $RequestPermissionsFields = array(
-            'Scope' => $Scope,
-           // 'Callback' => GW_PLUGIN_URL.'admin/partials/Permission_Callback.php'
+            'Scope' => $Scope,           
             'Callback' => site_url('?action=permission_callback')
         );        
         $PayPalRequestData = array('RequestPermissionsFields' => $RequestPermissionsFields);
