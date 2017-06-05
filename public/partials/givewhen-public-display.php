@@ -60,7 +60,10 @@ class AngellEYE_Give_When_Public_Display {
                             <?php 
                                 $amount = get_post_meta($post->ID,'amount',true);
                                 if($amount == 'fixed'){
-                                    $html .= get_post_meta($post->ID,'fixed_amount_input',true);
+                                    $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);
+                                    ?>
+                                <p class="lead">Fixed Amount : $ <?php echo $fixed_amount; ?></p>
+                                <?php    
                                 } else{
                                     $option_name = get_post_meta($post->ID,'option_name',true);
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);
@@ -77,6 +80,11 @@ class AngellEYE_Give_When_Public_Display {
                                 </select>
                             </div>
                             <?php } ?>
+                        </div>                       
+                    </div>
+                    <div class="row">
+                         <div class="col-md-12">
+                            <img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypalcheckout-44px.png" alt="PayPal Checkout">
                         </div>
                     </div>
                 </div>
