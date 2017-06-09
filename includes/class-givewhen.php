@@ -266,9 +266,8 @@ class Givewhen {
                     }
                     else{
                         update_option( 'give_when_permission_connect_to_paypal_failed_notice', $PayPalResult['Ack'].' : Something went wrong. Please try again.');
-                    }
-                    
-                    wp_redirect(admin_url('admin.php?page=give-when-option&tab=connect_to_paypal'));
+                    }                    
+                    wp_redirect(admin_url('admin.php?page=give_when_option&tab=connect_to_paypal'));
                     die();
                  }
             }

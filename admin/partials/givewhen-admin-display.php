@@ -30,7 +30,7 @@ class AngellEYE_Give_When_Admin_Display {
      * @access   public
      */
     public static function add_settings_menu() {
-        add_options_page('Give When', 'Give When', 'manage_options', 'give-when-option', array(__CLASS__, 'give_when_options'));
+        add_options_page('Give When', 'Give When', 'manage_options', 'give_when_option', array(__CLASS__, 'give_when_options'));
     }
 
     /**
@@ -39,13 +39,13 @@ class AngellEYE_Give_When_Admin_Display {
      * @access   public
      */
     public static function give_when_options() {
-        $setting_tabs = apply_filters('give_when__setting_tab', array('general' => 'General', 'connect_to_paypal' => 'Connect To PayPal', 'logs' => 'Logs'));
-        $current_tab = (isset($_GET['tab'])) ? $_GET['tab'] : 'general';
+        $setting_tabs = apply_filters('give_when_setting_tab', array('connect_to_paypal' => 'Connect To PayPal', 'logs' => 'Logs'));
+        $current_tab = (isset($_GET['tab'])) ? $_GET['tab'] : 'connect_to_paypal';
         ?>
         <h2 class="nav-tab-wrapper">
             <?php
             foreach ($setting_tabs as $name => $label)
-                echo '<a href="' . admin_url('admin.php?page=give-when-option&tab=' . $name) . '" class="nav-tab ' . ( $current_tab == $name ? 'nav-tab-active' : '' ) . '">' . $label . '</a>';
+                echo '<a href="' . admin_url('admin.php?page=give_when_option&tab=' . $name) . '" class="nav-tab ' . ( $current_tab == $name ? 'nav-tab-active' : '' ) . '">' . $label . '</a>';
             ?>
         </h2>
         <?php

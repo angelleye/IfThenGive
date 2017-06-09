@@ -39,35 +39,47 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
      */
     public static function init() {
         add_action('give_when_connect_to_paypal_create_setting', array(__CLASS__, 'give_when_connect_to_paypal_create_setting'));
-        //add_action('give_when_connect_to_paypal_setting_save_field', array(__CLASS__, 'paypal_wp_button_manager_company_setting_save_field'));
+        add_action('give_when_connect_to_paypal_setting_save_field', array(__CLASS__, 'give_when_connect_to_paypal_setting_save_field'));
         //add_action('give_when_connect_to_paypal_setting', array(__CLASS__, 'paypal_wp_button_manager_company_setting'));
         add_action( 'wp_ajax_request_permission', array(__CLASS__,'request_permission'));
         add_action("wp_ajax_nopriv_request_permission",  array(__CLASS__,'request_permission'));
         
     }
 
-    public static function paypal_wp_button_manager_company_setting() {
+    public static function give_when_connect_to_paypal_setting_fields() {
         global $wpdb;
-
+        $Logger = new AngellEYE_Give_When_Logger();        
+        $fields[] = array(
+            'title' => __('Debug Log', 'angelleye_give_when'),
+            'id' => 'log_enable_give_when',
+            'type' => 'checkbox',
+            'label' => __('Enable logging', 'angelleye_give_when'),
+            'default' => 'no',
+            'desc' => sprintf(__('Log Give When plugin events in <code>%s</code>', 'angelleye_give_when'), $Logger->give_when_for_wordpress_wordpress_get_log_file_path('angelleye_give_when'))
+        );
+        $fields[] = array('type' => 'sectionend', 'id' => 'general_options_setting');
+        return $fields;
     }
 
     public static function give_when_connect_to_paypal_create_setting() {        
         
         $success_notice = get_option('give_when_permission_connect_to_paypal_success_notice');
-        if($success_notice){
-            echo '<div class="notice notice-success">';
-                echo "<p>{$success_notice}</p>";                
+        if($success_notice){            
+            echo '<div class="alert alert-success">';
+                echo "<strong>{$success_notice}</strong>";
             echo '</div>';
             delete_option('give_when_permission_connect_to_paypal_success_notice');
         }
         
         $failed_notice = get_option('give_when_permission_connect_to_paypal_failed_notice');
-        if($failed_notice){
-            echo '<div class="notice notice-error">';
-                echo "<p>{$failed_notice}</p>";
+        if($failed_notice){              
+            echo '<div class="alert alert-danger">';
+                echo "<strong>{$failed_notice}</strong>";
             echo '</div>';
         }
         $conncet_to_paypal_flag = get_option('give_when_permission_connected_to_paypal');
+        $genral_setting_fields = self::give_when_connect_to_paypal_setting_fields();
+        $Html_output = new AngellEYE_Give_When_Html_output();
         if($conncet_to_paypal_flag == 'Yes'){
         ?>
             <table class="form-table" id="give_when_callback_url">
@@ -82,27 +94,45 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             </table>
         <?php    
         }
-        else {
-        ?>
+        else {            
+        ?>                 
         <table class="form-table" id="give_when_callback_url">
             <tbody>
-                <tr valign="top">                        
-                    <td><button name="angelleye_connect_to_paypal" id="angelleye_connect_to_paypal" class="button button-primary">Connect To PayPal</button></td>
-                </tr>
-            </tbody> 
+                <tr valign="top">                       
+                    <td>                                                
+                       <img name="angelleye_connect_to_paypal" id="angelleye_connect_to_paypal" src="<?php echo GW_PLUGIN_URL; ?>/admin/images/paypal_connect.png"  style="cursor: pointer"/>
+                    </td>                    
+                </tr>                
+            </tbody>             
         </table>
         <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;z-index: 1031;text-align: center; display: none;">
-            <div style="display: table; width:100%; height: 100%;">
+            <div style="display: table; width:100%; height: 100%;">                
                 <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/loading.gif"  style=" position: relative;top: 50%;"/>
                 <h2>Please Don't Go back , We are redirecting you to PayPal.</h2></div>
             </div>            
         </div>
-        <div class="notice notice-error" id="connect_paypal_error" style="display: none">
+        <div class="alert alert-warning" id="connect_paypal_error" style="display: none">
             <p id="connect_paypal_error_p"></p>
         </div>
 
 <?php
-        }   
+        }
+        ?>
+<div class="wrap">
+    <div class="div_log_settings">
+        <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
+            <table class="form-table">
+                <tbody>
+                    <?php $Html_output->init($genral_setting_fields); ?>
+                    <p class="submit">
+                        <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
+                    </p>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>            
+<?php
     }
 
     /**
@@ -115,25 +145,15 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         $PayPal = new Adaptive(Give_When_PayPal_Helper::get_configuration());
         // Prepare request arrays        
         $Scope = array(
-            'EXPRESS_CHECKOUT', 
-            'DIRECT_PAYMENT', 
+            'EXPRESS_CHECKOUT',             
             'BILLING_AGREEMENT', 
             'REFERENCE_TRANSACTION', 
             'TRANSACTION_DETAILS',
             'TRANSACTION_SEARCH',
-            'RECURRING_PAYMENTS',
-            'ACCOUNT_BALANCE',
-            'ENCRYPTED_WEBSITE_PAYMENTS',
-            'REFUND',
-            'NON_REFERENCED_CREDIT',
-            'BUTTON_MANAGER',
-            'MANAGE_PENDING_TRANSACTION_STATUS',
-            'RECURRING_PAYMENT_REPORT',
-            'EXTENDED_PRO_PROCESSING_REPORT',
-            'EXCEPTION_PROCESSING_REPORT',
-            'ACCOUNT_MANAGEMENT_PERMISSION',
+            'RECURRING_PAYMENTS',            
             'ACCESS_BASIC_PERSONAL_DATA',
-            'ACCESS_ADVANCED_PERSONAL_DATA'
+            'ACCESS_ADVANCED_PERSONAL_DATA',
+            'REFUND'            
         );
 
         $RequestPermissionsFields = array(
@@ -151,6 +171,25 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             echo json_encode(array('Ack' => $PayPalResult['Ack'] , 'Message' => $PayPalResult['Errors'][0]['Message'] , 'ErrorID' => $PayPalResult['Errors'][0]['ErrorID'] ));
         }
         exit;
+    }
+    
+     /**
+     * give_when_general_setting_save_field function used for save general setting field value
+     * @since 1.0.0
+     * @access public static
+     * 
+     */
+    public static function give_when_connect_to_paypal_setting_save_field() {
+        $givewhen_setting_fields = self::give_when_connect_to_paypal_setting_fields();
+        $Html_output = new AngellEYE_Give_When_Html_output();
+        $Html_output->save_fields($givewhen_setting_fields);
+        if (isset($_POST['give_when_intigration'])):
+            ?>
+        <br><div id="setting-error-settings_updated" class="alert alert-success"> 
+                <p><?php echo '<strong>' . __('Settings were saved successfully.', 'angelleye_give_when') . '</strong>'; ?></p></div>
+
+            <?php
+        endif;
     }
 }
 

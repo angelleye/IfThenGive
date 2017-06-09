@@ -72,8 +72,8 @@ class Givewhen_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */                 
-                $screen = get_current_screen();
-                if($screen->post_type == 'give_when'){
+                $screen = get_current_screen();                     
+                if($screen->post_type == 'give_when' || $screen ->id == 'settings_page_give_when_option'){
                    wp_enqueue_style($this->plugin_name . 'eight', GW_PLUGIN_URL.'includes/css/bootstrap/css/bootstrap.css', array(), $this->version, 'all');
                 }
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/givewhen-admin.css', array(), $this->version, 'all' );
@@ -99,7 +99,7 @@ class Givewhen_Admin {
 		 * class.
 		 */
                 $screen = get_current_screen();
-                if($screen->post_type == 'give_when'){
+                if($screen->post_type == 'give_when' || $screen ->id == 'settings_page_give_when_option'){
                      wp_enqueue_script($this->plugin_name . 'six', GW_PLUGIN_URL . 'includes/css/bootstrap/js/bootstrap.min.js', array('jquery'), $this->version, false);
                      wp_enqueue_script($this->plugin_name . 'seven', GW_PLUGIN_URL . 'includes/css/clipboardjs/clipboard.min.js', array('jquery'), $this->version, false);
                 }
