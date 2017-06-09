@@ -248,17 +248,35 @@ class Givewhen {
         public function handle_callback_permission() {                       
             global $wp;            
             if (isset($_GET['action']) && $_GET['action'] == 'permission_callback') {
-                 if(!empty($_GET['request_token']) && !empty($_GET['verification_code'])){                     
-                    $PayPal = new Adaptive(Give_When_PayPal_Helper::get_configuration());
-                    // Prepare request arrays
+                 if(!empty($_GET['request_token']) && !empty($_GET['verification_code'])){
+                     $paypal_helper_object = new Give_When_PayPal_Helper();                     
+                     $PayPal = new Adaptive($paypal_helper_object->get_configuration());
+                    
                     $GetAccessTokenFields = array(
                       'Token' => $_REQUEST['request_token'], 	
                       'Verifier' => $_REQUEST['verification_code']
-                    );
+                    );                    
                     $PayPalRequestData = array('GetAccessTokenFields' => $GetAccessTokenFields);
-                    // Pass data into class for processing with PayPal and load the response array into $PayPalResult
-                    $PayPalResult = $PayPal->GetAccessToken($PayPalRequestData);
-                    if($PayPalResult['Ack'] == 'Success'){
+                    
+                    $PayPalResult = $PayPal->GetAccessToken($PayPalRequestData);                    
+                    if($PayPalResult['Ack'] == 'Success'){                        
+                        $paypal_helper_object->set_tokens($PayPalResult['Token'], $PayPalResult['TokenSecret']);                                                
+                        $paypal_for_peronal_data = new Adaptive($paypal_helper_object->get_third_party_configuration());
+                        // Prepare request arrays
+                        $AttributeList = array(
+                            'http://axschema.org/namePerson/first',
+                            'http://axschema.org/namePerson/last',
+                            'http://axschema.org/contact/email',
+                            'http://axschema.org/contact/country/home',
+                            'https://www.paypal.com/webapps/auth/schema/payerID'
+                        );
+                        $PayPalResultPeronalData = $paypal_for_peronal_data->GetBasicPersonalData($AttributeList);                        
+                        if($PayPalResultPeronalData['Ack']='Success'){
+                            foreach($PayPalResultPeronalData['PersonalData'] as $PayPalPerson){
+                                $key = substr($PayPalPerson['PersonalDataKey'], strrpos($PayPalPerson['PersonalDataKey'], '/') + 1);
+                                update_option('give_when_permission_connected_person_'.$key,$PayPalPerson['PersonalDataValue']);
+                            }
+                        }                        
                         update_option( 'give_when_permission_connected_to_paypal', 'Yes');
                         update_option( 'give_when_permission_token', $PayPalResult['Token'] );
                         update_option( 'give_when_permission_token_secret', $PayPalResult['TokenSecret'] );

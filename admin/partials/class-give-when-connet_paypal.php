@@ -76,6 +76,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             echo '<div class="alert alert-danger">';
                 echo "<strong>{$failed_notice}</strong>";
             echo '</div>';
+            delete_option('give_when_permission_connect_to_paypal_failed_notice');
         }
         $conncet_to_paypal_flag = get_option('give_when_permission_connected_to_paypal');
         $genral_setting_fields = self::give_when_connect_to_paypal_setting_fields();
@@ -142,7 +143,9 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
      */
     public function request_permission() {
         
-        $PayPal = new Adaptive(Give_When_PayPal_Helper::get_configuration());
+        $paypal_helper_object = new Give_When_PayPal_Helper();
+        
+        $PayPal = new Adaptive($paypal_helper_object->get_configuration());
         // Prepare request arrays        
         $Scope = array(
             'EXPRESS_CHECKOUT',             

@@ -1,5 +1,4 @@
-<?php 
-//namespace angelleye\PayPal;
+<?php //namespace angelleye\PayPal;
 /**
  *	An open source PHP library written to easily work with PayPal's Adaptive Payments API
  *	
@@ -37,7 +36,7 @@
  * @author			Andrew Angell <service@angelleye.com>
  */
 
-//use DOMDocument;
+require_once 'PPAuth.php';
 
 class Adaptive extends Angelleye_PayPal
 {
@@ -48,6 +47,9 @@ class Adaptive extends Angelleye_PayPal
 	var $IPAddress = '';
 	var $DetailLevel = '';
 	var $ErrorLanguage = '';
+        var $ThirdPartyPermission = '';  // This is flag that indicate true if you are using third party permission.
+        var $Token = '';                 // Token that you received after granted permission from third party
+        var $TokenSecret = '';           // Token secret you received with the token.   
 
 	/**
 	 * Constructor
@@ -67,7 +69,10 @@ class Adaptive extends Angelleye_PayPal
 		$this->ErrorLanguage = isset($DataArray['ErrorLanguage']) ? $DataArray['ErrorLanguage'] : 'en_US';
 		$this->APISubject = isset($DataArray['APISubject']) ? $DataArray['APISubject'] : '';
 		$this->DeveloperAccountEmail = isset($DataArray['DeveloperAccountEmail']) ? $DataArray['DeveloperAccountEmail'] : '';
-
+                $this->ThirdPartyPermission = isset($DataArray['ThirdPartyPermission']) ? $DataArray['ThirdPartyPermission'] : '';
+                $this->Token = isset($DataArray['Token']) ? $DataArray['Token'] : '';
+                $this->TokenSecret = isset($DataArray['TokenSecret']) ? $DataArray['TokenSecret'] : '';
+                
 		if($this -> Sandbox)
 		{	
 			// Sandbox Credentials
@@ -103,20 +108,35 @@ class Adaptive extends Angelleye_PayPal
 	 * @param	boolean	$PrintHeaders	Option to output headers to the screen (true/false).
 	 * @return	string	$headers		String of HTTP headers.	
 	 */
-	function BuildHeaders($PrintHeaders)
+	function BuildHeaders($PrintHeaders,$APIName = "", $APIOperation = "")
 	{
+                if($this->ThirdPartyPermission == TRUE){
+                    
+                    $AuthObject = new \AuthSignature();
+                    $AuthResponse =  $AuthObject->genSign($this->APIUsername, $this->APIPassword, $this->Token, $this->TokenSecret , 'POST', $this -> EndPointURL . $APIName . '/' . $APIOperation);
+                    $AuthString = "token=" .  $this->Token . ",signature=" . $AuthResponse['oauth_signature'] . ",timestamp=" . $AuthResponse['oauth_timestamp'];
+                    $AuthHeaderString = 'X-PAYPAL-AUTHORIZATION: ' .$AuthString;
+                }
+                else{
+                    $AuthHeaderString = '';
+                }
+            
 		$headers = array(
-						'X-PAYPAL-SECURITY-USERID: ' . $this -> APIUsername, 
-						'X-PAYPAL-SECURITY-PASSWORD: ' . $this -> APIPassword, 
-						'X-PAYPAL-SECURITY-SIGNATURE: ' . $this -> APISignature, 
-						'X-PAYPAL-SECURITY-SUBJECT: ' . $this -> APISubject, 
-						'X-PAYPAL-REQUEST-DATA-FORMAT: XML',
-						'X-PAYPAL-RESPONSE-DATA-FORMAT: XML', 
-						'X-PAYPAL-APPLICATION-ID: ' . $this -> ApplicationID, 
-						'X-PAYPAL-DEVICE-ID: ' . $this -> DeviceID, 
-						'X-PAYPAL-DEVICE-IPADDRESS: ' . $this -> IPAddress
-						);
-		
+                            'X-PAYPAL-SECURITY-USERID: ' . $this -> APIUsername, 
+                            'X-PAYPAL-SECURITY-PASSWORD: ' . $this -> APIPassword, 
+                            'X-PAYPAL-SECURITY-SIGNATURE: ' . $this -> APISignature, 
+                            'X-PAYPAL-SECURITY-SUBJECT: ' . $this -> APISubject, 
+                            'X-PAYPAL-REQUEST-DATA-FORMAT: XML',
+                            'X-PAYPAL-RESPONSE-DATA-FORMAT: XML', 
+                            'X-PAYPAL-APPLICATION-ID: ' . $this -> ApplicationID,
+                            'X-PAYPAL-DEVICE-ID: ' . $this -> DeviceID, 
+                            'X-PAYPAL-DEVICE-IPADDRESS: ' . $this -> IPAddress
+                            );
+                
+                if(!empty($AuthHeaderString)){
+                    array_push($headers, $AuthHeaderString);
+                }
+                
 		if($this -> Sandbox)
 		{
 			array_push($headers, 'X-PAYPAL-SANDBOX-EMAIL-ADDRESS: '.$this->DeveloperAccountEmail);
@@ -143,14 +163,14 @@ class Adaptive extends Angelleye_PayPal
 	 */
 	function CURLRequest($Request = "", $APIName = "", $APIOperation = "", $PrintHeaders = false)
 	{
-		$curl = curl_init();
-				curl_setopt($curl, CURLOPT_VERBOSE, 1);
+                                $curl = curl_init();                                
+				curl_setopt($curl, CURLOPT_VERBOSE,true);
 				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 				curl_setopt($curl, CURLOPT_TIMEOUT, 30);
 				curl_setopt($curl, CURLOPT_URL, $this -> EndPointURL . $APIName . '/' . $APIOperation);
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 				curl_setopt($curl, CURLOPT_POSTFIELDS, $Request);
-				curl_setopt($curl, CURLOPT_HTTPHEADER, $this -> BuildHeaders($this->PrintHeaders));
+				curl_setopt($curl, CURLOPT_HTTPHEADER, $this -> BuildHeaders($this->PrintHeaders,$APIName,$APIOperation));
 								
 		if($this -> APIMode == 'Certificate')
 		{

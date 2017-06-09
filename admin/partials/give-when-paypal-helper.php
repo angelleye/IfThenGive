@@ -10,32 +10,63 @@
  */
 class Give_When_PayPal_Helper {
 
-    public static function get_configuration(){
-            $sandbox=TRUE;
-            $developer_account_email = '';
-            $application_id = 'APP-80W284485P519543T';
-            $device_id = '';
-            $api_username =  'tejasm-merchant_api2.itpathsolutions.co.in';
-            $api_password =  'GJA2TBCF3U9H4VK9';
-            $api_signature = 'AFcWxV21C7fd0v3bYYYRCpSSRl31A47TBRQKcZyw6Bx9aDcmqr9ipPmt';
-            $api_subject = '';
-            $print_headers = '';
-            $log_results = '';
-            $log_path = '';
-            $PayPalConfig = array(
-                'Sandbox' => $sandbox,
-                'DeveloperAccountEmail' => $developer_account_email,
-                'ApplicationID' => $application_id,
-                'DeviceID' => $device_id,
-                'IPAddress' => $_SERVER['REMOTE_ADDR'],
-                'APIUsername' => $api_username,
-                'APIPassword' => $api_password,
-                'APISignature' => $api_signature,
-                'APISubject' => $api_subject,
-                'PrintHeaders' => $print_headers, 
-                'LogResults' => $log_results, 
-                'LogPath' => $log_path,
-            );
-            return $PayPalConfig;
-    }
+        var $sandbox=TRUE;
+        var $developer_account_email = '';
+        var $application_id = 'APP-80W284485P519543T';
+        var $device_id = '';
+        var $api_username =  'tejasm-merchant_api2.itpathsolutions.co.in';
+        var $api_password =  'GJA2TBCF3U9H4VK9';
+        var $api_signature = 'AFcWxV21C7fd0v3bYYYRCpSSRl31A47TBRQKcZyw6Bx9aDcmqr9ipPmt';
+        var $api_subject = '';
+        var $print_headers = '';
+        var $log_results = '';
+        var $log_path = '';
+        var $token='';
+        var $token_secret='';                              
+        
+        public function get_configuration(){
+                $PayPalConfig = array(
+                    'Sandbox' => $this->sandbox,
+                    'DeveloperAccountEmail' => $this->developer_account_email,
+                    'ApplicationID' => $this->application_id,
+                    'DeviceID' => $this->device_id,
+                    'IPAddress' => $_SERVER['REMOTE_ADDR'],
+                    'APIUsername' => $this->api_username,
+                    'APIPassword' => $this->api_password,
+                    'APISignature' => $this->api_signature,
+                    'APISubject' => $this->api_subject,
+                    'PrintHeaders' => $this->print_headers, 
+                    'LogResults' => $this->log_results, 
+                    'LogPath' => $this->log_path,
+                );
+                return $PayPalConfig;
+        }
+    
+        public function get_third_party_configuration(){
+
+                $PayPalConfig = array(
+                    'Sandbox' => $this->sandbox,
+                    'DeveloperAccountEmail' => $this->developer_account_email,
+                    'ApplicationID' => $this->application_id,
+                    'DeviceID' => $this->device_id,
+                    'IPAddress' => $_SERVER['REMOTE_ADDR'],
+                    'APIUsername' => $this->api_username,
+                    'APIPassword' => $this->api_password,
+                    'APISignature' => $this->api_signature,
+                    'APISubject' => $this->api_subject,
+                    'PrintHeaders' => $this->print_headers, 
+                    'LogResults' => $this->log_results, 
+                    'LogPath' => $this->log_path,
+                    'ThirdPartyPermission' => TRUE,
+                    'Token' => $this->token,
+                    'TokenSecret' => $this->token_secret
+                );
+                return $PayPalConfig;
+        }
+    
+        public function set_tokens($token,$token_secret){
+            $this->token = $token;
+            $this->token_secret = $token_secret;
+            return true;
+        }
 }
