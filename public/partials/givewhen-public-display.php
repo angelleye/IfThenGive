@@ -96,6 +96,7 @@ class AngellEYE_Give_When_Public_Display {
     }
     
     public function start_express_checkout(){
+        $post_id = $_POST['post_id'];
         $items = array(
             'id' => '123-ABC',
             'name' => 'Widget',
@@ -122,11 +123,12 @@ class AngellEYE_Give_When_Public_Display {
                 'hdrimg' => 'https://www.angelleye.com/images/angelleye-paypal-header-750x90.jpg',
                 'logoimg' => 'https://www.angelleye.com/images/angelleye-logo-190x60.jpg',
                 'brandname' => 'Angell EYE',
-                'customerservicenumber' => '816-555-5555',
+                'customerservicenumber' => '816-555-5555',                
         );
         $Payments = array();
         $Payment = array(
-            'amt' => $shopping_cart['grand_total']
+            'amt' => $shopping_cart['grand_total'],
+            'custom' => ''
         );
         array_push($Payments, $Payment);
         $PayPalRequestData = array(

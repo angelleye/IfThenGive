@@ -297,14 +297,49 @@ class Givewhen {
                 $paypal_account_id = get_option('give_when_permission_connected_person_payerID');        
                 $PayPal_config->set_api_subject($paypal_account_id);                
                 $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());                
-                $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);
-                
+                $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
                 if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){
-                    
+                    $DECPFields = array(
+                        'token' => $token,
+                        'payerid' => $PayerID,
+                    );
+                    $Payments = array();
+                    $Payment = array(
+                        'amt' => number_format($PayPalResultGEC['AMT'],2),
+                        'itemamt' => number_format($PayPalResultGEC['ITEMAMT'],2),
+                        'currencycode' => 'USD',
+                        'shippingamt' => '',
+                        'handlingamt' => '',
+                        'taxamt' => '',
+                        'shiptoname' => isset($PayPalResultGEC['SHIPTONAME']) ? $PayPalResultGEC['SHIPTONAME'] : '',
+                        'shiptostreet' => isset($PayPalResultGEC['SHIPTOSTREET']) ? $PayPalResultGEC['SHIPTOSTREET'] : '',
+                        'shiptocity' => isset($PayPalResultGEC['SHIPTOCITY']) ? $PayPalResultGEC['SHIPTOCITY'] : '',
+                        'shiptostate' => isset($PayPalResultGEC['SHIPTOSTATE']) ? $PayPalResultGEC['SHIPTOSTATE'] : '',
+                        'shiptozip' => isset($PayPalResultGEC['SHIPTOZIP']) ? $PayPalResultGEC['SHIPTOZIP'] : '',
+                        'shiptocountrycode' => isset($PayPalResultGEC['SHIPTOCOUNTRYCODE']) ? $PayPalResultGEC['SHIPTOCOUNTRYCODE'] : '',
+                        'shiptophonenum' => isset($PayPalResultGEC['SHIPTOPHONENUM']) ? $PayPalResultGEC['SHIPTOPHONENUM'] : '',
+                        'paymentaction' => 'Sale',
+                    );
+                    array_push($Payments, $Payment);
+                    $PayPalRequestData = array(
+					   'DECPFields' => $DECPFields, 
+					   'Payments' => $Payments, 
+					   );
+                    $PayPalResultDEC = $PayPal->DoExpressCheckoutPayment($PayPalRequestData);
+                    if($PayPal->APICallSuccessful($PayPalResultDEC['ACK'])){
+                        $payments_info = $PayPal->GetExpressCheckoutPaymentInfo($PayPalResultDEC);
+                        foreach($payments_info as $payment_info)
+                        {
+                            $paypal_transaction_id = isset($payment_info['TRANSACTIONID']) ? $payment_info['TRANSACTIONID'] : '';
+                            $paypal_fee = isset($payment_info['FEEAMT']) ? $payment_info['FEEAMT'] : '';                            
+                        }
+                    }
                 }
-                echo "<pre>";
-                var_dump($PayPalResultGEC);
-                exit;
+                else{
+                    echo "<pre>";
+                    var_dump($PayPalResultGEC['ERRORS']);
+                    exit;
+                }
             }
         }
 

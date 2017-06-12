@@ -6,7 +6,8 @@
                     type: 'POST',
                     url: admin_ajax_url,
                      data: { 
-                        action: 'start_express_checkout'
+                        action: 'start_express_checkout',
+                        post_id : $(this).attr('data-postid')
                     },
                     dataType: "json",
                     beforeSend: function () {
