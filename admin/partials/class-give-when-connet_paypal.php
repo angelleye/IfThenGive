@@ -82,56 +82,136 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         $genral_setting_fields = self::give_when_connect_to_paypal_setting_fields();
         $Html_output = new AngellEYE_Give_When_Html_output();
         if($conncet_to_paypal_flag == 'Yes'){
-        ?>
-            <table class="form-table" id="give_when_callback_url">
-                <tbody>
-                    <tr valign="top">                        
-                        <td>You are already connected to PayPal.</td>
-                    </tr>
-                    <tr valign="top">                        
-                        <td>Your PayPal Details will display here.</td>
-                    </tr>
-                </tbody> 
-            </table>
-        <?php    
+        ?>  
+            <div class="wrap">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="text-info">&nbsp;PayPal User Infromation</h1>
+                        </div>                        
+                        <div class="clearfix"></div>
+                    </div>                    
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 col-sm-6 col-xs-12">
+                            <div class="table-responsive">
+                                <table class="table table-responsive">
+                                    <tbody>
+                                        <tr>        
+                                            <td>
+                                                <strong>
+                                                    <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                                                    PayPal Account ID                                                
+                                                </strong>
+                                            </td>
+                                            <td class="text-primary">
+                                                <?php 
+                                                    $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
+                                                    echo isset($paypal_account_id) ? $paypal_account_id :'';
+                                                ?>
+                                            </td>
+                                        </tr>
+                                        <tr>    
+                                            <td>
+                                                <strong>
+                                                    <span class="glyphicon glyphicon-user  text-primary"></span>    
+                                                    Name                                                
+                                                </strong>
+                                            </td>
+                                            <td class="text-primary">
+                                                <?php
+                                                    $paypal_first_name = get_option('give_when_permission_connected_person_first');
+                                                    $paypal_last_name = get_option('give_when_permission_connected_person_last');
+                                                    echo $paypal_first_name.' '.$paypal_last_name;
+                                                ?>
+                                            </td>
+                                        </tr>                                                        
+                                        <tr>        
+                                            <td>
+                                                <strong>
+                                                    <span class="glyphicon glyphicon-envelope text-primary"></span> 
+                                                    Email                                                
+                                                </strong>
+                                            </td>
+                                            <td class="text-primary">
+                                                <?php echo get_option('give_when_permission_connected_person_email'); ?>  
+                                            </td>
+                                        </tr>                                                     
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="alert alert-info"><span class="circle_green"></span><span>You are already connected to PayPal...!!</span></div>
+                        </div>     
+                        <div class="col-md-3">
+                            <button class="btn btn-info">Disconnect</button>
+                        </div>     
+                    </div>
+                </div>
+            </div>
+        <?php
         }
-        else {            
-        ?>                 
-        <table class="form-table" id="give_when_callback_url">
-            <tbody>
-                <tr valign="top">                       
-                    <td>                                                
-                       <img name="angelleye_connect_to_paypal" id="angelleye_connect_to_paypal" src="<?php echo GW_PLUGIN_URL; ?>/admin/images/paypal_connect.png"  style="cursor: pointer"/>
-                    </td>                    
-                </tr>                
-            </tbody>             
-        </table>
-        <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;z-index: 1031;text-align: center; display: none;">
-            <div style="display: table; width:100%; height: 100%;">                
-                <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/loading.gif"  style=" position: relative;top: 50%;"/>
-                <h2>Please Don't Go back , We are redirecting you to PayPal.</h2></div>
-            </div>            
-        </div>
-        <div class="alert alert-warning" id="connect_paypal_error" style="display: none">
-            <p id="connect_paypal_error_p"></p>
-        </div>
-
+        else {
+        ?>    
+        <div class="wrap">
+            <div class="container-fluid">
+                <div class="alert alert-warning" id="connect_paypal_error" style="display: none">
+                    <p id="connect_paypal_error_p"></p>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="alert alert-info"><span class="circle_red"></span><span>You are not connected to PayPal.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>    
 <?php
         }
-        ?>
+        ?> 
 <div class="wrap">
-    <div class="div_log_settings">
-        <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
-            <table class="form-table">
-                <tbody>
-                    <?php $Html_output->init($genral_setting_fields); ?>
-                    <p class="submit">
-                        <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
-                    </p>
-                </tbody>
-            </table>
-        </form>
-    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="form-table" id="give_when_callback_url">
+                    <tbody>
+                        <tr valign="top">
+                            <td>
+                               <img name="angelleye_connect_to_paypal" id="angelleye_connect_to_paypal" src="<?php echo GW_PLUGIN_URL; ?>/admin/images/paypal_connect.png"  style="cursor: pointer"/>
+                            </td>
+                        </tr>                        
+                    </tbody>
+                </table>
+                
+                <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;z-index: 1031;text-align: center; display: none;">
+                    <div style="display: table; width:100%; height: 100%;">                
+                        <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/loading.gif"  style=" position: relative;top: 50%;"/>
+                        <h2>Please Don't Go back , We are redirecting you to PayPal.</h2></div>
+                    </div>            
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="div_log_settings">
+                    <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
+                        <table class="form-table">
+                            <tbody>
+                                <?php $Html_output->init($genral_setting_fields); ?>
+                                <p class="submit">
+                                    <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
+                                </p>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>            
+        </div>
+    </div>     
 </div>            
 <?php
     }

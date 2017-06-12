@@ -49,19 +49,26 @@
 .div_log_settings .form-table th{
     width: 100px !important;
 }
-#circle_red {
+.circle_red {
     width: 20px;
     height: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
     background: red;
+    float:left;
+    margin-right: 10px;
 }
-#circle_green {
+.circle_green {
     width: 20px;
     height: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
     background: green;
+    float:left;
+    margin-right: 10px;
+}
+.table th, .table td, .table{
+    border-top: none !important;
 }
