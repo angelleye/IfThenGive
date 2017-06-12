@@ -217,7 +217,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
     }
 
     /**
-     * paypal_wp_button_manager_general_setting function used for display general setting block from admin side
+     * request_permission function used for request permission of third party
      * @since    0.1.0
      * @access   public
      */

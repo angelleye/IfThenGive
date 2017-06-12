@@ -16,6 +16,8 @@ class AngellEYE_Give_When_Public_Display {
     public static function init() {
         add_shortcode('give_when', array(__CLASS__, 'give_when_create_shortcode'));
         add_action( 'wp_enqueue_scripts', array(__CLASS__,'give_when_detect_shortcode'));
+        add_action( 'wp_ajax_start_express_checkout', array(__CLASS__,'start_express_checkout'));
+        add_action("wp_ajax_nopriv_start_express_checkout",  array(__CLASS__,'start_express_checkout'));
     }
 
     public static function give_when_detect_shortcode()
@@ -84,7 +86,7 @@ class AngellEYE_Give_When_Public_Display {
                     </div>
                     <div class="row">
                          <div class="col-md-12">
-                            <img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypalcheckout-44px.png" alt="PayPal Checkout">
+                             <img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypalcheckout-44px.png" alt="PayPal Checkout" style="cursor: pointer" id="give_when_angelleye_checkout" data-postid="<?php echo $id; ?>">
                         </div>
                     </div>
                 </div>
@@ -92,6 +94,59 @@ class AngellEYE_Give_When_Public_Display {
             }
         }
     }
+    
+    public function start_express_checkout(){
+        $items = array(
+            'id' => '123-ABC',
+            'name' => 'Widget',
+            'qty' => '2',
+            'price' => '9.99',
+        );
+        $shopping_cart = array(
+            'items' => $items,
+            'subtotal' => 24.97,
+            'shipping' => 0,
+            'handling' => 0,
+            'tax' => 0,
+        );
+        $shopping_cart['grand_total'] = number_format($shopping_cart['subtotal'] + $shopping_cart['shipping'] + $shopping_cart['handling'] + $_SESSION['shopping_cart']['tax'],2);
+        $paypal_account_id = get_option('give_when_permission_connected_person_payerID');        
+        $PayPal_config = new Give_When_PayPal_Helper();        
+        $PayPal_config->set_api_subject($paypal_account_id);
+        
+        $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());
+        $SECFields = array(
+                'maxamt' => round($shopping_cart['grand_total'] * 2,2),
+                'returnurl' => site_url('?action=ec_return'),
+                'cancelurl' => site_url('?action=ec_cancel'),
+                'hdrimg' => 'https://www.angelleye.com/images/angelleye-paypal-header-750x90.jpg',
+                'logoimg' => 'https://www.angelleye.com/images/angelleye-logo-190x60.jpg',
+                'brandname' => 'Angell EYE',
+                'customerservicenumber' => '816-555-5555',
+        );
+        $Payments = array();
+        $Payment = array(
+            'amt' => $shopping_cart['grand_total']
+        );
+        array_push($Payments, $Payment);
+        $PayPalRequestData = array(
+            'SECFields' => $SECFields, 
+            'Payments' => $Payments,
+        );
+        $PayPalResult = $PayPal->SetExpressCheckout($PayPalRequestData);
+        if($PayPal->APICallSuccessful($PayPalResult['ACK']))
+        {
+            echo "<pre>";
+            var_dump($PayPalResult);
+        }
+        else
+        {
+            echo "<pre>";
+            var_dump($PayPalResult['ERRORS']);
+        }
+        exit;
+    }
+    
 }
 
 AngellEYE_Give_When_Public_Display::init();

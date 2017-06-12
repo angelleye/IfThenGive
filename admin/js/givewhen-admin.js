@@ -84,8 +84,7 @@
                 type: 'POST',
                 url: admin_ajax_url,
                  data: { 
-                    action: 'request_permission',
-                    text: 'tejas',
+                    action: 'request_permission'                    
                 },
                 dataType: "json",
                 beforeSend: function () {

@@ -1,32 +1,31 @@
 (function( $ ) {
 	'use strict';
-
-	/**
-	 * All of the code for your public-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
-
+        jQuery(document).ready(function ($) {
+            $(document).on('click','#give_when_angelleye_checkout',function(){
+                $.ajax({
+                    type: 'POST',
+                    url: admin_ajax_url,
+                     data: { 
+                        action: 'start_express_checkout'
+                    },
+                    dataType: "json",
+                    beforeSend: function () {
+                        //$('#overlay').show();
+                    },                
+                    success: function (result) {
+                       if(result.Ack == 'Success'){
+                           //window.location.href = result.RedirectURL;
+                       }
+                       else{
+//                           $('#overlay').hide();
+//                           $('#connect_paypal_error').show();
+//                           $('#connect_paypal_error_p').html('').html('PayPal Acknowledgement : ' + result.Ack);
+//                           $('#connect_paypal_error_p').append('<br>Message : ' + result.Message);
+//                           $('#connect_paypal_error_p').append('<br>ErrorID : ' + result.ErrorID);
+//                           $('#connect_paypal_error_p').append('<br>Please Try Again later');
+                       }
+                    }
+                });
+            });
+        });
 })( jQuery );

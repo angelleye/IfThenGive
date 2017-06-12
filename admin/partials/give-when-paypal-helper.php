@@ -69,4 +69,9 @@ class Give_When_PayPal_Helper {
             $this->token_secret = $token_secret;
             return true;
         }
+        
+        public function set_api_subject($API_SUBJECT){
+            $this->api_subject = $API_SUBJECT;
+            return true;
+        }
 }

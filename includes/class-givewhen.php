@@ -289,6 +289,23 @@ class Givewhen {
                     die();
                  }
             }
+            
+            if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {
+                $token = $_GET['token'];
+                $PayerID = $_GET['PayerID'];
+                $PayPal_config = new Give_When_PayPal_Helper();   
+                $paypal_account_id = get_option('give_when_permission_connected_person_payerID');        
+                $PayPal_config->set_api_subject($paypal_account_id);                
+                $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());                
+                $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);
+                
+                if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){
+                    
+                }
+                echo "<pre>";
+                var_dump($PayPalResultGEC);
+                exit;
+            }
         }
 
 }
