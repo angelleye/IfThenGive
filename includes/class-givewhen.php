@@ -291,53 +291,39 @@ class Givewhen {
             }
             
             if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {
-                $token = $_GET['token'];
-                $PayerID = $_GET['PayerID'];
+                $token = $_GET['token'];                
                 $PayPal_config = new Give_When_PayPal_Helper();   
                 $paypal_account_id = get_option('give_when_permission_connected_person_payerID');        
                 $PayPal_config->set_api_subject($paypal_account_id);                
-                $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());                
+                $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());
+               
                 $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
                 if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){
-                    $DECPFields = array(
-                        'token' => $token,
-                        'payerid' => $PayerID,
-                    );
-                    $Payments = array();
-                    $Payment = array(
-                        'amt' => number_format($PayPalResultGEC['AMT'],2),
-                        'itemamt' => number_format($PayPalResultGEC['ITEMAMT'],2),
-                        'currencycode' => 'USD',
-                        'shippingamt' => '',
-                        'handlingamt' => '',
-                        'taxamt' => '',
-                        'shiptoname' => isset($PayPalResultGEC['SHIPTONAME']) ? $PayPalResultGEC['SHIPTONAME'] : '',
-                        'shiptostreet' => isset($PayPalResultGEC['SHIPTOSTREET']) ? $PayPalResultGEC['SHIPTOSTREET'] : '',
-                        'shiptocity' => isset($PayPalResultGEC['SHIPTOCITY']) ? $PayPalResultGEC['SHIPTOCITY'] : '',
-                        'shiptostate' => isset($PayPalResultGEC['SHIPTOSTATE']) ? $PayPalResultGEC['SHIPTOSTATE'] : '',
-                        'shiptozip' => isset($PayPalResultGEC['SHIPTOZIP']) ? $PayPalResultGEC['SHIPTOZIP'] : '',
-                        'shiptocountrycode' => isset($PayPalResultGEC['SHIPTOCOUNTRYCODE']) ? $PayPalResultGEC['SHIPTOCOUNTRYCODE'] : '',
-                        'shiptophonenum' => isset($PayPalResultGEC['SHIPTOPHONENUM']) ? $PayPalResultGEC['SHIPTOPHONENUM'] : '',
-                        'paymentaction' => 'Sale',
-                    );
-                    array_push($Payments, $Payment);
-                    $PayPalRequestData = array(
-					   'DECPFields' => $DECPFields, 
-					   'Payments' => $Payments, 
-					   );
-                    $PayPalResultDEC = $PayPal->DoExpressCheckoutPayment($PayPalRequestData);
-                    if($PayPal->APICallSuccessful($PayPalResultDEC['ACK'])){
-                        $payments_info = $PayPal->GetExpressCheckoutPaymentInfo($PayPalResultDEC);
-                        foreach($payments_info as $payment_info)
-                        {
-                            $paypal_transaction_id = isset($payment_info['TRANSACTIONID']) ? $payment_info['TRANSACTIONID'] : '';
-                            $paypal_fee = isset($payment_info['FEEAMT']) ? $payment_info['FEEAMT'] : '';                            
-                        }
-                    }
+                    $temp = $PayPalResultGEC['CUSTOM'];
+                    $arr = explode('|',$temp);
+                    $amount_array = explode('_',$arr[0]);
+                    echo $amount_array[1];
+
+                    $post_array = explode('_',$arr[1]);
+                    echo $post_array[2];
+                    exit;
                 }
                 else{
                     echo "<pre>";
                     var_dump($PayPalResultGEC['ERRORS']);
+                    exit;
+                }
+                
+                $PayPalResultCBA = $PayPal->CreateBillingAgreement($token);
+                echo "<pre>";
+                var_dump($PayPalResultCBA);
+                
+                if($PayPal->APICallSuccessful($PayPalResultCBA['ACK'])){
+                    
+                }
+                else{
+                    echo "<pre>";
+                    var_dump($PayPalResultCBA['ERRORS']);
                     exit;
                 }
             }

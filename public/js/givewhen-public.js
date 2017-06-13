@@ -2,12 +2,18 @@
 	'use strict';
         jQuery(document).ready(function ($) {
             $(document).on('click','#give_when_angelleye_checkout',function(){
+                var amount='';
+                if ($('#give_when_fixed_price_span').length) {
+                    amount = $('#give_when_fixed_price_span').html();
+                }
+                
                 $.ajax({
                     type: 'POST',
                     url: admin_ajax_url,
                      data: { 
                         action: 'start_express_checkout',
-                        post_id : $(this).attr('data-postid')
+                        post_id : $(this).attr('data-postid'),
+                        amount : amount
                     },
                     dataType: "json",
                     beforeSend: function () {
@@ -27,6 +33,9 @@
                        }
                     }
                 });
+            });
+            $(document).on('change','#give_when_option_amount', function (){                
+                jQuery('#give_when_fixed_price_span_select').html('').html($(this).val());
             });
         });
 })( jQuery );
