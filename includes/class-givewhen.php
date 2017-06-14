@@ -305,7 +305,7 @@ class Givewhen {
                     $amount_array = explode('_',$arr[0]);
                     $amount = $amount_array[1];
                     $post_array = explode('_',$arr[1]);
-                    $post_id = $post_array[2];
+                    $post_id = $post_array[2];                    
                     update_post_meta($post_id,'give_when_gec_email_'.$PayPalResultGEC['PAYERID'],$PayPalResultGEC['EMAIL']);
                     update_post_meta($post_id,'give_when_gec_payer_id_'.$PayPalResultGEC['PAYERID'],$PayPalResultGEC['PAYERID']);
                     update_post_meta($post_id,'give_when_gec_first_name_'.$PayPalResultGEC['PAYERID'],$PayPalResultGEC['FIRSTNAME']);
@@ -314,6 +314,32 @@ class Givewhen {
                     update_post_meta($post_id,'give_when_gec_currency_code_'.$PayPalResultGEC['PAYERID'],$PayPalResultGEC['CURRENCYCODE']);
                     update_post_meta($post_id,'give_when_gec_amount_'.$PayPalResultGEC['PAYERID'],$amount);
                     
+                    $role = get_role( 'giver' );
+                    if($role==NULL){
+                        add_role('giver','Giver');
+                    }
+                    $userdata=array(
+                        'user_pass' => 'password',
+                        'user_login' => $PayPalResultGEC['EMAIL'],
+                        'user_email' => $PayPalResultGEC['EMAIL'],
+                        'display_name' => $PayPalResultGEC['FIRSTNAME'].' '.$PayPalResultGEC['LASTNAME'],
+                        'first_name' => $PayPalResultGEC['FIRSTNAME'],
+                        'last_name' => $PayPalResultGEC['LASTNAME'],
+                        'role' => 'giver'
+                    );
+                    $user_exist = email_exists($PayPalResultGEC['EMAIL']);
+                    if($user_exist){
+                        $userdata['ID'] = $user_exist;
+                    }                    
+                    $user_id = wp_insert_user($userdata);
+                    if( is_wp_error( $user_id ) ) {
+                        $error = 'Error on user creation: ' . $user_id->get_error_message();
+                        print_r($err);
+                        exit;
+                    }
+                    else{
+                        update_post_meta($post_id,'give_when_gec_wp_user_id_'.$PayPalResultGEC['PAYERID'],$user_id);
+                    }
                 }
                 else{
                     echo "<pre>";
@@ -323,7 +349,7 @@ class Givewhen {
                 
                 $PayPalResultCBA = $PayPal->CreateBillingAgreement($token);
                 if($PayPal->APICallSuccessful($PayPalResultCBA['ACK'])){
-                    update_post_meta($post_id,'give_when_gec_billing_agreement_id',$PayPalResultCBA['BILLINGAGREEMENTID']);
+                    update_post_meta($post_id,'give_when_gec_billing_agreement_id_'.$PayPalResultGEC['PAYERID'],$PayPalResultCBA['BILLINGAGREEMENTID']);
                 }
                 else{
                     echo "<pre>";

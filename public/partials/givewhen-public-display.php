@@ -128,7 +128,7 @@ class AngellEYE_Give_When_Public_Display {
         }
     }
     
-    public function start_express_checkout(){        
+    public function start_express_checkout(){
         $post_id = $_POST['post_id'];
         $amount = $_POST['amount'];
         $post = get_post($post_id);
