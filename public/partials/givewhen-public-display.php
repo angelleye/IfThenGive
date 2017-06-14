@@ -49,8 +49,17 @@ class AngellEYE_Give_When_Public_Display {
             $post = get_post($id);
             if(!empty($post->post_type) && $post->post_type == 'give_when' && $post->post_status == 'publish') {
         ?>
+                <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
+                    <div style="display: table; width:100%; height: 100%;">
+                        <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>admin/images/loading.gif"  style=" position: relative;top: 50%; height: 100px"/>
+                        <h1>Please dont't go back , We are redirecting you to PayPal</h1></div>
+                    </div>            
+                </div>
                 <div class="give_when_container">
                     <div class="row">
+                        <div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">
+                                <span id="connect_paypal_error_p"></span>
+                        </div>                        
                         <div class="col-md-12"><h1><?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></h1></div>
                         <div class="col-md-12">
                             <img src="<?php echo get_post_meta( $post->ID, 'image_url', true ) ?>">
@@ -120,13 +129,13 @@ class AngellEYE_Give_When_Public_Display {
     }
     
     public function start_express_checkout(){        
-        $post_id = $_POST['post_id'];   
+        $post_id = $_POST['post_id'];
         $amount = $_POST['amount'];
         $post = get_post($post_id);
         $trigger_name = get_post_meta( $post->ID, 'trigger_name', true );
         
-        $paypal_account_id = get_option('give_when_permission_connected_person_payerID');        
-        $PayPal_config = new Give_When_PayPal_Helper();        
+        $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
+        $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal_config->set_api_subject($paypal_account_id);
         
         $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());
@@ -137,7 +146,7 @@ class AngellEYE_Give_When_Public_Display {
                 'hdrimg' => 'https://www.angelleye.com/images/angelleye-paypal-header-750x90.jpg',
                 'logoimg' => 'https://www.angelleye.com/images/angelleye-logo-190x60.jpg',
                 'brandname' => 'Angell EYE',
-                'customerservicenumber' => '816-555-5555',                
+                'customerservicenumber' => '816-555-5555',
         );
         $Payments = array();
         $Payment = array(
@@ -163,14 +172,12 @@ class AngellEYE_Give_When_Public_Display {
         );
         $PayPalResult = $PayPal->SetExpressCheckout($PayPalRequestData);
         if($PayPal->APICallSuccessful($PayPalResult['ACK']))
-        {
-            echo "<pre>";
-            var_dump($PayPalResult);
+        {            
+            echo json_encode(array('Ack'=>'Success','RedirectURL'=>$PayPalResult['REDIRECTURL']));
         }
         else
         {
-            echo "<pre>";
-            var_dump($PayPalResult);
+            echo json_encode(array('Ack'=>'Failure','ErrorCode'=>$PayPalResult['L_ERRORCODE0'],'ErrorShort'=>$PayPalResult['L_SHORTMESSAGE0'],'ErrorLong'=>$PayPalResult['L_LONGMESSAGE0']));            
         }
         exit;
     }

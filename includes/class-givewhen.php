@@ -297,16 +297,23 @@ class Givewhen {
                 $PayPal_config->set_api_subject($paypal_account_id);                
                 $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());
                
-                $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
+                $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);
+                $post_id='';
                 if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){
                     $temp = $PayPalResultGEC['CUSTOM'];
                     $arr = explode('|',$temp);
                     $amount_array = explode('_',$arr[0]);
-                    echo $amount_array[1];
-
+                    $amount = $amount_array[1];
                     $post_array = explode('_',$arr[1]);
-                    echo $post_array[2];
-                    exit;
+                    $post_id = $post_array[2];
+                    update_post_meta($post_id,'give_when_gec_email_'.$PayPalResultGEC['PAYERID'],$PayPalResultGEC['EMAIL']);
+                    update_post_meta($post_id,'give_when_gec_payer_id_'.$PayPalResultGEC['PAYERID'],$PayPalResultGEC['PAYERID']);
+                    update_post_meta($post_id,'give_when_gec_first_name_'.$PayPalResultGEC['PAYERID'],$PayPalResultGEC['FIRSTNAME']);
+                    update_post_meta($post_id,'give_when_gec_last_name_'.$PayPalResultGEC['PAYERID'],$PayPalResultGEC['LASTNAME']);
+                    update_post_meta($post_id,'give_when_gec_country_code_'.$PayPalResultGEC['PAYERID'],$PayPalResultGEC['COUNTRYCODE']);
+                    update_post_meta($post_id,'give_when_gec_currency_code_'.$PayPalResultGEC['PAYERID'],$PayPalResultGEC['CURRENCYCODE']);
+                    update_post_meta($post_id,'give_when_gec_amount_'.$PayPalResultGEC['PAYERID'],$amount);
+                    
                 }
                 else{
                     echo "<pre>";
@@ -315,11 +322,8 @@ class Givewhen {
                 }
                 
                 $PayPalResultCBA = $PayPal->CreateBillingAgreement($token);
-                echo "<pre>";
-                var_dump($PayPalResultCBA);
-                
                 if($PayPal->APICallSuccessful($PayPalResultCBA['ACK'])){
-                    
+                    update_post_meta($post_id,'give_when_gec_billing_agreement_id',$PayPalResultCBA['BILLINGAGREEMENTID']);
                 }
                 else{
                     echo "<pre>";
@@ -328,5 +332,4 @@ class Givewhen {
                 }
             }
         }
-
 }
