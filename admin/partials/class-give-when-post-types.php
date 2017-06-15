@@ -145,7 +145,7 @@ class AngellEYE_Give_When_Post_types {
         $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';    
         if ($action_request=='true') {
             do_action('give_when_shortcode_interface');
-        }
+        }        
         else{
             do_action('give_when_interface');
         }        
@@ -181,8 +181,10 @@ class AngellEYE_Give_When_Post_types {
 
     public static function my_action_row($actions, $post){
         //check for your post type
-        if ($post->post_type == "give_when") {           
-            $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">View</a>';            
+        if ($post->post_type == "give_when") {                       
+            $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">View</a>';
+            $actions['users'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&users=true">Users</a>';
+            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&transactions=true">Transactions</a>';
         }
         return $actions;
     }
