@@ -73,7 +73,7 @@ class Givewhen_Admin {
 		 * class.
 		 */                 
                 $screen = get_current_screen();                     
-                if($screen->post_type == 'give_when' || $screen ->id == 'settings_page_give_when_option'){
+                if($screen->post_type == 'give_when_goals' || $screen ->id == 'settings_page_give_when_option'){
                    wp_enqueue_style($this->plugin_name . 'eight', GW_PLUGIN_URL.'includes/css/bootstrap/css/bootstrap.css', array(), $this->version, 'all');
                 }
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/givewhen-admin.css', array(), $this->version, 'all' );
@@ -99,7 +99,7 @@ class Givewhen_Admin {
 		 * class.
 		 */
                 $screen = get_current_screen();
-                if($screen->post_type == 'give_when' || $screen ->id == 'settings_page_give_when_option'){
+                if($screen->post_type == 'give_when_goals' || $screen ->id == 'settings_page_give_when_option'){
                      wp_enqueue_script($this->plugin_name . 'six', GW_PLUGIN_URL . 'includes/css/bootstrap/js/bootstrap.min.js', array('jquery'), $this->version, false);
                      wp_enqueue_script($this->plugin_name . 'seven', GW_PLUGIN_URL . 'includes/css/clipboardjs/clipboard.min.js', array('jquery'), $this->version, false);
                 }
@@ -108,7 +108,7 @@ class Givewhen_Admin {
                 
                 global $post;
                 $args = array(
-                    'post_type' => 'give_when',
+                    'post_type' => 'give_when_goals',
                     'post_status' => 'publish',
                     'posts_per_page' => '100'                    
                 );
@@ -181,7 +181,7 @@ class Givewhen_Admin {
         $post_type = get_post_type($post_ID);
         
         $custom_message = 'Goal Created Successfully';
-        $messages['give_when'] = array(
+        $messages['give_when_goals'] = array(
 		0 => '', // Unused. Messages start at index 1.
 		1 => sprintf(__('Goal Updated Successfully')),
 		2 => __('Custom field updated.'),

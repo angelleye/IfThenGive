@@ -73,7 +73,7 @@
                     title: 'Give When',
                     icon: 'mce-ico mce-i-wp_more',
                     onselect: function() {
-                         tinyMCE.activeEditor.selection.setContent( '[give_when id=' + this.value() + ']' );
+                         tinyMCE.activeEditor.selection.setContent( '[give_when_goal id=' + this.value() + ']' );
                     },
                     values: shortcodeValues
                 });

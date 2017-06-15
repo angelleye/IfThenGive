@@ -19,8 +19,8 @@ class AngellEYE_Give_When_Post_types {
         add_action('init', array(__CLASS__, 'give_when_register_post_types'), 5);
         add_action('add_meta_boxes', array(__CLASS__, 'give_when_add_meta_boxes'), 10);
         add_action('save_post', array(__CLASS__, 'give_when_save_data'));
-        add_filter('manage_edit-give_when_columns', array(__CLASS__, 'give_when_edit_give_when_columns'));
-        add_action('manage_give_when_posts_custom_column', array(__CLASS__, 'give_when_buttons_columns'), 10, 2);
+        add_filter('manage_edit-give_when_goals_columns', array(__CLASS__, 'give_when_edit_give_when_columns'));
+        add_action('manage_give_when_goals_posts_custom_column', array(__CLASS__, 'give_when_buttons_columns'), 10, 2);
         /* custom **/
         add_filter('post_row_actions',array(__CLASS__, 'my_action_row'), 10, 2);
     }
@@ -39,10 +39,10 @@ class AngellEYE_Give_When_Post_types {
 
         do_action('give_when_register_post_types');
 
-        register_post_type('give_when', apply_filters('give_when_register_post_types', array(
+        register_post_type('give_when_goals', apply_filters('give_when_register_post_types', array(
                     'labels' => array(
-                        'name' => __('Give When', 'angelleye_give_when'),
-                        'singular_name' => __('Give When', 'angelleye_give_when'),
+                        'name' => __('Give When Goals', 'angelleye_give_when'),
+                        'singular_name' => __('Give When Goals', 'angelleye_give_when'),
                         'menu_name' => _x('Give When', 'Admin menu name', 'angelleye_give_when'),
                         'add_new' => __('Add Goal', 'angelleye_give_when'),
                         'add_new_item' => __('Add New Goal', 'angelleye_give_when'),
@@ -64,7 +64,7 @@ class AngellEYE_Give_When_Post_types {
                     'publicly_queryable' => false,
                     'exclude_from_search' => true,
                     'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
-                    'rewrite' => array('slug' => 'give_when'),
+                    'rewrite' => array('slug' => 'give_when_goals'),
                     'query_var' => true,
                     'menu_icon' => 'dashicons-editor-table',
                     'supports' => array('title'),
@@ -110,7 +110,7 @@ class AngellEYE_Give_When_Post_types {
             case 'shortcodes' :
                 $shortcode_avalabilty = get_post_meta($post_id, 'trigger_name', true);
                 if (isset($shortcode_avalabilty) && !empty($shortcode_avalabilty)) {
-                    echo '[give_when id=' . $post_id . ']';
+                    echo '[give_when_goal id=' . $post_id . ']';
                 } else {
                     echo __('Not Available');
                 }
@@ -129,7 +129,7 @@ class AngellEYE_Give_When_Post_types {
      * @access public
      */
     public static function give_when_add_meta_boxes() {
-        add_meta_box('give-when-meta-id', __('Goal Generator'), array(__CLASS__, 'give_when_metabox'), 'give_when', 'normal', 'high');
+        add_meta_box('give-when-meta-id', __('Goal Generator'), array(__CLASS__, 'give_when_metabox'), 'give_when_goals', 'normal', 'high');
     }
     
      /**
@@ -162,7 +162,7 @@ class AngellEYE_Give_When_Post_types {
 
         global $post, $post_ID, $wpdb;       
         //$give_when_notice = get_post_meta($post_ID, 'paypal_wp_button_manager_success_notice', true);                                        
-        if (((isset($_POST['publish'])) || isset($_POST['save'])) && ($post->post_type == 'give_when')) {                          
+        if (((isset($_POST['publish'])) || isset($_POST['save'])) && ($post->post_type == 'give_when_goals')) {                          
             update_post_meta($post_ID, 'trigger_name',$_POST['trigger_name']);
             update_post_meta($post_ID, 'trigger_desc',$_POST['trigger_desc']);
             update_post_meta($post_ID, 'image_url',$_POST['image_url']);            
@@ -181,7 +181,7 @@ class AngellEYE_Give_When_Post_types {
 
     public static function my_action_row($actions, $post){
         //check for your post type
-        if ($post->post_type == "give_when") {                       
+        if ($post->post_type == "give_when_goals") {                       
             $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">View</a>';
             $actions['users'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&users=true">Users</a>';
             $actions['transactions'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&transactions=true">Transactions</a>';

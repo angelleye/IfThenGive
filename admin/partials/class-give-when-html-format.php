@@ -180,7 +180,7 @@ class AngellEYE_Give_When_interface {
                     <p>You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.</p>
                     <div class="zero-clipboard"><span class="btn-clipboard" data-toggle="tooltip" data-placement="left" title="Copy To Clipboard">Copy</span></div>
                     <div class="give_when_highlight">
-                        <h4><?php echo '[give_when id=' . $post_ID . ']'; ?></h4>                        
+                        <h4><?php echo '[give_when_goal id=' . $post_ID . ']'; ?></h4>                        
                     </div>
                 </div>
             </div>

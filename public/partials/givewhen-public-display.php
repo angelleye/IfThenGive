@@ -14,7 +14,7 @@
 class AngellEYE_Give_When_Public_Display {
 
     public static function init() {
-        add_shortcode('give_when', array(__CLASS__, 'give_when_create_shortcode'));
+        add_shortcode('give_when_goal', array(__CLASS__, 'give_when_create_shortcode'));
         add_action( 'wp_enqueue_scripts', array(__CLASS__,'give_when_detect_shortcode'));
         add_action( 'wp_ajax_start_express_checkout', array(__CLASS__,'start_express_checkout'));
         add_action("wp_ajax_nopriv_start_express_checkout",  array(__CLASS__,'start_express_checkout'));
@@ -27,7 +27,7 @@ class AngellEYE_Give_When_Public_Display {
 
         if (   preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches )
             && array_key_exists( 2, $matches )
-            && in_array( 'give_when', $matches[2] ) )
+            && in_array( 'give_when_goal', $matches[2] ) )
         {            
             wp_enqueue_style( 'givewhen-one', GW_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
         }
@@ -47,7 +47,7 @@ class AngellEYE_Give_When_Public_Display {
         
         if( !empty($id) ) {
             $post = get_post($id);
-            if(!empty($post->post_type) && $post->post_type == 'give_when' && $post->post_status == 'publish') {
+            if(!empty($post->post_type) && $post->post_type == 'give_when_goals' && $post->post_status == 'publish') {
         ?>
                 <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
                     <div style="display: table; width:100%; height: 100%;">
