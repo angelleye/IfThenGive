@@ -164,11 +164,15 @@ class AngellEYE_Give_When_Post_types {
         //$give_when_notice = get_post_meta($post_ID, 'paypal_wp_button_manager_success_notice', true);                                        
         if (((isset($_POST['publish'])) || isset($_POST['save'])) && ($post->post_type == 'give_when_goals')) {                          
             update_post_meta($post_ID, 'trigger_name',$_POST['trigger_name']);
+            update_post_meta($post_ID, 'trigger_thing',$_POST['trigger_thing']);
             update_post_meta($post_ID, 'trigger_desc',$_POST['trigger_desc']);
             update_post_meta($post_ID, 'image_url',$_POST['image_url']);            
             if($_POST['fixed_radio']=='fixed'){
                 update_post_meta($post_ID, 'amount','fixed');
                 update_post_meta($post_ID, 'fixed_amount_input',$_POST['fixed_amount_input']);
+            }
+            elseif($_POST['fixed_radio']=='manual'){
+                update_post_meta($post_ID, 'amount','manual');
             }
             else{
                 update_post_meta($post_ID, 'amount','select');

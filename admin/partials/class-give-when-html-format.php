@@ -32,9 +32,10 @@ class AngellEYE_Give_When_interface {
         }
         global $post;           
         $trigger_name = !empty(get_post_meta($post->ID,'trigger_name',true)) ? get_post_meta($post->ID,'trigger_name',true) : '';
+        $trigger_thing = !empty(get_post_meta($post->ID,'trigger_thing',true)) ? get_post_meta($post->ID,'trigger_thing',true) : '';
         $trigger_desc = !empty(get_post_meta($post->ID,'trigger_desc',true)) ? get_post_meta($post->ID,'trigger_desc',true) : '';
         $image_url    = !empty(get_post_meta($post->ID,'image_url',true)) ? get_post_meta($post->ID,'image_url',true) : '';        
-        $gw_amount = !empty(get_post_meta($post->ID,'amount',true)) ? get_post_meta($post->ID,'amount',true) : '';
+        $gw_amount = !empty(get_post_meta($post->ID,'amount',true)) ? get_post_meta($post->ID,'amount',true) : '';        
         if($gw_amount == 'fixed'){
             $fixed_amount_check = 'checked';
             $fixed_amount_input_class = "";
@@ -56,6 +57,13 @@ class AngellEYE_Give_When_interface {
             $dynamic_options_class = 'hidden';
         }
         
+         if($gw_amount == 'manual'){
+             $manual_options_check ='checked';
+         }
+         else{
+             $manual_options_check ='';
+         }
+        
         $screen = get_current_screen();
         if($screen->action=='add'){
              $fixed_amount_check = 'checked';
@@ -71,6 +79,10 @@ class AngellEYE_Give_When_interface {
                     <input type="text" name="trigger_name" value="<?php echo $trigger_name?>" class="form-control" autocomplete="off" id="trigger_name" placeholder="Enter Name Here"/>
                 </div>
                 <div class="form-group">
+                    <label for="triggerName" class="control-label">Thing</label>
+                    <input type="text" name="trigger_thing" value="<?php echo $trigger_thing?>" class="form-control" autocomplete="off" id="trigger_name" placeholder="Enter event Here"/>
+                </div>
+                <div class="form-group">
                     <label for="triggerDesc" class="control-label">Goal Description</label>
                     <textarea name="trigger_desc" class="form-control" autocomplete="off" id="trigger_desc" placeholder="Enter Description Here"><?php echo $trigger_desc;?></textarea>
                 </div>
@@ -83,6 +95,8 @@ class AngellEYE_Give_When_interface {
                     <input type="radio" name="fixed_radio" id="fixed_radio" value="fixed" <?php echo $fixed_amount_check; ?>><label class="radio-inline" for="fixed_radio"><strong>Fixed</strong></label>
                      &nbsp;
                      <input type="radio" name="fixed_radio" id="option_radio" value="select" <?php echo $dynamic_options_check; ?>><label class="radio-inline" for="option_radio"><strong>Select</strong></label>
+                     &nbsp;
+                     <input type="radio" name="fixed_radio" id="manual_radio" value="manual" <?php echo $manual_options_check; ?>><label class="radio-inline" for="manual_radio"><strong>Allow User to Manually Add</strong></label>
                 </div>                
                 
                 <div class="form-group <?php echo $fixed_amount_input_class; ?>" id="fixed_amount_input_div">

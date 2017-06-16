@@ -9,6 +9,9 @@
                 if($('#give_when_fixed_price_span_select').length){
                     amount = $('#give_when_fixed_price_span_select').html();
                 }
+                if($('#give_when_manual_price_span').length){
+                    amount = $('#give_when_manual_price_span').html();
+                }
                 
                 $.ajax({
                     type: 'POST',
@@ -41,5 +44,10 @@
             $(document).on('change','#give_when_option_amount', function (){                
                 jQuery('#give_when_fixed_price_span_select').html('').html($(this).val());
             });
+            
+            $(document).on('keyup','#gw_manual_amount_input', function (){
+                jQuery('#give_when_manual_price_span').html('').html($(this).val());
+            });
+            
         });
 })( jQuery );

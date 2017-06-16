@@ -73,9 +73,20 @@ class AngellEYE_Give_When_Public_Display {
                                 if($amount == 'fixed'){
                                     $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);
                                     ?>
-                                <p class="lead">I will Give : $ <span id="give_when_fixed_price_span"><?php echo $fixed_amount; ?></span> When <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></p>
+                                <p class="lead">I will Give : $ <span id="give_when_fixed_price_span"><?php echo $fixed_amount; ?></span> When <?php echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
                                 <?php    
-                                } else{
+                                }
+                                elseif($amount == 'manual'){
+                                    ?>
+                                <p class="lead">I will Give : $ <span id="give_when_manual_price_span">50</span> When <?php echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
+                                <div class="form-group">
+                                     <label for="manualamout" class="control-label">Enter Amount</label>
+                                    <input type="text" name="gw_manual_amount_input" value="50" class="form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
+                                </div>
+                                    
+                                    <?php
+                                }
+                                else{
                                     $option_name = get_post_meta($post->ID,'option_name',true);
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);
                                     $i=0;
@@ -120,7 +131,7 @@ class AngellEYE_Give_When_Public_Display {
                     </div>
                     <div class="row">
                          <div class="col-md-12">                             
-<!--                             <img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypalcheckout-44px.png" alt="PayPal Checkout" style="cursor: pointer" id="give_when_angelleye_checkout" data-postid="<?php echo $id; ?>">-->
+                             <!--<img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypalcheckout-44px.png" alt="PayPal Checkout" style="cursor: pointer" id="give_when_angelleye_checkout" data-postid="<?php echo $id; ?>">-->
                         </div>
                     </div>                    
                 </div>
@@ -132,6 +143,8 @@ class AngellEYE_Give_When_Public_Display {
     public function start_express_checkout(){
         $post_id = $_POST['post_id'];
         $amount = $_POST['amount'];
+        echo $amount;
+        exit;
         $post = get_post($post_id);
         $trigger_name = get_post_meta( $post->ID, 'trigger_name', true );
         
