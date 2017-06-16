@@ -137,8 +137,11 @@ class Givewhen_Admin {
         /*The class responsible for defining all actions that occur in the Dashboard for Give When Goals. */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types.php';
         
-        /* The class responsible for defining function for display general setting tab */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-general-setting.php';
+        /* The class responsible for defining give_when_billing_agrremment custom post types. */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types-sign-up.php';
+        
+        /* The class responsible for defining give_when_billing_agrremment custom post types. */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types-transactions.php';
         
         /* The class responsible for defining all actions that occur in the Dashboard */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/givewhen-admin-display.php';

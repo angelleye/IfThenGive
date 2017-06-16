@@ -222,7 +222,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
      * @access   public
      */
     public function request_permission() {
-        
+                        
         $paypal_helper_object = new Give_When_PayPal_Helper();
         
         $PayPal = new Adaptive($paypal_helper_object->get_configuration());

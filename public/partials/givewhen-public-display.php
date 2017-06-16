@@ -49,10 +49,10 @@ class AngellEYE_Give_When_Public_Display {
             $post = get_post($id);
             if(!empty($post->post_type) && $post->post_type == 'give_when_goals' && $post->post_status == 'publish') {
         ?>
-                <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
+                <div id="overlay" style=" background: #f6f6f6;opacity: 0.8;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
                     <div style="display: table; width:100%; height: 100%;">
                         <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>admin/images/loading.gif"  style=" position: relative;top: 50%; height: 100px"/>
-                        <h1>Please dont't go back , We are redirecting you to PayPal</h1></div>
+                            <h1 style="font-weight: 600;">Please dont't go back , We are redirecting you to PayPal</h1></div>
                     </div>            
                 </div>
                 <div class="give_when_container">
@@ -94,7 +94,7 @@ class AngellEYE_Give_When_Public_Display {
                             <?php } ?>
                         </div>                       
                     </div>
-<!--                    <div class="row">
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="panel panel-info">
                                 <div class="panel-heading"> Sign up for <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></div>
@@ -108,18 +108,19 @@ class AngellEYE_Give_When_Public_Display {
                                           <label for="email">Email address:</label>
                                           <input type="email" class="form-control" id="give_when_email">
                                         </div>
+                                        
                                         <div class="checkbox">
                                           <label><input type="checkbox"> I accept billing agreement</label>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Sign Up and Checkout With PayPal</button>
+                                        <button type="button" class="btn btn-primary">Sign Up For <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></button>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                     <div class="row">
-                         <div class="col-md-12">
-                             <img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypalcheckout-44px.png" alt="PayPal Checkout" style="cursor: pointer" id="give_when_angelleye_checkout" data-postid="<?php echo $id; ?>">
+                         <div class="col-md-12">                             
+<!--                             <img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypalcheckout-44px.png" alt="PayPal Checkout" style="cursor: pointer" id="give_when_angelleye_checkout" data-postid="<?php echo $id; ?>">-->
                         </div>
                     </div>                    
                 </div>
