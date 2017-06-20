@@ -105,35 +105,49 @@ class AngellEYE_Give_When_Public_Display {
                             <?php } ?>
                         </div>                       
                     </div>
-                    <div class="row">
+                    
+                    <?php if ( is_user_logged_in() ) { 
+                              $current_user = wp_get_current_user();
+                    ?>
+                    <div class="row" id="give_when_checkoutbtn">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="<?php echo $post->ID; ?>" data-userid="<?php echo $current_user->ID; ?>" >Sign Up For <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></button>
+                        </div>
+                    </div>   
+                    <?php }  else { ?>
+                     <div class="row" id="give_when_signup_form">
                         <div class="col-md-12">
                             <div class="panel panel-info">
                                 <div class="panel-heading"> Sign up for <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></div>
                                 <div class="panel-body">
-                                    <form>
+                                    <form method="post" name="signup" id="give_when_signup">
                                         <div class="form-group">
-                                          <label for="name">Name</label>
-                                          <input type="text" class="form-control" id="give_when_name">
+                                          <label for="name">First Name</label>
+                                          <input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" required="required">
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="name">Last Name</label>
+                                          <input type="text" class="form-control" name="give_when_lastname" id="give_when_lastname" required="required">
                                         </div>
                                         <div class="form-group">
                                           <label for="email">Email address:</label>
-                                          <input type="email" class="form-control" id="give_when_email">
+                                          <input type="email" class="form-control" name="give_when_email" id="give_when_email" required="required">
                                         </div>
-                                        
-                                        <div class="checkbox">
-                                          <label><input type="checkbox"> I accept billing agreement</label>
+                                        <div class="form-group">
+                                          <label for="password">Password:</label>
+                                          <input type="password" class="form-control" name="give_when_password" id="give_when_password" required="required">
                                         </div>
-                                        <button type="button" class="btn btn-primary">Sign Up For <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></button>
+                                        <div class="form-group">
+                                          <label for="password">Re-type Password:</label>
+                                          <input type="password" class="form-control" name="give_when_retype_password" id="give_when_retype_password" required="required">
+                                        </div>
+                                        <button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="<?php echo $post->ID; ?>" data-userid="">Sign Up For <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></button>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                         <div class="col-md-12">                             
-                             <!--<img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypalcheckout-44px.png" alt="PayPal Checkout" style="cursor: pointer" id="give_when_angelleye_checkout" data-postid="<?php echo $id; ?>">-->
-                        </div>
                     </div>                    
+                    <?php } ?> 
                 </div>
             <?php
             }
@@ -141,20 +155,56 @@ class AngellEYE_Give_When_Public_Display {
     }
     
     public function start_express_checkout(){
+        
         $post_id = $_POST['post_id'];
-        $amount = $_POST['amount'];
-        echo $amount;
-        exit;
+        $amount = $_POST['amount'];        
         $post = get_post($post_id);
+        
+        if(!empty($_POST['formData'])){
+            $gwuser = array();
+            parse_str($_POST['formData'], $gwuser);
+            $role = get_role( 'giver' );
+            if($role==NULL){
+                add_role('giver','Giver');
+            }
+            $userdata=array(
+                'user_pass' => md5($gwuser['give_when_password']),
+                'user_login' => sanitize_text_field($gwuser['give_when_email']),
+                'user_email' => sanitize_text_field($gwuser['give_when_email']),
+                'display_name' => $gwuser['give_when_firstname'].' '.$gwuser['give_when_lastname'],
+                'first_name' => $gwuser['give_when_firstname'],
+                'last_name' => $gwuser['give_when_lastname'],
+                'role' => 'giver'
+            );
+            $user_exist = email_exists($gwuser['give_when_email']);
+            if($user_exist){
+                $userdata['ID'] = $user_exist;
+            }                    
+            $user_id = wp_insert_user($userdata);
+            if( is_wp_error( $user_id ) ) {
+                $error = 'Error on user creation: ' . $user_id->get_error_message();
+                echo json_encode(array('Ack'=>'Failure','ErrorCode'=>'WP Error','ErrorShort'=>'Error on user creation:','ErrorLong'=>$error));
+                exit;
+            }
+            else{
+                $current_user = get_user_by( 'id', $user_id );
+                wp_set_auth_cookie( $user_id, true );
+            }
+        }
+        else{
+            $user_id = $_POST['login_user_id'];
+        }        
+        
         $trigger_name = get_post_meta( $post->ID, 'trigger_name', true );
         
-        $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
+        //set APISUBJECT For ThirdPArty Payment
+        $paypal_account_id = get_option('give_when_permission_connected_person_payerID');                
         $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal_config->set_api_subject($paypal_account_id);
         
         $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());
         $SECFields = array(
-                'maxamt' => '1000',
+                'maxamt' => round($amount * 2,2),
                 'returnurl' => site_url('?action=ec_return'),
                 'cancelurl' => site_url('?action=ec_cancel'),
                 'hdrimg' => 'https://www.angelleye.com/images/angelleye-paypal-header-750x90.jpg',
@@ -166,7 +216,7 @@ class AngellEYE_Give_When_Public_Display {
         $Payment = array(
             'amt' => 0,
             'PAYMENTACTION' => 'AUTHORIZATION',
-            'custom' => 'amount_'.$amount.'|post_id_'.$post_id
+            'custom' => 'amount_'.$amount.'|post_id_'.$post_id.'|user_id_'.$user_id
         );
         array_push($Payments, $Payment);
         

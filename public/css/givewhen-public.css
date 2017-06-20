@@ -26,3 +26,7 @@
   display: table;
   content: " ";
 }
+
+.form-control{
+    padding: 6px 12px !important;
+}

@@ -9,72 +9,49 @@
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_Post_type_Billing_Agreement {
+class AngellEYE_Give_When_Post_type_Sign_Up {
     /**
      * Hook in methods
      * @since    0.1.0
      * @access   static
      */
     public static function init() {      
-        add_action('init', array(__CLASS__, 'give_when_register_post_type_billing_agreement'), 5);
-        add_filter('manage_edit-give_when_paypal_ba_columns', array(__CLASS__, 'give_when_edit_give_when_paypal_ba_columns'));
-        add_action('manage_give_when_paypal_ba_posts_custom_column', array(__CLASS__, 'give_when_ba_columns'), 10, 2);
-        //add_action('add_meta_boxes', array(__CLASS__, 'give_when_add_meta_boxes'), 10);
-        //add_action('save_post', array(__CLASS__, 'give_when_save_data'));                        
-    }
-
-        /**
-     * give_when_edit_give_when_columns function
-     * is use for register button shortcode column.
-     * @param type $columns returns attribute for custom column.
-     * @since 1.0.0
-     * @access public
-     */
-    public static function give_when_edit_give_when_paypal_ba_columns($columns) {
-
-        $columns = array(
-            'cb' => '<input type="checkbox" />',
-            'title' => __('Billing Agreement ID'),
-            'giver' => __('Giver Name'),
-            'email' => __('email'),
-            'amount' => __('Amount'),
-            'paypal_payer' => __('PayPal Payer ID')
-        );
-
-        return $columns;
+        add_action('init', array(__CLASS__, 'give_when_register_post_type_sign_up'), 5);
+        add_filter('manage_edit-give_when_sign_up_columns', array(__CLASS__, 'give_when_edit_give_when_sign_up_columns'));
+        add_action('manage_give_when_sign_up_posts_custom_column', array(__CLASS__, 'give_when_sign_up_columns'), 10, 2);
     }
     
     /**
-     * give_when_register_post_type_billing_agreement function is user for register custom post type
+     * give_when_register_post_type_sign_up function is user for register custom post type
      * @since    0.1.0
      * @access   public
      */
-    public static function give_when_register_post_type_billing_agreement() {
+    public static function give_when_register_post_type_sign_up() {
         global $wpdb;
-        if (post_type_exists('give_when_paypal_ba')) {
+        if (post_type_exists('give_when_sign_up')) {
             return;
         }
 
-        do_action('give_when_register_post_type_billing_agreement');
+        do_action('give_when_register_post_type_sign_up');
 
-        register_post_type('give_when_paypal_ba', apply_filters('give_when_register_post_type_billing_agreement', array(
+        register_post_type('give_when_sign_up', apply_filters('give_when_register_post_type_sign_up', array(
                     'labels' => array(
-                        'name' => __('Give When Billing Agreements', 'angelleye_give_when'),
-                        'singular_name' => __('Give When Billing Agreements', 'angelleye_give_when'),
-                        'menu_name' => _x('Give When Billing Agreements', 'Admin menu name', 'angelleye_give_when'),
-                        'add_new' => __('Add Billing Agreements', 'angelleye_give_when'),
-                        'add_new_item' => __('Add New Billing Agreements', 'angelleye_give_when'),
+                        'name' => __('Give When Sign up', 'angelleye_give_when'),
+                        'singular_name' => __('Give When Sign up', 'angelleye_give_when'),
+                        'menu_name' => _x('Give When Sign up', 'Admin menu name', 'angelleye_give_when'),
+                        'add_new' => __('Add Give When Sign up', 'angelleye_give_when'),
+                        'add_new_item' => __('Add New Give When Sign up', 'angelleye_give_when'),
                         'edit' => __('Edit', 'angelleye_give_when'),
-                        'edit_item' => __('View Billing Agreements', 'angelleye_give_when'),
-                        'new_item' => __('New Billing Agreements', 'angelleye_give_when'),
-                        'view' => __('View Billing Agreements', 'angelleye_give_when'),
-                        'view_item' => __('View Billing Agreements', 'angelleye_give_when'),
-                        'search_items' => __('Search Billing Agreements', 'angelleye_give_when'),
-                        'not_found' => __('No Goal found', 'angelleye_give_when'),
-                        'not_found_in_trash' => __('No Goal found in trash', 'angelleye_give_when'),
-                        'parent' => __('Parent Goal', 'angelleye_give_when')
+                        'edit_item' => __('View Give When Sign up', 'angelleye_give_when'),
+                        'new_item' => __('New Give When Sign up', 'angelleye_give_when'),
+                        'view' => __('View Give When Sign up', 'angelleye_give_when'),
+                        'view_item' => __('View Give When Sign up', 'angelleye_give_when'),
+                        'search_items' => __('Search Give When Sign up', 'angelleye_give_when'),
+                        'not_found' => __('No users found', 'angelleye_give_when'),
+                        'not_found_in_trash' => __('No users found in trash', 'angelleye_give_when'),
+                        'parent' => __('Parent Give When Sign up', 'angelleye_give_when')
                     ),
-                    'description' => __('This is where you can create new Goal.', 'angelleye_give_when'),
+                    'description' => __('This is where you can create new Give When Sign up.', 'angelleye_give_when'),
                     'public' => false,
                     'show_ui' => true,
                     'capability_type' => 'post',
@@ -82,7 +59,7 @@ class AngellEYE_Give_When_Post_type_Billing_Agreement {
                     'publicly_queryable' => false,
                     'exclude_from_search' => true,
                     'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
-                    'rewrite' => array('slug' => 'give_when_paypal_ba'),
+                    'rewrite' => array('slug' => 'give_when_sign_up'),
                     'query_var' => true,
                     'menu_icon' => 'dashicons-editor-table',
                     'supports' => array('title'),
@@ -93,8 +70,28 @@ class AngellEYE_Give_When_Post_type_Billing_Agreement {
         );
     }
     
-        /**
-     * give_when_ba_columns function is use
+     /**
+      * give_when_edit_give_when_columns function
+      * display relationships of Goal and Givers.
+      * @param type $columns returns attribute for custom column.
+      * @since 1.0.0
+      * @access public
+      */
+     public static function give_when_edit_give_when_sign_up_columns($columns) {
+ 
+         $columns = array(
+             'cb' => '<input type="checkbox" />',
+             'goal_name' => __('Goal Name'),
+             'billagreement' => __('Billing Agreement ID'),
+             'user' => __('User'),
+             'amount' => __('Amount'),
+             'paypal_payer' => __('PayPal Payer ID'),
+         ); 
+        return $columns;
+     }
+     
+     /**
+     * give_when_buttons_columns function is use
      * for write content in custom registered column.
      * @global type $post returns the post variable values.
      * @param type $column Column name in which we want to write content.
@@ -103,68 +100,36 @@ class AngellEYE_Give_When_Post_type_Billing_Agreement {
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_ba_columns($column, $post_id) {
+    public static function give_when_sign_up_columns($column, $post_id) {
         global $post;
-        switch ($column) {
-            case 'email' :
-                $email = get_post_meta($post_id, 'give_when_gec_email',true);
-                if(!empty($email)){
-                    echo $email;
-                }
-                else{
-                    echo '-';
-                }
-                break;
-            case 'giver' :
-                $fname = get_post_meta($post_id, 'give_when_gec_first_name',true);
-                $lname = get_post_meta($post_id, 'give_when_gec_last_name',true);
-                if(!empty($fname) || !empty($lname)){
-                    echo $fname.' '.$lname;
-                }
-                else{
-                    echo '-';
-                }
-                break;
-            case 'amount' :
-                $amount = get_post_meta($post_id, 'give_when_gec_amount',true);
-                echo !empty($amount) ? number_format($amount,2) : '-';
-                break;  
-            case 'paypal_payer':
-                $pp_payer = get_post_meta($post_id, 'give_when_gec_payer_id',true);
-                echo !empty($pp_payer) ? $pp_payer : '-';
-                break;
-        }
-    }
-    
-    /**
-     * give_when_save_data is use for display    
-     * @global type $post returns the post variable values.
-     * @global type $post_ID returns the post id of a post.
-     * @since 1.0.0
-     * @access public
-     */
-    public static function give_when_save_data() {
-
-        global $post, $post_ID, $wpdb;       
-        //$give_when_notice = get_post_meta($post_ID, 'paypal_wp_button_manager_success_notice', true);                                        
-        if (((isset($_POST['publish'])) || isset($_POST['save'])) && ($post->post_type == 'give_when_goals')) {                          
-            update_post_meta($post_ID, 'trigger_name',$_POST['trigger_name']);
-            update_post_meta($post_ID, 'trigger_desc',$_POST['trigger_desc']);
-            update_post_meta($post_ID, 'image_url',$_POST['image_url']);            
-            if($_POST['fixed_radio']=='fixed'){
-                update_post_meta($post_ID, 'amount','fixed');
-                update_post_meta($post_ID, 'fixed_amount_input',$_POST['fixed_amount_input']);
-            }
-            else{
-                update_post_meta($post_ID, 'amount','select');
-                update_post_meta($post_ID, 'option_name',$_POST['option_name']);
-                update_post_meta($post_ID, 'option_amount',$_POST['option_amount']);
-            }
-        }
+        $amount_meta = get_post_meta($post_id,'give_when_signup_amount',true);
+        $wp_user_id_meta = get_post_meta($post_id,'give_when_signup_wp_user_id',true);
+        $wp_goal_id_meta = get_post_meta($post_id,'give_when_signup_wp_goal_id',true);
         
-    }
-    
-    
+        $goal_name = get_post_meta($wp_goal_id_meta,'trigger_name',true);
+        
+        $user = get_userdata( $wp_user_id_meta );        
+        $billing_agreement_id = get_user_meta($wp_user_id_meta,'give_when_gec_billing_agreement_id',true);
+        $paypal_payer_id = get_user_meta($wp_user_id_meta,'give_when_gec_payer_id',true);
+        
+        switch ($column) {
+            case 'goal_name' :
+                  echo isset($goal_name) ? $goal_name : '-';
+                break;
+            case 'billagreement' :
+                  echo isset($billing_agreement_id) ? $billing_agreement_id : '';  
+                break;
+            case 'user' :
+                echo isset($user->user_login) ? $user->user_login : '';
+                break;            
+            case 'amount' :
+                echo isset($amount_meta) ? '$'.$amount_meta : '';
+                break;
+            case 'paypal_payer' :
+                echo isset($paypal_payer_id) ? $paypal_payer_id : '';
+                break;
+        }
+    }     
 }
 
-//AngellEYE_Give_When_Post_type_Billing_Agreement::init();
+AngellEYE_Give_When_Post_type_sign_up::init();

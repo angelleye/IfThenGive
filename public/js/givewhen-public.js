@@ -1,8 +1,10 @@
 (function( $ ) {
 	'use strict';
         jQuery(document).ready(function ($) {
-            $(document).on('click','#give_when_angelleye_checkout',function(){
+            $(document).on('click','#give_when_angelleye_checkout',function(){                
                 var amount='';
+                var formData = '';
+                var user_id = '';
                 if ($('#give_when_fixed_price_span').length) {
                     amount = $('#give_when_fixed_price_span').html();
                 }
@@ -11,6 +13,13 @@
                 }
                 if($('#give_when_manual_price_span').length){
                     amount = $('#give_when_manual_price_span').html();
+                }                
+                
+                if($(this).attr('data-userid')===''){
+                   formData = $("#give_when_signup").serialize();
+                }
+                else{                    
+                     user_id = $(this).attr('data-userid');
                 }
                 
                 $.ajax({
@@ -19,13 +28,18 @@
                      data: { 
                         action: 'start_express_checkout',
                         post_id : $(this).attr('data-postid'),
-                        amount : amount
+                        amount : amount,
+                        formData: formData,
+                        login_user_id : user_id
                     },
                     dataType: "json",
                     beforeSend: function () {
                         $('#overlay').show();
                     },                
                     success: function (result) {
+                      //$('#overlay').hide();
+                      //$('#give_when_signup_form').hide();
+                      $('#give_when_checkoutbtn').show();
                        if(result.Ack == 'Success'){
                            window.location.href = result.RedirectURL;
                        }
