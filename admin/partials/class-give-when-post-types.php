@@ -187,7 +187,7 @@ class AngellEYE_Give_When_Post_types {
         //check for your post type
         if ($post->post_type == "give_when_goals") {                       
             $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">View</a>';
-            $actions['users'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=give_when_paypal_ba">Givers</a>';
+            $actions['users'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=give_when_sign_up&goal='.$post->ID.'">Givers</a>';
             $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=gw_transactions">Transactions</a>';
         }
         return $actions;

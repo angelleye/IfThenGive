@@ -143,7 +143,12 @@ class Givewhen {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-givewhen-public.php';
-
+                /**
+                 * Included for inherit wordpress table style.
+                **/
+                require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+                
+                
 		$this->loader = new Givewhen_Loader();
 
 	}
