@@ -168,6 +168,9 @@ class AngellEYE_Give_When_Post_types {
         elseif($action_request==='DoTransactions'){
             do_action('give_when_do_transactions_interface');
         }
+        elseif ($action_request==='ListTransactions') {
+            do_action('give_when_list_transactions_interface');
+        }
         else{
             do_action('give_when_interface');
         }        
@@ -210,7 +213,7 @@ class AngellEYE_Give_When_Post_types {
         if ($post->post_type == "give_when_goals") {           
             $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">View</a>';
             $actions['givers'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=givers">Givers</a>';
-            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/post.php?post_type=gw_transactions">Transactions</a>';
+            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=ListTransactions">Transactions</a>';
         }
         return $actions;
     }

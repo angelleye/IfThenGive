@@ -19,6 +19,7 @@ class AngellEYE_Give_When_interface {
         add_action('give_when_shortcode_interface',array(__CLASS__, 'give_when_shortcode_interface_html'));
         add_action('give_when_givers_interface',array(__CLASS__, 'give_when_givers_interface_html'));
         add_action('give_when_do_transactions_interface',array(__CLASS__, 'give_when_do_transactions_interface_html'));
+        add_action('give_when_list_transactions_interface',array(__CLASS__, 'give_when_list_transactions_interface_html'));
     }
     
     /**
@@ -295,6 +296,30 @@ class AngellEYE_Give_When_interface {
         echo '<div class="alert alert-success">
                 <p>You have successfully Captured All Transactions.</p>
              </div>';
+    }
+    
+    public static function give_when_list_transactions_interface_html(){
+        global $post, $post_ID;
+        ?>
+        <div class="give_when_container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3 class="text-info">Transactions</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form method="post">
+                    <?php                        
+                        $table = new AngellEYE_Give_When_Transactions_Table();
+                        $table->prepare_items();
+                        $table->display();
+                    ?>
+                    </form>
+                </div>                
+            </div>
+        </div>        
+        <?php
     }
 }
 AngellEYE_Give_When_interface::init();

@@ -152,6 +152,7 @@ class Givewhen_Admin {
 	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-connet_paypal.php';
         /*Custom class table */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-giver.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-list_transactions.php';
     }
     
     /**
