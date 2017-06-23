@@ -21,14 +21,13 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
      * use the parent reference to set some default configs.
      * ************************************************************************* */
     public function __construct() {
+        
+        parent::__construct( [
+                'singular' => __( 'Giver', 'sp' ), //singular name of the listed records
+                'plural'   => __( 'Givers', 'sp' ), //plural name of the listed records
+                'ajax'     => false //should this table support ajax?
 
-            parent::__construct( [
-                    'singular' => __( 'Customer', 'sp' ), //singular name of the listed records
-                    'plural'   => __( 'Customers', 'sp' ), //plural name of the listed records
-                    'ajax'     => false //should this table support ajax?
-
-            ] );
-
+        ] );
     }
     
     /**
@@ -65,8 +64,9 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         $sign_up_meta = get_post_meta($value['post_id']);                          
         /* From Sign up data we will get user id and get user's details */
         $result_users = get_user_meta($sign_up_meta['give_when_signup_wp_user_id'][0]);
-                
+        $wpuser = get_userdata($sign_up_meta['give_when_signup_wp_user_id'][0]);        
         $user_meta[$i]['user_id'] = $sign_up_meta['give_when_signup_wp_user_id'][0];
+        $user_meta[$i]['user_display_name'] = $wpuser->data->display_name;
         $user_meta[$i]['nickname'] = $result_users['nickname'][0];
         $user_meta[$i]['first_name'] = $result_users['first_name'][0];
         $user_meta[$i]['last_name'] = $result_users['last_name'][0];
@@ -126,7 +126,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     
     /** Text displayed when no customer data is available */
     public function no_items() {
-      _e( 'No customers avaliable.', 'sp' );
+      _e( 'No Givers avaliable.', 'sp' );
     }
     
     /**
@@ -137,17 +137,17 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     * @return string
     */
     public function column_name( $item ) {
-
-      // create a nonce
-      $delete_nonce = wp_create_nonce( 'sp_delete_customer' );
-
-      $title = '<strong>' . $item['name'] . '</strong>';
-
-      $actions = [
-        'delete' => sprintf( '<a href="#">Delete</a>')
-      ];
-
-      return $title . $this->row_actions( $actions );
+//
+//      // create a nonce
+//      $delete_nonce = wp_create_nonce( 'sp_delete_customer' );
+//
+//      $title = '<strong>' . $item['name'] . '</strong>';
+//
+//      $actions = [
+//        'delete' => sprintf( '<a href="#">Delete</a>')
+//      ];
+//
+//      return $title . $this->row_actions( $actions );
     }
     
     /**
@@ -158,7 +158,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     *
     * @return mixed
     */
-    public function column_default( $item, $column_name ) {        
+    public function column_default( $item, $column_name ) {
       switch ( $column_name ) {
         case 'billagreement':
             echo $item['give_when_gec_billing_agreement_id'];
@@ -171,6 +171,9 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
             break;
         case 'paypal_payer' :
             echo $item['give_when_gec_payer_id'];
+            break;
+        case 'givername' :
+            echo $item['user_display_name'];
             break;
       }
     }
@@ -198,10 +201,11 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     public function get_columns() {
       $columns = [
         'cb'           => '<input type="checkbox" />',
-        'billagreement'=> __( 'Billing Agreement ID', 'sp' ),
-        'user'         => __( 'Givers', 'sp' ),
-        'amount'       => __( 'Amount', 'sp' ),
-        'paypal_payer' => __('PayPal Payer ID','sp')
+        'billagreement'=> __( 'Billing Agreement ID', 'angelleye_give_when' ),
+        'givername'    => __( 'Name', 'angelleye_give_when' ),
+        'user'         => __( 'Givers', 'angelleye_give_when' ),
+        'amount'       => __( 'Amount', 'angelleye_give_when' ),
+        'paypal_payer' => __('PayPal Payer ID','angelleye_give_when')
       ];
 
       return $columns;
@@ -214,8 +218,9 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     */
     public function get_sortable_columns() {
       $sortable_columns = array(
-        'name' => array( 'name', true ),
-        'city' => array( 'city', false )
+        'billagreement' => array( 'billagreement', true ),
+        'user' => array( 'user', true ),        
+        'givername' =>  array( 'givername', true ),
       );
 
       return $sortable_columns;

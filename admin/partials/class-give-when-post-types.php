@@ -22,9 +22,25 @@ class AngellEYE_Give_When_Post_types {
         add_filter('manage_edit-give_when_goals_columns', array(__CLASS__, 'give_when_edit_give_when_columns'));
         add_action('manage_give_when_goals_posts_custom_column', array(__CLASS__, 'give_when_buttons_columns'), 10, 2);
         /* custom **/
-        add_filter('post_row_actions',array(__CLASS__, 'my_action_row'), 10, 2);
+        add_filter('post_row_actions',array(__CLASS__, 'my_action_row'), 10, 2);        
+        //add_action( 'admin_head', array( __CLASS__, 'admin_header' ) );
     }
 
+    
+//    public static function admin_header() {   
+//        $page = ( isset($_GET['view'] ) ) ? esc_attr( $_GET['view'] ) : false;
+//        if( 'givers' != $page )
+//          return; 
+//
+//        echo '<style type="text/css">';
+//        echo '';
+//        echo '.wp-list-table .column-id { width: 5%; }';
+//        echo '.wp-list-table .column-booktitle { width: 40%; }';
+//        echo '.wp-list-table .column-author { width: 35%; }';
+//        echo '.wp-list-table .column-isbn { width: 20%; }';
+//        echo '</style>';
+//    }
+    
     /**
      * give_when_register_post_types function is user for register custom post type
      * @since    0.1.0
@@ -129,7 +145,7 @@ class AngellEYE_Give_When_Post_types {
      * @access public
      */
     public static function give_when_add_meta_boxes() {
-        add_meta_box('give-when-meta-id', __('Goal Generator'), array(__CLASS__, 'give_when_metabox'), 'give_when_goals', 'normal', 'high');
+        add_meta_box('give-when-meta-id', __('Give When Goal'), array(__CLASS__, 'give_when_metabox'), 'give_when_goals', 'normal', 'high');
     }
     
      /**
@@ -141,11 +157,14 @@ class AngellEYE_Give_When_Post_types {
      * @access public
      */
     
-    public static function give_when_metabox() {
-        $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';    
+    public static function give_when_metabox() {      
+        $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';        
         if ($action_request=='true') {
             do_action('give_when_shortcode_interface');
-        }        
+        }
+        elseif($action_request=='givers'){
+            do_action('give_when_givers_interface');
+        }
         else{
             do_action('give_when_interface');
         }        
@@ -185,10 +204,10 @@ class AngellEYE_Give_When_Post_types {
 
     public static function my_action_row($actions, $post){
         //check for your post type
-        if ($post->post_type == "give_when_goals") {                       
+        if ($post->post_type == "give_when_goals") {           
             $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">View</a>';
-            $actions['users'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=give_when_sign_up&goal='.$post->ID.'">Givers</a>';
-            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=gw_transactions">Transactions</a>';
+            $actions['givers'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=givers">Givers</a>';
+            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/post.php?post_type=gw_transactions">Transactions</a>';
         }
         return $actions;
     }

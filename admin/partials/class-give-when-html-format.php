@@ -17,6 +17,7 @@ class AngellEYE_Give_When_interface {
     public static function init() {        
         add_action('give_when_interface', array(__CLASS__, 'give_when_interface_html'));
         add_action('give_when_shortcode_interface',array(__CLASS__, 'give_when_shortcode_interface_html'));
+        add_action('give_when_givers_interface',array(__CLASS__, 'give_when_givers_interface_html'));
     }
     
     /**
@@ -26,10 +27,7 @@ class AngellEYE_Give_When_interface {
      * @access public
      */
     public static function give_when_interface_html() {    
-        $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';    
-        if ($action_request=='true') {
-            
-        }
+        $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';
         global $post;           
         $trigger_name = !empty(get_post_meta($post->ID,'trigger_name',true)) ? get_post_meta($post->ID,'trigger_name',true) : '';
         $trigger_thing = !empty(get_post_meta($post->ID,'trigger_thing',true)) ? get_post_meta($post->ID,'trigger_thing',true) : '';
@@ -198,28 +196,7 @@ class AngellEYE_Give_When_interface {
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="wrap">
-		<h2></h2>
-
-		<div id="poststuff">
-			<div id="post-body" class="metabox-holder">
-				<div id="post-body-content">
-					<div class="meta-box-sortables ui-sortable">
-						<form method="post">
-							<?php 
-                                                            $table = new AngellEYE_Give_When_Givers_Table();
-                                                            $table->prepare_items();
-                                                            $table->display();                                                            
-                                                        ?>
-						</form>
-					</div>
-				</div>
-			</div>
-			<br class="clear">
-		</div>
-	</div>
-        
+        </div>        
         <script type="text/javascript">
             jQuery('[data-toggle="tooltip"]').tooltip();
 
@@ -238,6 +215,30 @@ class AngellEYE_Give_When_interface {
             });*/
         </script>
     <?php
+    }
+    
+    public static function give_when_givers_interface_html(){
+        global $post, $post_ID;
+        ?>
+        <div class="give_when_container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <a class="btn btn-primary btn-lg" id="give_when_fun">Fun</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form method="post">
+                    <?php
+                        $table = new AngellEYE_Give_When_Givers_Table();
+                        $table->prepare_items();
+                        $table->display();
+                    ?>
+                    </form>
+                </div>                
+            </div>
+        </div>        
+        <?php
     }
 }
 AngellEYE_Give_When_interface::init();
