@@ -16,9 +16,7 @@ class AngellEYE_Give_When_Post_type_Transactions {
      * @access   static
      */
     public static function init() {      
-        add_action('init', array(__CLASS__, 'give_when_register_post_type_transactions'), 5);
-        //add_action('add_meta_boxes', array(__CLASS__, 'give_when_add_meta_boxes'), 10);
-        //add_action('save_post', array(__CLASS__, 'give_when_save_data'));                        
+        add_action('init', array(__CLASS__, 'give_when_register_post_type_transactions'), 5);                          
     }
 
     /**
@@ -28,7 +26,7 @@ class AngellEYE_Give_When_Post_type_Transactions {
      */
     public static function give_when_register_post_type_transactions() {
         global $wpdb;
-        if (post_type_exists('give_when_transactions')) {
+        if (post_type_exists('gw_transactions')) {
             return;
         }
 
@@ -68,37 +66,7 @@ class AngellEYE_Give_When_Post_type_Transactions {
                         )
                 )
         );
-    }
-    
-    /**
-     * give_when_save_data is use for display    
-     * @global type $post returns the post variable values.
-     * @global type $post_ID returns the post id of a post.
-     * @since 1.0.0
-     * @access public
-     */
-    public static function give_when_save_data() {
-
-        global $post, $post_ID, $wpdb;       
-        //$give_when_notice = get_post_meta($post_ID, 'paypal_wp_button_manager_success_notice', true);                                        
-        if (((isset($_POST['publish'])) || isset($_POST['save'])) && ($post->post_type == 'give_when_goals')) {                          
-            update_post_meta($post_ID, 'trigger_name',$_POST['trigger_name']);
-            update_post_meta($post_ID, 'trigger_desc',$_POST['trigger_desc']);
-            update_post_meta($post_ID, 'image_url',$_POST['image_url']);            
-            if($_POST['fixed_radio']=='fixed'){
-                update_post_meta($post_ID, 'amount','fixed');
-                update_post_meta($post_ID, 'fixed_amount_input',$_POST['fixed_amount_input']);
-            }
-            else{
-                update_post_meta($post_ID, 'amount','select');
-                update_post_meta($post_ID, 'option_name',$_POST['option_name']);
-                update_post_meta($post_ID, 'option_amount',$_POST['option_amount']);
-            }
-        }
-        
-    }
-    
-    
+    }    
 }
 
 AngellEYE_Give_When_Post_type_Transactions::init();

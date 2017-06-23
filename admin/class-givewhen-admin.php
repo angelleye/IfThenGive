@@ -130,7 +130,7 @@ class Givewhen_Admin {
 		'shortcodes_button' => $shortcodes_values
 		)));
                 wp_localize_script($this->plugin_name, 'admin_ajax_url', admin_url('admin-ajax.php'));
-
+                                
 	}
         
     private function load_dependencies() {

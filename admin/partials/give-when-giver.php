@@ -41,14 +41,14 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     }
     
     /**
-     * Retrieve customer’s data from the database
+     * Retrieve givers’s data from the database
      *
      * @param int $per_page
      * @param int $page_number
      *
      * @return mixed
      */
-    public static function get_customers( $per_page = 5, $page_number = 1 ) {
+    public static function get_givers( $per_page = 5, $page_number = 1 ) {
 
       global $wpdb;  
       
@@ -124,7 +124,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
       //return $wpdb->get_var( $sql );
     }
     
-    /** Text displayed when no customer data is available */
+    /** Text displayed when no giver's data is available */
     public function no_items() {
       _e( 'No Givers avaliable.', 'sp' );
     }
@@ -263,7 +263,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
      ] );
 
 
-     $this->items = self::get_customers( $per_page, $current_page );
+     $this->items = self::get_givers( $per_page, $current_page );
      
     }
     

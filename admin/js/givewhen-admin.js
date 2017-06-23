@@ -104,7 +104,15 @@
                    }
                 }
             });
-        });                
+        });
+        
+        $(document).on('click','#give_when_fun',function(){
+            if (confirm("Press a button!") == true) {
+                window.location.href= '';
+            } else {
+                return false;
+            }
+        });
     });
     
 
