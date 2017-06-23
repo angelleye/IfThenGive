@@ -51,7 +51,7 @@ class AngellEYE_Give_When_Post_type_Transactions {
                     ),
                     'description' => __('This is where you can create new Goal.', 'angelleye_give_when'),
                     'public' => false,
-                    'show_ui' => true,
+                    'show_ui' => false,
                     'capability_type' => 'post',
                     'map_meta_cap' => true,
                     'publicly_queryable' => false,
