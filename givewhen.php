@@ -10,18 +10,18 @@
  *
  * @link              http://www.angelleye.com/
  * @since             1.0.0
- * @package           Givewhen
+ * @package           GiveWhen
  *
  * @wordpress-plugin
  * Plugin Name:       Give When
- * Plugin URI:        http://www.angelleye.com/product/divi-paypal-module-plugin/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Plugin URI:        http://www.angelleye.com/product/give-when-wordpress-donation-plugin/
+ * Description:       Allow donors to Give a donation When a particular goal or event occurs.
  * Version:           1.0.0
  * Author:            Angell EYE
  * Author URI:        http://www.angelleye.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       givewhen
+ * Text Domain:       give-when
  * Domain Path:       /languages
  */
 
