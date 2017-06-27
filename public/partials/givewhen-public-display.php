@@ -56,10 +56,7 @@ class AngellEYE_Give_When_Public_Display {
                     </div>            
                 </div>
                 <div class="give_when_container">
-                    <div class="row">
-                        <div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">
-                                <span id="connect_paypal_error_p"></span>
-                        </div>                        
+                    <div class="row">                                               
                         <div class="col-md-12"><h1><?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></h1></div>
                         <div class="col-md-12">
                             <img src="<?php echo get_post_meta( $post->ID, 'image_url', true ) ?>">
@@ -105,21 +102,15 @@ class AngellEYE_Give_When_Public_Display {
                             <?php } ?>
                         </div>                       
                     </div>
-                    
-                    <?php if ( is_user_logged_in() ) { 
-                              $current_user = wp_get_current_user();
-                    ?>
-                    <div class="row" id="give_when_checkoutbtn">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="<?php echo $post->ID; ?>" data-userid="<?php echo $current_user->ID; ?>" >Sign Up For <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></button>
-                        </div>
-                    </div>   
-                    <?php }  else { ?>
+                                       
                      <div class="row" id="give_when_signup_form">
                         <div class="col-md-12">
                             <div class="panel panel-info">
                                 <div class="panel-heading"> Sign up for <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></div>
                                 <div class="panel-body">
+                                     <div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">
+                                        <span id="connect_paypal_error_p"></span>
+                                    </div>
                                     <form method="post" name="signup" id="give_when_signup">
                                         <div class="form-group">
                                           <label for="name">First Name</label>
@@ -146,8 +137,7 @@ class AngellEYE_Give_When_Public_Display {
                                 </div>
                             </div>
                         </div>
-                    </div>                    
-                    <?php } ?> 
+                    </div>                                        
                 </div>
             <?php
             }
@@ -155,7 +145,7 @@ class AngellEYE_Give_When_Public_Display {
     }
     
     public function start_express_checkout(){
-        
+                                                         
         $post_id = $_POST['post_id'];
         $amount = $_POST['amount'];        
         $post = get_post($post_id);
@@ -169,31 +159,40 @@ class AngellEYE_Give_When_Public_Display {
             }
             $userdata=array(
                 'user_pass' => md5($gwuser['give_when_password']),
-                'user_login' => sanitize_text_field($gwuser['give_when_email']),
-                'user_email' => sanitize_text_field($gwuser['give_when_email']),
+                'user_login' => $gwuser['give_when_email'],
+                'user_email' => $gwuser['give_when_email'],
                 'display_name' => $gwuser['give_when_firstname'].' '.$gwuser['give_when_lastname'],
                 'first_name' => $gwuser['give_when_firstname'],
                 'last_name' => $gwuser['give_when_lastname'],
                 'role' => 'giver'
             );
             $user_exist = email_exists($gwuser['give_when_email']);
+            
             if($user_exist){
                 $userdata['ID'] = $user_exist;
-            }                    
+                $signnedup_goals = get_user_meta($user_exist,'give_when_signedup_goals');        
+                
+                if(!empty($signnedup_goals)){
+                    if(in_array($post_id, $signnedup_goals[0])){
+                        echo json_encode(array('Ack'=>'Failure','ErrorCode'=>'GiveWhen Error','ErrorShort'=>'You are already signed up for this goal.','ErrorLong'=>'You are already signed up for this goal.'));
+                        exit;
+                    }
+                }
+            }
+            
             $user_id = wp_insert_user($userdata);
             if( is_wp_error( $user_id ) ) {
                 $error = 'Error on user creation: ' . $user_id->get_error_message();
                 echo json_encode(array('Ack'=>'Failure','ErrorCode'=>'WP Error','ErrorShort'=>'Error on user creation:','ErrorLong'=>$error));
                 exit;
             }
-            else{
-                $current_user = get_user_by( 'id', $user_id );
+            else{               
                 wp_set_auth_cookie( $user_id, true );
             }
         }
         else{
             $user_id = $_POST['login_user_id'];
-        }        
+        }   
         
         $trigger_name = get_post_meta( $post->ID, 'trigger_name', true );
         

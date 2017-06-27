@@ -36,21 +36,19 @@
                     beforeSend: function () {
                         $('#overlay').show();
                     },                
-                    success: function (result) {
-                      //$('#overlay').hide();
-                      //$('#give_when_signup_form').hide();
-                      $('#give_when_checkoutbtn').show();
+                    success: function (result) {                      
                        if(result.Ack == 'Success'){
+                            $('#give_when_signup')[0].reset();
                            window.location.href = result.RedirectURL;
                        }
                        else{
                            $('#overlay').hide();
                            $('#connect_paypal_error_public').show();
-                           $('#connect_paypal_error_p').html('').html('<strong>PayPal Acknowledgement :</strong> ' + result.Ack);                           
-                           $('#connect_paypal_error_p').append('<br><strong>Error Code :</strong> ' + result.ErrorCode);                                                   
+                           $('#connect_paypal_error_p').html('').html('<strong>Acknowledgement :</strong> ' + result.Ack);                           
+                           $('#connect_paypal_error_p').append('<br><strong>Error Code :</strong> ' + result.ErrorCode);
                            $('#connect_paypal_error_p').append('<br><strong>Short Message :</strong> ' + result.ErrorShort);
-                           $('#connect_paypal_error_p').append('<br><strong>Long Message :</strong> ' + result.ErrorLong);                           
-                           $('#connect_paypal_error_p').append('<br>Please Try Again.');
+                           $('#connect_paypal_error_p').append('<br><strong>Long Message :</strong> ' + result.ErrorLong);
+                           $('#give_when_signup')[0].reset();
                        }
                     }
                 });

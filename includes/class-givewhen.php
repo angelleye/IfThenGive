@@ -321,37 +321,46 @@ class Givewhen {
                     update_user_meta($goal_user_id,'give_when_gec_first_name',$PayPalResultGEC['FIRSTNAME']);
                     update_user_meta($goal_user_id,'give_when_gec_last_name',$PayPalResultGEC['LASTNAME']);
                     update_user_meta($goal_user_id,'give_when_gec_country_code',$PayPalResultGEC['COUNTRYCODE']);
-                    update_user_meta($goal_user_id,'give_when_gec_currency_code',$PayPalResultGEC['CURRENCYCODE']);                                                            
-                    
+                    update_user_meta($goal_user_id,'give_when_gec_currency_code',$PayPalResultGEC['CURRENCYCODE']);
+                    $signedup_goals= get_user_meta($goal_user_id,'give_when_signedup_goals',true);
+                    if($signedup_goals !=''){
+                    $signedup_goals = $signedup_goals."|".$goal_post_id;
+                    }
+                    else{
+                        $signedup_goals = $goal_post_id;
+                    }                    
+                    update_user_meta($goal_user_id,'give_when_signedup_goals',$signedup_goals);
                 }
                 else{
                     echo "<pre>";
                     var_dump($PayPalResultGEC['ERRORS']);
                     exit;
                 }
-                
-                $PayPalResultCBA = $PayPal->CreateBillingAgreement($token);
-                if($PayPal->APICallSuccessful($PayPalResultCBA['ACK'])){
-                    
-                    // Save BILLING AGREEMENT ID in the UserMeta
-                    update_user_meta($goal_user_id,'give_when_gec_billing_agreement_id',$PayPalResultCBA['BILLINGAGREEMENTID']);
-                    
-                    // Create new post for signup post type and save goal_id,user_id,amount
-                    $new_post_id = wp_insert_post( array(
-                        'post_status' => 'publish',
-                        'post_type' => 'give_when_sign_up',
-                        'post_title' => ('User ID : '.$goal_user_id.'& Goal ID : '.$goal_post_id)
-                    ) );
-                                       
-                    update_post_meta($new_post_id,'give_when_signup_amount',$amount);                    
-                    update_post_meta($new_post_id,'give_when_signup_wp_user_id',$goal_user_id);
-                    update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$goal_post_id);
-                    exit;
-                }
-                else{
-                    echo "<pre>";
-                    var_dump($PayPalResultCBA['ERRORS']);
-                    exit;
+                $isAvailableBAID = get_user_meta($goal_user_id,'give_when_gec_billing_agreement_id',true);
+                if($isAvailableBAID !== ''){                                            
+                    $PayPalResultCBA = $PayPal->CreateBillingAgreement($token);
+                    if($PayPal->APICallSuccessful($PayPalResultCBA['ACK'])){
+
+                        // Save BILLING AGREEMENT ID in the UserMeta                    
+                            update_user_meta($goal_user_id,'give_when_gec_billing_agreement_id',$PayPalResultCBA['BILLINGAGREEMENTID']);
+
+                        // Create new post for signup post type and save goal_id,user_id,amount
+                        $new_post_id = wp_insert_post( array(
+                            'post_status' => 'publish',
+                            'post_type' => 'give_when_sign_up',
+                            'post_title' => ('User ID : '.$goal_user_id.'& Goal ID : '.$goal_post_id)
+                        ) );
+
+                        update_post_meta($new_post_id,'give_when_signup_amount',$amount);                    
+                        update_post_meta($new_post_id,'give_when_signup_wp_user_id',$goal_user_id);
+                        update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$goal_post_id);
+                        exit;
+                    }
+                    else{
+                        echo "<pre>";
+                        var_dump($PayPalResultCBA['ERRORS']);
+                        exit;
+                    }
                 }
             }
         }
