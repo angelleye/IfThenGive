@@ -72,3 +72,14 @@
 .table th, .table td, .table{
     border-top: none !important;
 }
+/*
+ Add New Goal form lable color 
+.form-group label{
+    color: #076799;
+}
+
+Add New Goal form image upload button color 
+.form-group .btn-primary{
+    background-color: #f58634;
+    border-color: #fae4d4;
+}*/

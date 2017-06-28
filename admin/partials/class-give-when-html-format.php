@@ -228,7 +228,7 @@ class AngellEYE_Give_When_interface {
             <div class="row">
                 <div class="col-md-12 text-center">
                     <span class="text-info">Click <strong>"FUN"</strong> Button to Capture your Transactions.</span><br/>                    
-                       <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/post.php?post=<?php echo $post_ID; ?>'&action=edit&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')">Fun</a>
+                       <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/post.php?post=<?php echo $post_ID; ?>&action=edit&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')">Fun</a>
                 </div>
             </div>            
             <div class="row">
@@ -251,10 +251,8 @@ class AngellEYE_Give_When_interface {
     
     public static function give_when_do_transactions_interface_html(){        
         global $post, $post_ID;
-        $goal_id = $post_ID;
-        $table = new AngellEYE_Give_When_Givers_Table();
-        $givers = $table->get_givers();
-         
+        $goal_id = $post_ID;       
+        $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();        
         $PayPal_config = new Give_When_PayPal_Helper();   
         $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
         $PayPal_config->set_api_subject($paypal_account_id);
@@ -266,13 +264,13 @@ class AngellEYE_Give_When_interface {
             $desc = !empty($trigger_name) ? $trigger_name : '';
             
             $DRTFields = array(
-                'referenceid' => $value['give_when_gec_billing_agreement_id'],
+                'referenceid' => $value['BillingAgreement'],
                 'paymentaction' => 'Authorization',				                   
             );
             
             $PaymentDetails = array(
                 'amt' => $value['amount'],
-                'currencycode' => $value['give_when_gec_currency_code'],
+                //'currencycode' => $value['give_when_gec_currency_code'],
                 'desc' => $desc,
                 'custom' => 'user_id_'.$value['user_id'].'|post_id_'.$post->ID,
             );

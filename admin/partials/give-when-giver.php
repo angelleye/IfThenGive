@@ -87,6 +87,26 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         return $result_array;
     }
     
+    public static function get_all_givers() {        
+        global $wpdb;        
+        $sql = "SELECT
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
+             um.meta_value As PayPalEmail,
+             um.user_id,
+             u.display_name as DisplayName,
+             pm.meta_value as amount,
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID 
+             FROM `{$wpdb->prefix}posts` as p 
+             join `{$wpdb->prefix}users` as u on p.post_author = u.ID 
+             join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
+             left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
+             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_signup_wp_goal_id') 
+             group by u.ID";                    
+             
+        $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );
+        return $result_array;
+    }
+    
     /**
     * Delete a customer record.
     *
