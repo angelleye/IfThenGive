@@ -221,30 +221,35 @@ class AngellEYE_Give_When_interface {
     
     public static function give_when_givers_interface_html(){
         global $post, $post_ID;
+        
         ?>
+        <form method="post" id="ks"></form>
         <div class="give_when_container">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <span class="text-info">Click <strong>"FUN"</strong> Button to Capture your Transactions.</span><br/>                    
                        <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/post.php?post=<?php echo $post_ID; ?>'&action=edit&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')">Fun</a>
                 </div>
-            </div>
+            </div>            
             <div class="row">
                 <div class="col-md-12">
-                    <form method="post">
+                                     
                     <?php
                         $table = new AngellEYE_Give_When_Givers_Table();
                         $table->prepare_items();
+                        echo '<form method="post" action="">';
+                        //echo '<input type="hidden" name="page" value="296">';
+                        //$table->search_box('Search', 'givers_search_id');
                         $table->display();
-                    ?>
-                    </form>
+                        echo '</form>';
+                    ?>                    
                 </div>                
             </div>
-        </div>        
+        </div>   
         <?php
     }
     
-    public static function give_when_do_transactions_interface_html(){
+    public static function give_when_do_transactions_interface_html(){        
         global $post, $post_ID;
         $goal_id = $post_ID;
         $table = new AngellEYE_Give_When_Givers_Table();
@@ -313,6 +318,7 @@ class AngellEYE_Give_When_interface {
                     <?php                        
                         $table = new AngellEYE_Give_When_Transactions_Table();
                         $table->prepare_items();
+                        //$table->search_box('Search', 'givers_transaction_search_id');
                         $table->display();
                     ?>
                     </form>

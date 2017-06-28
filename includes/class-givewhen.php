@@ -336,8 +336,8 @@ class Givewhen {
                     var_dump($PayPalResultGEC['ERRORS']);
                     exit;
                 }
-                $isAvailableBAID = get_user_meta($goal_user_id,'give_when_gec_billing_agreement_id',true);
-                if($isAvailableBAID !== ''){                                            
+                //$isAvailableBAID = get_user_meta($goal_user_id,'give_when_gec_billing_agreement_id',true);
+                //if($isAvailableBAID !== ''){                                            
                     $PayPalResultCBA = $PayPal->CreateBillingAgreement($token);
                     if($PayPal->APICallSuccessful($PayPalResultCBA['ACK'])){
 
@@ -361,7 +361,7 @@ class Givewhen {
                         var_dump($PayPalResultCBA['ERRORS']);
                         exit;
                     }
-                }
+                //}
             }
         }
 }

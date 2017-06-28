@@ -52,49 +52,37 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
 
       global $wpdb;  
       
-      /* Below query will fetch transactions data from the particular Goal (get post id from the url) */
-      $sql = "SELECT  post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_transactions_wp_goal_id'";
-      $post_id_array = $wpdb->get_results( $sql, 'ARRAY_A' );
-      
-      /* From the post id array we will fecth post meta data of the transaction post type. */
-      $sign_up_meta = array();
-      $user_meta = array();
-      $i=0;
-      foreach ($post_id_array as $value) {
-        $sign_up_meta = get_post_meta($value['post_id']);   
-        
-        /* From transactions data we will get amount and user's details */
-        $result_users = get_user_meta($sign_up_meta['give_when_transactions_wp_user_id'][0]);
-        $wpuser = get_userdata($sign_up_meta['give_when_transactions_wp_user_id'][0]);                
-        $user_meta[$i]['user_display_name'] = $wpuser->data->display_name;
-        $user_meta[$i]['nickname'] = $result_users['nickname'][0];
-        $user_meta[$i]['first_name'] = $result_users['first_name'][0];
-        $user_meta[$i]['last_name'] = $result_users['last_name'][0];
-        $user_meta[$i]['give_when_gec_email'] = $result_users['give_when_gec_email'][0];
-        $user_meta[$i]['give_when_gec_payer_id'] = $result_users['give_when_gec_payer_id'][0];
-        $user_meta[$i]['give_when_gec_first_name'] = $result_users['give_when_gec_first_name'][0];
-        $user_meta[$i]['give_when_gec_last_name'] = $result_users['give_when_gec_last_name'][0];
-        $user_meta[$i]['give_when_gec_country_code'] = $result_users['give_when_gec_country_code'][0];
-        $user_meta[$i]['give_when_gec_currency_code'] = $result_users['give_when_gec_currency_code'][0];
-        $user_meta[$i]['give_when_gec_billing_agreement_id'] = $result_users['give_when_gec_billing_agreement_id'][0];
-        $user_meta[$i]['amount'] = $sign_up_meta['give_when_transactions_amount'][0];
-        $user_meta[$i]['transaction_id'] = $sign_up_meta['give_when_transactions_transaction_id'][0];
-        $i++;          
-      }
-      
-      /*if ( ! empty( $_REQUEST['orderby'] ) ) {
-        $sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
-        $sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
-      }
-
-      $sql .= " LIMIT $per_page";
-
-      $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
-      */
-
-      $result = $user_meta;
-      
-      return $result;
+      $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID,
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'give_when_gec_email') as user_paypal_email,
+             (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
+              pm.post_id,
+              pm.meta_value as amount,
+              b.meta_value as userId,
+              c.meta_value as transactionId
+              FROM `{$wpdb->prefix}postmeta` as pm 
+              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
+              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
+              WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_transactions_wp_goal_id')  group by  b.meta_value";
+        if(isset($_REQUEST['orderby'])){
+             if(!empty($_REQUEST['orderby'])){
+                $sql .= ' ORDER BY '.$_REQUEST['orderby'];
+             }                 
+             else{
+                 /* by default we will add post time/post type time order by  */
+                 $sql .= ' ORDER BY user_display_name ';
+             }
+             $sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
+         }
+         else{
+            /* by default we will add post time/post type time order by  */
+            $sql .= ' ORDER BY user_display_name ';
+            $sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
+        }
+        $sql .= " LIMIT $per_page";
+        $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
+        $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );
+                    
+      return $result_array;
     }
     
     /**
@@ -120,9 +108,20 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
     public static function record_count() {
       global $wpdb;
 
-      //$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}customers";
-
-      //return $wpdb->get_var( $sql );
+      $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID,
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'give_when_gec_email') as user_paypal_email,
+             (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
+              pm.post_id,
+              pm.meta_value as amount,
+              b.meta_value as userId,
+              c.meta_value as transactionId
+              FROM `{$wpdb->prefix}postmeta` as pm 
+              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
+              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
+              WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_transactions_wp_goal_id')  group by  b.meta_value";
+      
+      $wpdb->get_results( $sql, 'ARRAY_A' );      
+      return $wpdb->num_rows;
     }
     
     /** Text displayed when no giver's data is available */
@@ -161,15 +160,21 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
     */
     public function column_default( $item, $column_name ) {
       switch ( $column_name ) {
-        case 'transaction_id':
-            echo $item['give_when_gec_billing_agreement_id'];
+        case 'transactionId':
+            echo $item['transactionId'];
             break;
-        case 'nameoremail':
-            echo $item['give_when_gec_email'];
+        case 'user_display_name':
+            echo $item['user_display_name'];
             break;
         case 'amount' :
             echo $item['amount'];
-            break;       
+            break;   
+        case 'PayPalPayerID' :
+            echo $item['PayPalPayerID'];
+            break;
+        case 'user_paypal_email' :
+            echo $item['user_paypal_email'];
+            break;
       }
     }
     
@@ -195,9 +200,11 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
     */
     public function get_columns() {
       $columns = [        
-        'transaction_id' => __( 'Transaction ID', 'angelleye_give_when' ),        
-        'nameoremail'    => __( 'Name/Email', 'angelleye_give_when' ),        
-        'amount'         => __('Amount','angelleye_give_when')
+        'transactionId'     => __( 'Transaction ID', 'angelleye_give_when' ),        
+        'user_display_name' => __( 'Name', 'angelleye_give_when' ),        
+        'amount'            => __('Amount','angelleye_give_when'),
+        'user_paypal_email' => __('PayPal Email ID','angelleye_give_when'),
+        'PayPalPayerID'     => __('PayPal Payer ID','angelleye_give_when')        
       ];
 
       return $columns;
@@ -210,9 +217,11 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
     */
     public function get_sortable_columns() {
       $sortable_columns = array(
-        'transaction_id' => array( 'txn_id', true ),
-        'nameoremail'    => array( 'nameoremail', true ),        
-        'amount'         => array( 'amount', true ),
+        'transactionId'     => array( 'transactionId', true ),
+        'user_display_name' => array( 'user_display_name', true ),
+        'amount'            => array( 'amount', true ),
+        'user_paypal_email' => array('user_paypal_email',true),
+        'PayPalPayerID' => array('PayPalPayerID',true)
       );
 
       return $sortable_columns;
@@ -247,8 +256,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
      $per_page     = $this->get_items_per_page( 'transactions_per_page', 5 );     
      $current_page = $this->get_pagenum();
      
-     //$total_items  = self::record_count();
-       $total_items  = 5;
+     $total_items  = self::record_count();       
      $this->set_pagination_args( [
        'total_items' => $total_items, //WE have to calculate the total number of items
        'per_page'    => $per_page //WE have to determine how many items to show on a page
