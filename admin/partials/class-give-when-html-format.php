@@ -20,6 +20,7 @@ class AngellEYE_Give_When_interface {
         add_action('give_when_givers_interface',array(__CLASS__, 'give_when_givers_interface_html'));
         add_action('give_when_do_transactions_interface',array(__CLASS__, 'give_when_do_transactions_interface_html'));
         add_action('give_when_list_transactions_interface',array(__CLASS__, 'give_when_list_transactions_interface_html'));
+        add_action('give_when_get_transaction_detail',array(__CLASS__,'give_when_get_transaction_detail_html'));
     }
     
     /**
@@ -223,28 +224,29 @@ class AngellEYE_Give_When_interface {
         global $post, $post_ID;
         
         ?>
-        <form method="post" id="ks"></form>
-        <div class="give_when_container">
+        <div class="wrap">
+            <h1 class="text-center">Givers</h1>
+            <hr class="wp-header-end">
+            <div class="give_when_container">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <span class="text-info">Click <strong>"FUN"</strong> Button to Capture your Transactions.</span><br/>                    
-                       <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/post.php?post=<?php echo $post_ID; ?>&action=edit&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')">Fun</a>
+                       <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $post_ID; ?>&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')">Fun</a>
                 </div>
             </div>            
             <div class="row">
-                <div class="col-md-12">
-                                     
+                <div class="col-md-12">                                     
                     <?php
                         $table = new AngellEYE_Give_When_Givers_Table();
                         $table->prepare_items();
                         echo '<form method="post" action="">';
-                        //echo '<input type="hidden" name="page" value="296">';
-                        //$table->search_box('Search', 'givers_search_id');
+                        $table->search_box('Search', 'givers_search_id');
                         $table->display();
                         echo '</form>';
                     ?>                    
                 </div>                
             </div>
+        </div>   
         </div>   
         <?php
     }
@@ -316,7 +318,7 @@ class AngellEYE_Give_When_interface {
                     <?php                        
                         $table = new AngellEYE_Give_When_Transactions_Table();
                         $table->prepare_items();
-                        //$table->search_box('Search', 'givers_transaction_search_id');
+                        $table->search_box('Search', 'givers_transaction_search_id');
                         $table->display();
                     ?>
                     </form>
@@ -324,6 +326,25 @@ class AngellEYE_Give_When_interface {
             </div>
         </div>        
         <?php
+    }
+    
+    public static function give_when_get_transaction_detail_html(){        
+        $transaction_id = $_REQUEST['txn_id'];
+        global $post, $post_ID;
+        $goal_id = $post_ID;       
+        $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();        
+        $PayPal_config = new Give_When_PayPal_Helper();   
+        $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
+        $PayPal_config->set_api_subject($paypal_account_id);
+        $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());
+        $GTDFields = array(
+            'transactionid' => $transaction_id
+        );
+        $PayPalRequestData = array('GTDFields'=>$GTDFields);
+        $PayPalResultTransactionDetail = $PayPal->GetTransactionDetails($PayPalRequestData);
+        echo "<pre>";
+        var_dump($PayPalResultTransactionDetail);        
+        exit;
     }
 }
 AngellEYE_Give_When_interface::init();

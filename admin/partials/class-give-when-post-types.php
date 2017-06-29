@@ -23,7 +23,8 @@ class AngellEYE_Give_When_Post_types {
         add_action('manage_give_when_goals_posts_custom_column', array(__CLASS__, 'give_when_buttons_columns'), 10, 2);
         /* custom **/
         add_filter('post_row_actions',array(__CLASS__, 'my_action_row'), 10, 2);        
-        //add_action( 'admin_head', array( __CLASS__, 'admin_header' ) );
+        //add_action( 'admin_head', array( __CLASS__, 'admin_header' ) );        
+        add_action( 'admin_menu', array(__CLASS__,'register_give_when_submenu_page' ));
     }
 
     
@@ -171,6 +172,9 @@ class AngellEYE_Give_When_Post_types {
         elseif ($action_request==='ListTransactions') {
             do_action('give_when_list_transactions_interface');
         }
+        elseif($action_request==='GetTransactionDetail'){
+            do_action('give_when_get_transaction_detail');
+        }
         else{
             do_action('give_when_interface');
         }        
@@ -212,12 +216,46 @@ class AngellEYE_Give_When_Post_types {
         //check for your post type
         if ($post->post_type == "give_when_goals") {           
             $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">View</a>';
-            $actions['givers'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=givers">Givers</a>';
-            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=ListTransactions">Transactions</a>';
+            $actions['givers'] = '<a href="'.site_url().'/wp-admin/?page=give_when_givers&post=' . $post->ID . '&view=givers">Givers</a>';
+            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/?page=give_when_givers&post=' . $post->ID . '&view=ListTransactions">Transactions</a>';
         }
         return $actions;
+    }    
+    
+    public static function register_give_when_submenu_page() {
+        add_submenu_page( 
+            null,
+            'GiveWhen Givers Page',
+            'GiveWhen Givers Page',
+            'manage_options',
+            'give_when_givers',
+            array(__CLASS__,'give_when_givers_page_callback')
+        );
     }
     
+    public static function give_when_givers_page_callback(){
+       
+        if(isset($_REQUEST['page']) && isset($_REQUEST['view'])){
+            if($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'givers'){
+                do_action('give_when_givers_interface');
+            }
+            elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'ListTransactions'){
+                do_action('give_when_list_transactions_interface');
+            }
+            elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'DoTransactions'){                
+                do_action('give_when_do_transactions_interface');
+            }
+            elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'GetTransactionDetail'){
+                do_action('give_when_get_transaction_detail');
+            }
+            else{
+                return '';    
+            }
+        }
+        else{
+            return '';
+        }        
+    }
     
 }
 

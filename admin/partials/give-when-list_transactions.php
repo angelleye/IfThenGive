@@ -161,7 +161,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
     public function column_default( $item, $column_name ) {
       switch ( $column_name ) {
         case 'transactionId':
-            echo $item['transactionId'];
+            echo '<a href="'.site_url().'/wp-admin/?page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id='.$item['transactionId'].'">'.$item['transactionId'].'</a>';
             break;
         case 'user_display_name':
             echo $item['user_display_name'];
