@@ -86,7 +86,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
             }                    
         $sql .= " LIMIT $per_page";
         $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;    
-       // echo $sql; die;
+        
         $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );
         return $result_array;
     }
@@ -134,19 +134,22 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     public static function record_count() {
       global $wpdb;
 
-      $sql = "SELECT 
+      $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
              um.meta_value As PayPalEmail,
-             um.user_id, 
+             um.user_id,
+             u.display_name as DisplayName,
              pm.meta_value as amount,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID 
              FROM `{$wpdb->prefix}posts` as p 
              join `{$wpdb->prefix}users` as u on p.post_author = u.ID 
              join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
              left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
-             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_signup_wp_goal_id') 
-             group by u.ID";
-            
+             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_signup_wp_goal_id') ";
+        $sql .= " group by u.ID";
+        if(isset($_REQUEST['s'])){
+           $sql .= "  Having (( BillingAgreement LIKE '%{$_REQUEST['s']}%' ) OR ( u.display_name LIKE '%{$_REQUEST['s']}%' ) OR ( PayPalEmail LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( PayPalPayerID LIKE '%{$_REQUEST['s']}%' )) ";               
+        }
      $wpdb->get_results( $sql, 'ARRAY_A' );     
      return $wpdb->num_rows;
     }

@@ -224,10 +224,13 @@ class AngellEYE_Give_When_interface {
         global $post, $post_ID;
         
         ?>
-        <div class="wrap">
-            <h1 class="text-center">Givers</h1>
-            <hr class="wp-header-end">
+        <div class="wrap">            
             <div class="give_when_container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3 class="text-info">Givers</h3>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12 text-center">
                     <span class="text-info">Click <strong>"FUN"</strong> Button to Capture your Transactions.</span><br/>                    
@@ -306,7 +309,8 @@ class AngellEYE_Give_When_interface {
     public static function give_when_list_transactions_interface_html(){
         global $post, $post_ID;
         ?>
-        <div class="give_when_container">
+        <div class="wrap">
+            <div class="give_when_container">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h3 class="text-info">Transactions</h3>
@@ -325,7 +329,8 @@ class AngellEYE_Give_When_interface {
                 </div>                
             </div>
         </div>        
-        <?php
+        </div>
+            <?php
     }
     
     public static function give_when_get_transaction_detail_html(){        
