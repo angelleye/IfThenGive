@@ -58,15 +58,17 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
               pm.post_id,
               pm.meta_value as amount,
               b.meta_value as userId,
-              c.meta_value as transactionId
+              c.meta_value as transactionId,
+              t.meta_value as ppack
               FROM `{$wpdb->prefix}postmeta` as pm 
               left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
               left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
+              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_transactions_ack'
               WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_transactions_wp_goal_id')  ";
               
        $sql .= ' group by  b.meta_value';
        if(isset($_REQUEST['s'])){         
-              $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' )) ";
+              $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
        }
         if(isset($_REQUEST['orderby'])){
              if(!empty($_REQUEST['orderby'])){
@@ -119,14 +121,16 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
               pm.post_id,
               pm.meta_value as amount,
               b.meta_value as userId,
-              c.meta_value as transactionId
+              c.meta_value as transactionId,
+              t.meta_value as ppack
               FROM `{$wpdb->prefix}postmeta` as pm 
               left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
               left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
+              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_transactions_ack'    
               WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_transactions_wp_goal_id') ";
       $sql .= ' group by  b.meta_value';
        if(isset($_REQUEST['s'])){         
-              $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' )) ";
+              $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
        }
       $wpdb->get_results( $sql, 'ARRAY_A' );      
       return $wpdb->num_rows;
@@ -134,7 +138,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
     
     /** Text displayed when no giver's data is available */
     public function no_items() {
-      _e( 'No Givers avaliable.', 'angelleye_give_when' );
+      _e( 'No Transactions avaliable.', 'angelleye_give_when' );
     }
     
     /**
@@ -183,6 +187,9 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
         case 'user_paypal_email' :
             echo $item['user_paypal_email'];
             break;
+        case 'ppack' :
+            echo $item['ppack'];
+            break;
       }
     }
     
@@ -212,7 +219,8 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
         'user_display_name' => __( 'Name', 'angelleye_give_when' ),        
         'amount'            => __('Amount','angelleye_give_when'),
         'user_paypal_email' => __('PayPal Email ID','angelleye_give_when'),
-        'PayPalPayerID'     => __('PayPal Payer ID','angelleye_give_when')        
+        'PayPalPayerID'     => __('PayPal Payer ID','angelleye_give_when'),
+        'ppack'             => __('Payment Status','angelleye_give_when'),
       ];
 
       return $columns;
@@ -241,11 +249,11 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
     * @return array
     */
     public function get_bulk_actions() {
-      $actions = [
-        'bulk-delete' => 'Delete'
-      ];
-
-      return $actions;
+//      $actions = [
+//        'bulk-delete' => 'Delete'
+//      ];
+//
+//      return $actions;
     }
     
     /**
@@ -259,7 +267,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
      $this->_column_headers = array($columns, $hidden, $sortable);
      
      /** Process bulk action */
-     $this->process_bulk_action();
+     //$this->process_bulk_action();
 
      $per_page     = $this->get_items_per_page( 'transactions_per_page', 5 );     
      $current_page = $this->get_pagenum();

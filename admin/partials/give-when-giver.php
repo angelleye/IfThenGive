@@ -264,11 +264,11 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     * @return array
     */
     public function get_bulk_actions() {
-      $actions = [
-        'bulk-delete' => 'Delete'
-      ];
-
-      return $actions;
+//      $actions = [
+//        'bulk-delete' => 'Delete'
+//      ];
+//
+//      return $actions;
     }
     
     /**

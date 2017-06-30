@@ -283,9 +283,7 @@ class AngellEYE_Give_When_interface {
                 'DRTFields' => $DRTFields, 
                 'PaymentDetails' => $PaymentDetails,               
             );            
-         $PayPalResultDRT = $PayPal->DoReferenceTransaction($PayPalRequestData);
-                  
-         if($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])){
+         $PayPalResultDRT = $PayPal->DoReferenceTransaction($PayPalRequestData);                           
             $new_post_id = wp_insert_post( array(
                 'post_status' => 'publish',
                 'post_type' => 'gw_transactions',
@@ -295,14 +293,25 @@ class AngellEYE_Give_When_interface {
             update_post_meta($new_post_id,'give_when_transactions_wp_user_id',$value['user_id']);
             update_post_meta($new_post_id,'give_when_transactions_wp_goal_id',$goal_id);
             update_post_meta($new_post_id,'give_when_transactions_transaction_id',$PayPalResultDRT['TRANSACTIONID']);
-         }
-         else{            
-             // save to error log
-         }
+            update_post_meta($new_post_id,'give_when_transactions_ack',$PayPalResultDRT['ACK']);                  
         }
-        echo '<div class="alert alert-success">
-                <p>You have successfully Captured All Transactions.</p>
-             </div>';
+        ?>
+        <div class="wrap">
+            <div class="give_when_container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-success">
+                            <p>You have successfully Captured All Transactions.</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12">
+                        <a class="btn btn-info" href="<?php echo site_url().'/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back To Goals</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php                
     }
     
     public static function give_when_list_transactions_interface_html(){
