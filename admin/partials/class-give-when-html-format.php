@@ -357,7 +357,13 @@ class AngellEYE_Give_When_interface {
                 <div class="col-md-12 text-center">
                     <h3 class="text-info">Transaction Details</h3>
                 </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12">
+                    <a class="btn btn-info" href="<?php echo site_url().'/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back To Goals</a>
+                </div>
+                <div class="clearfix"></div>
             </div>
+            <br>
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-primary">
@@ -449,6 +455,7 @@ class AngellEYE_Give_When_interface {
                                 <?php echo $PayPalResultTransactionDetail['RAWREQUEST']; ?>
                             </div>
                             <div class="clearfix"></div>
+                            <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <pre><?php print_r($PayPal->NVPToArray($PayPalResultTransactionDetail['RAWREQUEST'])); ?></pre>
                             </div>
@@ -460,6 +467,7 @@ class AngellEYE_Give_When_interface {
                                 <?php echo $PayPalResultTransactionDetail['RAWRESPONSE']; ?>
                             </div>
                             <div class="clearfix"></div>
+                            <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <pre><?php print_r($PayPal->NVPToArray($PayPalResultTransactionDetail['RAWRESPONSE'])); ?></pre>
                             </div>
