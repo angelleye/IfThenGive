@@ -228,13 +228,19 @@ class AngellEYE_Give_When_interface {
             <div class="give_when_container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3 class="text-info">Givers</h3>
-                </div>
+                     <?php  
+                        $trigger_name = !empty($t = get_post_meta($_REQUEST['post'],'trigger_name',true)) ? $t : '';                        
+                     ?>
+                    <h3 class="text-info">Givers For <?php echo $trigger_name; ?> </h3>
+                </div>                
             </div>
             <div class="row">
                 <div class="col-md-12 text-center">
                     <span class="text-info">Click <strong>"FUN"</strong> Button to Capture your Transactions.</span><br/>                    
                        <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $post_ID; ?>&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')">Fun</a>
+                </div>
+                <div class="col-md-12">
+                    <a class="btn btn-info" href="<?php echo site_url().'/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
                 </div>
             </div>            
             <div class="row">
@@ -313,7 +319,13 @@ class AngellEYE_Give_When_interface {
             <div class="give_when_container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3 class="text-info">Transactions</h3>
+                    <?php  
+                        $trigger_name = !empty($t = get_post_meta($_REQUEST['post'],'trigger_name',true)) ? $t : '';                        
+                     ?>
+                    <h3 class="text-info">Transactions for <?php echo $trigger_name; ?></h3>
+                </div>
+                <div class="col-md-12">
+                    <a class="btn btn-info" href="<?php echo site_url().'/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
                 </div>
             </div>
             <div class="row">
