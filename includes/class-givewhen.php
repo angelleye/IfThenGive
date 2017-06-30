@@ -356,6 +356,7 @@ class Givewhen {
                         update_post_meta($new_post_id,'give_when_signup_amount',$amount);                    
                         update_post_meta($new_post_id,'give_when_signup_wp_user_id',$goal_user_id);
                         update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$goal_post_id);
+                        wp_redirect(site_url('givewhenthankyou'));
                         exit;
                     }
                     else{
