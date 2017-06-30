@@ -171,10 +171,10 @@ class AngellEYE_Give_When_Public_Display {
             if($user_exist){
                 $userdata['ID'] = $user_exist;
                 $signnedup_goals = get_user_meta($user_exist,'give_when_signedup_goals');        
-                
-                if(!empty($signnedup_goals)){
-                    if(in_array($post_id, $signnedup_goals[0])){
-                        echo json_encode(array('Ack'=>'Failure','ErrorCode'=>'GiveWhen Error','ErrorShort'=>'You are already signed up for this goal.','ErrorLong'=>'You are already signed up for this goal.'));
+                $goalArray = explode('|', $signnedup_goals[0]);                
+                if(!empty($goalArray)){
+                    if(in_array($post_id, $goalArray)){
+                        echo json_encode(array('Ack'=>'Information','ErrorCode'=>'GiveWhenInfo','ErrorShort'=>'You are already signed up for this goal.','ErrorLong'=>'You are already signed up for this goal.'));
                         exit;
                     }
                 }

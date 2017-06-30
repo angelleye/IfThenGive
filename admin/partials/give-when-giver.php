@@ -107,7 +107,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
              WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_signup_wp_goal_id') 
              group by u.ID";                    
              
-        $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );
+        $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );       
         return $result_array;
     }
     
@@ -264,11 +264,11 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     * @return array
     */
     public function get_bulk_actions() {
-      $actions = [
-        'bulk-delete' => 'Delete'
-      ];
-
-      return $actions;
+//      $actions = [
+//        'bulk-delete' => 'Delete'
+//      ];
+//
+//      return $actions;
     }
     
     /**

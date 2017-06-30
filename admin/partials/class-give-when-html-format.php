@@ -237,7 +237,7 @@ class AngellEYE_Give_When_interface {
             <div class="row">
                 <div class="col-md-12 text-center">
                     <span class="text-info">Click <strong>"FUN"</strong> Button to Capture your Transactions.</span><br/>                    
-                       <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $post_ID; ?>&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')">Fun</a>
+                       <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')">Fun</a>
                 </div>
                 <div class="col-md-12">
                     <a class="btn btn-info" href="<?php echo site_url().'/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
@@ -262,16 +262,15 @@ class AngellEYE_Give_When_interface {
     
     public static function give_when_do_transactions_interface_html(){        
         global $post, $post_ID;
-        $goal_id = $post_ID;       
-        $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();        
+        $goal_id = $_REQUEST['post'];
+        $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
         $PayPal_config = new Give_When_PayPal_Helper();   
         $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
         $PayPal_config->set_api_subject($paypal_account_id);
-        $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());
-        
+        $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());       
         
         foreach ($givers as $value) {
-            $trigger_name = get_post_meta($post->ID,'trigger_name',true);
+            $trigger_name = get_post_meta($_REQUEST['post'],'trigger_name',true);
             $desc = !empty($trigger_name) ? $trigger_name : '';
             
             $DRTFields = array(
@@ -283,16 +282,14 @@ class AngellEYE_Give_When_interface {
                 'amt' => $value['amount'],
                 //'currencycode' => $value['give_when_gec_currency_code'],
                 'desc' => $desc,
-                'custom' => 'user_id_'.$value['user_id'].'|post_id_'.$post->ID,
+                'custom' => 'user_id_'.$value['user_id'].'|post_id_'.$_REQUEST['post'],
             );
             
             $PayPalRequestData = array(
                 'DRTFields' => $DRTFields, 
                 'PaymentDetails' => $PaymentDetails,               
             );            
-         $PayPalResultDRT = $PayPal->DoReferenceTransaction($PayPalRequestData);
-                  
-         if($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])){
+         $PayPalResultDRT = $PayPal->DoReferenceTransaction($PayPalRequestData);                           
             $new_post_id = wp_insert_post( array(
                 'post_status' => 'publish',
                 'post_type' => 'gw_transactions',
@@ -302,14 +299,25 @@ class AngellEYE_Give_When_interface {
             update_post_meta($new_post_id,'give_when_transactions_wp_user_id',$value['user_id']);
             update_post_meta($new_post_id,'give_when_transactions_wp_goal_id',$goal_id);
             update_post_meta($new_post_id,'give_when_transactions_transaction_id',$PayPalResultDRT['TRANSACTIONID']);
-         }
-         else{
-             // save to error log
-         }
+            update_post_meta($new_post_id,'give_when_transactions_ack',$PayPalResultDRT['ACK']);                  
         }
-        echo '<div class="alert alert-success">
-                <p>You have successfully Captured All Transactions.</p>
-             </div>';
+        ?>
+        <div class="wrap">
+            <div class="give_when_container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-success">
+                            <p>You have successfully Captured All Transactions.</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12">
+                        <a class="btn btn-info" href="<?php echo site_url().'/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back To Goals</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php                
     }
     
     public static function give_when_list_transactions_interface_html(){
@@ -345,7 +353,7 @@ class AngellEYE_Give_When_interface {
             <?php
     }
     
-    public static function give_when_get_transaction_detail_html(){        
+    public static function give_when_get_transaction_detail_html(){
         $transaction_id = $_REQUEST['txn_id'];
         global $post, $post_ID;
         $goal_id = $post_ID;       
@@ -359,9 +367,143 @@ class AngellEYE_Give_When_interface {
         );
         $PayPalRequestData = array('GTDFields'=>$GTDFields);
         $PayPalResultTransactionDetail = $PayPal->GetTransactionDetails($PayPalRequestData);
-        echo "<pre>";
-        var_dump($PayPalResultTransactionDetail);        
-        exit;
+        if($PayPal->APICallSuccessful($PayPalResultTransactionDetail['ACK'])){
+            $requestString = $PayPalResultTransactionDetail['RAWREQUEST'];
+            $responseString = $PayPalResultTransactionDetail['RAWRESPONSE'];
+            $requestData = $PayPalResultTransactionDetail['REQUESTDATA'];
+        ?>
+        <div class="wrap">
+            <div class="give_when_container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3 class="text-info">Transaction Details</h3>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12">
+                    <a class="btn btn-info" href="<?php echo site_url().'/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back To Goals</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Transaction Id <?php echo '#'.$_REQUEST['txn_id']; ?> 
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-2">
+                                <label class="text-primary">Payer Email :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $PayPalResultTransactionDetail['EMAIL']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Payer ID :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $PayPalResultTransactionDetail['PAYERID']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Country Code :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $PayPalResultTransactionDetail['COUNTRYCODE']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Goal Name :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $PayPalResultTransactionDetail['SUBJECT']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Payer PayPal Name :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $PayPalResultTransactionDetail['FIRSTNAME'].' '.$PayPalResultTransactionDetail['LASTNAME']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Transaction ID :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $PayPalResultTransactionDetail['TRANSACTIONID']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Transaction Type :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $PayPalResultTransactionDetail['TRANSACTIONTYPE']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Payment Type :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $PayPalResultTransactionDetail['PAYMENTTYPE']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Amount :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $PayPalResultTransactionDetail['AMT']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Payment Status :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $PayPalResultTransactionDetail['PAYMENTSTATUS']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Pending Reason :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $PayPalResultTransactionDetail['PENDINGREASON']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Request String :</label>
+                            </div>
+                            <div class="col-md-10" style="word-wrap: break-word;">
+                                <?php echo $PayPalResultTransactionDetail['RAWREQUEST']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <pre><?php print_r($PayPal->NVPToArray($PayPalResultTransactionDetail['RAWREQUEST'])); ?></pre>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label class="text-primary">Response String :</label>
+                            </div>
+                            <div class="col-md-10" style="word-wrap: break-word;">
+                                <?php echo $PayPalResultTransactionDetail['RAWRESPONSE']; ?>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <pre><?php print_r($PayPal->NVPToArray($PayPalResultTransactionDetail['RAWRESPONSE'])); ?></pre>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>                        
+                    </div>
+                </div>                
+            </div>
+        </div>        
+        </div>
+        <?php
+        }
+        else{
+            // errors in acknowledgement 
+        }        
     }
 }
 AngellEYE_Give_When_interface::init();
