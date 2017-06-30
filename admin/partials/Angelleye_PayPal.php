@@ -1345,7 +1345,7 @@ class Angelleye_PayPal
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['ORDERITEMS'] = $OrderItems;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
-		$NVPResponseArray['RAWREQUEST'] = $NVPRequest;
+		$NVPResponseArray['RAWREQUEST'] = $this->MaskAPIResult($NVPRequest);
 		$NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
 								
 		return $NVPResponseArray;

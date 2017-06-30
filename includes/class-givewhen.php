@@ -146,7 +146,9 @@ class Givewhen {
                 /**
                  * Included for inherit wordpress table style.
                 **/
+                if ( !class_exists( 'WP_List_Table' ) ){
                 require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+                }
                 
                 
 		$this->loader = new Givewhen_Loader();

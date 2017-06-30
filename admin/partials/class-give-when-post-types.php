@@ -162,19 +162,7 @@ class AngellEYE_Give_When_Post_types {
         $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';        
         if ($action_request==='true') {
             do_action('give_when_shortcode_interface');
-        }
-        elseif($action_request==='givers'){
-            do_action('give_when_givers_interface');
-        }
-        elseif($action_request==='DoTransactions'){
-            do_action('give_when_do_transactions_interface');
-        }
-        elseif ($action_request==='ListTransactions') {
-            do_action('give_when_list_transactions_interface');
-        }
-        elseif($action_request==='GetTransactionDetail'){
-            do_action('give_when_get_transaction_detail');
-        }
+        }       
         else{
             do_action('give_when_interface');
         }        
