@@ -274,7 +274,13 @@ class AngellEYE_Give_When_interface {
         <?php
     }
     
-    public static function give_when_do_transactions_interface_html(){        
+    public static function give_when_do_transactions_interface_html(){             
+        @set_time_limit(GW_PLUGIN_SET_TIME_LIMIT);
+        @ignore_user_abort(true);
+        ?>
+        <div class="wrap">
+            <div class="give_when_container">
+        <?php    
         global $post, $post_ID;
         $goal_id = $_REQUEST['post'];
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
@@ -303,7 +309,8 @@ class AngellEYE_Give_When_interface {
                 'DRTFields' => $DRTFields, 
                 'PaymentDetails' => $PaymentDetails,               
             );            
-         $PayPalResultDRT = $PayPal->DoReferenceTransaction($PayPalRequestData);                           
+         $PayPalResultDRT = $PayPal->DoReferenceTransaction($PayPalRequestData);
+         
             $new_post_id = wp_insert_post( array(
                 'post_status' => 'publish',
                 'post_type' => 'gw_transactions',
@@ -313,24 +320,32 @@ class AngellEYE_Give_When_interface {
             update_post_meta($new_post_id,'give_when_transactions_wp_user_id',$value['user_id']);
             update_post_meta($new_post_id,'give_when_transactions_wp_goal_id',$goal_id);
             update_post_meta($new_post_id,'give_when_transactions_transaction_id',$PayPalResultDRT['TRANSACTIONID']);
-            update_post_meta($new_post_id,'give_when_transactions_ack',$PayPalResultDRT['ACK']);                  
+            update_post_meta($new_post_id,'give_when_transactions_ack',$PayPalResultDRT['ACK']);     
+            ?>
+            <div class="row">
+                <pre>
+                    <?php
+                    //file_put_contents(GW_PLUGIN_DIR.'/filename.txt', print_r($PayPalResultDRT, true),FILE_APPEND);
+                    print_r($PayPalResultDRT); ?>
+                </pre>
+            </div>
+        <?php
         }
-        ?>
-        <div class="wrap">
-            <div class="give_when_container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="alert alert-success">
-                            <p>You have successfully Captured All Transactions.</p>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-md-12">
-                        <a class="btn btn-info" href="<?php echo site_url().'/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back To Goals</a>
-                    </div>
+        ?> 
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success">
+                    <p>You have successfully Captured All Transactions.</p>
                 </div>
             </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12">
+                <a class="btn btn-info" href="<?php echo site_url().'/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back To Goals</a>
+            </div>
         </div>
+      </div>
+    </div>
         <?php                
     }
     
