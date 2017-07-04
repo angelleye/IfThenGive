@@ -25,12 +25,15 @@ class Give_When_PayPal_Helper {
         var $token_secret='';                              
         
         public function get_configuration(){
-            $sanbox_enable = get_option('sandbox_enable_give_when', TRUE);
-            if($sanbox_enable === 'yes'){                
+            $sanbox_enable = get_option('sandbox_enable_give_when', TRUE);            
+            if($sanbox_enable === 'yes'){
                 $this->sandbox=TRUE;
             }
-            else{
+            elseif($sanbox_enable === 'no'){
                 $this->sandbox='';
+            }
+            else{
+                $this->sandbox=TRUE;
             }            
                 $PayPalConfig = array(
                     'Sandbox' => $this->sandbox,
@@ -51,11 +54,14 @@ class Give_When_PayPal_Helper {
     
         public function get_third_party_configuration(){
                 $sanbox_enable = get_option('sandbox_enable_give_when', TRUE);
-                if($sanbox_enable === 'yes'){                
-                    $this->sandbox=TRUE;
+                if($sanbox_enable === 'yes'){
+                $this->sandbox=TRUE;
+                }
+                elseif($sanbox_enable === 'no'){
+                    $this->sandbox='';
                 }
                 else{
-                    $this->sandbox='';
+                    $this->sandbox=TRUE;
                 }
                 $PayPalConfig = array(
                     'Sandbox' => $this->sandbox,
