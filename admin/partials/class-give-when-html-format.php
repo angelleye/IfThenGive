@@ -20,7 +20,8 @@ class AngellEYE_Give_When_interface {
         add_action('give_when_givers_interface',array(__CLASS__, 'give_when_givers_interface_html'));
         add_action('give_when_do_transactions_interface',array(__CLASS__, 'give_when_do_transactions_interface_html'));
         add_action('give_when_list_transactions_interface',array(__CLASS__, 'give_when_list_transactions_interface_html'));
-        add_action('give_when_get_transaction_detail',array(__CLASS__,'give_when_get_transaction_detail_html'));
+        add_action('give_when_get_transaction_detail',array(__CLASS__,'give_when_get_transaction_detail_html'));        
+        add_action( 'admin_head', array(__CLASS__,'give_when_hide_publish_button_until' ));
     }
     
     /**
@@ -29,7 +30,20 @@ class AngellEYE_Give_When_interface {
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_interface_html() {    
+    public static function give_when_interface_html() {
+        $conncet_to_paypal_flag = get_option('give_when_permission_connected_to_paypal');
+        if($conncet_to_paypal_flag != 'Yes'){
+            ?>
+           <div style="padding-top: 25px"></div>
+           <div class="container" style="max-width: 100%">
+               <div class="bs-callout bs-callout-warning">
+                <h4>You are not connected with paypal.</h4>
+                <a href="<?php echo site_url();?>/wp-admin/options-general.php?page=give_when_option">Click Here</a> for setting page and Connect with PayPal.
+              </div>               
+           </div>
+        <?php
+        exit;
+        }
         $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';
         global $post;           
         $trigger_name = !empty(get_post_meta($post->ID,'trigger_name',true)) ? get_post_meta($post->ID,'trigger_name',true) : '';
@@ -504,6 +518,22 @@ class AngellEYE_Give_When_interface {
         else{
             // errors in acknowledgement 
         }        
+    }        
+    
+    public static function give_when_hide_publish_button_until() {
+      if (isset($_REQUEST['post_type'])){ 
+        if ($_REQUEST['post_type'] == 'give_when_goals') {
+            $conncet_to_paypal_flag = get_option('give_when_permission_connected_to_paypal');
+            if ($conncet_to_paypal_flag != 'Yes') { ?>
+            <style>
+                #publishing-action { display: none; }
+                #save-action{display: none;}
+            </style>
+            <?php
+            }
+        }
+     }    
     }
 }
+                            
 AngellEYE_Give_When_interface::init();

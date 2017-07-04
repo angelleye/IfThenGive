@@ -48,12 +48,12 @@ class AngellEYE_Give_When_Post_types {
      * @access   public
      */
     public static function give_when_register_post_types() {
-        global $wpdb;
+        global $wpdb;        
         if (post_type_exists('angelleye_give_when')) {
             return;
         }
 
-
+        
         do_action('give_when_register_post_types');
 
         register_post_type('give_when_goals', apply_filters('give_when_register_post_types', array(
@@ -89,7 +89,7 @@ class AngellEYE_Give_When_Post_types {
                     'show_in_nav_menus' => true
                         )
                 )
-        );
+        );        
     }
 
     /**
