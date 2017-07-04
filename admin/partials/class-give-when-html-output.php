@@ -45,6 +45,9 @@ class AngellEYE_Give_When_Html_output {
                 if (!isset($value['desc_tip'])) {
                     $value['desc_tip'] = false;
                 }
+                if(!isset($value['labelClass'])){
+                    $value['labelClass'] = false;
+                }
 
                 // Custom attribute handling
                 $custom_attributes = array();
@@ -273,7 +276,7 @@ class AngellEYE_Give_When_Html_output {
                                             <?php
                                         }
                                         ?>
-                                        <label for="<?php echo $value['id'] ?>">
+                                        <label for="<?php echo $value['id'] ?>" class="<?php echo $value['labelClass'] ?>">
                                             <input
                                                 name="<?php echo esc_attr($value['id']); ?>"
                                                 id="<?php echo esc_attr($value['id']); ?>"
