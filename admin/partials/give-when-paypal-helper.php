@@ -9,8 +9,8 @@
  * @author      Angell EYE <service@angelleye.com>
  */
 class Give_When_PayPal_Helper {
-
-        var $sandbox=TRUE;
+       
+        var $sandbox='';
         var $developer_account_email = '';
         var $application_id = 'APP-80W284485P519543T';
         var $device_id = '';
@@ -25,6 +25,16 @@ class Give_When_PayPal_Helper {
         var $token_secret='';                              
         
         public function get_configuration(){
+            $sanbox_enable = get_option('sandbox_enable_give_when', TRUE);            
+            if($sanbox_enable === 'yes'){
+                $this->sandbox=TRUE;
+            }
+            elseif($sanbox_enable === 'no'){
+                $this->sandbox='';
+            }
+            else{
+                $this->sandbox=TRUE;
+            }            
                 $PayPalConfig = array(
                     'Sandbox' => $this->sandbox,
                     'DeveloperAccountEmail' => $this->developer_account_email,
@@ -43,7 +53,16 @@ class Give_When_PayPal_Helper {
         }
     
         public function get_third_party_configuration(){
-
+                $sanbox_enable = get_option('sandbox_enable_give_when', TRUE);
+                if($sanbox_enable === 'yes'){
+                $this->sandbox=TRUE;
+                }
+                elseif($sanbox_enable === 'no'){
+                    $this->sandbox='';
+                }
+                else{
+                    $this->sandbox=TRUE;
+                }
                 $PayPalConfig = array(
                     'Sandbox' => $this->sandbox,
                     'DeveloperAccountEmail' => $this->developer_account_email,
@@ -73,5 +92,5 @@ class Give_When_PayPal_Helper {
         public function set_api_subject($API_SUBJECT){
             $this->api_subject = $API_SUBJECT;
             return true;
-        }
+        }                
 }

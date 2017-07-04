@@ -48,7 +48,16 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
 
     public static function give_when_connect_to_paypal_setting_fields() {
         global $wpdb;
-        $Logger = new AngellEYE_Give_When_Logger();        
+        $Logger = new AngellEYE_Give_When_Logger();
+        $fields[] = array(
+            'title' => __('Sandbox', 'angelleye_give_when'),
+            'id' => 'sandbox_enable_give_when',
+            'type' => 'checkbox',
+            'label' => __('Enable logging', 'angelleye_give_when'),
+            'default' => 'no',
+            'labelClass' => 'switch',
+            'desc' => sprintf(__('<div class="slider round"></div>', 'angelleye_give_when'))
+        );
         $fields[] = array(
             'title' => __('Debug Log', 'angelleye_give_when'),
             'id' => 'log_enable_give_when',
@@ -56,7 +65,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             'label' => __('Enable logging', 'angelleye_give_when'),
             'default' => 'no',
             'desc' => sprintf(__('Log Give When plugin events in <code>%s</code>', 'angelleye_give_when'), $Logger->give_when_for_wordpress_wordpress_get_log_file_path('angelleye_give_when'))
-        );
+        );        
         $fields[] = array('type' => 'sectionend', 'id' => 'general_options_setting');
         return $fields;
     }
@@ -204,7 +213,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                 <?php $Html_output->init($genral_setting_fields); ?>
                                 <p class="submit">
                                     <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
-                                </p>
+                                </p>                                
                             </tbody>
                         </table>
                     </form>
