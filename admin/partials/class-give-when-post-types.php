@@ -219,10 +219,19 @@ class AngellEYE_Give_When_Post_types {
             'give_when_givers',
             array(__CLASS__,'give_when_givers_page_callback')
         );
+        
+        add_submenu_page(
+            null,
+            'GiveWhen disconnect Page',
+            'GiveWhen disconnect Page',
+            'manage_options',
+            'give_when_disconnect_paypal',
+            array(__CLASS__,'give_when_disconnect_paypal_page_callback')
+        );
     }
     
     public static function give_when_givers_page_callback(){
-       
+        
         if(isset($_REQUEST['page']) && isset($_REQUEST['view'])){
             if($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'givers'){
                 do_action('give_when_givers_interface');
@@ -245,6 +254,13 @@ class AngellEYE_Give_When_Post_types {
         }        
     }
     
+    public static function give_when_disconnect_paypal_page_callback(){
+        if(isset($_REQUEST['page']) && isset($_REQUEST['action'])){
+            if($_REQUEST['page'] === 'give_when_disconnect_paypal' && $_REQUEST['action'] === 'true'){
+                do_action('give_when_disconnect_interface');
+            }
+        }
+    }    
 }
 
 AngellEYE_Give_When_Post_types::init();

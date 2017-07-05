@@ -20,7 +20,8 @@ class AngellEYE_Give_When_interface {
         add_action('give_when_givers_interface',array(__CLASS__, 'give_when_givers_interface_html'));
         add_action('give_when_do_transactions_interface',array(__CLASS__, 'give_when_do_transactions_interface_html'));
         add_action('give_when_list_transactions_interface',array(__CLASS__, 'give_when_list_transactions_interface_html'));
-        add_action('give_when_get_transaction_detail',array(__CLASS__,'give_when_get_transaction_detail_html'));        
+        add_action('give_when_get_transaction_detail',array(__CLASS__,'give_when_get_transaction_detail_html'));
+        add_action('give_when_disconnect_interface',array(__CLASS__,'give_when_disconnect_interface_html'));
         add_action( 'admin_head', array(__CLASS__,'give_when_hide_publish_button_until' ));
     }
     
@@ -535,8 +536,39 @@ class AngellEYE_Give_When_interface {
         else{
             // errors in acknowledgement 
         }        
-    }        
+    }
     
+    public static function give_when_disconnect_interface_html(){
+        $token = get_option('give_when_permission_token'); 
+        
+        $paypal_helper_object = new Give_When_PayPal_Helper();
+        
+        $PayPal = new Adaptive($paypal_helper_object->get_configuration());
+        
+        $PayPalResult = $PayPal->CancelPermissions($token);
+        if($PayPal->APICallSuccessful($PayPalResult['Ack'])== false){
+            echo "Errors in Cancel Permission";
+            echo "<pre>";
+            var_dump($PayPalResult);
+            exit;
+        }
+        
+        update_option('give_when_permission_connected_to_paypal', 'no');
+        delete_option('give_when_permission_connected_person_home');
+        delete_option('give_when_permission_connected_person_email');
+        delete_option('give_when_permission_connected_person_first');
+        delete_option('give_when_permission_connected_person_last');
+        delete_option('give_when_permission_connected_person_payerID');
+        delete_option('give_when_permission_token');
+        delete_option('give_when_permission_token_secret');        
+        
+        $url =admin_url('admin.php?page=give_when_option&tab=connect_to_paypal');
+        echo "<script>";
+        echo 'window.location.href = "'.$url.'";';
+        echo "</script>";        
+        die();                
+    }
+
     public static function give_when_hide_publish_button_until() {
       if (isset($_REQUEST['post_type'])){ 
         if ($_REQUEST['post_type'] == 'give_when_goals') {

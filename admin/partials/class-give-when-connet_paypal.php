@@ -156,9 +156,11 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                     <div class="row">
                         <div class="col-md-3">
                             <div class="alert alert-info"><span class="circle_green"></span><span>You are already connected to PayPal...!!</span></div>
-                        </div>     
-                        <div class="col-md-3">
-                            <button class="btn btn-info">Disconnect</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="btn btn-info btn-lg" href="<?php echo site_url().'/wp-admin/?page=give_when_disconnect_paypal&action=true'; ?>">Disconnect</a>
                         </div>     
                     </div>
                 </div>
@@ -177,6 +179,19 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                         <div class="alert alert-info"><span class="circle_red"></span><span>You are not connected to PayPal.</span></div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="form-table" id="give_when_callback_url">
+                            <tbody>
+                                <tr valign="top">
+                                    <td>
+                                       <img name="angelleye_connect_to_paypal" id="angelleye_connect_to_paypal" src="<?php echo GW_PLUGIN_URL; ?>/admin/images/paypal_connect.png"  style="cursor: pointer"/>
+                                    </td>
+                                </tr>                        
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>    
 <?php
@@ -185,16 +200,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
 <div class="wrap">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <table class="form-table" id="give_when_callback_url">
-                    <tbody>
-                        <tr valign="top">
-                            <td>
-                               <img name="angelleye_connect_to_paypal" id="angelleye_connect_to_paypal" src="<?php echo GW_PLUGIN_URL; ?>/admin/images/paypal_connect.png"  style="cursor: pointer"/>
-                            </td>
-                        </tr>                        
-                    </tbody>
-                </table>
+            <div class="col-md-12">                
                 
                 <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;z-index: 1031;text-align: center; display: none;">
                     <div style="display: table; width:100%; height: 100%;">                
