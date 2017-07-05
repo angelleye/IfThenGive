@@ -295,7 +295,7 @@ class AngellEYE_Give_When_interface {
             
             $DRTFields = array(
                 'referenceid' => $value['BillingAgreement'],
-                'paymentaction' => 'Authorization',				                   
+                'paymentaction' => 'Sale',				                   
             );
             
             $PaymentDetails = array(

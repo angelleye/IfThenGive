@@ -213,8 +213,7 @@ class AngellEYE_Give_When_Public_Display {
         );
         $Payments = array();
         $Payment = array(
-            'amt' => 0,
-            'PAYMENTACTION' => 'AUTHORIZATION',
+            'amt' => 0,            
             'custom' => 'amount_'.$amount.'|post_id_'.$post_id.'|user_id_'.$user_id
         );
         array_push($Payments, $Payment);

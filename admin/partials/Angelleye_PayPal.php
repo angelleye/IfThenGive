@@ -2085,8 +2085,8 @@ class Angelleye_PayPal
         $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
-		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
-		$NVPResponseArray['RAWREQUEST'] = $NVPRequest;
+		$NVPResponseArray['REQUESTDATA'] = $this->NVPToArray($this->MaskAPIResult($NVPRequest));
+		$NVPResponseArray['RAWREQUEST'] = $this->MaskAPIResult($NVPRequest);
 		$NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
 		
 		return $NVPResponseArray;
