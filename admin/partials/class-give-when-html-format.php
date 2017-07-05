@@ -309,8 +309,10 @@ class AngellEYE_Give_When_interface {
                 'DRTFields' => $DRTFields, 
                 'PaymentDetails' => $PaymentDetails,               
             );            
-         $PayPalResultDRT = $PayPal->DoReferenceTransaction($PayPalRequestData);
-         
+            $PayPalResultDRT = $PayPal->DoReferenceTransaction($PayPalRequestData);
+            if(!isset($PayPalResultDRT['TRANSACTIONID'])){
+                $PayPalResultDRT['TRANSACTIONID'] = '';
+            }
             $new_post_id = wp_insert_post( array(
                 'post_status' => 'publish',
                 'post_type' => 'gw_transactions',
