@@ -186,7 +186,12 @@ class AngellEYE_Give_When_Public_Display {
                 echo json_encode(array('Ack'=>'Failure','ErrorCode'=>'WP Error','ErrorShort'=>'Error on user creation:','ErrorLong'=>$error));
                 exit;
             }
-            else{               
+            else{
+                if(!isset($userdata['ID'])){
+                    $subject='Thanks For Joining';
+                    $message='';
+                    wp_mail($userdata['user_email'], $subject, $message);
+                }
                 wp_set_auth_cookie( $user_id, true );
             }
         }
