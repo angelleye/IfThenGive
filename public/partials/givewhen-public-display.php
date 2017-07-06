@@ -160,9 +160,9 @@ class AngellEYE_Give_When_Public_Display {
             }
         }
     }
-    
+         
     public function start_express_checkout(){
-                                                         
+                                                                     
         $post_id = $_POST['post_id'];
         $amount = $_POST['amount'];        
         $post = get_post($post_id);
@@ -174,6 +174,25 @@ class AngellEYE_Give_When_Public_Display {
             if($role==NULL){
                 add_role('giver','Giver');
             }
+            $ValidationErrors = array();
+            $fname = sanitize_text_field( $gwuser['give_when_firstname']);
+            if (!preg_match("/^[a-zA-Z]+$/",$fname)) {
+              $ValidationErrors['FirstName'] = "Invalid Input : Only letters allowed in First Name";
+            }
+            $lname = sanitize_text_field($gwuser['give_when_lastname']);
+            if (!preg_match("/^[a-zA-Z]+$/",$lname)) {
+              $ValidationErrors['LastName'] = "Invalid Input : Only letters allowed in Last Name";
+            }
+             
+            $email = sanitize_email($gwuser['give_when_email']);
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $ValidationErrors['Email'] = "Invalid email format";
+            }
+            if(!empty($ValidationErrors)){
+                echo json_encode(array('Ack'=>'ValidationError','ErrorCode'=>'Invalid Inputs','ErrorLong'=>'Please find Following Error','Errors'=>$ValidationErrors));
+                exit;
+            }            
+            
             $userdata=array(
                 'user_pass' => md5($gwuser['give_when_password']),
                 'user_login' => $gwuser['give_when_email'],
