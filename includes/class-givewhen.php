@@ -202,7 +202,7 @@ class Givewhen {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+                $this->loader->add_filter( 'template_include', $plugin_public, 'give_when_template_loader' );                
 	}
 
 	/**
@@ -297,7 +297,7 @@ class Givewhen {
                  }
             }
             
-            if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {
+            if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {                          
                 $token = $_GET['token'];                
                 $PayPal_config = new Give_When_PayPal_Helper();   
                 $paypal_account_id = get_option('give_when_permission_connected_person_payerID');        
@@ -355,8 +355,11 @@ class Givewhen {
 
                         update_post_meta($new_post_id,'give_when_signup_amount',$amount);                    
                         update_post_meta($new_post_id,'give_when_signup_wp_user_id',$goal_user_id);
-                        update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$goal_post_id);
-                        wp_redirect(site_url('givewhenthankyou'));
+                        update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$goal_post_id);                        
+                        $amount = base64_encode($amount);
+                        $post = get_post($goal_post_id); 
+                        $slug = $post->post_name;
+                        wp_redirect(site_url('givewhenthankyou?goal='.$slug.'&amt='.$amount));                        
                         exit;
                     }
                     else{

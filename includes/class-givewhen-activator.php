@@ -31,13 +31,7 @@ class Givewhen_Activator {
 	 */
 	public static function activate() {
             $new_page_title = 'GiveWhenThankyou';
-            $new_page_content = '<div class="container" style="margin-top:5%;">
-                                    <div class="row">
-                                       <div class="jumbotron">
-                                           <h2 class="text-center">Thank you for signing up In GiveWhen</h2>
-                                       </div>
-                                    </div>
-                                 </div>';
+            $new_page_content = '[givewhen_thankyou]';
             $new_page_template = ''; //ex. template-custom.php. Leave blank if you don't want a custom page template.
             //don't change the code below, unless you know what you're doing
             $page_check = get_page_by_title($new_page_title);
