@@ -240,7 +240,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                         
         $paypal_helper_object = new Give_When_PayPal_Helper();
         
-        $PayPal = new Adaptive($paypal_helper_object->get_configuration());
+        $PayPal = new GiveWhen_Adaptive($paypal_helper_object->get_configuration());
         // Prepare request arrays        
         $Scope = array(
             'EXPRESS_CHECKOUT',             

@@ -133,8 +133,8 @@ class Givewhen {
                 /**
                  * PayPal php class file included.
                  */
-                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/Angelleye_PayPal.php';
-                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/Adaptive.php';
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/GiveWhen_Angelleye_PayPal.php';
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/GiveWhen_Adaptive.php';
                 require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/PPAuth.php';
                 require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/AuthUtil.php';                     
                 require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-paypal-helper.php';
@@ -257,7 +257,7 @@ class Givewhen {
             if (isset($_GET['action']) && $_GET['action'] == 'permission_callback') {
                  if(!empty($_GET['request_token']) && !empty($_GET['verification_code'])){
                      $paypal_helper_object = new Give_When_PayPal_Helper();                     
-                     $PayPal = new Adaptive($paypal_helper_object->get_configuration());
+                     $PayPal = new GiveWhen_Adaptive($paypal_helper_object->get_configuration());
                     
                     $GetAccessTokenFields = array(
                       'Token' => $_REQUEST['request_token'], 	
@@ -268,7 +268,7 @@ class Givewhen {
                     $PayPalResult = $PayPal->GetAccessToken($PayPalRequestData);                    
                     if($PayPalResult['Ack'] == 'Success'){                        
                         $paypal_helper_object->set_tokens($PayPalResult['Token'], $PayPalResult['TokenSecret']);                                                
-                        $paypal_for_peronal_data = new Adaptive($paypal_helper_object->get_third_party_configuration());
+                        $paypal_for_peronal_data = new GiveWhen_Adaptive($paypal_helper_object->get_third_party_configuration());
                         // Prepare request arrays
                         $AttributeList = array(
                             'http://axschema.org/namePerson/first',
@@ -302,7 +302,7 @@ class Givewhen {
                 $PayPal_config = new Give_When_PayPal_Helper();   
                 $paypal_account_id = get_option('give_when_permission_connected_person_payerID');        
                 $PayPal_config->set_api_subject($paypal_account_id);                
-                $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());
+                $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
                
                 $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
                 if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){

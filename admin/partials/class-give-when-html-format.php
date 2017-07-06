@@ -288,7 +288,7 @@ class AngellEYE_Give_When_interface {
         $PayPal_config = new Give_When_PayPal_Helper();   
         $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
         $PayPal_config->set_api_subject($paypal_account_id);
-        $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());       
+        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());       
         
         foreach ($givers as $value) {
             $trigger_name = get_post_meta($_REQUEST['post'],'trigger_name',true);
@@ -393,7 +393,7 @@ class AngellEYE_Give_When_interface {
         $PayPal_config = new Give_When_PayPal_Helper();   
         $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
         $PayPal_config->set_api_subject($paypal_account_id);
-        $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());        
+        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());        
         $GTDFields = array(
             'transactionid' => $transaction_id
         );
@@ -557,7 +557,7 @@ class AngellEYE_Give_When_interface {
         
         $paypal_helper_object = new Give_When_PayPal_Helper();
         
-        $PayPal = new Adaptive($paypal_helper_object->get_configuration());
+        $PayPal = new GiveWhen_Adaptive($paypal_helper_object->get_configuration());
         
         $PayPalResult = $PayPal->CancelPermissions($token);
         if($PayPal->APICallSuccessful($PayPalResult['Ack'])== false){

@@ -242,7 +242,7 @@ class AngellEYE_Give_When_Public_Display {
         $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal_config->set_api_subject($paypal_account_id);
         
-        $PayPal = new Angelleye_PayPal($PayPal_config->get_configuration());
+        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
         $SECFields = array(
                 'maxamt' => round($amount * 2,2),
                 'returnurl' => site_url('?action=ec_return'),

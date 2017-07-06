@@ -59,14 +59,16 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
               pm.meta_value as amount,
               b.meta_value as userId,
               c.meta_value as transactionId,
-              t.meta_value as ppack
+              t.meta_value as ppack,
+              p.post_date as Txn_date
               FROM `{$wpdb->prefix}postmeta` as pm 
               left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
               left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
               left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_transactions_ack'
+              JOIN wp_posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$_REQUEST['post']}%'     
               WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_transactions_wp_goal_id')  ";
               
-       $sql .= ' group by  b.meta_value';
+       $sql .= ' group by  p.ID';
        if(isset($_REQUEST['s'])){         
               $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
        }
@@ -86,7 +88,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
             $sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
         }
         $sql .= " LIMIT $per_page";
-        $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
+        $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;        
         $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );
                     
       return $result_array;
@@ -122,13 +124,15 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
               pm.meta_value as amount,
               b.meta_value as userId,
               c.meta_value as transactionId,
-              t.meta_value as ppack
+              t.meta_value as ppack,
+              p.post_date as Txn_date
               FROM `{$wpdb->prefix}postmeta` as pm 
               left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
               left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
               left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_transactions_ack'    
+              JOIN wp_posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$_REQUEST['post']}%'     
               WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_transactions_wp_goal_id') ";
-      $sql .= ' group by  b.meta_value';
+      $sql .= ' group by  p.ID';
        if(isset($_REQUEST['s'])){         
               $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
        }
@@ -190,6 +194,9 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
         case 'ppack' :
             echo $item['ppack'];
             break;
+        case 'Txn_date' :
+            echo date('Y-m-d',  strtotime($item['Txn_date']));
+            break;
       }
     }
     
@@ -221,6 +228,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
         'user_paypal_email' => __('PayPal Email ID','angelleye_give_when'),
         'PayPalPayerID'     => __('PayPal Payer ID','angelleye_give_when'),
         'ppack'             => __('Payment Status','angelleye_give_when'),
+        'Txn_date'          => __('Payment Date','angelleye_give_when')
       ];
 
       return $columns;
