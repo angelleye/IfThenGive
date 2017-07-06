@@ -111,19 +111,35 @@ class AngellEYE_Give_When_Public_Display {
                                      <div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">
                                         <span id="connect_paypal_error_p"></span>
                                     </div>
+                                    <?php
+                                     if ( is_user_logged_in() ) {
+                                        $current_user    = wp_get_current_user();
+                                        $User_email      = !empty($current_user->user_email) ? $current_user->user_email : '';
+                                        $User_first_name = !empty($current_user->user_firstname) ? $current_user->user_firstname : '';
+                                        $User_last_name  = !empty($current_user->user_lastname) ? $current_user->user_lastname : '';
+                                     }
+                                     else{
+                                        $User_email      = '';
+                                        $User_first_name = '';
+                                        $User_last_name  = '';
+                                     }
+                                    ?>
                                     <form method="post" name="signup" id="give_when_signup">
                                         <div class="form-group">
                                           <label for="name">First Name</label>
-                                          <input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" required="required">
+                                          <input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="<?php echo $User_first_name; ?>">
                                         </div>
                                         <div class="form-group">
                                           <label for="name">Last Name</label>
-                                          <input type="text" class="form-control" name="give_when_lastname" id="give_when_lastname" required="required">
+                                          <input type="text" class="form-control" name="give_when_lastname" id="give_when_lastname" required="required" value="<?php echo $User_last_name; ?>">
                                         </div>
                                         <div class="form-group">
                                           <label for="email">Email address:</label>
-                                          <input type="email" class="form-control" name="give_when_email" id="give_when_email" required="required">
+                                          <input type="email" class="form-control" name="give_when_email" id="give_when_email" required="required" value="<?php echo $User_email; ?>">
                                         </div>
+                                        <?php 
+                                         if ( ! is_user_logged_in() ) {
+                                         ?>
                                         <div class="form-group">
                                           <label for="password">Password:</label>
                                           <input type="password" class="form-control" name="give_when_password" id="give_when_password" required="required">
@@ -132,6 +148,7 @@ class AngellEYE_Give_When_Public_Display {
                                           <label for="password">Re-type Password:</label>
                                           <input type="password" class="form-control" name="give_when_retype_password" id="give_when_retype_password" required="required">
                                         </div>
+                                         <?php } ?>
                                         <button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="<?php echo $post->ID; ?>" data-userid="">Sign Up For <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></button>
                                     </form>
                                 </div>
