@@ -539,6 +539,20 @@ class AngellEYE_Give_When_interface {
     }
     
     public static function give_when_disconnect_interface_html(){
+        ?>
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;z-index: 1031;text-align: center;">
+                    <div style="display: table; width:100%; height: 100%;">                
+                        <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/loading.gif"  style=" position: relative;top: 50%;"/>
+                        <h2>Please wait, We are Rollbacking your permission from PayPal.</h2></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <?php
         $token = get_option('give_when_permission_token'); 
         
         $paypal_helper_object = new Give_When_PayPal_Helper();
