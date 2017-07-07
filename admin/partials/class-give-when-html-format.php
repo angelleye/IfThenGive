@@ -315,7 +315,7 @@ class AngellEYE_Give_When_interface {
             $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
             if ('yes' == $debug) {
                 $log_write = new AngellEYE_Give_When_Logger();
-                $log_write->add('angelleye_give_when', 'DoReferenceTransaction '.$PayPalResultDRT['ACK'].' : ' . print_r($PayPalResultDRT, true), 'transactions');
+                $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction '.$PayPalResultDRT['ACK'].' : ' . print_r($PayPalResultDRT, true), 'transactions');
             }
             if(!isset($PayPalResultDRT['TRANSACTIONID'])){
                 $PayPalResultDRT['TRANSACTIONID'] = '';

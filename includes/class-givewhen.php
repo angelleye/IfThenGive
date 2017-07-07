@@ -146,6 +146,12 @@ class Givewhen {
                 /**
                  * Included for inherit wordpress table style.
                 **/
+                
+                /**
+                * PayPal Debug Log
+                */
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-log.php';
+
                 if ( !class_exists( 'WP_List_Table' ) ){
                 require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
                 }
@@ -287,7 +293,7 @@ class Givewhen {
                             $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
                             if ('yes' == $debug) {
                                 $log_write = new AngellEYE_Give_When_Logger();
-                                $log_write->add('angelleye_give_when', 'Connect to Paypal GetBasicPersonalData : ' . print_r($PayPalResultPeronalData, true), 'connect_to_paypal');
+                                $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect to Paypal GetBasicPersonalData : ' . print_r($PayPalResultPeronalData, true), 'connect_to_paypal');
                             }
                         }                        
                         update_option( 'give_when_permission_connected_to_paypal', 'Yes');
@@ -301,7 +307,7 @@ class Givewhen {
                         $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
                         if ('yes' == $debug) {
                             $log_write = new AngellEYE_Give_When_Logger();
-                            $log_write->add('angelleye_give_when', 'GetAccessToken Failed : ' . print_r($PayPalResult, true), 'connect_to_paypal');
+                            $log_write->add('angelleye_give_when_connect_to_paypal', 'GetAccessToken Failed : ' . print_r($PayPalResult, true), 'connect_to_paypal');
                         }
                     }                    
                     wp_redirect(admin_url('admin.php?page=give_when_option&tab=connect_to_paypal'));
@@ -350,7 +356,7 @@ class Givewhen {
                     $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
                     if ('yes' == $debug) {
                             $log_write = new AngellEYE_Give_When_Logger();
-                            $log_write->add('angelleye_give_when', 'GetExpressCheckout Failed : ' . print_r($PayPalResultGEC, true), 'express_checkout');
+                            $log_write->add('angelleye_give_when_express_checkout', 'GetExpressCheckout Failed : ' . print_r($PayPalResultGEC, true), 'express_checkout');
                     }                    
                 }
                 //$isAvailableBAID = get_user_meta($goal_user_id,'give_when_gec_billing_agreement_id',true);
@@ -370,7 +376,13 @@ class Givewhen {
 
                         update_post_meta($new_post_id,'give_when_signup_amount',$amount);                    
                         update_post_meta($new_post_id,'give_when_signup_wp_user_id',$goal_user_id);
-                        update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$goal_post_id);                        
+                        update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$goal_post_id);    
+                        //save log
+                        $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                        if ('yes' == $debug) {
+                                $log_write = new AngellEYE_Give_When_Logger();
+                                $log_write->add('angelleye_give_when_express_checkout', 'CreateBillingAgreement Success : ' . print_r($PayPalResultCBA, true), 'express_checkout');
+                        }
                         $amount = base64_encode($amount);
                         $post = get_post($goal_post_id); 
                         $slug = $post->post_name;
@@ -382,7 +394,7 @@ class Givewhen {
                         $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
                         if ('yes' == $debug) {
                                 $log_write = new AngellEYE_Give_When_Logger();
-                                $log_write->add('angelleye_give_when', 'CreateBillingAgreement Failed : ' . print_r($PayPalResultCBA, true), 'express_checkout');
+                                $log_write->add('angelleye_give_when_express_checkout', 'CreateBillingAgreement Failed : ' . print_r($PayPalResultCBA, true), 'express_checkout');
                         }
                     }
                 //}
