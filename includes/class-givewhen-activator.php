@@ -30,6 +30,7 @@ class Givewhen_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
+            self::create_files();
             $new_page_title = 'GiveWhenThankyou';
             $new_page_content = '[givewhen_thankyou]';
             $new_page_template = ''; //ex. template-custom.php. Leave blank if you don't want a custom page template.
@@ -48,6 +49,50 @@ class Givewhen_Activator {
                             update_post_meta($new_page_id, '_wp_page_template', $new_page_template);
                     }
             }
+	}
+        
+        /**
+	 * Create files/directories
+	 */
+	public static function create_files() {
+		// Install files and folders for uploading files and prevent hotlinking
+		$upload_dir = wp_upload_dir();
+		$files = array(
+			array(
+				'base' => GW_LOG_DIR,
+				'file' => '.htaccess',
+				'content' => 'deny from all',
+			),
+			array(
+				'base' => GW_LOG_DIR,
+				'file' => 'index.html',
+				'content' => '',
+			),
+			array(
+				'base' => GW_LOG_DIR . '/connect_to_paypal',
+				'file' => 'index.html',
+				'content' => '',
+			),
+			array(
+				'base' => GW_LOG_DIR . '/transactions',
+				'file' => 'index.html',
+				'content' => '',
+			),
+			array(
+				'base' => GW_LOG_DIR . '/express_checkout',
+				'file' => 'index.html',
+				'content' => '',
+			),
+		);
+
+		foreach ($files as $file) {
+			if (wp_mkdir_p($file['base']) && !file_exists(trailingslashit($file['base']) . $file['file'])) {
+				if ($file_handle = @fopen(trailingslashit($file['base']) . $file['file'], 'w')) {
+					fwrite($file_handle, $file['content']);
+					fclose($file_handle);
+				}
+			}
+		}
 	}
 
 }

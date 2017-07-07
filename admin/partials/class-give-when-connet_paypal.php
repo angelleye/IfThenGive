@@ -64,7 +64,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             'type' => 'checkbox',
             'label' => __('Enable logging', 'angelleye_give_when'),
             'default' => 'no',
-            'desc' => sprintf(__('Log Give When plugin events in <code>%s</code>', 'angelleye_give_when'), $Logger->give_when_for_wordpress_wordpress_get_log_file_path('angelleye_give_when'))
+            'desc' => sprintf(__('Save Logs for GiveWhen.', 'angelleye_give_when'))
         );        
         $fields[] = array('type' => 'sectionend', 'id' => 'general_options_setting');
         return $fields;
@@ -262,10 +262,22 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         
         $PayPalResult = $PayPal->RequestPermissions($PayPalRequestData);
      
-        if(empty($PayPalResult['Errors']) && $PayPalResult['Ack'] == 'Success'){
+        if($PayPal->APICallSuccessful($PayPalResult['ACK'])){
+            //save log
+            $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+            if ('yes' == $debug) {
+                    $log_write = new AngellEYE_Give_When_Logger();
+                    $log_write->add('angelleye_give_when', 'RequestPermissions Success: ' . print_r($PayPalResult, true), 'connect_to_paypal');
+            }
             echo json_encode(array( 'Ack' => $PayPalResult['Ack'] ,'Token' => $PayPalResult['Token'] , 'RedirectURL' => $PayPalResult['RedirectURL'] ));
         }
         else{
+            //save log
+            $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+            if ('yes' == $debug) {
+                    $log_write = new AngellEYE_Give_When_Logger();
+                    $log_write->add('angelleye_give_when', 'RequestPermissions Failed : ' . print_r($PayPalResult, true), 'connect_to_paypal');
+            }
             echo json_encode(array('Ack' => $PayPalResult['Ack'] , 'Message' => $PayPalResult['Errors'][0]['Message'] , 'ErrorID' => $PayPalResult['Errors'][0]['ErrorID'] ));
         }
         exit;

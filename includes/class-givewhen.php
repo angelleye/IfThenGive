@@ -283,14 +283,26 @@ class Givewhen {
                                 $key = substr($PayPalPerson['PersonalDataKey'], strrpos($PayPalPerson['PersonalDataKey'], '/') + 1);
                                 update_option('give_when_permission_connected_person_'.$key,$PayPalPerson['PersonalDataValue']);
                             }
+                            //save log
+                            $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                            if ('yes' == $debug) {
+                                $log_write = new AngellEYE_Give_When_Logger();
+                                $log_write->add('angelleye_give_when', 'Connect to Paypal GetBasicPersonalData : ' . print_r($PayPalResultPeronalData, true), 'connect_to_paypal');
+                            }
                         }                        
                         update_option( 'give_when_permission_connected_to_paypal', 'Yes');
                         update_option( 'give_when_permission_token', $PayPalResult['Token'] );
                         update_option( 'give_when_permission_token_secret', $PayPalResult['TokenSecret'] );
-                        update_option( 'give_when_permission_connect_to_paypal_success_notice', 'You are successfully connected with PayPal.');
+                        update_option( 'give_when_permission_connect_to_paypal_success_notice', 'You are successfully connected with PayPal.');                        
                     }
                     else{
+                        
                         update_option( 'give_when_permission_connect_to_paypal_failed_notice', $PayPalResult['Ack'].' : Something went wrong. Please try again.');
+                        $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                        if ('yes' == $debug) {
+                            $log_write = new AngellEYE_Give_When_Logger();
+                            $log_write->add('angelleye_give_when', 'GetAccessToken Failed : ' . print_r($PayPalResult, true), 'connect_to_paypal');
+                        }
                     }                    
                     wp_redirect(admin_url('admin.php?page=give_when_option&tab=connect_to_paypal'));
                     die();
@@ -334,12 +346,15 @@ class Givewhen {
                     update_user_meta($goal_user_id,'give_when_signedup_goals',$signedup_goals);
                 }
                 else{
-                    echo "<pre>";
-                    var_dump($PayPalResultGEC['ERRORS']);
-                    exit;
+                    //save log
+                    $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                    if ('yes' == $debug) {
+                            $log_write = new AngellEYE_Give_When_Logger();
+                            $log_write->add('angelleye_give_when', 'GetExpressCheckout Failed : ' . print_r($PayPalResultGEC, true), 'express_checkout');
+                    }                    
                 }
                 //$isAvailableBAID = get_user_meta($goal_user_id,'give_when_gec_billing_agreement_id',true);
-                //if($isAvailableBAID !== ''){                                            
+                //if($isAvailableBAID !== ''){
                     $PayPalResultCBA = $PayPal->CreateBillingAgreement($token);
                     if($PayPal->APICallSuccessful($PayPalResultCBA['ACK'])){
 
@@ -363,9 +378,12 @@ class Givewhen {
                         exit;
                     }
                     else{
-                        echo "<pre>";
-                        var_dump($PayPalResultCBA['ERRORS']);
-                        exit;
+                        //save log
+                        $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                        if ('yes' == $debug) {
+                                $log_write = new AngellEYE_Give_When_Logger();
+                                $log_write->add('angelleye_give_when', 'CreateBillingAgreement Failed : ' . print_r($PayPalResultCBA, true), 'express_checkout');
+                        }
                     }
                 //}
             }
