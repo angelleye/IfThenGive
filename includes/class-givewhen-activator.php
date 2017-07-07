@@ -30,7 +30,10 @@ class Givewhen_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-            self::create_files();
+            if (!get_option('sandbox_enable_give_when')) {
+            	add_option('sandbox_enable_give_when', 'no');
+			}
+			self::create_files();
             $new_page_title = 'GiveWhenThankyou';
             $new_page_content = '[givewhen_thankyou]';
             $new_page_template = ''; //ex. template-custom.php. Leave blank if you don't want a custom page template.

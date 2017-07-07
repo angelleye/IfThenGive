@@ -44,6 +44,8 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         add_action( 'wp_ajax_request_permission', array(__CLASS__,'request_permission'));
         add_action("wp_ajax_nopriv_request_permission",  array(__CLASS__,'request_permission'));
         
+        add_action( 'wp_ajax_sandbox_enabled', array(__CLASS__,'sandbox_enabled'));
+        add_action("wp_ajax_nopriv_sandbox_enabled",  array(__CLASS__,'sandbox_enabled'));
     }
 
     public static function give_when_connect_to_paypal_setting_fields() {
@@ -283,7 +285,21 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         exit;
     }
     
-     /**
+    
+    public function sandbox_enabled(){       
+        if(isset($_POST['sandbox'])){
+            $sandbox = $_POST['sandbox'];
+            if($sandbox=='true'){
+                update_option('sandbox_enable_give_when','yes');
+            }
+            else{
+                update_option('sandbox_enable_give_when','no');
+            }
+            echo json_encode(array('Ack' => 'success'));
+        }
+    }
+
+    /**
      * give_when_general_setting_save_field function used for save general setting field value
      * @since 1.0.0
      * @access public static

@@ -396,9 +396,9 @@ class AngellEYE_Give_When_interface {
         global $post, $post_ID;
         $goal_id = $post_ID;       
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();        
-        $PayPal_config = new Give_When_PayPal_Helper();   
+        $PayPal_config = new Give_When_PayPal_Helper();           
         $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
-        $PayPal_config->set_api_subject($paypal_account_id);
+        $PayPal_config->set_api_subject($paypal_account_id);        
         $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());        
         $GTDFields = array(
             'transactionid' => $transaction_id
