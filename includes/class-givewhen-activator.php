@@ -22,15 +22,17 @@
  */
 class Givewhen_Activator {
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function activate() {
-
-	}
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public static function activate() {
+        if (!get_option('sandbox_enable_give_when')) {
+            add_option('sandbox_enable_give_when', 'no');
+        }
+    }
 
 }

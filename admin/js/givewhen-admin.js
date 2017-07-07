@@ -113,6 +113,27 @@
                 return false;
             }
         });
+        
+        $(document).on('click','#sandbox_enable_give_when',function(){
+            var sandbox = '';
+            if ($(this).is(':checked')){
+                sandbox = true;
+            } else { 
+                sandbox = false;
+            }
+             $.ajax({
+                type: 'POST',
+                url: admin_ajax_url,
+                 data: { 
+                    action  : 'sandbox_enabled',
+                    sandbox : sandbox
+                },
+                dataType: "json",
+                success: function (result) {
+                }
+            });
+        });
+        
     });
     
 
