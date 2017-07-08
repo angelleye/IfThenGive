@@ -25,9 +25,7 @@ class AngellEYE_Give_When_Cancel_Billing_Agreement {
     }
     public static function Cancel_Billing_Agreement_delete_giver( $user_id ) {        
         $billing_agreement_id = get_user_meta( $user_id, 'give_when_gec_billing_agreement_id', true );
-        $PayPal_config = new Give_When_PayPal_Helper();   
-        $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
-        $PayPal_config->set_api_subject($paypal_account_id);
+        $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
 
         $BAUpdateFields = array(

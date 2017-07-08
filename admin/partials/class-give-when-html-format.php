@@ -31,15 +31,29 @@ class AngellEYE_Give_When_interface {
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_interface_html() {
-        $conncet_to_paypal_flag = get_option('give_when_permission_connected_to_paypal');
-        if($conncet_to_paypal_flag != 'Yes'){
+    public static function give_when_interface_html() {        
+        $sanbox_enable = get_option('sandbox_enable_give_when');        
+        $gwflag=true;
+        if($sanbox_enable === 'yes'){
+            $sandbox_api_user = get_option('give_when_sandbox_api_username');
+            if($sandbox_api_user){
+                $gwflag = false;
+            }
+        }
+        else{
+            $api_user = get_option('give_when_api_username', TRUE);
+            if($api_user){
+                $gwflag = false;
+            }
+        }
+        
+        if($gwflag){
             ?>
            <div style="padding-top: 25px"></div>
            <div class="container" style="max-width: 100%">
                <div class="bs-callout bs-callout-warning">
-                <h4>You are not connected with paypal.</h4>
-                <a href="<?php echo site_url();?>/wp-admin/options-general.php?page=give_when_option">Click Here</a> for setting page and Connect with PayPal.
+                <h4>Please Provide PayPal Credentials .</h4>
+                <a href="<?php echo site_url();?>/wp-admin/options-general.php?page=give_when_option">Click Here</a> for Setting page to add PayPal Credentials.
               </div>               
            </div>
         <?php
@@ -285,10 +299,8 @@ class AngellEYE_Give_When_interface {
         global $post, $post_ID;
         $goal_id = $_REQUEST['post'];
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
-        $PayPal_config = new Give_When_PayPal_Helper();   
-        $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
-        $PayPal_config->set_api_subject($paypal_account_id);
-        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());       
+        $PayPal_config = new Give_When_PayPal_Helper();
+        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
         
         foreach ($givers as $value) {
             $trigger_name = get_post_meta($_REQUEST['post'],'trigger_name',true);
@@ -396,9 +408,7 @@ class AngellEYE_Give_When_interface {
         global $post, $post_ID;
         $goal_id = $post_ID;       
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();        
-        $PayPal_config = new Give_When_PayPal_Helper();           
-        $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
-        $PayPal_config->set_api_subject($paypal_account_id);        
+        $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());        
         $GTDFields = array(
             'transactionid' => $transaction_id

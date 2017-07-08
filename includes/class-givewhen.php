@@ -259,67 +259,11 @@ class Givewhen {
         * @return void
         */
         public function handle_callback_permission() {                       
-            global $wp;            
-            if (isset($_GET['action']) && $_GET['action'] == 'permission_callback') {
-                 if(!empty($_GET['request_token']) && !empty($_GET['verification_code'])){
-                     $paypal_helper_object = new Give_When_PayPal_Helper();                     
-                     $PayPal = new GiveWhen_Adaptive($paypal_helper_object->get_configuration());
-                    
-                    $GetAccessTokenFields = array(
-                      'Token' => $_REQUEST['request_token'], 	
-                      'Verifier' => $_REQUEST['verification_code']
-                    );                    
-                    $PayPalRequestData = array('GetAccessTokenFields' => $GetAccessTokenFields);
-                    
-                    $PayPalResult = $PayPal->GetAccessToken($PayPalRequestData);                    
-                    if($PayPalResult['Ack'] == 'Success'){                        
-                        $paypal_helper_object->set_tokens($PayPalResult['Token'], $PayPalResult['TokenSecret']);                                                
-                        $paypal_for_peronal_data = new GiveWhen_Adaptive($paypal_helper_object->get_third_party_configuration());
-                        // Prepare request arrays
-                        $AttributeList = array(
-                            'http://axschema.org/namePerson/first',
-                            'http://axschema.org/namePerson/last',
-                            'http://axschema.org/contact/email',
-                            'http://axschema.org/contact/country/home',
-                            'https://www.paypal.com/webapps/auth/schema/payerID'
-                        );
-                        $PayPalResultPeronalData = $paypal_for_peronal_data->GetBasicPersonalData($AttributeList);                        
-                        if($PayPalResultPeronalData['Ack']='Success'){
-                            foreach($PayPalResultPeronalData['PersonalData'] as $PayPalPerson){
-                                $key = substr($PayPalPerson['PersonalDataKey'], strrpos($PayPalPerson['PersonalDataKey'], '/') + 1);
-                                update_option('give_when_permission_connected_person_'.$key,$PayPalPerson['PersonalDataValue']);
-                            }
-                            //save log
-                            $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
-                            if ('yes' == $debug) {
-                                $log_write = new AngellEYE_Give_When_Logger();
-                                $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect to Paypal GetBasicPersonalData : ' . print_r($PayPalResultPeronalData, true), 'connect_to_paypal');
-                            }
-                        }                        
-                        update_option( 'give_when_permission_connected_to_paypal', 'Yes');
-                        update_option( 'give_when_permission_token', $PayPalResult['Token'] );
-                        update_option( 'give_when_permission_token_secret', $PayPalResult['TokenSecret'] );
-                        update_option( 'give_when_permission_connect_to_paypal_success_notice', 'You are successfully connected with PayPal.');                        
-                    }
-                    else{
-                        
-                        update_option( 'give_when_permission_connect_to_paypal_failed_notice', $PayPalResult['Ack'].' : Something went wrong. Please try again.');
-                        $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
-                        if ('yes' == $debug) {
-                            $log_write = new AngellEYE_Give_When_Logger();
-                            $log_write->add('angelleye_give_when_connect_to_paypal', 'GetAccessToken Failed : ' . print_r($PayPalResult, true), 'connect_to_paypal');
-                        }
-                    }                    
-                    wp_redirect(admin_url('admin.php?page=give_when_option&tab=connect_to_paypal'));
-                    die();
-                 }
-            }
+            global $wp;
             
             if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {                          
                 $token = $_GET['token'];                
-                $PayPal_config = new Give_When_PayPal_Helper();   
-                $paypal_account_id = get_option('give_when_permission_connected_person_payerID');        
-                $PayPal_config->set_api_subject($paypal_account_id);                
+                $PayPal_config = new Give_When_PayPal_Helper();
                 $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
                
                 $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                

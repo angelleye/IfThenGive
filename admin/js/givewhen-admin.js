@@ -1,6 +1,15 @@
 (function ($) {
     'use strict';
     jQuery(document).ready(function ($) {
+        
+        if(give_when_sanbox_enable_js == 'yes'){
+            jQuery('#give_when_api_username, #give_when_api_password, #give_when_api_signature').closest('tr').hide();
+        }
+        else{
+            jQuery('#give_when_sandbox_api_username, #give_when_sandbox_api_password, #give_when_sandbox_api_signature').closest('tr').hide();
+        }
+        
+        
         $('#upload-btn').click(function (e) {
             e.preventDefault();
             var image = wp.media({
@@ -116,10 +125,18 @@
         
         $(document).on('click','#sandbox_enable_give_when',function(){
             var sandbox = '';
+            var sandboxTr ='';
+            var productionTr = '';
+            sandboxTr = jQuery('#give_when_sandbox_api_username, #give_when_sandbox_api_password, #give_when_sandbox_api_signature').closest('tr');
+            productionTr = jQuery('#give_when_api_username, #give_when_api_password, #give_when_api_signature').closest('tr');            
             if ($(this).is(':checked')){
                 sandbox = true;
+                sandboxTr.show();
+                productionTr.hide();
             } else { 
                 sandbox = false;
+                sandboxTr.hide();
+                productionTr.show();
             }
              $.ajax({
                 type: 'POST',

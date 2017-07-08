@@ -77,21 +77,21 @@ class Give_When_PayPal_Helper {
         }
         
         public function set_api_cedentials(){           
-            $sanbox_enable = get_option('sandbox_enable_give_when', TRUE);            
+            $sanbox_enable = get_option('sandbox_enable_give_when', TRUE);
             if($sanbox_enable === 'yes'){
                 $this->sandbox=TRUE;
-                $this->api_username='tejasm-merchant_api2.itpathsolutions.co.in';
-                $this->api_password='GJA2TBCF3U9H4VK9';
-                $this->api_signature='AFcWxV21C7fd0v3bYYYRCpSSRl31A47TBRQKcZyw6Bx9aDcmqr9ipPmt';
+                $this->api_username=get_option('give_when_sandbox_api_username', TRUE);
+                $this->api_password=get_option('give_when_sandbox_api_password', TRUE);
+                $this->api_signature=get_option('give_when_sandbox_api_signature', TRUE);
                 $this->application_id='APP-80W284485P519543T';
             }            
             else{
                 $this->sandbox='';
-                $this->api_username='';
-                $this->api_password='';
-                $this->api_signature='';
+                $this->api_username=get_option('give_when_api_username', TRUE);
+                $this->api_password=get_option('give_when_api_password', TRUE);
+                $this->api_signature=get_option('give_when_api_signature', TRUE);
                 $this->application_id='';
-            }   
+            }
         }
         
 }

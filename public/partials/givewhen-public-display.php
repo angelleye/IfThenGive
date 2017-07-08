@@ -236,12 +236,8 @@ class AngellEYE_Give_When_Public_Display {
         }   
         
         $trigger_name = get_post_meta( $post->ID, 'trigger_name', true );
-        
-        //set APISUBJECT For ThirdPArty Payment
-        $paypal_account_id = get_option('give_when_permission_connected_person_payerID');                
+                        
         $PayPal_config = new Give_When_PayPal_Helper();
-        $PayPal_config->set_api_subject($paypal_account_id);
-        
         $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
         $SECFields = array(
                 'maxamt' => round($amount * 2,2),
