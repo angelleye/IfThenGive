@@ -77,7 +77,8 @@ class AngellEYE_Give_When_General_Setting {
             'title' => __('Sandbox API Signature', 'paypal-for-woocommerce'),
             'type' => 'password',
             'default' => '',
-            'class' => 'form-control'
+            'class' => 'form-control',
+            'desc' => sprintf(__('You may login to this tool using your PayPal account to quickly obtain your API credentials.<a href=" https://www.sandbox.paypal.com/us/cgi-bin/webscr?cmd=_login-api-run" target="_blank">Get Sandbox API Credentials</a>', 'angelleye_give_when'))
         );
         $fields[] = array(
             'id' => 'give_when_api_username',
@@ -99,7 +100,8 @@ class AngellEYE_Give_When_General_Setting {
             'title' => __('Live API Signature', 'paypal-for-woocommerce'),
             'type' => 'password',
             'default' => '',
-            'class' => 'form-control'
+            'class' => 'form-control',
+            'desc' => sprintf(__('You may login to this tool using your PayPal account to quickly obtain your API credentials.<a href="https://www.paypal.com/us/cgi-bin/webscr?cmd=_login-api-run" target="_blank">Get Live API Credentials</a>', 'angelleye_give_when'))
         );
         $fields[] = array(
             'title' => __('Debug Log', 'angelleye_give_when'),
