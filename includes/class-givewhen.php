@@ -258,10 +258,11 @@ class Givewhen {
         * @since 1.0.0
         * @return void
         */
-        public function handle_callback_permission() {                       
+        public function handle_callback_permission() {
+            @session_start();
             global $wp;
             
-            if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {                          
+            if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {                                    
                 $token = $_GET['token'];                
                 $PayPal_config = new Give_When_PayPal_Helper();
                 $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
@@ -296,12 +297,17 @@ class Givewhen {
                     update_user_meta($goal_user_id,'give_when_signedup_goals',$signedup_goals);
                 }
                 else{
+                    $_SESSION['GW_Error'] = true;
+                    $_SESSION['GW_Error_Type'] = 'PayPalError';
+                    $_SESSION['GW_Error_Array'] = $PayPalResultGEC;
                     //save log
                     $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
                     if ('yes' == $debug) {
                             $log_write = new AngellEYE_Give_When_Logger();
                             $log_write->add('angelleye_give_when_express_checkout', 'GetExpressCheckout Failed : ' . print_r($PayPalResultGEC, true), 'express_checkout');
-                    }                    
+                    }
+                    wp_redirect(site_url('givewhenerrors'));
+                    exit;
                 }
                 //$isAvailableBAID = get_user_meta($goal_user_id,'give_when_gec_billing_agreement_id',true);
                 //if($isAvailableBAID !== ''){
@@ -334,14 +340,19 @@ class Givewhen {
                         exit;
                     }
                     else{
+                        $_SESSION['GW_Error'] = true;
+                        $_SESSION['GW_Error_Type'] = 'PayPalError';
+                        $_SESSION['GW_Error_Array'] = $PayPalResultCBA;
                         //save log
                         $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
                         if ('yes' == $debug) {
                                 $log_write = new AngellEYE_Give_When_Logger();
                                 $log_write->add('angelleye_give_when_express_checkout', 'CreateBillingAgreement Failed : ' . print_r($PayPalResultCBA, true), 'express_checkout');
                         }
+                        wp_redirect(site_url('givewhenerrors'));
+                        exit;
                     }
                 //}
-            }
+            }            
         }
 }

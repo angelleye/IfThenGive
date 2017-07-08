@@ -33,7 +33,7 @@ class Givewhen_Activator {
             if (!get_option('sandbox_enable_give_when')) {
             	add_option('sandbox_enable_give_when', 'no');
 			}
-			self::create_files();
+            self::create_files();
             $new_page_title = 'GiveWhenThankyou';
             $new_page_content = '[givewhen_thankyou]';
             $new_page_template = ''; //ex. template-custom.php. Leave blank if you don't want a custom page template.
@@ -52,6 +52,25 @@ class Givewhen_Activator {
                             update_post_meta($new_page_id, '_wp_page_template', $new_page_template);
                     }
             }
+            
+            $new_error_page_title = 'GiveWhenErrors';
+            $new_error_page_content = '[givewhen_errors]';
+            $new_error_page_template = '';
+            $error_page_check = get_page_by_title($new_error_page_title);
+            $new_error_page = array(
+                    'post_type' => 'page',
+                    'post_title' => $new_error_page_title,
+                    'post_content' => $new_error_page_content,
+                    'post_status' => 'publish',
+                    'post_author' => 1,
+            );
+            if(!isset($error_page_check->ID)){
+                    $new_error_page_id = wp_insert_post($new_error_page);
+                    if(!empty($new_error_page_template)){
+                            update_post_meta($new_error_page_id, '_wp_page_template', $new_error_page_template);
+                    }
+            }
+            
 	}
         
         /**

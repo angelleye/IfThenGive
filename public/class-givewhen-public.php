@@ -161,6 +161,9 @@ class Givewhen_Public {
         if (is_singular() && is_page('givewhenthankyou')):
             $file = 'goal-signup-complete.php';        
         endif;
+        if (is_singular() && is_page('givewhenerrors')):
+            $file = 'gw-errors-display.php';
+        endif;
 
         if ($file) :
             $template = $this->give_when_locate_template($file);

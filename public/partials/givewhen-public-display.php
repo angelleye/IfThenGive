@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Provide a public-facing view for the plugin
  *
@@ -40,7 +39,8 @@ class AngellEYE_Give_When_Public_Display {
      */
     public static function give_when_create_shortcode($atts, $content = null) {
 
-        global $post, $post_ID;        
+        global $post, $post_ID; 
+        $give_when_page_id = $post->ID;
         extract(shortcode_atts(array(
                     'id' => ''), $atts));
         $html = '';
@@ -149,6 +149,7 @@ class AngellEYE_Give_When_Public_Display {
                                           <input type="password" class="form-control" name="give_when_retype_password" id="give_when_retype_password" required="required">
                                         </div>
                                          <?php } ?>
+                                        <input type="hidden" class="form-control" name="give_when_page_id" id="give_when_page_id" value="<?php echo $give_when_page_id;?>">
                                         <button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="<?php echo $post->ID; ?>" data-userid="">Sign Up For <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></button>
                                     </form>
                                 </div>
@@ -162,14 +163,17 @@ class AngellEYE_Give_When_Public_Display {
     }
          
     public function start_express_checkout(){
-                                                                     
+        global $post;         
+        $page_id = $_POST['give_when_page_id'];
         $post_id = $_POST['post_id'];
         $amount = $_POST['amount'];        
         $post = get_post($post_id);
-        
+        $cancel_page = site_url('?action=ec_cancel');
         if(!empty($_POST['formData'])){
             $gwuser = array();
             parse_str($_POST['formData'], $gwuser);
+            $page_id = $gwuser['give_when_page_id'];
+            $cancel_page =  get_permalink( $page_id );                    
             $role = get_role( 'giver' );
             if($role==NULL){
                 add_role('giver','Giver');
@@ -242,7 +246,7 @@ class AngellEYE_Give_When_Public_Display {
         $SECFields = array(
                 'maxamt' => round($amount * 2,2),
                 'returnurl' => site_url('?action=ec_return'),
-                'cancelurl' => site_url('?action=ec_cancel'),
+                'cancelurl' => $cancel_page,
                 'hdrimg' => 'https://www.angelleye.com/images/angelleye-paypal-header-750x90.jpg',
                 'logoimg' => 'https://www.angelleye.com/images/angelleye-logo-190x60.jpg',
                 'brandname' => 'Angell EYE',
