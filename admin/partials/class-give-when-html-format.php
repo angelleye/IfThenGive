@@ -61,15 +61,15 @@ class AngellEYE_Give_When_interface {
         }
         $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';
         global $post;           
-        $trigger_name = !empty(get_post_meta($post->ID,'trigger_name',true)) ? get_post_meta($post->ID,'trigger_name',true) : '';
-        $trigger_thing = !empty(get_post_meta($post->ID,'trigger_thing',true)) ? get_post_meta($post->ID,'trigger_thing',true) : '';
-        $trigger_desc = !empty(get_post_meta($post->ID,'trigger_desc',true)) ? get_post_meta($post->ID,'trigger_desc',true) : '';
-        $image_url    = !empty(get_post_meta($post->ID,'image_url',true)) ? get_post_meta($post->ID,'image_url',true) : '';        
-        $gw_amount = !empty(get_post_meta($post->ID,'amount',true)) ? get_post_meta($post->ID,'amount',true) : '';        
+        $trigger_name = get_post_meta($post->ID,'trigger_name',true);
+        $trigger_thing = get_post_meta($post->ID,'trigger_thing',true);
+        $trigger_desc = get_post_meta($post->ID,'trigger_desc',true);
+        $image_url    = get_post_meta($post->ID,'image_url',true);
+        $gw_amount = get_post_meta($post->ID,'amount',true);
         if($gw_amount == 'fixed'){
             $fixed_amount_check = 'checked';
             $fixed_amount_input_class = "";
-            $fixed_amount_input_value = !empty(get_post_meta($post->ID,'fixed_amount_input',true)) ? get_post_meta($post->ID,'fixed_amount_input',true) : '';
+            $fixed_amount_input_value = get_post_meta($post->ID,'fixed_amount_input',true);
         }
         else{
             $fixed_amount_check = '';
@@ -80,8 +80,8 @@ class AngellEYE_Give_When_interface {
         if($gw_amount == 'select'){
             $dynamic_options_check = 'checked';
             $dynamic_options_class = '';
-            $dynamic_options_name = !empty(get_post_meta($post->ID,'option_name',true)) ? get_post_meta($post->ID,'option_name',true) : '';
-            $dynamic_option_amount = !empty(get_post_meta($post->ID,'option_amount',true)) ? get_post_meta($post->ID,'option_amount',true) : '';
+            $dynamic_options_name = get_post_meta($post->ID,'option_name',true);
+            $dynamic_option_amount = get_post_meta($post->ID,'option_amount',true);
         }else{
             $dynamic_options_check = '';
             $dynamic_options_class = 'hidden';
@@ -258,7 +258,7 @@ class AngellEYE_Give_When_interface {
             <div class="row">
                 <div class="col-md-12 text-center">
                      <?php  
-                        $trigger_name = !empty($t = get_post_meta($_REQUEST['post'],'trigger_name',true)) ? $t : '';                        
+                        $trigger_name = get_post_meta($_REQUEST['post'],'trigger_name',true);                        
                      ?>
                     <h3 class="text-info">Givers For <?php echo $trigger_name; ?> </h3>
                 </div>                
@@ -378,7 +378,7 @@ class AngellEYE_Give_When_interface {
             <div class="row">
                 <div class="col-md-12 text-center">
                     <?php  
-                        $trigger_name = !empty($t = get_post_meta($_REQUEST['post'],'trigger_name',true)) ? $t : '';                        
+                        $trigger_name = get_post_meta($_REQUEST['post'],'trigger_name',true);
                      ?>
                     <h3 class="text-info">Transactions for <?php echo $trigger_name; ?></h3>
                 </div>
