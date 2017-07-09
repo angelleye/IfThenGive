@@ -32,7 +32,7 @@ class AngellEYE_Give_When_interface {
      * @access public
      */
     public static function give_when_interface_html() {        
-        $sanbox_enable = get_option('sandbox_enable_give_when');        
+        $sanbox_enable = get_option('sandbox_enable_give_when');                
         $gwflag=true;
         if($sanbox_enable === 'yes'){
             $sandbox_api_user = get_option('give_when_sandbox_api_username');
@@ -40,8 +40,8 @@ class AngellEYE_Give_When_interface {
                 $gwflag = false;
             }
         }
-        else{
-            $api_user = get_option('give_when_api_username', TRUE);
+        else{            
+            $api_user = get_option('give_when_api_username');            
             if($api_user){
                 $gwflag = false;
             }
