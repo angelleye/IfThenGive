@@ -213,9 +213,7 @@ class AngellEYE_Give_When_Public_Display {
                 if($is_admin){
                     unset($userdata['role']);
                 }
-                echo "<pre>";
-                var_dump($userdata,$is_admin);
-                exit;
+                
                 $userdata['ID'] = $user_exist;
                 $signnedup_goals = get_user_meta($user_exist,'give_when_signedup_goals');        
                 $goalArray = explode('|', $signnedup_goals[0]);                
@@ -233,12 +231,10 @@ class AngellEYE_Give_When_Public_Display {
                 echo json_encode(array('Ack'=>'Failure','ErrorCode'=>'WP Error','ErrorShort'=>'Error on user creation:','ErrorLong'=>$error));
                 exit;
             }
-            else{
-                if(!isset($userdata['ID'])){
-                    $subject='Thanks For Joining';
-                    $message='';
-                    wp_mail($userdata['user_email'], $subject, $message);
-                }
+            else{                
+                    //$subject='Thanks For Joining';
+                    //$message='';
+                    //wp_mail($userdata['user_email'], $subject, $message);                
                 wp_set_auth_cookie( $user_id, true );
             }
         }
@@ -249,7 +245,7 @@ class AngellEYE_Give_When_Public_Display {
         $trigger_name = get_post_meta( $post->ID, 'trigger_name', true );
                         
         $PayPal_config = new Give_When_PayPal_Helper();
-        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
+        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());        
         $SECFields = array(
                 'maxamt' => round($amount * 2,2),
                 'returnurl' => site_url('?action=ec_return'),
@@ -280,7 +276,7 @@ class AngellEYE_Give_When_Public_Display {
             'Payments' => $Payments,
             'BillingAgreements' => $BillingAgreements,
         );
-        $PayPalResult = $PayPal->SetExpressCheckout($PayPalRequestData);
+        $PayPalResult = $PayPal->SetExpressCheckout($PayPalRequestData);        
         if($PayPal->APICallSuccessful($PayPalResult['ACK']))
         {            
             echo json_encode(array('Ack'=>'Success','RedirectURL'=>$PayPalResult['REDIRECTURL']));
