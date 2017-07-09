@@ -16,17 +16,17 @@ class AngellEYE_Give_When_Log {
 
     public static function give_when_logs_setting() {
 
-        $logs = self::scan_log_files(GW_LOG_DIR);                
+        $logs = self::scan_log_files(GW_LOG_DIR);        
         $directory_name = 'transactions';
         if (!empty($_REQUEST['log_file'])) {
             $directory = explode('|',$_REQUEST['log_file']);
             $directory_name = $directory[1];
             $viewed_log = current($logs[$directory_name]);
-        } elseif (!empty($logs)) {
+        } elseif( !empty($logs['connect_to_paypal'])  || !empty ($logs['express_checkout']) || !empty ($logs['transactions'])) {
             $viewed_log = current($logs[$directory_name]);
         }
         
-        if ($logs) :
+        if (!empty($logs['connect_to_paypal'])  || !empty ($logs['express_checkout']) || !empty ($logs['transactions'])  ) :
             ?>
            <div class="wrap">
             <div id="log-viewer-select">
