@@ -21,7 +21,7 @@ class AngellEYE_Give_When_interface {
         add_action('give_when_do_transactions_interface',array(__CLASS__, 'give_when_do_transactions_interface_html'));
         add_action('give_when_list_transactions_interface',array(__CLASS__, 'give_when_list_transactions_interface_html'));
         add_action('give_when_get_transaction_detail',array(__CLASS__,'give_when_get_transaction_detail_html'));
-        add_action('give_when_disconnect_interface',array(__CLASS__,'give_when_disconnect_interface_html'));
+        //add_action('give_when_disconnect_interface',array(__CLASS__,'give_when_disconnect_interface_html'));
         add_action( 'admin_head', array(__CLASS__,'give_when_hide_publish_button_until' ));
     }
     
@@ -553,57 +553,25 @@ class AngellEYE_Give_When_interface {
             // errors in acknowledgement 
         }        
     }
-    
-    public static function give_when_disconnect_interface_html(){
-        ?>
-        <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;z-index: 1031;text-align: center;">
-                    <div style="display: table; width:100%; height: 100%;">                
-                        <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/loading.gif"  style=" position: relative;top: 50%;"/>
-                        <h2>Please wait, We are Rollbacking your permission from PayPal.</h2></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <?php
-        $token = get_option('give_when_permission_token'); 
-        
-        $paypal_helper_object = new Give_When_PayPal_Helper();
-        
-        $PayPal = new GiveWhen_Adaptive($paypal_helper_object->get_configuration());
-        
-        $PayPalResult = $PayPal->CancelPermissions($token);
-        if($PayPal->APICallSuccessful($PayPalResult['Ack'])== false){
-            echo "Errors in Cancel Permission";
-            echo "<pre>";
-            var_dump($PayPalResult);
-            exit;
-        }
-        
-        update_option('give_when_permission_connected_to_paypal', 'no');
-        delete_option('give_when_permission_connected_person_home');
-        delete_option('give_when_permission_connected_person_email');
-        delete_option('give_when_permission_connected_person_first');
-        delete_option('give_when_permission_connected_person_last');
-        delete_option('give_when_permission_connected_person_payerID');
-        delete_option('give_when_permission_token');
-        delete_option('give_when_permission_token_secret');        
-        
-        $url =admin_url('admin.php?page=give_when_option&tab=connect_to_paypal');
-        echo "<script>";
-        echo 'window.location.href = "'.$url.'";';
-        echo "</script>";        
-        die();                
-    }
 
     public static function give_when_hide_publish_button_until() {
       if (isset($_REQUEST['post_type'])){ 
         if ($_REQUEST['post_type'] == 'give_when_goals') {
-            $conncet_to_paypal_flag = get_option('give_when_permission_connected_to_paypal');
-            if ($conncet_to_paypal_flag != 'Yes') { ?>
+                    $sanbox_enable = get_option('sandbox_enable_give_when');                
+                    $gwflag=true;
+                    if($sanbox_enable === 'yes'){
+                        $sandbox_api_user = get_option('give_when_sandbox_api_username');
+                        if($sandbox_api_user){
+                            $gwflag = false;
+                        }
+                    }
+                    else{            
+                        $api_user = get_option('give_when_api_username');            
+                        if($api_user){
+                            $gwflag = false;
+                        }
+                    }            
+            if ($gwflag) { ?>
             <style>
                 #publishing-action { display: none; }
                 #save-action{display: none;}

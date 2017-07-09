@@ -209,6 +209,13 @@ class AngellEYE_Give_When_Public_Display {
             $user_exist = email_exists($gwuser['give_when_email']);
             
             if($user_exist){
+                $is_admin = user_can($user_exist, 'manage_options' );
+                if($is_admin){
+                    unset($userdata['role']);
+                }
+                echo "<pre>";
+                var_dump($userdata,$is_admin);
+                exit;
                 $userdata['ID'] = $user_exist;
                 $signnedup_goals = get_user_meta($user_exist,'give_when_signedup_goals');        
                 $goalArray = explode('|', $signnedup_goals[0]);                
