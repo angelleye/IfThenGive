@@ -24,12 +24,53 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
     );
     $my_posts = get_posts($args);
     if( $my_posts ) {
+        $current_user = wp_get_current_user(); 
         $post_id = $my_posts[0]->ID;
         $post_meta_array = get_post_meta($post_id);
         $trigger_name = $post_meta_array['trigger_name'][0];
         $trigger_thing = $post_meta_array['trigger_thing'][0];
-        echo "<center><h1>Thank You for signed up in {$trigger_name}. </h1></center>";
+        echo "<center><h1>Hi ".$current_user->display_name.", Thank You for signed up in {$trigger_name}. </h1></center>";
         echo "<center><h2>Each time you will give $ {$amount} when {$trigger_thing}</h2></center>";
+        $EmailString='';
+        $EmailString.='<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+                                <tr>
+                                    <td align="center" valign="top">
+                                        <div id="template_header_image">
+                                        </div>
+                                        <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container">
+                                            <tr>
+                                                <td align="center" valign="top">                        
+                                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_body">
+                                                        <tr>
+                                                            <td valign="top" id="body_content">                                    
+                                                                <table border="0" cellpadding="20" cellspacing="0" width="100%">
+                                                                    <tr>
+                                                                        <td valign="top">
+                                                                            <div id="body_content_inner">
+                                                                                <h2 style="text-align:center;color: #008CBA;">Hi '.$current_user->display_name.',Thank You for signed up in '.$trigger_name.'</h2>
+                                                                                <p style="font-size: 16px;text-align: center;font-family: inherit; color: rgb(255, 111, 0)"><strong>Each time you will give $ '.$amount.' when '.$trigger_thing.'</strong></p>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>                                    
+                                                            </td>
+                                                        </tr>
+                                                    </table>                        
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>';
+                $headers = "From: info@givewhen.com \r\n";
+                $headers .= "Reply-To: noreply@givewhen.com \r\n";
+                //$headers .= "CC: person@givewhen.com\r\n";
+                $headers .= "MIME-Version: 1.0\r\n";
+                $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                
+                $to = $current_user->user_email;
+                $subject = 'Thank you for signned up in GiveWhen Goal: '.$trigger_name;
+                $message = $EmailString;
+                wp_mail($to, $subject, $message, $headers);
     }
 }
 else{

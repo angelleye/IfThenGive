@@ -168,6 +168,7 @@ class AngellEYE_Give_When_Public_Display {
         $post_id = $_POST['post_id'];
         $amount = $_POST['amount'];        
         $post = get_post($post_id);
+        $trigger_name = get_post_meta( $post->ID, 'trigger_name', true );
         $cancel_page = site_url('?action=ec_cancel');
         if(!empty($_POST['formData'])){
             $gwuser = array();
@@ -232,17 +233,13 @@ class AngellEYE_Give_When_Public_Display {
                 exit;
             }
             else{                
-                    //$subject='Thanks For Joining';
-                    //$message='';
-                    //wp_mail($userdata['user_email'], $subject, $message);                
                 wp_set_auth_cookie( $user_id, true );
             }
         }
         else{
             $user_id = $_POST['login_user_id'];
         }   
-        
-        $trigger_name = get_post_meta( $post->ID, 'trigger_name', true );
+                
                         
         $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());        
