@@ -21,6 +21,7 @@ class AngellEYE_Give_When_interface {
         add_action('give_when_do_transactions_interface',array(__CLASS__, 'give_when_do_transactions_interface_html'));
         add_action('give_when_list_transactions_interface',array(__CLASS__, 'give_when_list_transactions_interface_html'));
         add_action('give_when_get_transaction_detail',array(__CLASS__,'give_when_get_transaction_detail_html'));
+        add_action('give_when_retry_failed_transactions_interface',array(__CLASS__,'give_when_retry_failed_transactions_interface_html'));        
         //add_action('give_when_disconnect_interface',array(__CLASS__,'give_when_disconnect_interface_html'));
         add_action( 'admin_head', array(__CLASS__,'give_when_hide_publish_button_until' ));
     }
@@ -652,6 +653,178 @@ class AngellEYE_Give_When_interface {
         else{
             // errors in acknowledgement 
         }        
+    }
+    
+    public static function give_when_retry_failed_transactions_interface_html(){
+        @set_time_limit(GW_PLUGIN_SET_TIME_LIMIT);
+        @ignore_user_abort(true);
+        $EmailString = '';
+        $EmailString.='<style>.table {
+                                width: 100%;
+                                max-width: 100%;
+                                margin-bottom: 20px;
+                                background-color: transparent;
+                                border-spacing: 0;
+                                border-collapse: collapse;
+                                }
+                                .table-striped > tbody > tr:nth-of-type(odd){
+                                    background-color: #f9f9f9;
+                                }
+                                .table > thead > tr > th, 
+                                .table > tbody > tr > th, 
+                                .table > tfoot > tr > th, 
+                                .table > thead > tr > td, 
+                                .table > tbody > tr > td, 
+                                .table > tfoot > tr > td {                                
+                                    padding: 8px;
+                                    line-height: 1.42857143;
+                                    vertical-align: top;
+                                    border-top: 1px solid #ddd;
+                                }
+                                .alert {
+                                    padding: 15px;
+                                    margin-bottom: 20px;
+                                    border: 1px solid transparent;
+                                    border-radius: 4px;
+                                }
+                                .alert-info {
+                                    color: #31708f;
+                                    background-color: #d9edf7;
+                                    border-color: #bce8f1;
+                                }
+                                p {
+                                    margin: 0 0 10px;
+                                }
+                                .alert > p, .alert > ul {
+                                    margin-bottom: 0;
+                                }
+                       </style>';
+        if (ob_get_level() == 0) ob_start();
+        ?>
+        <div class="wrap">
+            <div class="give_when_container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Capturing Failure Payments</div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <?php echo $EmailString.='<table class="table table-striped">
+                                            <tr>
+                                                <th>Transaction ID</th>
+                                                <th>Amount</th>
+                                                <th>Payer Email</th>
+                                                <th>PayPal ACK</th>
+                                                <th>Payment Status</th>
+                                            </tr>';        
+        global $post, $post_ID;
+        $goal_id = $_REQUEST['post'];
+        $trigger_name = get_post_meta($goal_id,'trigger_name',true);
+        $givers = AngellEYE_Give_When_Transactions_Table::get_all_failed_givers($goal_id);        
+        $PayPal_config = new Give_When_PayPal_Helper();
+        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
+        $total_txn = 0;
+        $total_txn_success = 0;
+        $total_txn_failed = 0;
+        foreach ($givers as $value) {
+            $trigger_name = get_post_meta($_REQUEST['post'],'trigger_name',true);
+            $desc = !empty($trigger_name) ? $trigger_name : '';
+            
+            $DRTFields = array(
+                'referenceid' => $value['BillingAgreement'],
+                'paymentaction' => 'Sale',				                   
+            );
+            
+            $PaymentDetails = array(
+                'amt' => $value['amount'],
+                //'currencycode' => $value['give_when_gec_currency_code'],
+                'desc' => $desc,
+                'custom' => 'user_id_'.$value['user_id'].'|post_id_'.$_REQUEST['post'],
+            );
+            
+            $PayPalRequestData = array(
+                'DRTFields' => $DRTFields, 
+                'PaymentDetails' => $PaymentDetails,               
+            );            
+            $PayPalResultDRT = $PayPal->DoReferenceTransaction($PayPalRequestData);
+            //save log
+            $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+            if ('yes' == $debug) {
+                $log_write = new AngellEYE_Give_When_Logger();
+                $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction '.$PayPalResultDRT['ACK'].' : ' . print_r($PayPalResultDRT, true), 'transactions');
+            }
+            $paypal_email = get_user_meta($value['user_id'],'give_when_gec_email',true);
+            if($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])){
+                update_post_meta($value['post_id'],'give_when_transactions_transaction_id',$PayPalResultDRT['TRANSACTIONID']);
+                $total_txn_success++;                                              
+                echo $trEmailString ="<tr>
+                    <td>{$PayPalResultDRT['TRANSACTIONID']}</td>
+                    <td>{$PayPalResultDRT['AMT']}</td>
+                    <td>{$paypal_email}</td>
+                    <td>{$PayPalResultDRT['ACK']}</td>
+                    <td>{$PayPalResultDRT['PAYMENTSTATUS']}</td>
+                </tr>"; 
+                $EmailString.= $trEmailString;    
+            }
+            else{
+                $total_txn_failed++;
+                $PayPalResultDRT['TRANSACTIONID'] = '';
+                
+                echo $trEmailString ="<tr>
+                    <td>-</td>
+                    <td>{$value['amount']}</td>
+                    <td>{$paypal_email}</td>
+                    <td>{$PayPalResultDRT['ACK']}</td>
+                    <td>-</td>
+                </tr>";                
+                $EmailString.= $trEmailString;
+            }            
+            update_post_meta($value['post_id'],'give_when_transactions_ack',$PayPalResultDRT['ACK']);
+            ?>
+        <?php
+            $total_txn++;
+            ob_flush();
+            flush();
+            sleep(2);
+        }
+        ?>              <?php echo $endtabeEmailString ="</table>"; $EmailString.=$endtabeEmailString; ?>
+                      </div>
+                    </div>
+                 </div>
+             </div>
+         </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <?php 
+                echo $alert_info_email_string = '<div class="alert alert-info">
+                    <p>Total Transactions : <strong>'.$total_txn.'</strong></p>
+                    <p>Total Successful Transactions : <strong>'.$total_txn_success.'</strong></p>
+                    <p>Total Failed Transactions : <strong>'.$total_txn_failed.'</strong></p>
+                </div>';
+                $EmailString.=$alert_info_email_string;
+                
+                $headers = "From: info@givewhen.com \r\n";
+                $headers .= "Reply-To: noreply@givewhen.com \r\n";
+                //$headers .= "CC: susan@example.com\r\n";
+                $headers .= "MIME-Version: 1.0\r\n";
+                $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                
+                $to = $admin_email = get_option('admin_email');
+                $subject = 'GiveWhen Transaction Report For '.$trigger_name;
+                $message = $EmailString;
+                wp_mail($to, $subject, $message, $headers);
+               ?>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12">
+                <a class="btn btn-info" href="<?php echo site_url().'/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back To Goals</a>
+            </div>
+        </div>
+      </div>
+    </div>
+        <?php   
+        ob_end_flush();  
     }
 
     public static function give_when_hide_publish_button_until() {

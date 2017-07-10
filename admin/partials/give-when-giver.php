@@ -217,9 +217,9 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     * @return string
     */
     public function column_cb( $item ) {
-      return sprintf(
-        '<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['user_id']
-      );
+//      return sprintf(
+//        '<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['user_id']
+//      );
     }
     
     
@@ -230,7 +230,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     */
     public function get_columns() {
       $columns = [
-        'cb'           => '<input type="checkbox" />',
+        //'cb'           => '<input type="checkbox" />',
         'BillingAgreement'=> __( 'Billing Agreement ID', 'angelleye_give_when' ),
         'DisplayName'    => __( 'Name', 'angelleye_give_when' ),
         'PayPalEmail'         => __( 'Givers', 'angelleye_give_when' ),

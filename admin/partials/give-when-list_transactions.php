@@ -70,7 +70,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
         if (isset($_REQUEST['s'])) {
             $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
         }
-        if(isset($_REQUEST['payment_status-filter'])){
+        if(isset($_REQUEST['payment_status-filter'])  && $_REQUEST['payment_status-filter'] != 'all' ){
           $sql .= "  Having (( ppack LIKE '{$_REQUEST['payment_status-filter']}' ) ) ";     
         }
         if (isset($_REQUEST['orderby'])) {
@@ -96,12 +96,37 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
         return $result_array;
     }
 
+    public static function get_all_failed_givers($post_id){
+        global $wpdb;
+
+        $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID,
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'give_when_gec_email') as user_paypal_email,
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
+             (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
+              pm.post_id,
+              pm.meta_value as amount,
+              b.meta_value as user_id,
+              c.meta_value as transactionId,
+              t.meta_value as ppack,
+              p.post_date as Txn_date
+              FROM `{$wpdb->prefix}postmeta` as pm 
+              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
+              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
+              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_transactions_ack'
+              JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$post_id}%'     
+              WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$post_id}' AND `meta_key` = 'give_when_transactions_wp_goal_id')  ";
+        $sql .= ' group by  p.ID';                
+        $sql .= "  Having (( ppack LIKE 'Failure' ) ) ";
+        $result_array = $wpdb->get_results($sql, 'ARRAY_A');
+
+        return $result_array;
+    }    
     /**
-     * Delete a customer record.
+     * Delete a txn record.
      *
-     * @param int $id customer ID
+     * @param int $id transaction ID
      */
-    public static function delete_customer($id) {
+    public static function delete_txn($id) {
         global $wpdb;
 
         $wpdb->delete(
@@ -136,7 +161,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
         if (isset($_REQUEST['s'])) {
             $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
         }
-        if(isset($_REQUEST['payment_status-filter'])){
+        if(isset($_REQUEST['payment_status-filter']) && $_REQUEST['payment_status-filter'] != 'all' ){
           $sql .= "  Having (( ppack LIKE '{$_REQUEST['payment_status-filter']}' ) ) ";     
         }
         $wpdb->get_results($sql, 'ARRAY_A');
@@ -258,11 +283,11 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
      * @return array
      */
     public function get_bulk_actions() {
-        $actions = [
+        /*$actions = [
             'bulk-retry' => 'Retry'
         ];
 
-        return $actions;
+        return $actions;*/
     }
 
     /**
@@ -278,7 +303,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
         /** Process bulk action */
         $this->process_bulk_action();
 
-        $per_page = $this->get_items_per_page('transactions_per_page', 5);
+        $per_page = $this->get_items_per_page('transactions_per_page', 10);
         $current_page = $this->get_pagenum();
         if(isset($_REQUEST['records_show-filter'])){
             $per_page = $_REQUEST['records_show-filter'];
@@ -297,7 +322,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
           jQuery('.ewc-filter-cat').live('change', function(){
               var catFilter = jQuery(this).val();
               if( catFilter != '' ){                  
-                  document.location.href = '<?php echo admin_url('?'.$_SERVER['QUERY_STRING']); ?>&payment_status-filter='+catFilter;    
+                  document.location.href = '<?php echo admin_url('?'.$_SERVER['QUERY_STRING']); ?>&payment_status-filter='+catFilter;
               }
           });
           jQuery('.ewc-filter-num').live('change', function(){
@@ -358,12 +383,13 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
             <div class="alignleft actions bulkactions">
                 <select name="cat-filter" class="ewc-filter-cat">
                     <option value="">Filter by Payment Status</option>
+                    <option value="all">Show All</option>
                     <option value="<?php echo $move_on_url; ?>Success" <?php if ($status_filter == "Success") {
                 echo $selected;
             } ?>>Success</option>
                     <option value="<?php echo $move_on_url; ?>Failure" <?php if ($status_filter == "Failure") {
                 echo $selected;
-            } ?>>Failed</option>
+            } ?>>Failure</option>
                     <option value="<?php echo $move_on_url; ?>pending" <?php if ($status_filter == "pending") {
                 echo $selected;
             } ?>>Pending</option>
@@ -375,6 +401,8 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
                     <option value="50" <?php if($rs_filter === '50') { echo $selected; } ?>>50</option>
                     <option value="100" <?php if($rs_filter === '100') { echo $selected; } ?>>100</option>
                 </select>
+                <a class="btn btn-primary btn-sm" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=RetryFailedTransactions">Retry Failure Payments</a>
+                
             </div>
             <?php
         }

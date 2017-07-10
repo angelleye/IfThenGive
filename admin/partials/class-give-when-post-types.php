@@ -245,6 +245,9 @@ class AngellEYE_Give_When_Post_types {
             elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'GetTransactionDetail'){
                 do_action('give_when_get_transaction_detail');
             }
+            elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'RetryFailedTransactions'){
+                do_action('give_when_retry_failed_transactions_interface');
+            }
             else{
                 return '';    
             }
