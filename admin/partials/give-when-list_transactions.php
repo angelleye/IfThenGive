@@ -358,10 +358,10 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
             <div class="alignleft actions bulkactions">
                 <select name="cat-filter" class="ewc-filter-cat">
                     <option value="">Filter by Payment Status</option>
-                    <option value="<?php echo $move_on_url; ?>success" <?php if ($status_filter == "success") {
+                    <option value="<?php echo $move_on_url; ?>Success" <?php if ($status_filter == "Success") {
                 echo $selected;
             } ?>>Success</option>
-                    <option value="<?php echo $move_on_url; ?>failed" <?php if ($status_filter == "failed") {
+                    <option value="<?php echo $move_on_url; ?>Failure" <?php if ($status_filter == "Failure") {
                 echo $selected;
             } ?>>Failed</option>
                     <option value="<?php echo $move_on_url; ?>pending" <?php if ($status_filter == "pending") {

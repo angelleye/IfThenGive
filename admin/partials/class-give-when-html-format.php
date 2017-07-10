@@ -289,19 +289,37 @@ class AngellEYE_Give_When_interface {
         <?php
     }
     
-    public static function give_when_do_transactions_interface_html(){             
+    public static function give_when_do_transactions_interface_html(){        
         @set_time_limit(GW_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
+        $EmailString = '';
+        if (ob_get_level() == 0) ob_start();
         ?>
         <div class="wrap">
             <div class="give_when_container">
-        <?php    
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Capturing Transactions</div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <?php echo $EmailString.='<table class="table table-striped">
+                                            <tr>
+                                                <th>Transaction ID</th>
+                                                <th>Amount</th>
+                                                <th>Payer Email</th>
+                                                <th>PayPal ACK</th>
+                                                <th>Payment Status</th>
+                                            </tr>';        
         global $post, $post_ID;
         $goal_id = $_REQUEST['post'];
+        $trigger_name = get_post_meta($goal_id,'trigger_name',true);
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
         $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
-        
+        $total_txn = 0;
+        $total_txn_success = 0;
+        $total_txn_failed = 0;
         foreach ($givers as $value) {
             $trigger_name = get_post_meta($_REQUEST['post'],'trigger_name',true);
             $desc = !empty($trigger_name) ? $trigger_name : '';
@@ -329,8 +347,31 @@ class AngellEYE_Give_When_interface {
                 $log_write = new AngellEYE_Give_When_Logger();
                 $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction '.$PayPalResultDRT['ACK'].' : ' . print_r($PayPalResultDRT, true), 'transactions');
             }
-            if(!isset($PayPalResultDRT['TRANSACTIONID'])){
+            $paypal_email = get_user_meta($value['user_id'],'give_when_gec_email',true);
+            if($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])){
+                
+                $total_txn_success++;                                              
+                echo $trEmailString ="<tr>
+                    <td>{$PayPalResultDRT['TRANSACTIONID']}</td>
+                    <td>{$PayPalResultDRT['AMT']}</td>
+                    <td>{$paypal_email}</td>
+                    <td>{$PayPalResultDRT['ACK']}</td>
+                    <td>{$PayPalResultDRT['PAYMENTSTATUS']}</td>
+                </tr>"; 
+                $EmailString.= $trEmailString;    
+            }
+            else{
+                $total_txn_failed++;
                 $PayPalResultDRT['TRANSACTIONID'] = '';
+                
+                echo $trEmailString ="<tr>
+                    <td>-</td>
+                    <td>{$value['amount']}</td>
+                    <td>{$paypal_email}</td>
+                    <td>{$PayPalResultDRT['ACK']}</td>
+                    <td>-</td>
+                </tr>";                
+                $EmailString.= $trEmailString;
             }
             $new_post_id = wp_insert_post( array(
                 'post_status' => 'publish',
@@ -343,22 +384,40 @@ class AngellEYE_Give_When_interface {
             update_post_meta($new_post_id,'give_when_transactions_transaction_id',$PayPalResultDRT['TRANSACTIONID']);
             update_post_meta($new_post_id,'give_when_transactions_ack',$PayPalResultDRT['ACK']);     
             ?>
-            <div class="row">
-                <pre>
-                    <?php
-                    //file_put_contents(GW_PLUGIN_DIR.'/filename.txt', print_r($PayPalResultDRT, true),FILE_APPEND);
-                    print_r($PayPalResultDRT); ?>
-                </pre>
-            </div>
         <?php
+            $total_txn++;
+            ob_flush();
+            flush();
+            sleep(2);
         }
-        ?> 
+        ?>              <?php echo $endtabeEmailString ="</table>"; $EmailString.=$endtabeEmailString; ?>
+                      </div>
+                    </div>
+                 </div>
+             </div>
+         </div>
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12">
-                <div class="alert alert-success">
-                    <p>You have successfully Captured All Transactions.</p>
-                </div>
+                <?php 
+                echo $alert_info_email_string = '<div class="alert alert-info">
+                    <p>Total Transactions : <strong>'.$total_txn.'</strong></p>
+                    <p>Total Successful Transactions : <strong>'.$total_txn_success.'</strong></p>
+                    <p>Total Failed Transactions : <strong>'.$total_txn_failed.'</strong></p>
+                </div>';
+                $EmailString.=$alert_info_email_string;
+                
+                $headers = "From: info@givewhen.com \r\n";
+                $headers .= "Reply-To: noreply@givewhen.com \r\n";
+                //$headers .= "CC: susan@example.com\r\n";
+                $headers .= "MIME-Version: 1.0\r\n";
+                $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                
+                $to = $admin_email = get_option('admin_email');
+                $subject = 'GiveWhen Transaction Report For '.$trigger_name;
+                $message = $EmailString;
+                wp_mail($to, $subject, $message, $headers);
+               ?>
             </div>
             <div class="clearfix"></div>
             <div class="col-md-12">
@@ -367,7 +426,8 @@ class AngellEYE_Give_When_interface {
         </div>
       </div>
     </div>
-        <?php                
+        <?php   
+        ob_end_flush();
     }
     
     public static function give_when_list_transactions_interface_html(){
