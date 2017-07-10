@@ -293,6 +293,46 @@ class AngellEYE_Give_When_interface {
         @set_time_limit(GW_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
         $EmailString = '';
+        $EmailString.='<style>.table {
+                                width: 100%;
+                                max-width: 100%;
+                                margin-bottom: 20px;
+                                background-color: transparent;
+                                border-spacing: 0;
+                                border-collapse: collapse;
+                                }
+                                .table-striped > tbody > tr:nth-of-type(odd){
+                                    background-color: #f9f9f9;
+                                }
+                                .table > thead > tr > th, 
+                                .table > tbody > tr > th, 
+                                .table > tfoot > tr > th, 
+                                .table > thead > tr > td, 
+                                .table > tbody > tr > td, 
+                                .table > tfoot > tr > td {                                
+                                    padding: 8px;
+                                    line-height: 1.42857143;
+                                    vertical-align: top;
+                                    border-top: 1px solid #ddd;
+                                }
+                                .alert {
+                                    padding: 15px;
+                                    margin-bottom: 20px;
+                                    border: 1px solid transparent;
+                                    border-radius: 4px;
+                                }
+                                .alert-info {
+                                    color: #31708f;
+                                    background-color: #d9edf7;
+                                    border-color: #bce8f1;
+                                }
+                                p {
+                                    margin: 0 0 10px;
+                                }
+                                .alert > p, .alert > ul {
+                                    margin-bottom: 0;
+                                }
+                       </style>';
         if (ob_get_level() == 0) ob_start();
         ?>
         <div class="wrap">
