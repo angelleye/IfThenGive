@@ -154,7 +154,7 @@ class AngellEYE_Give_When_General_Setting {
         $Html_output->save_fields($givewhen_setting_fields);
         
         $PayPal_config = new Give_When_PayPal_Helper();
-        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());        
         
         if (isset($_POST['give_when_intigration'])):
             ?>

@@ -1,0 +1,10 @@
+{
+	"description": "Angell EYE PayPal PHP Library",
+	"name": "Angell EYE PayPal PHP Library",
+	"type": "Angell EYE PayPal PHP Library",
+	"require": {
+		"php": ">=5.3.0",
+		"ext-curl": "*",
+		"angelleye/paypal-php-library": "2.0.*"
+	}
+}

@@ -357,7 +357,7 @@ class AngellEYE_Give_When_interface {
         $trigger_name = get_post_meta($goal_id,'trigger_name',true);
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
         $PayPal_config = new Give_When_PayPal_Helper();
-        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());        
         $total_txn = 0;
         $total_txn_success = 0;
         $total_txn_failed = 0;
@@ -510,7 +510,7 @@ class AngellEYE_Give_When_interface {
         $goal_id = $post_ID;       
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();        
         $PayPal_config = new Give_When_PayPal_Helper();
-        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());        
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
         $GTDFields = array(
             'transactionid' => $transaction_id
         );
@@ -721,8 +721,8 @@ class AngellEYE_Give_When_interface {
         $goal_id = $_REQUEST['post'];
         $trigger_name = get_post_meta($goal_id,'trigger_name',true);
         $givers = AngellEYE_Give_When_Transactions_Table::get_all_failed_givers($goal_id);        
-        $PayPal_config = new Give_When_PayPal_Helper();
-        $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
+        $PayPal_config = new Give_When_PayPal_Helper();        
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
         $total_txn = 0;
         $total_txn_success = 0;
         $total_txn_failed = 0;

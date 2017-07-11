@@ -128,15 +128,10 @@ class Givewhen {
                 /**
                 * Autoload file included for paypal intigrate paypal library.
                 */
-                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/autoload.php';
-
+                require_once plugin_dir_path(dirname(__FILE__)) . 'vendor/autoload.php';
                 /**
                  * PayPal php class file included.
-                 */
-                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/GiveWhen_Angelleye_PayPal.php';
-                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/GiveWhen_Adaptive.php';
-                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/PPAuth.php';
-                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/AuthUtil.php';                     
+                 */                
                 require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-paypal-helper.php';
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -264,8 +259,8 @@ class Givewhen {
             
             if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {                                    
                 $token = $_GET['token'];                
-                $PayPal_config = new Give_When_PayPal_Helper();
-                $PayPal = new GiveWhen_Angelleye_PayPal($PayPal_config->get_configuration());
+                $PayPal_config = new Give_When_PayPal_Helper();                
+                $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
                
                 $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
                 if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){
