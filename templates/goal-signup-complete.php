@@ -61,16 +61,15 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
                                     </td>
                                 </tr>
                             </table>';
-                $headers = "From: info@givewhen.com \r\n";
-                $headers .= "Reply-To: noreply@givewhen.com \r\n";
-                //$headers .= "CC: person@givewhen.com\r\n";
-                $headers .= "MIME-Version: 1.0\r\n";
-                $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-                
-                $to = $current_user->user_email;
-                $subject = 'Thank you for signned up in GiveWhen Goal: '.$trigger_name;
-                $message = $EmailString;
-                wp_mail($to, $subject, $message, $headers);
+
+        $headers = "From: noreply@givewhen.com \r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+        $to = $current_user->user_email;
+        $subject = 'Thank you for giving!';
+        $message = $EmailString;
+        wp_mail($to, $subject, $message, $headers);
     }
 }
 else{
@@ -78,4 +77,3 @@ else{
 }
 
 get_footer();
-?>
