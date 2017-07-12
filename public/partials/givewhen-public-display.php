@@ -199,6 +199,9 @@ class AngellEYE_Give_When_Public_Display {
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $ValidationErrors['Email'] = "Invalid email format";
             }
+            if ($gwuser['give_when_password'] !== $gwuser['give_when_retype_password']) {
+                $ValidationErrors['Password'] = "Mismatch Input : Password Fields are not matched";
+            }                        
             if(!empty($ValidationErrors)){
                 echo json_encode(array('Ack'=>'ValidationError','ErrorCode'=>'Invalid Inputs','ErrorLong'=>'Please find Following Error','Errors'=>$ValidationErrors));
                 exit;
@@ -218,6 +221,7 @@ class AngellEYE_Give_When_Public_Display {
             $user_exist = email_exists($gwuser['give_when_email']);
             /*If user exist then just add capabilities of giver with current capabilities. */
             if($user_exist){
+                unset($userdata['user_pass']);
                 /*if user is admin then no change in the role*/
                 $is_admin = user_can($user_exist, 'manage_options' );
                 if($is_admin){
