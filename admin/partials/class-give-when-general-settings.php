@@ -59,9 +59,9 @@ class AngellEYE_Give_When_General_Setting {
         );
         $fields[] =  array(
             'id' => 'give_when_sandbox_api_username',
-            'title' => __('Sandbox API User Name', 'paypal-for-woocommerce'),
+            'title' => __('Sandbox API Username', 'paypal-for-woocommerce'),
             'type' => 'text',
-            'description' => __('Create sandbox accounts and obtain API credentials from within your <a href="http://developer.paypal.com">PayPal developer account</a>.', 'paypal-for-woocommerce'),
+            'desc' => __('Create sandbox accounts and obtain API credentials from within your <a href="http://developer.paypal.com">PayPal developer account</a>.', 'paypal-for-woocommerce'),
             'default' => '',
             'class' => 'form-control'
         );
