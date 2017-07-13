@@ -47,7 +47,6 @@ class AngellEYE_Give_When_General_Setting {
 
     public static function give_when_general_setting_fields() {
         global $wpdb;
-        $Logger = new AngellEYE_Give_When_Logger();
         $fields[] = array(
             'title' => __('Sandbox', 'angelleye_give_when'),
             'id' => 'sandbox_enable_give_when',
@@ -61,24 +60,19 @@ class AngellEYE_Give_When_General_Setting {
             'id' => 'give_when_sandbox_api_username',
             'title' => __('Sandbox API Username', 'paypal-for-woocommerce'),
             'type' => 'text',
-            'desc' => __('Create sandbox accounts and obtain API credentials from within your <a href="http://developer.paypal.com">PayPal developer account</a>.', 'paypal-for-woocommerce'),
-            'default' => '',
-            'class' => 'form-control'
+            'class' => 'form-control sandbox'
         );
         $fields[] = array(
             'id' => 'give_when_sandbox_api_password',
             'title' => __('Sandbox API Password', 'paypal-for-woocommerce'),
-            'type' => 'password',
-            'default' => '',
-            'class' => 'form-control'
+            'type' => 'password',            
+            'class' => 'form-control sandbox'
         );
         $fields[] = array(
             'id' => 'give_when_sandbox_api_signature',
             'title' => __('Sandbox API Signature', 'paypal-for-woocommerce'),
             'type' => 'password',
-            'default' => '',
-            'class' => 'form-control',
-            'desc' => sprintf(__('You may login to this tool using your PayPal account to quickly obtain your API credentials.<a href=" https://www.sandbox.paypal.com/us/cgi-bin/webscr?cmd=_login-api-run" target="_blank">Get Sandbox API Credentials</a>', 'angelleye_give_when'))
+            'class' => 'form-control sandbox'            
         );
         $fields[] = array(
             'id' => 'give_when_api_username',
@@ -86,22 +80,21 @@ class AngellEYE_Give_When_General_Setting {
             'type' => 'text',
             'description' => __('Get your live account API credentials from your PayPal account profile under the API Access section <br />or by using <a target="_blank" href="https://www.paypal.com/us/cgi-bin/webscr?cmd=_login-api-run">this tool</a>.', 'paypal-for-woocommerce'),
             'default' => '',
-            'class' => 'form-control'
+            'class' => 'form-control live'
         );
         $fields[] = array(
             'id' => 'give_when_api_password',
             'title' => __('Live API Password', 'paypal-for-woocommerce'),
             'type' => 'password',
             'default' => '',
-            'class' => 'form-control'
+            'class' => 'form-control live'
         );
         $fields[] = array(
             'id' => 'give_when_api_signature',
             'title' => __('Live API Signature', 'paypal-for-woocommerce'),
             'type' => 'password',
             'default' => '',
-            'class' => 'form-control',
-            'desc' => sprintf(__('You may login to this tool using your PayPal account to quickly obtain your API credentials.<a href="https://www.paypal.com/us/cgi-bin/webscr?cmd=_login-api-run" target="_blank">Get Live API Credentials</a>', 'angelleye_give_when'))
+            'class' => 'form-control live'            
         );
         $fields[] = array(
             'title' => __('Debug Log', 'angelleye_give_when'),
@@ -122,7 +115,7 @@ class AngellEYE_Give_When_General_Setting {
         <div class="wrap">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="div_log_settings">
                             <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
                                 <table class="form-table">
@@ -135,7 +128,20 @@ class AngellEYE_Give_When_General_Setting {
                                 </table>
                             </form>
                         </div>
-                    </div>            
+                    </div>
+                    <div class="col-md-6">
+                        <br><br><br><br><br><br>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">PayPal Information</div>
+                            <div class="panel-body">
+                                <ul>                                    
+                                    <li class="gw_sandboxList">Create sandbox accounts and obtain API credentials from within your PayPal developer account.</li>
+                                    <li class="gw_sandboxList">You may login to this tool using your PayPal account to quickly obtain your API credentials.<br><a href="https://www.sandbox.paypal.com/us/cgi-bin/webscr?cmd=_get-api-signature&amp;generic-flow=true" target="_blank">Get Sandbox API Credentials</a></li>                                                                                
+                                    <li class="gw_liveList">You may login to this tool using your PayPal account to quickly obtain your API credentials.<br><a href="https://www.paypal.com/us/cgi-bin/webscr?cmd=_get-api-signature&amp;generic-flow=true" target="_blank">Get Live API Credentials.</a></li>                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

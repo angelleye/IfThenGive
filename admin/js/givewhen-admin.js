@@ -3,10 +3,12 @@
     jQuery(document).ready(function ($) {
         
         if(give_when_sanbox_enable_js == 'yes'){
-            jQuery('#give_when_api_username, #give_when_api_password, #give_when_api_signature').closest('tr').hide();
+            jQuery('#give_when_api_username, #give_when_api_password, #give_when_api_signature').closest('tr').hide();            
+            jQuery('.gw_liveList').hide();
         }
         else{
             jQuery('#give_when_sandbox_api_username, #give_when_sandbox_api_password, #give_when_sandbox_api_signature').closest('tr').hide();
+            jQuery('.gw_sandboxList').hide();
         }
         
         
@@ -133,10 +135,14 @@
                 sandbox = true;
                 sandboxTr.show();
                 productionTr.hide();
+                jQuery('.gw_liveList').hide();
+                jQuery('.gw_sandboxList').show();
             } else { 
                 sandbox = false;
                 sandboxTr.hide();
                 productionTr.show();
+                jQuery('.gw_liveList').show();
+                jQuery('.gw_sandboxList').hide();
             }
              $.ajax({
                 type: 'POST',

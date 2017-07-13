@@ -134,7 +134,7 @@ class AngellEYE_Give_When_interface {
                     <label for="triggerName" class="control-label">Fixed Amount</label>
                     <input type="text" name="fixed_amount_input" value="<?php echo $fixed_amount_input_value; ?>" class="form-control" autocomplete="off" id="fixed_amount_input" placeholder="Enter Amount"/>
                 </div>
-                <?php //print_r($dynamic_options_name); ?>
+                
                 <div id="dynamic_options" class="<?php echo $dynamic_options_class; ?>">                    
                     <?php 
                     if(!empty($dynamic_options_name)) {
