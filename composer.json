@@ -5,6 +5,6 @@
 	"require": {
 		"php": ">=5.3.0",
 		"ext-curl": "*",
-		"angelleye/paypal-php-library": "2.0.*"
+		"angelleye/paypal-php-library": "dev-givewhen"
 	}
-}
+}                    
