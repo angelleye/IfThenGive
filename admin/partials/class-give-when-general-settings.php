@@ -58,40 +58,40 @@ class AngellEYE_Give_When_General_Setting {
         );
         $fields[] =  array(
             'id' => 'give_when_sandbox_api_username',
-            'title' => __('Sandbox API Username', 'paypal-for-woocommerce'),
+            'title' => __('Sandbox API Username', 'angelleye_give_when'),
             'type' => 'text',
             'class' => 'form-control sandbox'
         );
         $fields[] = array(
             'id' => 'give_when_sandbox_api_password',
-            'title' => __('Sandbox API Password', 'paypal-for-woocommerce'),
+            'title' => __('Sandbox API Password', 'angelleye_give_when'),
             'type' => 'password',            
             'class' => 'form-control sandbox'
         );
         $fields[] = array(
             'id' => 'give_when_sandbox_api_signature',
-            'title' => __('Sandbox API Signature', 'paypal-for-woocommerce'),
+            'title' => __('Sandbox API Signature', 'angelleye_give_when'),
             'type' => 'password',
             'class' => 'form-control sandbox'            
         );
         $fields[] = array(
             'id' => 'give_when_api_username',
-            'title' => __('Live API User Name', 'paypal-for-woocommerce'),
+            'title' => __('Live API User Name', 'angelleye_give_when'),
             'type' => 'text',
-            'description' => __('Get your live account API credentials from your PayPal account profile under the API Access section <br />or by using <a target="_blank" href="https://www.paypal.com/us/cgi-bin/webscr?cmd=_login-api-run">this tool</a>.', 'paypal-for-woocommerce'),
+            'description' => __('Get your live account API credentials from your PayPal account profile under the API Access section <br />or by using <a target="_blank" href="https://www.paypal.com/us/cgi-bin/webscr?cmd=_login-api-run">this tool</a>.', 'angelleye_give_when'),
             'default' => '',
             'class' => 'form-control live'
         );
         $fields[] = array(
             'id' => 'give_when_api_password',
-            'title' => __('Live API Password', 'paypal-for-woocommerce'),
+            'title' => __('Live API Password', 'angelleye_give_when'),
             'type' => 'password',
             'default' => '',
             'class' => 'form-control live'
         );
         $fields[] = array(
             'id' => 'give_when_api_signature',
-            'title' => __('Live API Signature', 'paypal-for-woocommerce'),
+            'title' => __('Live API Signature', 'angelleye_give_when'),
             'type' => 'password',
             'default' => '',
             'class' => 'form-control live'            
