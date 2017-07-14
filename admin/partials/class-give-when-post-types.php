@@ -49,10 +49,10 @@ class AngellEYE_Give_When_Post_types {
      */
     public static function give_when_register_post_types() {
         global $wpdb;        
-        if (post_type_exists('angelleye_give_when')) {
-            return;
-        }
-
+//        if (post_type_exists('angelleye_give_when')) {
+//            return;
+//        }
+echo GW_PLUGIN_DIR . '/admin/images/1_color.png';
         
         do_action('give_when_register_post_types');
 
@@ -60,7 +60,7 @@ class AngellEYE_Give_When_Post_types {
                     'labels' => array(
                         'name' => __('Give When Goals', 'angelleye_give_when'),
                         'singular_name' => __('Give When Goals', 'angelleye_give_when'),
-                        'menu_name' => _x('Give When', 'Admin menu name', 'angelleye_give_when'),
+                        'menu_name' => _x('GiveWhen', 'Admin menu name', 'angelleye_give_when'),
                         'add_new' => __('Add Goal', 'angelleye_give_when'),
                         'add_new_item' => __('Add New Goal', 'angelleye_give_when'),
                         'edit' => __('Edit', 'angelleye_give_when'),
@@ -83,7 +83,7 @@ class AngellEYE_Give_When_Post_types {
                     'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
                     'rewrite' => array('slug' => 'give_when_goals'),
                     'query_var' => true,
-                    'menu_icon' => 'dashicons-editor-table',
+                    'menu_icon' => GW_PLUGIN_URL . '/admin/images/dashicon-gw.png',
                     'supports' => array('title'),
                     'has_archive' => true,
                     'show_in_nav_menus' => true
