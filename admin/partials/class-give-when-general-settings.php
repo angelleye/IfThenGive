@@ -132,12 +132,13 @@ class AngellEYE_Give_When_General_Setting {
                     <div class="col-md-6">
                         <br><br><br><br><br><br>
                         <div class="panel panel-primary">
-                            <div class="panel-heading">PayPal Setup Instructions</div>
+                            <div class="panel-heading"><strong>PayPal Setup Instructions</strong></div>
                             <div class="panel-body">
-                                <ul>                                    
-                                    <li class="gw_sandboxList">Create sandbox accounts and obtain API credentials from within your PayPal developer account.</li>
-                                    <li class="gw_sandboxList">You may login to this tool using your PayPal account to quickly obtain your API credentials.<br><a href="https://www.sandbox.paypal.com/us/cgi-bin/webscr?cmd=_get-api-signature&amp;generic-flow=true" target="_blank">Get Sandbox API Credentials</a></li>                                                                                
-                                    <li class="gw_liveList">You may login to this tool using your PayPal account to quickly obtain your API credentials.<br><a href="https://www.paypal.com/us/cgi-bin/webscr?cmd=_get-api-signature&amp;generic-flow=true" target="_blank">Get Live API Credentials.</a></li>                                    
+                                <ul>
+                                    <li class="gw_sandboxList">To run test transactions you will need to <a href="https://www.angelleye.com/create-paypal-sandbox-account/" target="_blank">create at least one buyer and one seller sandbox account at the PayPal Developer site</a>.</li>
+                                    <li class="gw_sandboxList">When you have a sandbox seller account ready to configure for testing with your site, <a href="https://www.sandbox.paypal.com/us/cgi-bin/webscr?cmd=_get-api-signature&amp;generic-flow=true" target="_blank">use this link</a> and login with that seller account to quickly obtain API credentials for the account.</li>
+                                    <li class="gw_liveList">You may <a href="https://www.paypal.com/us/cgi-bin/webscr?cmd=_get-api-signature&amp;generic-flow=true" target="_blank">use this link</a> to quickly obtain your PayPal account API credentials.</li>
+                                    <li>Then copy and paste the API username, password, and signature into the plugin settings on the left and save your settings.</li>
                                 </ul>
                             </div>
                         </div>
