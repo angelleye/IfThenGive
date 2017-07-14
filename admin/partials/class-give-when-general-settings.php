@@ -48,7 +48,7 @@ class AngellEYE_Give_When_General_Setting {
     public static function give_when_general_setting_fields() {
         global $wpdb;
         $fields[] = array(
-            'title' => __('Sandbox', 'angelleye_give_when'),
+            'title' => __('Enable Sandbox / Testing', 'angelleye_give_when'),
             'id' => 'sandbox_enable_give_when',
             'type' => 'checkbox',
             'label' => __('Enable logging', 'angelleye_give_when'),
@@ -132,7 +132,7 @@ class AngellEYE_Give_When_General_Setting {
                     <div class="col-md-6">
                         <br><br><br><br><br><br>
                         <div class="panel panel-primary">
-                            <div class="panel-heading">PayPal Information</div>
+                            <div class="panel-heading">PayPal Setup Instructions</div>
                             <div class="panel-body">
                                 <ul>                                    
                                     <li class="gw_sandboxList">Create sandbox accounts and obtain API credentials from within your PayPal developer account.</li>
