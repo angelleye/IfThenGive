@@ -77,7 +77,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         $success_notice = get_option('give_when_permission_connect_to_paypal_success_notice');
         if($success_notice){            
             echo '<div class="alert alert-success">';
-                echo "<strong>{$success_notice}</strong>";
+                echo "<strong>".__($success_notice,'angelleye_give_when')."</strong>";
             echo '</div>';
             delete_option('give_when_permission_connect_to_paypal_success_notice');
         }
@@ -85,7 +85,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         $failed_notice = get_option('give_when_permission_connect_to_paypal_failed_notice');
         if($failed_notice){              
             echo '<div class="alert alert-danger">';
-                echo "<strong>{$failed_notice}</strong>";
+                echo "<strong>".__($failed_notice,'angelleye_give_when') ."</strong>";
             echo '</div>';
             delete_option('give_when_permission_connect_to_paypal_failed_notice');
         }
@@ -98,7 +98,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="text-info">&nbsp;PayPal User Infromation</h1>
+                            <h1 class="text-info">&nbsp;<?php echo __('PayPal User Infromation','angelleye_give_when');?></h1>
                         </div>                        
                         <div class="clearfix"></div>
                     </div>                    
@@ -112,7 +112,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             <td>
                                                 <strong>
                                                     <span class="glyphicon glyphicon-asterisk text-primary"></span>
-                                                    PayPal Account ID                                                
+                                                    <?php echo __('PayPal Account ID','angelleye_give_when');?>
                                                 </strong>
                                             </td>
                                             <td class="text-primary">
@@ -126,7 +126,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             <td>
                                                 <strong>
                                                     <span class="glyphicon glyphicon-user  text-primary"></span>    
-                                                    Name                                                
+                                                    <?php echo __('Name','angelleye_give_when');?>                                                                                                    
                                                 </strong>
                                             </td>
                                             <td class="text-primary">
@@ -141,7 +141,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             <td>
                                                 <strong>
                                                     <span class="glyphicon glyphicon-envelope text-primary"></span> 
-                                                    Email                                                
+                                                    <?php echo __('Email','angelleye_give_when');?>
                                                 </strong>
                                             </td>
                                             <td class="text-primary">
@@ -157,7 +157,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                     <br/>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="alert alert-info"><span class="circle_green"></span><span>You are already connected to PayPal...!!</span></div>
+                            <div class="alert alert-info"><span class="circle_green"></span><span><?php echo __('You are already connected to PayPal...!!','angelleye_give_when'); ?></span></div>
                         </div>
                     </div>
                     <div class="row">
@@ -178,7 +178,8 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <div class="alert alert-info"><span class="circle_red"></span><span>You are not connected to PayPal.</span></div>
+                        <div class="alert alert-info"><span class="circle_red"></span>
+                            <span><?php echo __('You are not connected to PayPal...!!','angelleye_give_when'); ?></span></div>
                     </div>
                 </div>
                 <div class="row">
@@ -207,7 +208,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                 <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;z-index: 1031;text-align: center; display: none;">
                     <div style="display: table; width:100%; height: 100%;">                
                         <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/loading.gif"  style=" position: relative;top: 50%;"/>
-                        <h2>Please Don't Go back , We are redirecting you to PayPal.</h2></div>
+                        <h2><?php echo __('Please Don\'t Go back , We are redirecting you to PayPal.','angelleye_give_when'); ?></h2></div>
                     </div>            
                 </div>
             </div>

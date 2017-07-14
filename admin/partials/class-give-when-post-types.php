@@ -49,10 +49,9 @@ class AngellEYE_Give_When_Post_types {
      */
     public static function give_when_register_post_types() {
         global $wpdb;        
-//        if (post_type_exists('angelleye_give_when')) {
-//            return;
-//        }
-echo GW_PLUGIN_DIR . '/admin/images/1_color.png';
+        if (post_type_exists('angelleye_give_when')) {
+            return;
+        }
         
         do_action('give_when_register_post_types');
 

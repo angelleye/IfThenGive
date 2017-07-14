@@ -53,8 +53,8 @@ class AngellEYE_Give_When_interface {
            <div style="padding-top: 25px"></div>
            <div class="container" style="max-width: 100%">
                <div class="bs-callout bs-callout-warning">
-                <h4>Please Provide PayPal Credentials .</h4>
-                <a href="<?php echo site_url();?>/wp-admin/options-general.php?page=give_when_option">Click Here</a> for Setting page to add PayPal Credentials.
+                <h4><?php echo __('Please Provide PayPal Credentials.','angelleye_give_when'); ?></h4>
+                <a href="<?php echo site_url();?>/wp-admin/options-general.php?page=give_when_option"><?php echo __('Click Here','angelleye_give_when'); ?></a><?php echo __(' for Setting page to add PayPal Credentials.','angelleye_give_when'); ?>
               </div>               
            </div>
         <?php
@@ -106,32 +106,32 @@ class AngellEYE_Give_When_interface {
         <div class="container" style="max-width: 100%">   
             <form>
                 <div class="form-group">
-                    <label for="triggerName" class="control-label">Goal Name</label>
+                    <label for="triggerName" class="control-label"><?php echo __('Goal Name','angelleye_give_when'); ?></label>
                     <input type="text" name="trigger_name" value="<?php echo $trigger_name?>" class="form-control" autocomplete="off" id="trigger_name" placeholder="Enter Name Here"/>
                 </div>
                 <div class="form-group">
-                    <label for="triggerName" class="control-label">Thing</label>
+                    <label for="triggerName" class="control-label"><?php echo __('Thing','angelleye_give_when'); ?></label>
                     <input type="text" name="trigger_thing" value="<?php echo $trigger_thing?>" class="form-control" autocomplete="off" id="trigger_name" placeholder="Enter event Here"/>
                 </div>
                 <div class="form-group">
-                    <label for="triggerDesc" class="control-label">Goal Description</label>
+                    <label for="triggerDesc" class="control-label"><?php echo  __('Goal Description','angelleye_give_when'); ?></label>
                     <textarea name="trigger_desc" class="form-control" autocomplete="off" id="trigger_desc" placeholder="Enter Description Here"><?php echo $trigger_desc;?></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="image_url">Image</label>
+                    <label for="image_url"><?php echo  __('Image','angelleye_give_when'); ?></label>
                     <input type="text" name="image_url" id="image_url" class="form-control" value="<?php echo $image_url; ?>"><br>
                     <input type="button" name="upload-btn" id="upload-btn" class="btn btn-primary" value="Upload Image">
                 </div>                
                 <div class="form-group">
-                    <input type="radio" name="fixed_radio" id="fixed_radio" value="fixed" <?php echo $fixed_amount_check; ?>><label class="radio-inline" for="fixed_radio"><strong>Fixed</strong></label>
+                    <input type="radio" name="fixed_radio" id="fixed_radio" value="fixed" <?php echo $fixed_amount_check; ?>><label class="radio-inline" for="fixed_radio"><strong><?php echo  __('Fixed','angelleye_give_when'); ?></strong></label>
                      &nbsp;
-                     <input type="radio" name="fixed_radio" id="option_radio" value="select" <?php echo $dynamic_options_check; ?>><label class="radio-inline" for="option_radio"><strong>Select</strong></label>
+                     <input type="radio" name="fixed_radio" id="option_radio" value="select" <?php echo $dynamic_options_check; ?>><label class="radio-inline" for="option_radio"><strong><?php echo  __('Select','angelleye_give_when'); ?></strong></label>
                      &nbsp;
-                     <input type="radio" name="fixed_radio" id="manual_radio" value="manual" <?php echo $manual_options_check; ?>><label class="radio-inline" for="manual_radio"><strong>Allow User to Manually Add</strong></label>
+                     <input type="radio" name="fixed_radio" id="manual_radio" value="manual" <?php echo $manual_options_check; ?>><label class="radio-inline" for="manual_radio"><strong><?php echo  __('Allow User to Manually Add','angelleye_give_when'); ?></strong></label>
                 </div>                
                 
                 <div class="form-group <?php echo $fixed_amount_input_class; ?>" id="fixed_amount_input_div">
-                    <label for="triggerName" class="control-label">Fixed Amount</label>
+                    <label for="triggerName" class="control-label"><?php echo __('Fixed Amount','angelleye_give_when'); ?></label>
                     <input type="text" name="fixed_amount_input" value="<?php echo $fixed_amount_input_value; ?>" class="form-control" autocomplete="off" id="fixed_amount_input" placeholder="Enter Amount"/>
                 </div>
                 
@@ -145,7 +145,7 @@ class AngellEYE_Give_When_interface {
                     foreach($dynamic_options_name as $name){ ?>       
                         <div class="form-group removeclass<?php echo ($i+1); ?>">
                         <div class="col-sm-1 nopadding">
-                            <label class="control-label">Option </label>
+                            <label class="control-label"><?php echo __('Option','angelleye_give_when'); ?> </label>
                         </div>
                         <div class="col-sm-3 nopadding">
                             <div class="form-group">
@@ -175,7 +175,7 @@ class AngellEYE_Give_When_interface {
                     ?>
                     <div id="education_fields">
                     <div class="col-sm-1 nopadding">
-                        <label class="control-label">Option </label>
+                        <label class="control-label"><?php echo  __('Option','angelleye_give_when'); ?> </label>
                     </div>
                     <div class="col-sm-3 nopadding">
                         <div class="form-group">
@@ -213,17 +213,17 @@ class AngellEYE_Give_When_interface {
         <div class="give_when_container">
             <div class="row">
                 <div class="col-md-12">
-                    <p>You can easily place this button in your pages and posts using this tool....</p>
+                    <p><?php echo __('You can easily place this button in your pages and posts using this tool....','angelleye_give_when'); ?></p>
                     <img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/give_when_tool.png" class="img-responsive" style="margin: 0 auto;"/>
                 </div>
             </div>
             <div class="row">
-                <div class="text-center">OR</div>
+                <div class="text-center"><?php echo  __('OR','angelleye_give_when'); ?></div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p>You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.</p>
-                    <div class="zero-clipboard"><span class="btn-clipboard" data-toggle="tooltip" data-placement="left" title="Copy To Clipboard">Copy</span></div>
+                    <p><?php echo __('You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.','angelleye_give_when'); ?></p>
+                    <div class="zero-clipboard"><span class="btn-clipboard" data-toggle="tooltip" data-placement="left" title="Copy To Clipboard"><?php echo __('Copy','angelleye_give_when'); ?></span></div>
                     <div class="give_when_highlight">
                         <h4><?php echo '[give_when_goal id=' . $post_ID . ']'; ?></h4>                        
                     </div>
@@ -261,12 +261,12 @@ class AngellEYE_Give_When_interface {
                      <?php  
                         $trigger_name = get_post_meta($_REQUEST['post'],'trigger_name',true);                        
                      ?>
-                    <h3 class="text-info">Givers For <?php echo $trigger_name; ?> </h3>
+                    <h3 class="text-info"><?php echo __('Givers For ','angelleye_give_when'); ?><?php echo $trigger_name; ?> </h3>
                 </div>                
             </div>
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <span class="text-info">Click <strong>"FUN"</strong> Button to Capture your Transactions.</span><br/>                    
+                    <span class="text-info"><?php echo __('Click ','angelleye_give_when'); ?><strong>"FUN"</strong><?php echo __(' Button to Capture your Transactions.','angelleye_give_when'); ?></span><br/>                    
                        <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')">Fun</a>
                 </div>
                 <div class="col-md-12">
