@@ -29,8 +29,8 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $post_meta_array = get_post_meta($post_id);
         $trigger_name = $post_meta_array['trigger_name'][0];
         $trigger_thing = $post_meta_array['trigger_thing'][0];
-        echo "<center><h1>Hi ".$current_user->display_name.", Thank You for signed up in {$trigger_name}. </h1></center>";
-        echo "<center><h2>Each time you will give $ {$amount} when {$trigger_thing}</h2></center>";
+        echo "<center><h1>".__('Hi'). $current_user->display_name . __(', Thank You for signed up in ') . $trigger_name. "</h1></center>";
+        echo "<center><h2>" . __('Each time you will give $').$amount. __('when '). $trigger_thing. "</h2></center>";
         $EmailString='';
         $EmailString.='<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
                                 <tr>
@@ -73,7 +73,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
     }
 }
 else{
-    echo "No data found in URL";
+    echo __("No data found in URL");
 }
 
 get_footer();

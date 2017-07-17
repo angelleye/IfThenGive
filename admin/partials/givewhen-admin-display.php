@@ -45,7 +45,7 @@ class AngellEYE_Give_When_Admin_Display {
         <h2 class="nav-tab-wrapper">
             <?php
             foreach ($setting_tabs as $name => $label)
-                echo '<a href="' . admin_url('admin.php?page=give_when_option&tab=' . $name) . '" class="nav-tab ' . ( $current_tab == $name ? 'nav-tab-active' : '' ) . '">' . $label . '</a>';
+                echo '<a href="' . admin_url('admin.php?page=give_when_option&tab=' . $name) . '" class="nav-tab ' . ( $current_tab == $name ? 'nav-tab-active' : '' ) . '">' . __($label,'angelleye_give_when') . '</a>';
             ?>
         </h2>
         <?php

@@ -191,19 +191,19 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     public function column_default( $item, $column_name ) {
       switch ( $column_name ) {
         case 'BillingAgreement':
-            echo $item['BillingAgreement'];
+             _e($item['BillingAgreement'],'angelleye_give_when');
             break;
         case 'PayPalEmail':
-            echo $item['PayPalEmail'];
+            _e($item['PayPalEmail'],'angelleye_give_when');
             break;
         case 'amount' :
-            echo $item['amount'];
+            _e($item['amount'],'angelleye_give_when');
             break;
         case 'PayPalPayerID' :
-            echo $item['PayPalPayerID'];
+            _e($item['PayPalPayerID'],'angelleye_give_when');
             break;
         case 'DisplayName' :
-            echo $item['DisplayName'];
+            _e($item['DisplayName'],'angelleye_give_when');
             break;
       }
     }

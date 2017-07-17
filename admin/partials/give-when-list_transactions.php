@@ -205,25 +205,25 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
     public function column_default($item, $column_name) {
         switch ($column_name) {
             case 'transactionId':
-                echo '<a href="' . site_url() . '/wp-admin/?page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id=' . $item['transactionId'] . '">' . $item['transactionId'] . '</a>';
+                _e('<a href="' . site_url() . '/wp-admin/?page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id=' . $item['transactionId'] . '">' . $item['transactionId'] . '</a>','angelleye_give_when');
                 break;
             case 'user_display_name':
-                echo $item['user_display_name'];
+                _e($item['user_display_name'],'angelleye_give_when');
                 break;
             case 'amount' :
-                echo $item['amount'];
+                _e($item['amount'],'angelleye_give_when');
                 break;
             case 'PayPalPayerID' :
-                echo $item['PayPalPayerID'];
+                _e($item['PayPalPayerID'],'angelleye_give_when');
                 break;
             case 'user_paypal_email' :
-                echo $item['user_paypal_email'];
+                _e($item['user_paypal_email'],'angelleye_give_when');
                 break;
             case 'ppack' :
-                echo $item['ppack'];
+                _e($item['ppack'],'angelleye_give_when');
                 break;
             case 'Txn_date' :
-                echo date('Y-m-d', strtotime($item['Txn_date']));
+                _e(date('Y-m-d', strtotime($item['Txn_date'])),'angelleye_give_when');
                 break;
         }
     }
@@ -382,26 +382,26 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
             ?>
             <div class="alignleft actions bulkactions">
                 <select name="cat-filter" class="ewc-filter-cat">
-                    <option value="">Filter by Payment Status</option>
-                    <option value="all">Show All</option>
+                    <option value=""><?php _e('Filter by Payment Status','angelleye_give_when'); ?></option>
+                    <option value="all"><?php _e('Show All','angelleye_give_when'); ?></option>
                     <option value="<?php echo $move_on_url; ?>Success" <?php if ($status_filter == "Success") {
                 echo $selected;
-            } ?>>Success</option>
+            } ?>><?php _e('Success','angelleye_give_when'); ?></option>
                     <option value="<?php echo $move_on_url; ?>Failure" <?php if ($status_filter == "Failure") {
                 echo $selected;
-            } ?>>Failure</option>
+            } ?>><?php _e('Failure','angelleye_give_when'); ?></option>
                     <option value="<?php echo $move_on_url; ?>pending" <?php if ($status_filter == "pending") {
                 echo $selected;
-            } ?>>Pending</option>
+            } ?>><?php _e('Pending','angelleye_give_when'); ?></option>
                 </select>                            
                 <select name="number_of_trans" class="ewc-filter-num">
-                    <option value="">Show Number of Records</option>
+                    <option value=""><?php _e('Show Number of Records','angelleye_give_when'); ?></option>
                     <option value="10" <?php if($rs_filter === '10') { echo $selected; } ?>>10</option>
                     <option value="25" <?php if($rs_filter === '25') { echo $selected; } ?>>25</option>
                     <option value="50" <?php if($rs_filter === '50') { echo $selected; } ?>>50</option>
                     <option value="100" <?php if($rs_filter === '100') { echo $selected; } ?>>100</option>
                 </select>
-                <a class="btn btn-primary btn-sm" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=RetryFailedTransactions">Retry Failure Payments</a>
+                <a class="btn btn-primary btn-sm" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=RetryFailedTransactions"><?php _e('Retry Failure Payments','angelleye_give_when') ?></a>
                 
             </div>
             <?php

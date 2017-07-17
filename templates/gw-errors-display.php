@@ -17,17 +17,17 @@ get_header();
 if(isset($_SESSION['GW_Error']) && isset($_SESSION['GW_Error_Type'])){
     ?>
 <center>
-    <h1>Error Type : <?php echo $_SESSION['GW_Error_Type']; ?> </h1>
-    <p> PayPal Acknowledgement : <?php echo $_SESSION['GW_Error_Array']['ACK']; ?></p>
-    <p> PayPal Error Code : <?php echo $_SESSION['GW_Error_Array']['L_ERRORCODE0']; ?></p>
-    <p> PayPal Error Short Message : <?php echo $_SESSION['GW_Error_Array']['L_SHORTMESSAGE0']; ?></p>
-    <p> PayPal Error Long Message : <?php echo $_SESSION['GW_Error_Array']['L_LONGMESSAGE0']; ?></p>
+    <h1> <?php _e('Error Type :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Type']; ?> </h1>
+    <p> <?php _e('PayPal Acknowledgement :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['ACK']; ?></p>
+    <p> <?php _e('PayPal Error Code :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_ERRORCODE0']; ?></p>
+    <p> <?php _e('PayPal Error Short Message :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_SHORTMESSAGE0']; ?></p>
+    <p> <?php _e('PayPal Error Long Message :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_LONGMESSAGE0']; ?></p>
 </center>
 <?php    
     unset($_SESSION['GW_Error'],$_SESSION['GW_Error_Type'],$_SESSION['GW_Error_Array']);
 }
 else{
-    echo "No Data Found.";
+    _e("No Data Found.","angelleye_give_when");
 }
 
 get_footer();

@@ -52,7 +52,7 @@ class AngellEYE_Give_When_Public_Display {
                 <div id="overlay" style=" background: #f6f6f6;opacity: 0.8;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
                     <div style="display: table; width:100%; height: 100%;">
                         <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>admin/images/loading.gif"  style=" position: relative;top: 50%; height: 100px"/>
-                            <h1 style="font-weight: 600;">Please dont't go back , We are redirecting you to PayPal</h1></div>
+                            <h1 style="font-weight: 600;"><?php _e('Please dont\'t go back , We are redirecting you to PayPal',''); ?></h1></div>
                     </div>            
                 </div>
                 <div class="give_when_container">
@@ -70,14 +70,14 @@ class AngellEYE_Give_When_Public_Display {
                                 if($amount == 'fixed'){
                                     $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);
                                     ?>
-                                <p class="lead">I will Give : $ <span id="give_when_fixed_price_span"><?php echo $fixed_amount; ?></span> When <?php echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
+                                <p class="lead"><?php _e('I will Give :',''); ?> $ <span id="give_when_fixed_price_span"><?php echo $fixed_amount; ?></span> <?php _e('When',''); ?> <?php echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
                                 <?php    
                                 }
                                 elseif($amount == 'manual'){
                                     ?>
-                                <p class="lead">I will Give : $ <span id="give_when_manual_price_span">50</span> When <?php echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
+                                <p class="lead"><?php _e('I will Give :',''); ?>  $ <span id="give_when_manual_price_span">50</span> <?php _e('When',''); echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
                                 <div class="form-group">
-                                     <label for="manualamout" class="control-label">Enter Amount</label>
+                                    <label for="manualamout" class="control-label"><?php _e('Enter Amount',''); ?></label>
                                     <input type="text" name="gw_manual_amount_input" value="50" class="form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
                                 </div>
                                     
@@ -88,7 +88,7 @@ class AngellEYE_Give_When_Public_Display {
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);
                                     $i=0;
                             ?>
-                            <p class="lead">I will Give : $ <span id="give_when_fixed_price_span_select"><?php echo $option_amount[0]; ?></span> When <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></p>
+                                <p class="lead"> <?php _e('I will Give :',''); ?> $ <span id="give_when_fixed_price_span_select"><?php echo $option_amount[0]; ?></span> <?php _e('When',''); ?> <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></p>
                             <div class="form-group">
                                 <select class="form-control" name="give_when_option_amount" id="give_when_option_amount">
                                 <?php
@@ -106,7 +106,7 @@ class AngellEYE_Give_When_Public_Display {
                      <div class="row" id="give_when_signup_form">
                         <div class="col-md-12">
                             <div class="panel panel-info">
-                                <div class="panel-heading"> Sign up for <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></div>
+                                <div class="panel-heading"> <?php _e('Sign up for',''); ?> <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></div>
                                 <div class="panel-body">
                                      <div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">
                                         <span id="connect_paypal_error_p"></span>
@@ -126,31 +126,31 @@ class AngellEYE_Give_When_Public_Display {
                                     ?>
                                     <form method="post" name="signup" id="give_when_signup">
                                         <div class="form-group">
-                                          <label for="name">First Name</label>
+                                          <label for="name"><?php _e('First Name','angelleye_give_when'); ?></label>
                                           <input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="<?php echo $User_first_name; ?>">
                                         </div>
                                         <div class="form-group">
-                                          <label for="name">Last Name</label>
+                                          <label for="name"><?php _e('Last Name','angelleye_give_when'); ?></label>
                                           <input type="text" class="form-control" name="give_when_lastname" id="give_when_lastname" required="required" value="<?php echo $User_last_name; ?>">
                                         </div>
                                         <div class="form-group">
-                                          <label for="email">Email address:</label>
+                                          <label for="email"><?php _e('Email address','angelleye_give_when'); ?></label>
                                           <input type="email" class="form-control" name="give_when_email" id="give_when_email" required="required" value="<?php echo $User_email; ?>">
                                         </div>
                                         <?php 
                                          if ( ! is_user_logged_in() ) {
                                          ?>
                                         <div class="form-group">
-                                          <label for="password">Password:</label>
+                                          <label for="password"><?php _e('Password','angelleye_give_when'); ?></label>
                                           <input type="password" class="form-control" name="give_when_password" id="give_when_password" required="required">
                                         </div>
                                         <div class="form-group">
-                                          <label for="password">Re-type Password:</label>
+                                          <label for="password"><?php _e('Re-type Password','angelleye_give_when'); ?></label>
                                           <input type="password" class="form-control" name="give_when_retype_password" id="give_when_retype_password" required="required">
                                         </div>
                                          <?php } ?>
                                         <input type="hidden" class="form-control" name="give_when_page_id" id="give_when_page_id" value="<?php echo $give_when_page_id;?>">
-                                        <button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="<?php echo $post->ID; ?>" data-userid="">Sign Up For <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></button>
+                                        <button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="<?php echo $post->ID; ?>" data-userid=""><?php _e('Sign Up For','angelleye_give_when'); ?> <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></button>
                                     </form>
                                 </div>
                             </div>
@@ -188,22 +188,22 @@ class AngellEYE_Give_When_Public_Display {
             $ValidationErrors = array();
             $fname = sanitize_text_field( $gwuser['give_when_firstname']);
             if (!preg_match("/^[a-zA-Z]+$/",$fname)) {
-              $ValidationErrors['FirstName'] = "Invalid Input : Only letters allowed in First Name";
+              $ValidationErrors['FirstName'] = __("Invalid Input : Only letters allowed in First Name");
             }
             $lname = sanitize_text_field($gwuser['give_when_lastname']);
             if (!preg_match("/^[a-zA-Z]+$/",$lname)) {
-              $ValidationErrors['LastName'] = "Invalid Input : Only letters allowed in Last Name";
+              $ValidationErrors['LastName'] = __("Invalid Input : Only letters allowed in Last Name");
             }
              
             $email = sanitize_email($gwuser['give_when_email']);
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $ValidationErrors['Email'] = "Invalid email format";
+                $ValidationErrors['Email'] = __("Invalid email format");
             }
             if ($gwuser['give_when_password'] !== $gwuser['give_when_retype_password']) {
-                $ValidationErrors['Password'] = "Mismatch Input : Password Fields are not matched";
+                $ValidationErrors['Password'] = __("Mismatch Input : Password Fields are not matched");
             }                        
             if(!empty($ValidationErrors)){
-                echo json_encode(array('Ack'=>'ValidationError','ErrorCode'=>'Invalid Inputs','ErrorLong'=>'Please find Following Error','Errors'=>$ValidationErrors));
+                echo json_encode(array('Ack'=>__('ValidationError'),'ErrorCode'=>__('Invalid Inputs'),'ErrorLong'=>'Please find Following Error','Errors'=>$ValidationErrors));
                 exit;
             }            
             /*valodation End */
@@ -238,7 +238,7 @@ class AngellEYE_Give_When_Public_Display {
                 $goalArray = explode('|', $signnedup_goals[0]);                
                 if(!empty($goalArray)){
                     if(in_array($post_id, $goalArray)){
-                        echo json_encode(array('Ack'=>'Information','ErrorCode'=>'GiveWhenInfo','ErrorShort'=>'You are already signed up for this goal.','ErrorLong'=>'You are already signed up for this goal.'));
+                        echo json_encode(array('Ack'=>__('Information'),'ErrorCode'=>__('GiveWhenInfo'),'ErrorShort'=>__('You are already signed up for this goal.'),'ErrorLong'=>__('You are already signed up for this goal.')));
                         exit;
                     }
                 }
@@ -246,8 +246,8 @@ class AngellEYE_Give_When_Public_Display {
             /*inserting new user and if user_id is available then update user.*/
             $user_id = wp_insert_user($userdata);
             if( is_wp_error( $user_id ) ) {
-                $error = 'Error on user creation: ' . $user_id->get_error_message();
-                echo json_encode(array('Ack'=>'Failure','ErrorCode'=>'WP Error','ErrorShort'=>'Error on user creation:','ErrorLong'=>$error));
+                $error = __('Error on user creation: ') . $user_id->get_error_message();
+                echo json_encode(array('Ack'=>__('Failure'),'ErrorCode'=>__('WP Error'),'ErrorShort'=>__('Error on user creation:'),'ErrorLong'=>$error));
                 exit;
             }
             else{                
