@@ -25,7 +25,6 @@ class Give_When_PayPal_Helper {
         var $token_secret='';                              
         
         public function get_configuration(){
-                $this->set_api_cedentials();
                 $PayPalConfig = array(
                     'Sandbox' => $this->sandbox,
                     'DeveloperAccountEmail' => $this->developer_account_email,
@@ -43,8 +42,7 @@ class Give_When_PayPal_Helper {
                 return $PayPalConfig;
         }
     
-        public function get_third_party_configuration(){
-                $this->set_api_cedentials();
+        public function get_third_party_configuration(){                
                 $PayPalConfig = array(
                     'Sandbox' => $this->sandbox,
                     'DeveloperAccountEmail' => $this->developer_account_email,
@@ -75,23 +73,4 @@ class Give_When_PayPal_Helper {
             $this->api_subject = $API_SUBJECT;
             return true;
         }
-        
-        public function set_api_cedentials(){           
-            $sanbox_enable = get_option('sandbox_enable_give_when', TRUE);
-            if($sanbox_enable === 'yes'){
-                $this->sandbox=TRUE;
-                $this->api_username=get_option('give_when_sandbox_api_username', TRUE);
-                $this->api_password=get_option('give_when_sandbox_api_password', TRUE);
-                $this->api_signature=get_option('give_when_sandbox_api_signature', TRUE);
-                $this->application_id='APP-80W284485P519543T';
-            }            
-            else{
-                $this->sandbox='';
-                $this->api_username=get_option('give_when_api_username', TRUE);
-                $this->api_password=get_option('give_when_api_password', TRUE);
-                $this->api_signature=get_option('give_when_api_signature', TRUE);
-                $this->application_id='';
-            }
-        }
-        
 }

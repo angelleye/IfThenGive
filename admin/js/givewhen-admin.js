@@ -2,16 +2,6 @@
     'use strict';
     jQuery(document).ready(function ($) {
         
-        if(give_when_sanbox_enable_js == 'yes'){
-            jQuery('#give_when_api_username, #give_when_api_password, #give_when_api_signature').closest('tr').hide();            
-            jQuery('.gw_liveList').hide();
-        }
-        else{
-            jQuery('#give_when_sandbox_api_username, #give_when_sandbox_api_password, #give_when_sandbox_api_signature').closest('tr').hide();
-            jQuery('.gw_sandboxList').hide();
-        }
-        
-        
         $('#upload-btn').click(function (e) {
             e.preventDefault();
             var image = wp.media({
@@ -126,23 +116,11 @@
         });
         
         $(document).on('click','#sandbox_enable_give_when',function(){
-            var sandbox = '';
-            var sandboxTr ='';
-            var productionTr = '';
-            sandboxTr = jQuery('#give_when_sandbox_api_username, #give_when_sandbox_api_password, #give_when_sandbox_api_signature').closest('tr');
-            productionTr = jQuery('#give_when_api_username, #give_when_api_password, #give_when_api_signature').closest('tr');            
+            var sandbox = '';            
             if ($(this).is(':checked')){
-                sandbox = true;
-                sandboxTr.show();
-                productionTr.hide();
-                jQuery('.gw_liveList').hide();
-                jQuery('.gw_sandboxList').show();
+                sandbox = true;                
             } else { 
-                sandbox = false;
-                sandboxTr.hide();
-                productionTr.show();
-                jQuery('.gw_liveList').show();
-                jQuery('.gw_sandboxList').hide();
+                sandbox = false;                
             }
              $.ajax({
                 type: 'POST',
