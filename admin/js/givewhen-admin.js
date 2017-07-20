@@ -80,7 +80,7 @@
                 });
             });
         }
-        $(document).on('click','#angelleye_connect_to_paypal',function(){            
+        $(document).on('click','#angelleye_connect_to_paypal',function(){
             $.ajax({
                 type: 'POST',
                 url: admin_ajax_url,
@@ -92,8 +92,8 @@
                     $('#overlay').show();
                 },                
                 success: function (result) {
-                   if(result.Ack == 'Success'){
-                       window.location.href = result.RedirectURL;
+                   if(result.Ack == 'success'){
+                       window.location.href = result.action_url;
                    }
                    else{
                        $('#overlay').hide();

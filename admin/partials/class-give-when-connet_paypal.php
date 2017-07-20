@@ -93,6 +93,14 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         $genral_setting_fields = self::give_when_connect_to_paypal_setting_fields();
         $Html_output = new AngellEYE_Give_When_Html_output();
         if($conncet_to_paypal_flag == 'Yes'){
+            $label = 'You are Connected With PayPal';
+            $labelClass = 'label-success';
+        }
+        else{
+            $label = 'You are not Connected With PayPal';
+            $labelClass = 'label-danger';
+        }
+        /*
         ?>  
             <div class="wrap">
                 <div class="container-fluid">
@@ -169,68 +177,59 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             </div>
         <?php
         }
-        else {
+        else {*/
         ?>    
         <div class="wrap">
             <div class="container-fluid">
                 <div class="alert alert-warning" id="connect_paypal_error" style="display: none">
                     <p id="connect_paypal_error_p"></p>
-                </div>
+                </div>                
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="alert alert-info"><span class="circle_red"></span>
-                            <span><?php echo __('You are not connected to PayPal...!!','angelleye_give_when'); ?></span></div>
-                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading gw-panel-heading">
+                            <h3 class="panel-title"><img class="pull-right" width="135" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal Logo"></h3>
+                                <div class="pull-right"><span class="label <?php echo $labelClass; ?>"><?php _e($label,'angelleye_give_when'); ?></span></div>
+                          </div>
+                          <div class="panel-body">
+                            <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12">
+                                <p>Gives your buyers a simplified checkout experience on multiple devices that keeps them local to your website throughout the payment authorization process <a href="https://www.paypal.com/uk/webapps/mpp/express-checkout" target="_blank">(Learn more)</a></p>
+                              </div>
+                            </div>
+                            <div class="row">                             
+                              <div class="col-lg-3 col-md-3 col-sm-3">
+                                <p><a id="angelleye_connect_to_paypal" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Connect with PayPal">Connect with PayPal</a></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>                    
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="form-table" id="give_when_callback_url">
-                            <tbody>
-                                <tr valign="top">
-                                    <td>
-                                       <img name="angelleye_connect_to_paypal" id="angelleye_connect_to_paypal" src="<?php echo GW_PLUGIN_URL; ?>/admin/images/paypal_connect.png"  style="cursor: pointer"/>
-                                    </td>
-                                </tr>                        
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>    
-<?php
-        }
-        ?> 
-<div class="wrap">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">                
-                
                 <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;z-index: 1031;text-align: center; display: none;">
                     <div style="display: table; width:100%; height: 100%;">                
                         <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/loading.gif"  style=" position: relative;top: 50%;"/>
                         <h2><?php echo __('Please Don\'t Go back , We are redirecting you to PayPal.','angelleye_give_when'); ?></h2></div>
                     </div>            
+                </div>                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="div_log_settings">
+                            <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
+                                <table class="form-table">
+                                    <tbody>
+                                        <?php $Html_output->init($genral_setting_fields); ?>
+                                        <p class="submit">
+                                            <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
+                                        </p>                                
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="div_log_settings">
-                    <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
-                        <table class="form-table">
-                            <tbody>
-                                <?php $Html_output->init($genral_setting_fields); ?>
-                                <p class="submit">
-                                    <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
-                                </p>                                
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-            </div>            
-        </div>
-    </div>     
-</div>            
 <?php
     }
 
@@ -239,55 +238,29 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
      * @since    0.1.0
      * @access   public
      */
-    public function request_permission() {
-                        
-        $paypal_helper_object = new Give_When_PayPal_Helper();
-        
-        $PayPal = new GiveWhen_Adaptive($paypal_helper_object->get_configuration());
-        // Prepare request arrays        
-        $Scope = array(
-            'EXPRESS_CHECKOUT',             
-            'BILLING_AGREEMENT', 
-            'REFERENCE_TRANSACTION', 
-            'TRANSACTION_DETAILS',
-            'TRANSACTION_SEARCH',
-            'RECURRING_PAYMENTS',            
-            'ACCESS_BASIC_PERSONAL_DATA',
-            'ACCESS_ADVANCED_PERSONAL_DATA',
-            'REFUND'            
-        );
-
-        $RequestPermissionsFields = array(
-            'Scope' => $Scope,           
-            'Callback' => site_url('?action=permission_callback')
-        );        
-        $PayPalRequestData = array('RequestPermissionsFields' => $RequestPermissionsFields);
-        
-        $PayPalResult = $PayPal->RequestPermissions($PayPalRequestData);
-     
-        if($PayPal->APICallSuccessful($PayPalResult['ACK'])){
-            //save log
-            $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
-            if ('yes' == $debug) {
-                    $log_write = new AngellEYE_Give_When_Logger();
-                    $log_write->add('angelleye_give_when_connect_to_paypal', 'RequestPermissions Success: ' . print_r($PayPalResult, true), 'connect_to_paypal');
-            }
-            echo json_encode(array( 'Ack' => $PayPalResult['Ack'] ,'Token' => $PayPalResult['Token'] , 'RedirectURL' => $PayPalResult['RedirectURL'] ));
+    public function request_permission() {        
+        $sanbox_enable = get_option('sandbox_enable_give_when');
+        if($sanbox_enable === 'yes'){
+            $sandbox = 'true';
+        }else{
+            $sandbox = 'false';
+        }
+        $url = 'http://angelleye.project-demo.info/paypal/';
+        $return_url = site_url('?action=permission_callback');
+        $postData = "sandbox={$sandbox}&api=connect_to_paypal&return_url={$return_url}";
+        $ConnectPayPalJson = self::curl_request($url,$postData);
+        $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
+        if($ConnectPayPalArray['ACK'] == 'success'){
+            echo json_encode(array('Ack' => 'success','action_url' => $ConnectPayPalArray['action_url']));
         }
         else{
-            //save log
-            $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
-            if ('yes' == $debug) {
-                    $log_write = new AngellEYE_Give_When_Logger();
-                    $log_write->add('angelleye_give_when_connect_to_paypal', 'RequestPermissions Failed : ' . print_r($PayPalResult, true), 'connect_to_paypal');
-            }
-            echo json_encode(array('Ack' => $PayPalResult['Ack'] , 'Message' => $PayPalResult['Errors'][0]['Message'] , 'ErrorID' => $PayPalResult['Errors'][0]['ErrorID'] ));
+            echo json_encode(array('Ack' => 'failed','errorData'=>$ConnectPayPalArray));
         }
         exit;
     }
     
     
-    public function sandbox_enabled(){       
+    public function sandbox_enabled(){
         if(isset($_POST['sandbox'])){
             $sandbox = $_POST['sandbox'];
             if($sandbox=='true'){
@@ -298,6 +271,22 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             }
             echo json_encode(array('Ack' => 'success'));
         }
+        exit;
+    }
+    
+    public static function curl_request($url,$postData){        
+        $httpHeaders = array(
+            'Content-Type:application/x-www-form-urlencoded'
+        );
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_VERBOSE, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $httpHeaders);
+            $result = curl_exec($ch);
+            return $result;
     }
 
     /**

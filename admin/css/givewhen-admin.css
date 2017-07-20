@@ -183,3 +183,7 @@ input:checked + .slider:before {
 .bs-callout-info h4 {
     color: #5bc0de;
 }
+.gw-panel-heading h3{
+    font-weight: 500;
+    display: inline-block;
+}
