@@ -151,7 +151,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-lg-12 col-sm-12">
-                                        <a class="btn btn-info btn-lg">Disconnect</a>
+                                        <a class="btn btn-info btn-lg" href="<?php echo site_url().'/wp-admin/?page=give_when_disconnect_paypal&action=true'; ?>">Disconnect</a>
                                         <br><p class="label label-warning">*Disconnect will Rollback your permission.</p>
                                     </div>
                                 </div>

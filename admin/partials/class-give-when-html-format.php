@@ -820,6 +820,19 @@ class AngellEYE_Give_When_interface {
         <?php
         ob_end_flush();
     }
+    
+    public static function give_when_disconnect_interface_html() {
+        
+        update_option('give_when_permission_connected_to_paypal', 'no');
+        delete_option('give_when_permission_connected_person_merchant_id');
+        delete_option('give_when_permission_connected_person_email_id');
+
+        $url = admin_url('admin.php?page=give_when_option&tab=connect_to_paypal');
+        echo "<script>";
+        echo 'window.location.href = "' . $url . '";';
+        echo "</script>";
+        die();
+    }
 
     public static function give_when_hide_publish_button_until() {
         if (isset($_REQUEST['post_type'])) {
