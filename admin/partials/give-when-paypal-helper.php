@@ -79,9 +79,9 @@ class Give_When_PayPal_Helper {
             $sanbox_enable = get_option('sandbox_enable_give_when');            
             if($sanbox_enable === 'yes'){
                  $this->sandbox=TRUE;
-                 $this->api_username='tejasm-merchant_api2.itpathsolutions.co.in';
-                 $this->api_password='GJA2TBCF3U9H4VK9';
-                 $this->api_signature='AFcWxV21C7fd0v3bYYYRCpSSRl31A47TBRQKcZyw6Bx9aDcmqr9ipPmt';
+                 $this->api_username='andrew-facilitator_api1.givewhen.com';
+                 $this->api_password='XNNHPDZ6Z78DTHRU';
+                 $this->api_signature='AFcWxV21C7fd0v3bYYYRCpSSRl31AdPmZGWK7HH2nnro.G-gReSRpHR1';
                  $this->api_username=get_option('give_when_sandbox_api_username', TRUE);
                  $this->api_password=get_option('give_when_sandbox_api_password', TRUE);
                  $this->api_signature=get_option('give_when_sandbox_api_signature', TRUE);
@@ -92,9 +92,9 @@ class Give_When_PayPal_Helper {
                  $this->api_username='';
                  $this->api_password='';
                  $this->api_signature='';
-                 $this->api_username=get_option('give_when_api_username', TRUE);
-                 $this->api_password=get_option('give_when_api_password', TRUE);
-                 $this->api_signature=get_option('give_when_api_signature', TRUE);
+                 $this->api_username='';
+                 $this->api_password='';
+                 $this->api_signature='';
                  $this->application_id='';
              }
         }

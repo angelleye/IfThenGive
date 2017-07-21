@@ -99,91 +99,69 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         else{
             $label = 'You are not Connected With PayPal';
             $labelClass = 'label-danger';
-        }
-        /*
-        ?>  
-            <div class="wrap">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="text-info">&nbsp;<?php echo __('PayPal User Infromation','angelleye_give_when');?></h1>
-                        </div>                        
-                        <div class="clearfix"></div>
-                    </div>                    
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6 col-lg-4 col-sm-6 col-xs-12">
-                            <div class="table-responsive">
-                                <table class="table table-responsive">
-                                    <tbody>
-                                        <tr>        
-                                            <td>
-                                                <strong>
-                                                    <span class="glyphicon glyphicon-asterisk text-primary"></span>
-                                                    <?php echo __('PayPal Account ID','angelleye_give_when');?>
-                                                </strong>
-                                            </td>
-                                            <td class="text-primary">
-                                                <?php 
-                                                    $paypal_account_id = get_option('give_when_permission_connected_person_payerID');
-                                                    echo isset($paypal_account_id) ? $paypal_account_id :'';
-                                                ?>
-                                            </td>
-                                        </tr>
-                                        <tr>    
-                                            <td>
-                                                <strong>
-                                                    <span class="glyphicon glyphicon-user  text-primary"></span>    
-                                                    <?php echo __('Name','angelleye_give_when');?>                                                                                                    
-                                                </strong>
-                                            </td>
-                                            <td class="text-primary">
-                                                <?php
-                                                    $paypal_first_name = get_option('give_when_permission_connected_person_first');
-                                                    $paypal_last_name = get_option('give_when_permission_connected_person_last');
-                                                    echo $paypal_first_name.' '.$paypal_last_name;
-                                                ?>
-                                            </td>
-                                        </tr>                                                        
-                                        <tr>        
-                                            <td>
-                                                <strong>
-                                                    <span class="glyphicon glyphicon-envelope text-primary"></span> 
-                                                    <?php echo __('Email','angelleye_give_when');?>
-                                                </strong>
-                                            </td>
-                                            <td class="text-primary">
-                                                <?php echo get_option('give_when_permission_connected_person_email'); ?>  
-                                            </td>
-                                        </tr>                                                     
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="alert alert-info"><span class="circle_green"></span><span><?php echo __('You are already connected to PayPal...!!','angelleye_give_when'); ?></span></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a class="btn btn-info btn-lg" href="<?php echo site_url().'/wp-admin/?page=give_when_disconnect_paypal&action=true'; ?>">Disconnect</a>
-                        </div>     
-                    </div>
-                </div>
-            </div>
-        <?php
-        }
-        else {*/
-        ?>    
+        }        
+        ?>                
         <div class="wrap">
             <div class="container-fluid">
                 <div class="alert alert-warning" id="connect_paypal_error" style="display: none">
                     <p id="connect_paypal_error_p"></p>
-                </div>                
+                </div>
+                <?php
+                if($conncet_to_paypal_flag == 'Yes'){
+                ?>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading gw-panel-heading">
+                                <h3 class="panel-title"><img class="pull-right" width="135" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal Logo"></h3>
+                                <div class="pull-right"><span class="label <?php echo $labelClass; ?>"><?php _e($label,'angelleye_give_when'); ?></span></div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-responsive">
+                                                <tr>        
+                                                    <td>
+                                                        <strong>                                                            
+                                                            <?php echo __('PayPal Account ID','angelleye_give_when');?>
+                                                        </strong>
+                                                    </td>
+                                                    <td class="text-primary">
+                                                        <?php 
+                                                            $paypal_account_id = get_option('give_when_permission_connected_person_merchant_id');
+                                                            echo isset($paypal_account_id) ? $paypal_account_id :'';
+                                                        ?>
+                                                    </td>
+                                                </tr>
+                                                <tr>        
+                                                    <td>
+                                                        <strong>                                                            
+                                                            <?php echo __('PayPal Email ID','angelleye_give_when');?>
+                                                        </strong>
+                                                    </td>
+                                                    <td class="text-primary">
+                                                        <?php 
+                                                            $paypal_email_id = get_option('give_when_permission_connected_person_email_id');
+                                                            echo isset($paypal_email_id) ? $paypal_email_id :'';
+                                                        ?>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 col-sm-12">
+                                        <a class="btn btn-info btn-lg">Disconnect</a>
+                                        <br><p class="label label-warning">*Disconnect will Rollback your permission.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php } 
+                else {
+                ?>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="panel panel-default">
@@ -206,6 +184,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                         </div>
                     </div>                    
                 </div>
+                <?php }  ?>
                 <div id="overlay" style=" background: #f6f6f6;opacity: 0.7;width: 100%;float: left;height: 100%;position: fixed;top: 0;z-index: 1031;text-align: center; display: none;">
                     <div style="display: table; width:100%; height: 100%;">                
                         <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/loading.gif"  style=" position: relative;top: 50%;"/>

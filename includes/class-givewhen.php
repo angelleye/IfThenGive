@@ -256,11 +256,36 @@ class Givewhen {
         public function handle_callback_permission() {
             @session_start();
             global $wp;
-            
-            if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {                                    
+            if (isset($_GET['action']) && $_GET['action'] == 'permission_callback') {
+                $sanbox_enable = get_option('sandbox_enable_give_when');
+                if($sanbox_enable === 'yes'){
+                    $sandbox = 'true';
+                }else{
+                    $sandbox = 'false';
+                }
+                if(isset($_GET['merchantIdInPayPal'])){
+                    $url = 'http://angelleye.project-demo.info/paypal/';
+                    $postData = "sandbox={$sandbox}&api=account_detail&merchantIdInPayPal={$_GET['merchantIdInPayPal']}";
+                    $AccountDetail = AngellEYE_Give_When_PayPal_Connect_Setting::curl_request($url,$postData);
+                    $AccountDetailArray = json_decode($AccountDetail,true);
+                    update_option('give_when_permission_connected_person_merchant_id',$AccountDetailArray['DATA']['merchant_id']);
+                    update_option('give_when_permission_connected_person_email_id',$AccountDetailArray['DATA']['primary_email']);
+                    update_option( 'give_when_permission_connected_to_paypal', 'Yes');
+                    update_option( 'give_when_permission_connect_to_paypal_success_notice', 'You are successfully connected with PayPal.');
+                }
+                else{
+                    update_option( 'give_when_permission_connect_to_paypal_failed_notice', 'Callback from PayPal : Something went wrong. Please try again.');                       
+                }
+                wp_redirect(admin_url('admin.php?page=give_when_option&tab=connect_to_paypal'));
+                die();
+            }
+            if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {
                 $token = $_GET['token'];                
-                $PayPal_config = new Give_When_PayPal_Helper();                
-                $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+                $PayPal_config = new Give_When_PayPal_Helper();
+                $API_SUBJECT = get_option('give_when_permission_connected_person_merchant_id');                
+                $PayPal_config->set_api_cedentials();
+                $PayPal_config->set_api_subject($API_SUBJECT);
+                $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_third_party_configuration());
                
                 $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
                 if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){

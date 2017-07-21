@@ -341,7 +341,10 @@ class AngellEYE_Give_When_interface {
         $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
         $PayPal_config = new Give_When_PayPal_Helper();
-        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+        $API_SUBJECT = get_option('give_when_permission_connected_person_merchant_id');                
+        $PayPal_config->set_api_cedentials();
+        $PayPal_config->set_api_subject($API_SUBJECT);
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_third_party_configuration());
         $total_txn = 0;
         $total_txn_success = 0;
         $total_txn_failed = 0;
@@ -493,8 +496,11 @@ class AngellEYE_Give_When_interface {
         global $post, $post_ID;
         $goal_id = $post_ID;
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
-        $PayPal_config = new Give_When_PayPal_Helper();
-        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+        $PayPal_config = new Give_When_PayPal_Helper();        
+        $API_SUBJECT = get_option('give_when_permission_connected_person_merchant_id');                
+        $PayPal_config->set_api_cedentials();
+        $PayPal_config->set_api_subject($API_SUBJECT);       
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_third_party_configuration());        
         $GTDFields = array(
             'transactionid' => $transaction_id
         );
@@ -707,7 +713,10 @@ class AngellEYE_Give_When_interface {
                                     $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
                                     $givers = AngellEYE_Give_When_Transactions_Table::get_all_failed_givers($goal_id);
                                     $PayPal_config = new Give_When_PayPal_Helper();
-                                    $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+                                    $API_SUBJECT = get_option('give_when_permission_connected_person_merchant_id');                
+                                    $PayPal_config->set_api_cedentials();
+                                    $PayPal_config->set_api_subject($API_SUBJECT);
+                                    $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_third_party_configuration());
                                     $total_txn = 0;
                                     $total_txn_success = 0;
                                     $total_txn_failed = 0;
