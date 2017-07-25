@@ -80,32 +80,6 @@
                 });
             });
         }
-        $(document).on('click','#angelleye_connect_to_paypal',function(){
-            $.ajax({
-                type: 'POST',
-                url: admin_ajax_url,
-                 data: { 
-                    action: 'request_permission'                    
-                },
-                dataType: "json",
-                beforeSend: function () {
-                    $('#overlay').show();
-                },                
-                success: function (result) {
-                   if(result.Ack == 'success'){
-                       window.location.href = result.action_url;
-                   }
-                   else{
-                       $('#overlay').hide();
-                       $('#connect_paypal_error').show();
-                       $('#connect_paypal_error_p').html('').html('PayPal Acknowledgement : ' + result.Ack);
-                       $('#connect_paypal_error_p').append('<br>Message : ' + result.Message);
-                       $('#connect_paypal_error_p').append('<br>ErrorID : ' + result.ErrorID);
-                       $('#connect_paypal_error_p').append('<br>Please Try Again later');
-                   }
-                }
-            });
-        });
         
         $(document).on('click','#give_when_fun',function(){
             if (confirm("Press a button!") == true) {
@@ -118,9 +92,13 @@
         $(document).on('click','#sandbox_enable_give_when',function(){
             var sandbox = '';            
             if ($(this).is(':checked')){
-                sandbox = true;                
+                sandbox = true;         
+                $('#give_when_sandbox_fields').show();
+                $('#give_when_live_fields').hide();
             } else { 
-                sandbox = false;                
+                sandbox = false;
+                $('#give_when_sandbox_fields').hide();
+                $('#give_when_live_fields').show();
             }
              $.ajax({
                 type: 'POST',

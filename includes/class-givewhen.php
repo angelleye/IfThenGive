@@ -268,8 +268,18 @@ class Givewhen {
                     $postData = "sandbox={$sandbox}&api=account_detail&merchantIdInPayPal={$_GET['merchantIdInPayPal']}";
                     $AccountDetail = AngellEYE_Give_When_PayPal_Connect_Setting::curl_request($url,$postData);
                     $AccountDetailArray = json_decode($AccountDetail,true);
+                    
                     update_option('give_when_permission_connected_person_merchant_id',$AccountDetailArray['DATA']['merchant_id']);
-                    update_option('give_when_permission_connected_person_email_id',$AccountDetailArray['DATA']['primary_email']);
+                    if($sandbox=='true'){
+                        update_option('give_when_sandbox_api_credentials_api_user_name',$AccountDetailArray['DATA']['api_credentials']['signature']['api_user_name']);
+                        update_option('give_when_sandbox_api_credentials_api_password',$AccountDetailArray['DATA']['api_credentials']['signature']['api_password']);
+                        update_option('give_when_sandbox_api_credentials_signature',$AccountDetailArray['DATA']['api_credentials']['signature']['signature']);
+                    }
+                    else{
+                        update_option('give_when_live_api_credentials_api_user_name',$AccountDetailArray['DATA']['api_credentials']['signature']['api_user_name']);
+                        update_option('give_when_live_api_credentials_api_password',$AccountDetailArray['DATA']['api_credentials']['signature']['api_password']);
+                        update_option('give_when_live_api_credentials_signature',$AccountDetailArray['DATA']['api_credentials']['signature']['signature']);
+                    }                                        
                     update_option( 'give_when_permission_connected_to_paypal', 'Yes');
                     update_option( 'give_when_permission_connect_to_paypal_success_notice', 'You are successfully connected with PayPal.');
                 }
