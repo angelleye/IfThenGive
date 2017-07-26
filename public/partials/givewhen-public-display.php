@@ -267,7 +267,7 @@ class AngellEYE_Give_When_Public_Display {
             $new_post_id = wp_insert_post( array(
                 'post_status' => 'publish',
                 'post_type' => 'give_when_sign_up',
-                'post_title' => ('User ID : '.$user_id.'& Goal ID : '.$goal_post_id)
+                'post_title' => ('User ID : '.$user_id.'& Goal ID : '.$post_id)
             ) );
 
             update_post_meta($new_post_id,'give_when_signup_amount',$amount);                    
