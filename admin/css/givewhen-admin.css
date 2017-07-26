@@ -187,3 +187,5 @@ input:checked + .slider:before {
     font-weight: 500;
     display: inline-block;
 }
+.gw_hide_sandbox_class { display:  none;}
+.gw_hide_live_class { display:  none;}

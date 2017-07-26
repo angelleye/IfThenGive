@@ -90,6 +90,14 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             $label = 'You are not Connected With PayPal';
             $labelClass = 'label-danger';
         }
+        $sanbox_enable = get_option('sandbox_enable_give_when');
+        if ($sanbox_enable === 'yes') {
+            $sandbox_class = "";
+            $live_class="gw_hide_live_class";
+        } else {
+            $sandbox_class = "gw_hide_sandbox_class";
+            $live_class="";
+        }
         $sandbox_api_user_name = get_option('give_when_sandbox_api_credentials_api_user_name');
         $sandbox_api_password = get_option('give_when_sandbox_api_credentials_api_password');
         $sandbox_signature = get_option('give_when_sandbox_api_credentials_signature');
@@ -149,7 +157,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         </table>
                                     </form>                                    
                                 </div>
-                                <div id="give_when_sandbox_fields">
+                                <div id="give_when_sandbox_fields" class="<?php echo $sandbox_class; ?>">
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <?php                                           
@@ -193,7 +201,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="give_when_live_fields" style="display: none">
+                                <div id="give_when_live_fields"  class="<?php echo $live_class; ?>">
                                     <div class="row">                                        
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <?php                                            

@@ -39,8 +39,8 @@ class AngellEYE_Give_When_interface {
             <div style="padding-top: 25px"></div>
             <div class="container" style="max-width: 100%">
                 <div class="bs-callout bs-callout-warning">
-                    <h4><?php echo __('Please Provide PayPal Credentials.', 'angelleye_give_when'); ?></h4>
-                    <a href="<?php echo site_url(); ?>/wp-admin/options-general.php?page=give_when_option"><?php echo __('Click Here', 'angelleye_give_when'); ?></a><?php echo __(' for Setting page to add PayPal Credentials.', 'angelleye_give_when'); ?>
+                    <h4><?php echo __('You are not Connected with PayPal.', 'angelleye_give_when'); ?></h4>
+                    <a href="<?php echo site_url(); ?>/wp-admin/options-general.php?page=give_when_option"><?php echo __('Click Here', 'angelleye_give_when'); ?></a><?php echo __(' for Setting page to Connect With PayPal.', 'angelleye_give_when'); ?>
                 </div>               
             </div>
             <?php
