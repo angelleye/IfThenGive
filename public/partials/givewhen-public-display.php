@@ -265,6 +265,7 @@ class AngellEYE_Give_When_Public_Display {
         if($isAvailableBAID){
             /* Create new post for signup post type and save goal_id,user_id,amount */
             $new_post_id = wp_insert_post( array(
+                'post_author' => $user_id,
                 'post_status' => 'publish',
                 'post_type' => 'give_when_sign_up',
                 'post_title' => ('User ID : '.$user_id.'& Goal ID : '.$post_id)
