@@ -148,14 +148,13 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         </div>
                                     </div>
                                 <?php } ?>
-                                <div class="div_log_settings">
-                                    <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
+                                <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
+                                <div class="div_log_settings">                                    
                                         <table class="form-table">
                                             <tbody>
                                                 <?php $Html_output->init($genral_setting_fields); ?>                                                
                                             </tbody>
-                                        </table>
-                                    </form>                                    
+                                        </table>                                                                        
                                 </div>
                                 <div id="give_when_sandbox_fields" class="<?php echo $sandbox_class; ?>">
                                     <div class="row">
@@ -261,6 +260,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                 <p class="submit">
                                     <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
                                 </p>
+                                </form>
                             </div>
                         </div>
                     </div>                    
