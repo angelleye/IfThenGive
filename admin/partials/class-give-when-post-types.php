@@ -24,10 +24,10 @@ class AngellEYE_Give_When_Post_types {
         /* custom **/
         add_filter('post_row_actions',array(__CLASS__, 'my_action_row'), 10, 2);        
         //add_action( 'admin_head', array( __CLASS__, 'admin_header' ) );        
-        add_action( 'admin_menu', array(__CLASS__,'register_give_when_submenu_page' ));
+        add_action( 'admin_menu', array(__CLASS__,'register_give_when_submenu_page' ));        
     }
 
-    
+
 //    public static function admin_header() {   
 //        $page = ( isset($_GET['view'] ) ) ? esc_attr( $_GET['view'] ) : false;
 //        if( 'givers' != $page )
@@ -212,24 +212,36 @@ class AngellEYE_Give_When_Post_types {
     public static function register_give_when_submenu_page() {
         add_submenu_page( 
             null,
-            'GiveWhen Givers Page',
-            'GiveWhen Givers Page',
+            __('GiveWhen Givers Page', 'angelleye_give_when'),
+            __('GiveWhen Givers Page', 'angelleye_give_when'),
             'manage_options',
-            'give_when_givers',
+            __('give_when_givers', 'angelleye_give_when'),
             array(__CLASS__,'give_when_givers_page_callback')
         );
         
         add_submenu_page(
             null,
-            'GiveWhen disconnect Page',
-            'GiveWhen disconnect Page',
+            __('GiveWhen disconnect Page', 'angelleye_give_when'),
+            __('GiveWhen disconnect Page', 'angelleye_give_when'),
             'manage_options',
-            'give_when_disconnect_paypal',
+            __('give_when_disconnect_paypal', 'angelleye_give_when'),
             array(__CLASS__,'give_when_disconnect_paypal_page_callback')
         );
     }
     
     public static function give_when_givers_page_callback(){
+        
+         ?>
+        <script type="text/javascript">
+            jQuery(document).ready( function($) 
+            {
+                    $('#adminmenu').find('li:first').removeClass('wp-has-current-submenu');
+                    $('#adminmenu').find('li:first').removeClass('current');
+                    $('#menu-posts-give_when_goals').addClass('wp-has-current-submenu current');                    
+                    
+            });     
+        </script>
+        <?php
         
         if(isset($_REQUEST['page']) && isset($_REQUEST['view'])){
             if($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'givers'){

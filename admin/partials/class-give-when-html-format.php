@@ -835,8 +835,14 @@ class AngellEYE_Give_When_interface {
         
         update_option('give_when_permission_connected_to_paypal', 'no');
         delete_option('give_when_permission_connected_person_merchant_id');
-        delete_option('give_when_permission_connected_person_email_id');
-
+        
+        delete_option('give_when_sandbox_api_credentials_api_user_name');
+        delete_option('give_when_sandbox_api_credentials_api_password');
+        delete_option('give_when_sandbox_api_credentials_signature');
+        delete_option('give_when_live_api_credentials_api_user_name');
+        delete_option('give_when_live_api_credentials_api_password');
+        delete_option('give_when_live_api_credentials_signature');
+        
         $url = admin_url('admin.php?page=give_when_option&tab=connect_to_paypal');
         echo "<script>";
         echo 'window.location.href = "' . $url . '";';
