@@ -291,11 +291,9 @@ class Givewhen {
             }
             if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {
                 $token = $_GET['token'];                
-                $PayPal_config = new Give_When_PayPal_Helper();
-                $API_SUBJECT = get_option('give_when_permission_connected_person_merchant_id');                
-                $PayPal_config->set_api_cedentials();
-                $PayPal_config->set_api_subject($API_SUBJECT);
-                $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_third_party_configuration());
+                $PayPal_config = new Give_When_PayPal_Helper();                
+                $PayPal_config->set_api_cedentials();                
+                $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
                
                 $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
                 if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){

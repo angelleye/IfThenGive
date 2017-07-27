@@ -324,7 +324,7 @@ class AngellEYE_Give_When_interface {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-primary">
-                            <div class="panel-heading">Capturing Transactions</div>
+                            <div class="panel-heading"><?php _e('Capturing Transactions','angelleye_give_when'); ?></div>
                             <div class="panel-body">
                                 <div class="table-responsive">
         <?php
@@ -340,11 +340,9 @@ class AngellEYE_Give_When_interface {
         $goal_id = $_REQUEST['post'];
         $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
-        $PayPal_config = new Give_When_PayPal_Helper();
-        $API_SUBJECT = get_option('give_when_permission_connected_person_merchant_id');                
-        $PayPal_config->set_api_cedentials();
-        $PayPal_config->set_api_subject($API_SUBJECT);
-        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_third_party_configuration());
+        $PayPal_config = new Give_When_PayPal_Helper();        
+        $PayPal_config->set_api_cedentials();        
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
         $total_txn = 0;
         $total_txn_success = 0;
         $total_txn_failed = 0;
@@ -468,7 +466,7 @@ class AngellEYE_Give_When_interface {
                         <?php
                         $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
                         ?>
-                        <h3 class="text-info">Transactions for <?php echo $trigger_name; ?></h3>
+                        <h3 class="text-info"><?php _e('Transactions for ','angelleye_give_when'); ?> <?php echo __($trigger_name,'angelleye_give_when') ; ?></h3>
                     </div>
                     <div class="col-md-12">
                         <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
@@ -496,11 +494,9 @@ class AngellEYE_Give_When_interface {
         global $post, $post_ID;
         $goal_id = $post_ID;
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
-        $PayPal_config = new Give_When_PayPal_Helper();        
-        $API_SUBJECT = get_option('give_when_permission_connected_person_merchant_id');                
+        $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal_config->set_api_cedentials();
-        $PayPal_config->set_api_subject($API_SUBJECT);       
-        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_third_party_configuration());        
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
         $GTDFields = array(
             'transactionid' => $transaction_id
         );
@@ -515,11 +511,11 @@ class AngellEYE_Give_When_interface {
                 <div class="give_when_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h3 class="text-info">Transaction Details</h3>
+                            <h3 class="text-info"><?php _e('Transaction Details','angelleye_give_when'); ?></h3>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-md-12">
-                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back To Goals</a>
+                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>"><?php _e('Back To Goals','angelleye_give_when'); ?></a>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -528,91 +524,94 @@ class AngellEYE_Give_When_interface {
                         <div class="col-md-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    Transaction Id <?php echo '#' . $_REQUEST['txn_id']; ?> 
+                                    <?php _e('Transaction Id ','angelleye_give_when'); ?> <?php echo '#' . $_REQUEST['txn_id']; ?> 
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-md-2">
-                                        <label class="text-primary">Payer Email :</label>
+                                        <label class="text-primary"><?php _e('Payer Email :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo $PayPalResultTransactionDetail['EMAIL']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['EMAIL']) ? $PayPalResultTransactionDetail['EMAIL']: ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Payer ID :</label>
+                                        <label class="text-primary"><?php _e('Payer ID :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo $PayPalResultTransactionDetail['PAYERID']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['PAYERID']) ? $PayPalResultTransactionDetail['PAYERID'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Country Code :</label>
+                                        <label class="text-primary"><?php _e('Country Code :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo $PayPalResultTransactionDetail['COUNTRYCODE']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['COUNTRYCODE']) ? $PayPalResultTransactionDetail['COUNTRYCODE'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Goal Name :</label>
+                                        <label class="text-primary"><?php _e('Goal Name :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo $PayPalResultTransactionDetail['SUBJECT']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['SUBJECT']) ? $PayPalResultTransactionDetail['SUBJECT'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Payer PayPal Name :</label>
+                                        <label class="text-primary"><?php _e('Payer PayPal Name :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo $PayPalResultTransactionDetail['FIRSTNAME'] . ' ' . $PayPalResultTransactionDetail['LASTNAME']; ?>
+                                        <?php 
+                                        $fname = isset($PayPalResultTransactionDetail['FIRSTNAME']) ? $PayPalResultTransactionDetail['FIRSTNAME'] : '';
+                                        $lname = isset($PayPalResultTransactionDetail['LASTNAME']) ? $PayPalResultTransactionDetail['LASTNAME'] : '';
+                                        echo  $fname. ' ' .$lname ; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Transaction ID :</label>
+                                        <label class="text-primary"><?php _e('Transaction ID :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo $PayPalResultTransactionDetail['TRANSACTIONID']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['TRANSACTIONID']) ? $PayPalResultTransactionDetail['TRANSACTIONID'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Transaction Type :</label>
+                                        <label class="text-primary"><?php _e('Transaction Type :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo $PayPalResultTransactionDetail['TRANSACTIONTYPE']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['TRANSACTIONTYPE']) ? $PayPalResultTransactionDetail['TRANSACTIONTYPE'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Payment Type :</label>
+                                        <label class="text-primary"><?php _e('Payment Type :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo $PayPalResultTransactionDetail['PAYMENTTYPE']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['PAYMENTTYPE']) ? $PayPalResultTransactionDetail['PAYMENTTYPE'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Amount :</label>
+                                        <label class="text-primary"><?php _e('Amount :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo $PayPalResultTransactionDetail['AMT']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['AMT']) ? $PayPalResultTransactionDetail['AMT'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Payment Status :</label>
+                                        <label class="text-primary"><?php _e('Payment Status :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo $PayPalResultTransactionDetail['PAYMENTSTATUS']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['PAYMENTSTATUS']) ? $PayPalResultTransactionDetail['PAYMENTSTATUS'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Pending Reason :</label>
+                                        <label class="text-primary"><?php _e('Pending Reason :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo $PayPalResultTransactionDetail['PENDINGREASON']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['PENDINGREASON']) ? $PayPalResultTransactionDetail['PENDINGREASON'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Request String :</label>
+                                        <label class="text-primary"><?php _e('Request String :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-10" style="word-wrap: break-word;">
-                                        <?php echo $PayPalResultTransactionDetail['RAWREQUEST']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['RAWREQUEST']) ? $PayPalResultTransactionDetail['RAWREQUEST'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2"></div>
@@ -621,10 +620,10 @@ class AngellEYE_Give_When_interface {
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary">Response String :</label>
+                                        <label class="text-primary"><?php _e('Response String :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-10" style="word-wrap: break-word;">
-                                        <?php echo $PayPalResultTransactionDetail['RAWRESPONSE']; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['RAWRESPONSE']) ? $PayPalResultTransactionDetail['RAWRESPONSE'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2"></div>
@@ -696,7 +695,7 @@ class AngellEYE_Give_When_interface {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-primary">
-                            <div class="panel-heading">Capturing Failure Payments</div>
+                            <div class="panel-heading"><?php _e('Capturing Failure Payments','angelleye_give_when'); ?></div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <?php
@@ -712,11 +711,9 @@ class AngellEYE_Give_When_interface {
                                     $goal_id = $_REQUEST['post'];
                                     $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
                                     $givers = AngellEYE_Give_When_Transactions_Table::get_all_failed_givers($goal_id);
-                                    $PayPal_config = new Give_When_PayPal_Helper();
-                                    $API_SUBJECT = get_option('give_when_permission_connected_person_merchant_id');                
-                                    $PayPal_config->set_api_cedentials();
-                                    $PayPal_config->set_api_subject($API_SUBJECT);
-                                    $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_third_party_configuration());
+                                    $PayPal_config = new Give_When_PayPal_Helper();                                    
+                                    $PayPal_config->set_api_cedentials();                                    
+                                    $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
                                     $total_txn = 0;
                                     $total_txn_success = 0;
                                     $total_txn_failed = 0;
