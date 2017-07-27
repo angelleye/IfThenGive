@@ -639,7 +639,20 @@ class AngellEYE_Give_When_interface {
             </div>
             <?php
         } else {
-            // errors in acknowledgement 
+            ?>
+                <div class="wrap">
+                    <div class="give_when_container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-success" role="alert">
+                                    <h4 class="alert-heading">Error..!</h4>
+                                    <?php $PayPal->DisplayErrors($PayPalResultTransactionDetail['ERRORS']); ?>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <?php
         }
     }
 
