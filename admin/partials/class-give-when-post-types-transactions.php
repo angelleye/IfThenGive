@@ -34,9 +34,9 @@ class AngellEYE_Give_When_Post_type_Transactions {
 
         register_post_type('gw_transactions', apply_filters('give_when_register_post_type_transactions', array(
                     'labels' => array(
-                        'name' => __('Give When Transactions', 'angelleye_give_when'),
-                        'singular_name' => __('Give When Transactions', 'angelleye_give_when'),
-                        'menu_name' => _x('Give When Transactions', 'Admin menu name', 'angelleye_give_when'),
+                        'name' => __('GiveWhen Transactions', 'angelleye_give_when'),
+                        'singular_name' => __('GiveWhen Transactions', 'angelleye_give_when'),
+                        'menu_name' => _x('GiveWhen Transactions', 'Admin menu name', 'angelleye_give_when'),
                         'add_new' => __('Add Transaction', 'angelleye_give_when'),
                         'add_new_item' => __('Add New Transactions', 'angelleye_give_when'),
                         'edit' => __('Edit', 'angelleye_give_when'),

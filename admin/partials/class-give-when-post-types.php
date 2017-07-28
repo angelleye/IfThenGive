@@ -57,8 +57,8 @@ class AngellEYE_Give_When_Post_types {
 
         register_post_type('give_when_goals', apply_filters('give_when_register_post_types', array(
                     'labels' => array(
-                        'name' => __('Give When Goals', 'angelleye_give_when'),
-                        'singular_name' => __('Give When Goals', 'angelleye_give_when'),
+                        'name' => __('GiveWhen Goals', 'angelleye_give_when'),
+                        'singular_name' => __('GiveWhen Goals', 'angelleye_give_when'),
                         'menu_name' => _x('GiveWhen', 'Admin menu name', 'angelleye_give_when'),
                         'add_new' => __('Add Goal', 'angelleye_give_when'),
                         'add_new_item' => __('Add New Goal', 'angelleye_give_when'),
@@ -145,7 +145,7 @@ class AngellEYE_Give_When_Post_types {
      * @access public
      */
     public static function give_when_add_meta_boxes() {
-        add_meta_box('give-when-meta-id', __('Give When Goal'), array(__CLASS__, 'give_when_metabox'), 'give_when_goals', 'normal', 'high');
+        add_meta_box('give-when-meta-id', __('GiveWhen Goal'), array(__CLASS__, 'give_when_metabox'), 'give_when_goals', 'normal', 'high');
     }
     
      /**

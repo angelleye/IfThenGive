@@ -138,7 +138,7 @@ class Givewhen_Admin {
 	}
         
     private function load_dependencies() {
-        /*The class responsible for defining all actions that occur in the Dashboard for Give When Goals. */
+        /*The class responsible for defining all actions that occur in the Dashboard for GiveWhen Goals. */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types.php';
         
         /* The class responsible for defining give_when_billing_agrremment custom post types. */

@@ -71,7 +71,7 @@
                 editor.addButton('pushortcodes', {
                     text: 'Shortcodes',
                     type: 'listbox',
-                    title: 'Give When',
+                    title: 'GiveWhen',
                     icon: 'mce-ico mce-i-wp_more',
                     onselect: function() {
                          tinyMCE.activeEditor.selection.setContent( '[give_when_goal id=' + this.value() + ']' );
@@ -111,6 +111,19 @@
                 success: function (result) {
                 }
             });
+        });
+        $("#gwsandboxClass").on('show.bs.collapse', function(){
+            $("#gwsandbox_details").text('').text('Hide Advanced Details');
+        });
+        $("#gwsandboxClass").on('hide.bs.collapse', function(){
+            $("#gwsandbox_details").text('').text('Show Advanced Details');
+        });
+        
+        $("#gwliveClass").on('show.bs.collapse', function(){
+            $("#gwlive_details").text('').text('Hide Advanced Details');
+        });
+        $("#gwliveClass").on('hide.bs.collapse', function(){
+            $("#gwlive_details").text('').text('Show Advanced Details');
         });
         
     });

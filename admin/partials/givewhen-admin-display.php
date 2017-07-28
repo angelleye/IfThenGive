@@ -30,7 +30,7 @@ class AngellEYE_Give_When_Admin_Display {
      * @access   public
      */
     public static function add_settings_menu() {
-        add_options_page('Give When', 'Give When', 'manage_options', 'give_when_option', array(__CLASS__, 'give_when_options'));
+        add_options_page('GiveWhen', 'GiveWhen', 'manage_options', 'give_when_option', array(__CLASS__, 'give_when_options'));
     }
 
     /**

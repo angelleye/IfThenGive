@@ -1,6 +1,6 @@
 <?php
 /**
- * Give When Error template.
+ * GiveWhen Error template.
  *
  * This template can be overriden by copying this file to your-theme/GiveWhen/gw-errors-display.php
  *

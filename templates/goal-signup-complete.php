@@ -1,6 +1,6 @@
 <?php
 /**
- * Give When Thankyou template.
+ * GiveWhen Thankyou template.
  *
  * This template can be overriden by copying this file to your-theme/GiveWhen/goal-signup-complete.php
  *

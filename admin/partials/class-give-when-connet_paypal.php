@@ -64,22 +64,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
     }
 
     public static function give_when_connect_to_paypal_create_setting() {
-
-        $success_notice = get_option('give_when_permission_connect_to_paypal_success_notice');
-        if ($success_notice) {
-            echo '<div class="alert alert-success">';
-            echo "<strong>" . __($success_notice, 'angelleye_give_when') . "</strong>";
-            echo '</div>';
-            delete_option('give_when_permission_connect_to_paypal_success_notice');
-        }
-
-        $failed_notice = get_option('give_when_permission_connect_to_paypal_failed_notice');
-        if ($failed_notice) {
-            echo '<div class="alert alert-danger">';
-            echo "<strong>" . __($failed_notice, 'angelleye_give_when') . "</strong>";
-            echo '</div>';
-            delete_option('give_when_permission_connect_to_paypal_failed_notice');
-        }
+        
         $conncet_to_paypal_flag = get_option('give_when_permission_connected_to_paypal');
         $genral_setting_fields = self::give_when_connect_to_paypal_setting_fields();
         $Html_output = new AngellEYE_Give_When_Html_output();
@@ -119,11 +104,28 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                 <div class="pull-right"><span class="label <?php echo $labelClass; ?>"><?php _e($label, 'angelleye_give_when'); ?></span></div>
                             </div>
                             <div class="panel-body">
+                                <?php 
+                                $success_notice = get_option('give_when_permission_connect_to_paypal_success_notice');
+                                if ($success_notice) {
+                                    echo '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12"><div class="alert alert-success">';
+                                    echo "<strong>" . __($success_notice, 'angelleye_give_when') . "</strong>";
+                                    echo '</div></div></div>';
+                                    delete_option('give_when_permission_connect_to_paypal_success_notice');
+                                }
+
+                                $failed_notice = get_option('give_when_permission_connect_to_paypal_failed_notice');
+                                if ($failed_notice) {
+                                    echo '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12"><div class="alert alert-danger">';
+                                    echo "<strong>" . __($failed_notice, 'angelleye_give_when') . "</strong>";
+                                    echo '</div></div></div>';
+                                    delete_option('give_when_permission_connect_to_paypal_failed_notice');
+                                }
+                                ?>
                                 <?php
                                 if ($conncet_to_paypal_flag == 'Yes') {
                                 ?>                    
                                     <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
                                             <div class="table-responsive">
                                                 <table class="table table-responsive">
                                                     <tr>        
@@ -144,7 +146,6 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         </div>
                                         <div class="col-md-12 col-lg-12 col-sm-12">
                                             <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/?page=give_when_disconnect_paypal&action=true'; ?>">Disconnect</a>
-                                            <p class="label label-warning">*Disconnect will Rollback your permission.</p>
                                         </div>
                                     </div>
                                 <?php } ?>
@@ -182,8 +183,8 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                 <?php }
                                             }
                                             ?>
-                                            <a data-toggle="collapse" href="#gwsandboxClass" aria-expanded="false" aria-controls="gwsandboxClass">Show Advance Details</a>
-                                        </div>                                        
+                                        <a class="btn btn-sm btn-default" data-toggle="collapse" href="#gwsandboxClass" aria-expanded="false" aria-controls="gwsandboxClass" id="gwsandbox_details">Show Advanced Details</a><br><br>
+                                        </div>                                                                                                                        
                                         <div class="col-lg-12 col-md-12 col-sm-12 collapse" id="gwsandboxClass">
                                             <div class="form-group">
                                                 <label for="SandboxAPIUserName"><?php _e('Sandbox API User Name','angelleye_give_when'); ?></label>
@@ -227,7 +228,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                 <?php }
                                             }
                                             ?>
-                                            <a data-toggle="collapse" href="#gwliveClass" aria-expanded="false" aria-controls="gwliveClass">Show Advance Details</a>
+                                            <a data-toggle="collapse" href="#gwliveClass" aria-expanded="false" aria-controls="gwliveClass" id="gwlive_details">Show Advanced Details</a>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12 collapse" id="gwliveClass">
                                             <div class="form-group">
