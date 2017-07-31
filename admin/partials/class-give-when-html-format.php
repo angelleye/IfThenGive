@@ -248,8 +248,8 @@ class AngellEYE_Give_When_interface {
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <span class="text-info"><?php echo __('Click ', 'angelleye_give_when'); ?><strong>"FUN"</strong><?php echo __(' Button to Capture your Transactions.', 'angelleye_give_when'); ?></span><br/>                    
-                        <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')">Fun</a>
+                        <span class="text-info"><?php echo __('Click ', 'angelleye_give_when'); ?><strong>"Process Donation"</strong><?php echo __(' Button to Capture your Transactions.', 'angelleye_give_when'); ?></span><br/>                    
+                        <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')"><?php _e('Process Donation','angelleye_give_when'); ?></a>
                     </div>
                     <div class="col-md-12">
                         <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
