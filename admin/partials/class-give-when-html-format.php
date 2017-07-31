@@ -205,11 +205,11 @@ class AngellEYE_Give_When_interface {
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p><?php echo __('You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.', 'angelleye_give_when'); ?></p>
-                    <div class="zero-clipboard"><span class="btn-clipboard" data-toggle="tooltip" data-placement="left" title="Copy To Clipboard"><?php echo __('Copy', 'angelleye_give_when'); ?></span></div>
+                    <p><?php echo __('You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.', 'angelleye_give_when'); ?></p>                    
                     <div class="give_when_highlight">
-                        <h4><?php echo '[give_when_goal id=' . $post_ID . ']'; ?></h4>                        
-                    </div>
+                        <h4><?php echo '[give_when_goal id=' . $post_ID . ']'; ?></h4>
+                        <span class="btn-clipboard" data-toggle="tooltip" data-placement="right" title="Copy To Clipboard"><?php echo __('Copy', 'angelleye_give_when'); ?></span>
+                    </div>                    
                 </div>
             </div>
         </div>        
@@ -218,7 +218,7 @@ class AngellEYE_Give_When_interface {
 
             var clipboard = new Clipboard('.btn-clipboard', {
                 target: function () {
-                    return document.querySelector('.give_when_highlight');
+                    return document.querySelector('.give_when_highlight h4');
                 }
             });
             /* Below code will use whenever we want further clipboard work */
