@@ -263,8 +263,10 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="selectCurrency"><?php _e('Select Currency','angelleye_give_when'); ?></label>;
-                                                <?php                                               
-                                                    $PayPal = new \angelleye\PayPal\PayPal();
+                                                <?php                                       
+                                                    $PayPal_config = new Give_When_PayPal_Helper();        
+                                                    $PayPal_config->set_api_cedentials();        
+                                                    $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
                                                     $ccode = get_option('gw_currency_code');
                                                 ?>
                                                 <select class="form-control" name="gw_currency_code">
@@ -276,8 +278,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                             }
                                                             else{
                                                                 echo '<option value="'.$Key.'">'.$Value.'</option>';
-                                                            }
-                                                            
+                                                            }                                                            
                                                         }
                                                    ?>
                                                 </select>

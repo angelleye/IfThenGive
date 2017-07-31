@@ -126,7 +126,7 @@ class Givewhen_Admin {
 		} else {
 			$shortcodes_values = $shortcodes;
 		}
-		wp_localize_script($this->plugin_name, 'shortcodes_button_array', apply_filters('give_when_shortcode', array(
+		wp_localize_script($this->plugin_name, 'gw_shortcodes_button_array', apply_filters('give_when_shortcode', array(
 		'shortcodes_button' => $shortcodes_values
 		)));
                 

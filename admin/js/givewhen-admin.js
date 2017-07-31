@@ -66,7 +66,7 @@
             tinymce.PluginManager.add('pushortcodes', function( editor )
             {
                 var shortcodeValues = [];
-                jQuery.each(shortcodes_button_array.shortcodes_button, function( post_id, post_title )
+                jQuery.each(gw_shortcodes_button_array.shortcodes_button, function( post_id, post_title )
                 {
                     shortcodeValues.push({
                         text: post_title, 
@@ -75,7 +75,7 @@
 
                 });
                 editor.addButton('pushortcodes', {
-                    text: 'Shortcodes',
+                    text: 'GiveWhen',
                     type: 'listbox',
                     title: 'GiveWhen',
                     icon: 'mce-ico mce-i-wp_more',
