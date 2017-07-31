@@ -39,10 +39,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
      */
     public static function init() {
         add_action('give_when_connect_to_paypal_create_setting', array(__CLASS__, 'give_when_connect_to_paypal_create_setting'));
-        add_action('give_when_connect_to_paypal_setting_save_field', array(__CLASS__, 'give_when_connect_to_paypal_setting_save_field'));        
-        //add_action('wp_ajax_request_permission', array(__CLASS__, 'request_permission'));
-        //add_action("wp_ajax_nopriv_request_permission", array(__CLASS__, 'request_permission'));
-        
+        add_action('give_when_connect_to_paypal_setting_save_field', array(__CLASS__, 'give_when_connect_to_paypal_setting_save_field'));                       
         add_action('wp_ajax_sandbox_enabled', array(__CLASS__, 'sandbox_enabled'));
         add_action("wp_ajax_nopriv_sandbox_enabled", array(__CLASS__, 'sandbox_enabled'));
     }
@@ -166,8 +163,24 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                 $url = 'http://angelleye.project-demo.info/paypal/';
                                                 $return_url = site_url('?action=permission_callback');
                                                 $postData = "sandbox={$sandbox}&api=connect_to_paypal&return_url={$return_url}";
+                                                $log_sandbox_connect = array(
+                                                    "sandbox" => $sandbox,
+                                                    "postdata" => $postData,                                                    
+                                                );
+                                                //save log
+                                                $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                                                if ('yes' == $debug) {
+                                                    $log_write = new AngellEYE_Give_When_Logger();
+                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With Facebook RequestData : ' . print_r($log_sandbox_connect, true), 'connect_to_paypal');
+                                                }
                                                 $ConnectPayPalJson = self::curl_request($url, $postData);
                                                 $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
+                                                //save log
+                                                $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                                                if ('yes' == $debug) {
+                                                    $log_write = new AngellEYE_Give_When_Logger();
+                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With Facebook ResponseData : ' . print_r($ConnectPayPalArray, true), 'connect_to_paypal');
+                                                }
                                                 if ($ConnectPayPalArray['ACK'] == 'success') {
                                                     ?>                                                                          
                                                     <div class="form-group">
@@ -209,7 +222,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                 $sandbox = 'false';
                                                 $url = 'http://angelleye.project-demo.info/paypal/';
                                                 $return_url = site_url('?action=permission_callback');
-                                                $postData = "sandbox={$sandbox}&api=connect_to_paypal&return_url={$return_url}";
+                                                $postData = "sandbox={$sandbox}&api=connect_to_paypal&return_url={$return_url}";                                                
                                                 $ConnectPayPalJson = self::curl_request($url, $postData);
                                                 $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
                                                 if ($ConnectPayPalArray['ACK'] == 'success') {
@@ -228,7 +241,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                 <?php }
                                             }
                                             ?>
-                                            <a data-toggle="collapse" href="#gwliveClass" aria-expanded="false" aria-controls="gwliveClass" id="gwlive_details">Show Advanced Details</a>
+                                            <a class="btn btn-sm btn-default" data-toggle="collapse" href="#gwliveClass" aria-expanded="false" aria-controls="gwliveClass" id="gwlive_details">Show Advanced Details</a><br><br>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12 collapse" id="gwliveClass">
                                             <div class="form-group">
@@ -283,31 +296,6 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             </div>
         </div>
         <?php
-    }
-
-    /**
-     * request_permission function used for request permission of third party
-     * @since    0.1.0
-     * @access   public
-     */
-    public function request_permission() {
-        $sanbox_enable = get_option('sandbox_enable_give_when');
-        if ($sanbox_enable === 'yes') {
-            $sandbox = 'true';
-        } else {
-            $sandbox = 'false';
-        }
-        $url = 'http://angelleye.project-demo.info/paypal/';
-        $return_url = site_url('?action=permission_callback');
-        $postData = "sandbox={$sandbox}&api=connect_to_paypal&return_url={$return_url}";
-        $ConnectPayPalJson = self::curl_request($url, $postData);
-        $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
-        if ($ConnectPayPalArray['ACK'] == 'success') {
-            echo json_encode(array('Ack' => 'success', 'action_url' => $ConnectPayPalArray['action_url']));
-        } else {
-            echo json_encode(array('Ack' => 'failed', 'errorData' => $ConnectPayPalArray));
-        }
-        exit;
     }
 
     public function sandbox_enabled() {

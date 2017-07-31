@@ -26,6 +26,12 @@
                 $('#dynamic_options').addClass('hidden');
             }
         });
+        $(document).on('click','#manual_radio',function () {
+            if ($(this).is(':checked')) {
+                $('#fixed_amount_input_div').addClass('hidden');
+                $('#dynamic_options').addClass('hidden');
+            }
+        });
         
         $(document).on('click','#option_radio',function () {
             if ($(this).is(':checked')) {
