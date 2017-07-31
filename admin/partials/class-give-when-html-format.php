@@ -192,7 +192,7 @@ class AngellEYE_Give_When_interface {
      */
     public static function give_when_shortcode_interface_html() {
         global $post, $post_ID;
-        self::sample_admin_notice__success();
+        self::gw_admin_notice__success();
         ?>        
         <div class="give_when_container">
             <div class="row">
@@ -273,7 +273,7 @@ class AngellEYE_Give_When_interface {
         <?php
     }
     
-    public static function sample_admin_notice__success() {
+    public static function gw_admin_notice__success() {
         if(isset($_REQUEST['update_post_success']) && $_REQUEST['update_post_success'] == true){
     ?>
             <div class="notice notice-success is-dismissible">
