@@ -357,7 +357,7 @@ class AngellEYE_Give_When_interface {
 
             $PaymentDetails = array(
                 'amt' => number_format($value['amount'],2),
-                //'currencycode' => $value['give_when_gec_currency_code'],
+                'currencycode' => get_option('gw_currency_code'),
                 'desc' => $desc,
                 'custom' => 'user_id_' . $value['user_id'] . '|post_id_' . $_REQUEST['post'],
             );
@@ -717,7 +717,7 @@ class AngellEYE_Give_When_interface {
 
                                         $PaymentDetails = array(
                                             'amt' => $value['amount'],
-                                            //'currencycode' => $value['give_when_gec_currency_code'],
+                                            'currencycode' => get_option('gw_currency_code'),
                                             'desc' => $desc,
                                             'custom' => 'user_id_' . $value['user_id'] . '|post_id_' . $_REQUEST['post'],
                                         );

@@ -70,7 +70,9 @@ class Givewhen_Activator {
                             update_post_meta($new_error_page_id, '_wp_page_template', $new_error_page_template);
                     }
             }
-            
+            if (!get_option('gw_currency_code')) {
+            	add_option('gw_currency_code', 'USD');
+			}            
 	}
         
         /**

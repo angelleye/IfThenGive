@@ -258,7 +258,32 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="selectCurrency"><?php _e('Select Currency','angelleye_give_when'); ?></label>;
+                                                <?php                                               
+                                                    $PayPal = new \angelleye\PayPal\PayPal();
+                                                    $ccode = get_option('gw_currency_code');
+                                                ?>
+                                                <select class="form-control" name="gw_currency_code">
+                                                    <option value=""><?php _e('Select Currency','angelleye_give_when'); ?></option>
+                                                   <?php
+                                                        foreach ($PayPal->CurrencyCodes as $Key => $Value) {
+                                                            if($ccode == $Key){
+                                                                echo '<option value="'.$Key.'" selected>'.$Value.'</option>';
+                                                            }
+                                                            else{
+                                                                echo '<option value="'.$Key.'">'.$Value.'</option>';
+                                                            }
+                                                            
+                                                        }
+                                                   ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>                                    
                                 <div class="checkbox">
                                     <?php
                                         $checkbox = get_option('log_enable_give_when');
@@ -335,9 +360,14 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
     public static function give_when_connect_to_paypal_setting_save_field() {
         $givewhen_setting_fields = self::give_when_connect_to_paypal_setting_fields();
         $Html_output = new AngellEYE_Give_When_Html_output();
-        $Html_output->save_fields($givewhen_setting_fields);
-        if (isset($_POST['give_when_intigration'])):
-            
+        $Html_output->save_fields($givewhen_setting_fields);        
+        if (isset($_POST['give_when_intigration'])):            
+            if(isset($_POST['gw_currency_code'])){
+                update_option('gw_currency_code', $_POST['gw_currency_code']);
+            }
+            else{
+                update_option('gw_currency_code', 'USD');
+            }
             if(isset($_POST['log_enable_give_when'])){
                 update_option('log_enable_give_when', 'yes');
             }
