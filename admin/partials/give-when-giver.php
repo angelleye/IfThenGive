@@ -197,7 +197,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
             _e($item['PayPalEmail'],'angelleye_give_when');
             break;
         case 'amount' :
-            _e($item['amount'],'angelleye_give_when');
+            _e(number_format($item['amount'],2),'angelleye_give_when');
             break;
         case 'PayPalPayerID' :
             _e($item['PayPalPayerID'],'angelleye_give_when');

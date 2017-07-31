@@ -70,15 +70,15 @@ class AngellEYE_Give_When_Public_Display {
                                 if($amount == 'fixed'){
                                     $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);
                                     ?>
-                                <p class="lead"><?php _e('I will Give :',''); ?> $ <span id="give_when_fixed_price_span"><?php echo $fixed_amount; ?></span> <?php _e('When',''); ?> <?php echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
+                                <p class="lead"><?php _e('I will Give :',''); ?> $ <span id="give_when_fixed_price_span"><?php echo number_format($fixed_amount,2); ?></span> <?php _e('When',''); ?> <?php echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
                                 <?php    
                                 }
                                 elseif($amount == 'manual'){
                                     ?>
-                                <p class="lead"><?php _e('I will Give :',''); ?>  $ <span id="give_when_manual_price_span">50</span> <?php _e('When',''); echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
+                                <p class="lead"><?php _e('I will Give :',''); ?>  $ <span id="give_when_manual_price_span">50.00</span> <?php _e('When',''); echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
                                 <div class="form-group">
                                     <label for="manualamout" class="control-label"><?php _e('Enter Amount',''); ?></label>
-                                    <input type="text" name="gw_manual_amount_input" value="50" class="form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
+                                    <input type="text" name="gw_manual_amount_input" value="50.00" class="form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
                                 </div>
                                     
                                     <?php
@@ -88,7 +88,7 @@ class AngellEYE_Give_When_Public_Display {
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);
                                     $i=0;
                             ?>
-                                <p class="lead"> <?php _e('I will Give :',''); ?> $ <span id="give_when_fixed_price_span_select"><?php echo $option_amount[0]; ?></span> <?php _e('When',''); ?> <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></p>
+                            <p class="lead"> <?php _e('I will Give :',''); ?> $ <span id="give_when_fixed_price_span_select"><?php echo number_format($option_amount[0],2); ?></span> <?php _e('When',''); ?> <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></p>
                             <div class="form-group">
                                 <select class="form-control" name="give_when_option_amount" id="give_when_option_amount">
                                 <?php

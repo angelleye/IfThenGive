@@ -356,7 +356,7 @@ class AngellEYE_Give_When_interface {
             );
 
             $PaymentDetails = array(
-                'amt' => $value['amount'],
+                'amt' => number_format($value['amount'],2),
                 //'currencycode' => $value['give_when_gec_currency_code'],
                 'desc' => $desc,
                 'custom' => 'user_id_' . $value['user_id'] . '|post_id_' . $_REQUEST['post'],
@@ -379,7 +379,7 @@ class AngellEYE_Give_When_interface {
                 $total_txn_success++;
                 echo $trEmailString = "<tr>
                     <td>{$PayPalResultDRT['TRANSACTIONID']}</td>
-                    <td>{$PayPalResultDRT['AMT']}</td>
+                    <td>".number_format($PayPalResultDRT['AMT'],2)."</td>
                     <td>{$paypal_email}</td>
                     <td>{$PayPalResultDRT['ACK']}</td>
                     <td>{$PayPalResultDRT['PAYMENTSTATUS']}</td>
@@ -403,7 +403,7 @@ class AngellEYE_Give_When_interface {
                 'post_type' => 'gw_transactions',
                 'post_title' => ('UserID:' . $value['user_id'] . '|GoalID:' . $goal_id . '|TxnID :' . $PayPalResultDRT['TRANSACTIONID'])
                     ));
-            update_post_meta($new_post_id, 'give_when_transactions_amount', $value['amount']);
+            update_post_meta($new_post_id, 'give_when_transactions_amount', number_format($value['amount'],2));
             update_post_meta($new_post_id, 'give_when_transactions_wp_user_id', $value['user_id']);
             update_post_meta($new_post_id, 'give_when_transactions_wp_goal_id', $goal_id);
             update_post_meta($new_post_id, 'give_when_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
@@ -435,7 +435,7 @@ class AngellEYE_Give_When_interface {
 
                         $headers = "From: info@givewhen.com \r\n";
                         $headers .= "Reply-To: noreply@givewhen.com \r\n";
-                        //$headers .= "CC: susan@example.com\r\n";
+                        //$headers .= "CC: examplename@example.com\r\n";
                         $headers .= "MIME-Version: 1.0\r\n";
                         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
@@ -590,7 +590,7 @@ class AngellEYE_Give_When_interface {
                                         <label class="text-primary"><?php _e('Amount :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo isset($PayPalResultTransactionDetail['AMT']) ? $PayPalResultTransactionDetail['AMT'] : ''; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['AMT']) ? number_format($PayPalResultTransactionDetail['AMT'],2) : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
@@ -605,31 +605,7 @@ class AngellEYE_Give_When_interface {
                                     </div>
                                     <div class="col-md-3">
                                         <?php echo isset($PayPalResultTransactionDetail['PENDINGREASON']) ? $PayPalResultTransactionDetail['PENDINGREASON'] : ''; ?>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Request String :','angelleye_give_when'); ?></label>
-                                    </div>
-                                    <div class="col-md-10" style="word-wrap: break-word;">
-                                        <?php echo isset($PayPalResultTransactionDetail['RAWREQUEST']) ? $PayPalResultTransactionDetail['RAWREQUEST'] : ''; ?>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-5">
-                                        <pre><?php print_r($PayPal->NVPToArray($PayPalResultTransactionDetail['RAWREQUEST'])); ?></pre>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Response String :','angelleye_give_when'); ?></label>
-                                    </div>
-                                    <div class="col-md-10" style="word-wrap: break-word;">
-                                        <?php echo isset($PayPalResultTransactionDetail['RAWRESPONSE']) ? $PayPalResultTransactionDetail['RAWRESPONSE'] : ''; ?>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-5">
-                                        <pre><?php print_r($PayPal->NVPToArray($PayPalResultTransactionDetail['RAWRESPONSE'])); ?></pre>
-                                    </div>
+                                    </div>                                                                        
                                     <div class="clearfix"></div>
                                 </div>                        
                             </div>
