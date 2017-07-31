@@ -33,7 +33,7 @@ class AngellEYE_Give_When_Log {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <h4 class="text-info"><?php printf(__('Log file: %s (%s)', 'angelleye_give_when'), esc_html($viewed_log), date_i18n(get_option('date_format') . ' ' . get_option('time_format'), filemtime(GW_LOG_DIR . '/'.$directory_name.'/' . $viewed_log))); ?></h4>
+                            <h4 class="text-info"><?php printf(__('Log file: %s', 'angelleye_give_when'), ucwords($directory_name,'_')); ?></h4>
                         </div>    
                     </div>
                     <div class="clearfix"></div>
@@ -45,7 +45,7 @@ class AngellEYE_Give_When_Log {
                                 foreach ($logs as $log_key => $log_file) :
                                     foreach ($log_file as $file_key => $file_value) :
                                         ?>
-                                        <option value="<?php echo esc_attr($file_key.'|'.$log_key); ?>" <?php selected(sanitize_title($viewed_log), $file_key); ?>>(<?php echo esc_html($log_key); ?> )<?php echo esc_html($file_value); ?> (<?php echo date_i18n(get_option('date_format') . ' ' . get_option('time_format'), filemtime(GW_LOG_DIR .'/'.$log_key.'/'.$file_value)); ?>)</option>
+                                <option value="<?php echo esc_attr($file_key.'|'.$log_key); ?>" <?php selected(sanitize_title($viewed_log), $file_key); ?>><?php echo esc_html(ucwords($log_key,'_')); ?></option>
                                         <?php
                                     endforeach;
                                 endforeach;
@@ -60,7 +60,7 @@ class AngellEYE_Give_When_Log {
                     <div class="row">
                         <div class="col-md-12">
                             <div id="log-viewer">
-                                <textarea rows="25" class="form-control"><?php echo esc_textarea(file_get_contents(GW_LOG_DIR .'/'.$directory_name.'/'. $viewed_log)); ?></textarea>
+                                <textarea readonly="true" rows="25" class="form-control"><?php echo esc_textarea(file_get_contents(GW_LOG_DIR .'/'.$directory_name.'/'. $viewed_log)); ?></textarea>
                             </div>
                         </div>                        
                     </div>
