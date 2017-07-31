@@ -38,7 +38,6 @@ class AngellEYE_Give_When_Public_Display {
      * @access public
      */
     public static function give_when_create_shortcode($atts, $content = null) {
-
         global $post, $post_ID; 
         $give_when_page_id = $post->ID;
         extract(shortcode_atts(array(
@@ -48,70 +47,67 @@ class AngellEYE_Give_When_Public_Display {
         if( !empty($id) ) {
             $post = get_post($id);
             if(!empty($post->post_type) && $post->post_type == 'give_when_goals' && $post->post_status == 'publish') {
-        ?>
-                <div id="overlay" style=" background: #f6f6f6;opacity: 0.8;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
+        
+                $html .= '<div id="overlay" style=" background: #f6f6f6;opacity: 0.8;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
                     <div style="display: table; width:100%; height: 100%;">
                         <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>admin/images/loading.gif"  style=" position: relative;top: 50%; height: 100px"/>
-                            <h1 style="font-weight: 600;"><?php _e('Please dont\'t go back , We are redirecting you to PayPal',''); ?></h1></div>
-                    </div>            
-                </div>
-                <div class="give_when_container">
-                    <div class="row">                                               
-                        <div class="col-md-12"><h1><?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></h1></div>
-                        <div class="col-md-12">
-                            <img src="<?php echo get_post_meta( $post->ID, 'image_url', true ) ?>">
-                            <br><br>
-                            <p> <?php echo get_post_meta( $post->ID, 'trigger_desc', true ); ?></p>
-                            <?php echo $post->post_content; ?>
-                        </div>
-                        <div class="col-md-12">
-                            <?php 
-                                $amount = get_post_meta($post->ID,'amount',true);
+                            <h1 style="font-weight: 600;">'.esc_html('Please dont\'t go back , We are redirecting you to PayPal','').'</h1></div>';
+                $html .= '</div>';
+                $html .= '</div>';
+                $html .= '<div class="give_when_container">';
+                    $html .= '<div class="row">';
+                        $html .= '<div class="col-md-12"><h1>'.get_post_meta( $post->ID, 'trigger_name', true ).'</h1></div>
+                        <div class="col-md-12">';
+                            $html .= '<img src="'.get_post_meta( $post->ID, 'image_url', true ).'">';
+                            $html .= '<br><br>';
+                            $html .= '<p>'.get_post_meta( $post->ID, 'trigger_desc', true ).'</p>';
+                            $html .= $post->post_content;
+                        $html .= '</div>';
+                        $html .= '<div class="col-md-12">';
+                        $html .= $amount = get_post_meta($post->ID,'amount',true);
                                 if($amount == 'fixed'){
-                                    $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);
-                                    ?>
-                                <p class="lead"><?php _e('I will Give :',''); ?> $ <span id="give_when_fixed_price_span"><?php echo number_format($fixed_amount,2); ?></span> <?php _e('When',''); ?> <?php echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
-                                <?php    
+                                    $html .= $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);
+                                
+                                $html .= '<p class="lead">'. esc_html('I will Give :','').' $ <span id="give_when_fixed_price_span">'.number_format($fixed_amount,2).'</span> '. esc_html('When',''). get_post_meta( $post->ID, 'trigger_thing', true ).'</p>';
+                                
                                 }
                                 elseif($amount == 'manual'){
-                                    ?>
-                                <p class="lead"><?php _e('I will Give :',''); ?>  $ <span id="give_when_manual_price_span">50.00</span> <?php _e('When',''); echo get_post_meta( $post->ID, 'trigger_thing', true ); ?></p>
-                                <div class="form-group">
-                                    <label for="manualamout" class="control-label"><?php _e('Enter Amount',''); ?></label>
-                                    <input type="text" name="gw_manual_amount_input" value="50.00" class="form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
-                                </div>
                                     
-                                    <?php
+                                $html .= '<p class="lead">'.esc_html('I will Give :','').'  $ <span id="give_when_manual_price_span">50</span> '.esc_html('When',''). get_post_meta( $post->ID, 'trigger_thing', true ).'</p>';
+                                $html .= '<div class="form-group">';
+                                    $html .= '<label for="manualamout" class="control-label">'. esc_html('Enter Amount','').'</label>';
+                                    $html .= '<input type="text" name="gw_manual_amount_input" value="50.00" class="form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>';
+                                $html .= '</div>';
                                 }
                                 else{
                                     $option_name = get_post_meta($post->ID,'option_name',true);
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);
                                     $i=0;
-                            ?>
-                            <p class="lead"> <?php _e('I will Give :',''); ?> $ <span id="give_when_fixed_price_span_select"><?php echo number_format($option_amount[0],2); ?></span> <?php _e('When',''); ?> <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></p>
-                            <div class="form-group">
-                                <select class="form-control" name="give_when_option_amount" id="give_when_option_amount">
-                                <?php
+                            
+                                $html .= '<p class="lead">'.esc_html('I will Give :','').' $ <span id="give_when_fixed_price_span_select">'.number_format($option_amount[0],2).'</span> '. esc_html('When',''). get_post_meta( $post->ID, 'trigger_name', true ).'</p>';
+                            $html .= '<div class="form-group">';
+                                $html .= '<select class="form-control" name="give_when_option_amount" id="give_when_option_amount">';
+                                
                                     foreach ($option_name as $name) {
-                                        echo '<option value="'.number_format($option_amount[$i],2).'">'.$name."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".number_format($option_amount[$i],2).'</option>';
+                                        $html .=  '<option value="'.number_format($option_amount[$i],2).'">'.$name."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".number_format($option_amount[$i],2).'</option>';                                        
                                         $i++;
                                     }
-                                ?>
-                                </select>
-                            </div>
-                            <?php } ?>
-                        </div>                       
-                    </div>
+                                
+                                $html .= '</select>';
+                            $html .= '</div>';
+                            } 
+                        $html .= '</div>';
+                    $html .= '</div>';
                                        
-                     <div class="row" id="give_when_signup_form">
-                        <div class="col-md-12">
-                            <div class="panel panel-info">
-                                <div class="panel-heading"> <?php _e('Sign up for',''); ?> <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></div>
-                                <div class="panel-body">
-                                     <div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">
-                                        <span id="connect_paypal_error_p"></span>
-                                    </div>
-                                    <?php
+                     $html .= '<div class="row" id="give_when_signup_form">';
+                        $html .= '<div class="col-md-12">';
+                            $html .= '<div class="panel panel-info">';
+                                $html .= '<div class="panel-heading">'.esc_html('Sign up for',''). get_post_meta( $post->ID, 'trigger_name', true ).'</div>';
+                                $html .= '<div class="panel-body">';
+                                     $html .= '<div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">';
+                                        $html .= '<span id="connect_paypal_error_p"></span>';
+                                    $html .= '</div>';
+                                    
                                      if ( is_user_logged_in() ) {
                                         $current_user    = wp_get_current_user();
                                         $User_email      = !empty($current_user->user_email) ? $current_user->user_email : '';
@@ -123,43 +119,44 @@ class AngellEYE_Give_When_Public_Display {
                                         $User_first_name = '';
                                         $User_last_name  = '';
                                      }
-                                    ?>
-                                    <form method="post" name="signup" id="give_when_signup">
-                                        <div class="form-group">
-                                          <label for="name"><?php _e('First Name','angelleye_give_when'); ?></label>
-                                          <input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="<?php echo $User_first_name; ?>">
-                                        </div>
-                                        <div class="form-group">
-                                          <label for="name"><?php _e('Last Name','angelleye_give_when'); ?></label>
-                                          <input type="text" class="form-control" name="give_when_lastname" id="give_when_lastname" required="required" value="<?php echo $User_last_name; ?>">
-                                        </div>
-                                        <div class="form-group">
-                                          <label for="email"><?php _e('Email address','angelleye_give_when'); ?></label>
-                                          <input type="email" class="form-control" name="give_when_email" id="give_when_email" required="required" value="<?php echo $User_email; ?>">
-                                        </div>
-                                        <?php 
+                                    
+                                    $html .= '<form method="post" name="signup" id="give_when_signup">';
+                                        $html .= '<div class="form-group">';
+                                          $html .= '<label for="name">'.esc_html('First Name','angelleye_give_when').'</label>';
+                                          $html .= '<input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="'.$User_first_name.'">';
+                                        $html .= '</div>';
+                                        $html .= '<div class="form-group">';
+                                          $html .= '<label for="name">'.esc_html('Last Name','angelleye_give_when').'</label>';
+                                          $html .= '<input type="text" class="form-control" name="give_when_lastname" id="give_when_lastname" required="required" value="'. $User_last_name.'">';
+                                        $html .= '</div>';
+                                        $html .= '<div class="form-group">';
+                                          $html .= '<label for="email">'. esc_html('Email address','angelleye_give_when').'</label>';
+                                          $html .= '<input type="email" class="form-control" name="give_when_email" id="give_when_email" required="required" value="'.$User_email.'">';
+                                        $html .= '</div>';
+                                    
                                          if ( ! is_user_logged_in() ) {
-                                         ?>
-                                        <div class="form-group">
-                                          <label for="password"><?php _e('Password','angelleye_give_when'); ?></label>
-                                          <input type="password" class="form-control" name="give_when_password" id="give_when_password" required="required">
-                                        </div>
-                                        <div class="form-group">
-                                          <label for="password"><?php _e('Re-type Password','angelleye_give_when'); ?></label>
-                                          <input type="password" class="form-control" name="give_when_retype_password" id="give_when_retype_password" required="required">
-                                        </div>
-                                         <?php } ?>
-                                        <input type="hidden" class="form-control" name="give_when_page_id" id="give_when_page_id" value="<?php echo $give_when_page_id;?>">
-                                        <button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="<?php echo $post->ID; ?>" data-userid=""><?php _e('Sign Up For','angelleye_give_when'); ?> <?php echo get_post_meta( $post->ID, 'trigger_name', true ); ?></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                                        
-                </div>
-            <?php
+                                    
+                                        $html .= '<div class="form-group">';
+                                          $html .= '<label for="password">'.esc_html('Password','angelleye_give_when').'</label>';
+                                          $html .= '<input type="password" class="form-control" name="give_when_password" id="give_when_password" required="required">';
+                                        $html .= '</div>';
+                                        $html .= '<div class="form-group">';
+                                          $html .= '<label for="password">'.esc_html('Re-type Password','angelleye_give_when').'</label>';
+                                          $html .= '<input type="password" class="form-control" name="give_when_retype_password" id="give_when_retype_password" required="required">';
+                                        $html .= '</div>';
+                                         }
+                                        $html .= '<input type="hidden" class="form-control" name="give_when_page_id" id="give_when_page_id" value="'.$give_when_page_id.'">';
+                                        $html .= '<button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="">'.esc_html('Sign Up For','angelleye_give_when') . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
+                                    $html .= '</form>';
+                                $html .= '</div>';
+                            $html .= '</div>';
+                        $html .= '</div>';
+                    $html .= '</div>';
+                $html .= '</div>';
+            
             }
         }
+        return $html;        
     }
          
     public function start_express_checkout(){
