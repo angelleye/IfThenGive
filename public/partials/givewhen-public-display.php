@@ -93,7 +93,7 @@ class AngellEYE_Give_When_Public_Display {
                                 <select class="form-control" name="give_when_option_amount" id="give_when_option_amount">
                                 <?php
                                     foreach ($option_name as $name) {
-                                        echo '<option value="'.$option_amount[$i].'">'.$name.$option_amount[$i].'</option>';
+                                        echo '<option value="'.number_format($option_amount[$i],2).'">'.$name."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".number_format($option_amount[$i],2).'</option>';
                                         $i++;
                                     }
                                 ?>
@@ -167,7 +167,7 @@ class AngellEYE_Give_When_Public_Display {
         /*Getting data from ajax */
         $page_id = $_POST['give_when_page_id'];
         $post_id = $_POST['post_id'];
-        $amount = $_POST['amount'];
+        $amount = number_format($_POST['amount'],2);
 
         /*Get Post details*/
         $post = get_post($post_id);

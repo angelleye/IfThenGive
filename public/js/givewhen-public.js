@@ -73,7 +73,13 @@
             });
             
             $(document).on('keyup','#gw_manual_amount_input', function (){
-                jQuery('#give_when_manual_price_span').html('').html($(this).val());
+                var amt = parseFloat($(this).val()).toFixed(2);
+                if(isNaN(amt)){
+                    jQuery('#give_when_manual_price_span').html('').html('50.00');
+                }else{
+                    jQuery('#give_when_manual_price_span').html('').html(amt);
+                }
+                
             });
             
         });
