@@ -195,7 +195,7 @@ class AngellEYE_Give_When_Public_Display {
               $ValidationErrors['LastName'] = __("Invalid Input : Only letters allowed in Last Name");
             }
              
-            $email = sanitize_email($gwuser['give_when_email']);
+            $email = $gwuser['give_when_email'];
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $ValidationErrors['Email'] = __("Invalid email format");
             }
