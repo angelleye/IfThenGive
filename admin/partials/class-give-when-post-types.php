@@ -196,7 +196,15 @@ class AngellEYE_Give_When_Post_types {
                 update_post_meta($post_ID, 'option_amount',$_POST['option_amount']);
             }
         }
-        
+        if(isset($_POST['publish'])){
+            $url = site_url()."/wp-admin/post.php?post=".$post_ID."&action=edit&view=true&add_post_success=true";
+            wp_redirect( $url );
+            exit;
+        }elseif(isset($_POST['save'])){
+            $url = site_url()."/wp-admin/post.php?post=".$post_ID."&action=edit&view=true&update_post_success=true";
+            wp_redirect( $url );
+            exit;
+        }
     }
 
     public static function my_action_row($actions, $post){
