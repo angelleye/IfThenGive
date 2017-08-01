@@ -365,11 +365,12 @@ class AngellEYE_Give_When_interface {
                 }
             });
             /* Below code will use whenever we want further clipboard work */
-            /*clipboard.on('success', function(e) {
-             console.log(e);
+            clipboard.on('success', function(e) {
+                 alertify.set('notifier','position', 'bottom-left');                 
+                 alertify.success('GiveWhen Shortcode has Copied to Clipboard.'); 
              });
                      
-             clipboard.on('error', function(e) {
+             /*clipboard.on('error', function(e) {
              console.log(e);
              });*/
         </script>
@@ -392,7 +393,7 @@ class AngellEYE_Give_When_interface {
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <span class="text-info"><?php echo __('Click ', 'angelleye_give_when'); ?><strong>"Process Donation"</strong><?php echo __(' Button to Capture your Transactions.', 'angelleye_give_when'); ?></span><br/>                    
-                        <a class="btn btn-primary btn-lg" id="give_when_fun" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" onclick="return confirm('Ready to process payments based on this goal occurrence?')"><?php _e('Process Donation','angelleye_give_when'); ?></a>
+                        <a class="btn btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation','angelleye_give_when'); ?></a>
                     </div>
                     <div class="col-md-12">
                         <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>

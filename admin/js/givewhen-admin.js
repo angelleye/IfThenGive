@@ -1,7 +1,10 @@
 (function ($) {
     'use strict';
     jQuery(document).ready(function ($) {
-        
+        alertify.defaults.transition = "slide";
+        alertify.defaults.theme.ok = "btn btn-primary";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        alertify.defaults.theme.input = "form-control";
         $('#upload-btn').click(function (e) {
             e.preventDefault();
             var image = wp.media({
@@ -88,11 +91,16 @@
         }
         
         $(document).on('click','#give_when_fun',function(){
-            if (confirm("Press a button!") == true) {
-                window.location.href= '';
-            } else {
-                return false;
-            }
+            alertify.confirm('Process Donation', 'Are you sure you want to Process Donation..?',
+                function ()
+                {                                        
+                    alertify.success('Process Doantion is Starting.'); 
+                    window.location.href = $('#give_when_fun').attr('data-redirectUrl');
+                },
+                function ()
+                {
+                    alertify.error('You Pressed Cancel');
+                });            
         });
         
         $(document).on('click','#sandbox_enable_give_when',function(){

@@ -187,3 +187,8 @@ input:checked + .slider:before {
 .gw_hide_sandbox_class { display:  none;}
 .gw_hide_live_class { display:  none;}
 .give_when_highlight h4{display:inline-block}
+
+.ajs-message{
+    color: whitesmoke !important ;
+    font-weight: 600;
+}
