@@ -179,7 +179,150 @@ class AngellEYE_Give_When_interface {
             <?php } ?>                    
                     </div>    
                 </form>
+                <div class="col-md-12">
+                    <div class=""><button type="button" class="btn btn-info btn-lg btn-preview" data-toggle="modal" data-target="#preview-goal" >Preview</button></div>
+                    <!-- Modal -->
+                    <div id="preview-goal" class="modal fade" role="dialog">
+                      <div class="modal-dialog modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Your Goal will be Displayed like this.</h4>
+                          </div>
+                          <div class="modal-body">
+                                    <div id="overlay" style=" background: #f6f6f6;opacity: 0.8;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
+                                        <div style="display: table; width:100%; height: 100%;">
+                                            <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>admin/images/loading.gif"  style=" position: relative;top: 50%; height: 100px"/>
+                                                <h1 style="font-weight: 600;"><?php _e('Please dont\'t go back , We are redirecting you to PayPal',''); ?></h1></div>
+                                        </div>            
+                                    </div>
+                                    <div class="give_when_container">
+                                        <div class="row">                                               
+                                            <div class="col-md-12"><h1 class="trigger_name"></h1></div>
+                                            <div class="col-md-12">
+                                                <img src="" class="image_url" width="100%">
+                                                <br><br>
+                                                <p class="trigger_desc"></p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                    <div class="fixed_amount" style="display: none">
+                                                        <p class="lead fixed_amount">
+                                                        <?php _e('I will Give :',''); ?>
+                                                         $ <span id="give_when_fixed_price_span"></span> <?php _e('When',''); ?> <span class="trigger_thing"> </span>
+                                                         </p>
+                                                    </div>
+                                                    <div class="manual_amount" style="display: none">
+                                                        <p class="lead manual_amount"><?php _e('I will Give :',''); ?>  $ <span id="give_when_manual_price_span">50</span> <?php _e('When',''); ?><span class="trigger_thing"></span></p>
+                                                        <div class="form-group">
+                                                            <label for="manualamout" class="control-label"><?php _e('Enter Amount',''); ?></label>
+                                                            <input type="text" name="gw_manual_amount_input" value="50" class="form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
+                                                        </div>
+                                                    </div>
+                                                     
+                                                <div class="select_amount" style="display: none">
+                                                    <p class="lead"> <?php _e('I will Give :',''); ?> $ <span id="give_when_fixed_price_span_select"></span> <?php _e('When',''); ?><span class="trigger_name"></span></p>
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="give_when_option_amount" id="give_when_option_amount">
+                                                        
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>                       
+                                        </div>
+                                                           
+                                         <div class="row" id="give_when_signup_form">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-info">
+                                                    <div class="panel-heading"> <?php _e('Sign up for',''); ?> <span class="trigger_name"></span></div>
+                                                    <div class="panel-body">
+                                                         <div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">
+                                                            <span id="connect_paypal_error_p"></span>
+                                                        </div>
+                                                        
+                                                        <form method="post" name="signup" id="give_when_signup">
+                                                            <div class="form-group">
+                                                              <label for="name"><?php _e('First Name','angelleye_give_when'); ?></label>
+                                                              <input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="">
+                                                            </div>
+                                                            <div class="form-group">
+                                                              <label for="name"><?php _e('Last Name','angelleye_give_when'); ?></label>
+                                                              <input type="text" class="form-control" name="give_when_lastname" id="give_when_lastname" required="required" value="">
+                                                            </div>
+                                                            <div class="form-group">
+                                                              <label for="email"><?php _e('Email address','angelleye_give_when'); ?></label>
+                                                              <input type="email" class="form-control" name="give_when_email" id="give_when_email" required="required" value="">
+                                                            </div>
+                                                            
+                                                            <div class="signup-fields">
+                                                                <div class="form-group">
+                                                                  <label for="password"><?php _e('Password','angelleye_give_when'); ?></label>
+                                                                  <input type="password" class="form-control" name="give_when_password" id="give_when_password" required="required">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                  <label for="password"><?php _e('Re-type Password','angelleye_give_when'); ?></label>
+                                                                  <input type="password" class="form-control" name="give_when_retype_password" id="give_when_retype_password" required="required">
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            
+                                                            <button type="button" class="btn btn-primary" ><?php _e('Sign Up For','angelleye_give_when'); ?> <span class="trigger_name"></span></button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <!-- End Modal -->
+                </div>                
             </div>
+            <script type="text/javascript">
+                jQuery('#preview-goal').on('show.bs.modal', function () {
+                    jQuery('#preview-goal .fixed_amount').css('display','none');
+                    jQuery('#preview-goal .manual_amount').css('display','none');
+                    jQuery('#preview-goal .select_amount').css('display','none');
+                    var trigger_name = jQuery('input[name="trigger_name"]').val();
+                    var image_url = jQuery('input[name="image_url"]').val();
+                    var trigger_desc = jQuery('textarea[name="trigger_desc"]').val();
+                    var fixed_radio = jQuery('input[name="fixed_radio"]:checked').val();
+                    var trigger_thing = jQuery('input[name="trigger_thing"]').val();
+                    if(trigger_name=='' || trigger_thing==''){
+                        jQuery('.btn-preview').attr('disabled',true);
+                    }   
+                    jQuery('.trigger_thing').text(trigger_thing);
+                    jQuery('#preview-goal .trigger_name').text(trigger_name);
+                    jQuery('#preview-goal .image_url').attr('src',image_url);
+                    jQuery('#preview-goal .trigger_desc').text(trigger_desc);
+                   if(fixed_radio == 'fixed'){
+                        jQuery('#preview-goal .fixed_amount').css('display','block');
+                        jQuery('#give_when_fixed_price_span').text(jQuery('input[name="fixed_amount_input"]').val());
+                   }else if(fixed_radio == 'manual'){
+                        jQuery('#preview-goal .manual_amount').css('display','block');
+                   }else{
+                        jQuery('#preview-goal .select_amount').css('display','block');
+                        jQuery('#give_when_fixed_price_span_select').text(jQuery('input[name="option_amount[]"]').val());
+                        var i = 0;
+                        var option_amounts = jQuery('input[name="option_amount[]"]').val();
+                        jQuery('input[name="option_name[]"]').each(function() {
+                            var option_name = jQuery(this).val();
+                            var option_amount = jQuery('[id=option_amount]:eq('+i+')').val();
+                            console.log(option_amount);
+                            jQuery("#give_when_option_amount").append(jQuery('<option>', { value: option_name, text: option_amount }));
+                            i++;
+                        });
+                   }
+
+                });
+            </script>
         <?php
         }
     }
