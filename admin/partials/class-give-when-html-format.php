@@ -656,6 +656,7 @@ class AngellEYE_Give_When_interface {
         $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal_config->set_api_cedentials();
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+        $trigger_name = get_post_meta($goal_id, 'trigger_name');
         $GTDFields = array(
             'transactionid' => $transaction_id
         );
@@ -711,7 +712,7 @@ class AngellEYE_Give_When_interface {
                                         <label class="text-primary"><?php _e('Goal Name :','angelleye_give_when'); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo isset($PayPalResultTransactionDetail['SUBJECT']) ? $PayPalResultTransactionDetail['SUBJECT'] : ''; ?>
+                                        <?php echo isset($trigger_name) ? $trigger_name : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
