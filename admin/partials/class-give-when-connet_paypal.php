@@ -223,8 +223,24 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                 $url = 'http://angelleye.project-demo.info/paypal/';
                                                 $return_url = site_url('?action=permission_callback');
                                                 $postData = "sandbox={$sandbox}&api=connect_to_paypal&return_url={$return_url}";                                                
+                                                $log_live_connect = array(
+                                                    "sandbox" => $sandbox,
+                                                    "postdata" => $postData,                                                    
+                                                );
+                                                //save log
+                                                $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                                                if ('yes' == $debug) {
+                                                    $log_write = new AngellEYE_Give_When_Logger();
+                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With Facebook RequestData : ' . print_r($log_live_connect, true), 'connect_to_paypal');
+                                                }
                                                 $ConnectPayPalJson = self::curl_request($url, $postData);
                                                 $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
+                                                //save log
+                                                $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                                                if ('yes' == $debug) {
+                                                    $log_write = new AngellEYE_Give_When_Logger();
+                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With Facebook ResponseData : ' . print_r($ConnectPayPalArray, true), 'connect_to_paypal');
+                                                }
                                                 if ($ConnectPayPalArray['ACK'] == 'success') {
                                                     ?>                                                                          
                                                     <div class="form-group">

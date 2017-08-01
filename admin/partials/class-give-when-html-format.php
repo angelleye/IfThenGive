@@ -87,14 +87,10 @@ class AngellEYE_Give_When_interface {
 
             <div style="padding-top: 25px"></div>
             <div class="container" style="max-width: 100%">   
-                <form>
-                    <div class="form-group">
-                        <label for="triggerName" class="control-label"><?php echo __('Goal Name', 'angelleye_give_when'); ?></label>
-                        <input type="text" name="trigger_name" value="<?php echo $trigger_name ?>" class="form-control" autocomplete="off" id="trigger_name" placeholder="Enter Name Here"/>
-                    </div>
+                <form>                    
                     <div class="form-group">
                         <label for="triggerName" class="control-label"><?php echo __('Thing', 'angelleye_give_when'); ?></label>
-                        <input type="text" name="trigger_thing" value="<?php echo $trigger_thing ?>" class="form-control" autocomplete="off" id="trigger_name" placeholder="Enter event Here"/>
+                        <input type="text" name="trigger_thing" value="<?php echo $trigger_thing ?>" class="form-control" autocomplete="off" id="trigger_thing" placeholder="Enter event Here"/>
                     </div>
                     <div class="form-group">
                         <label for="triggerDesc" class="control-label"><?php echo __('Goal Description', 'angelleye_give_when'); ?></label>
@@ -289,7 +285,7 @@ class AngellEYE_Give_When_interface {
                     jQuery('#preview-goal .fixed_amount').css('display','none');
                     jQuery('#preview-goal .manual_amount').css('display','none');
                     jQuery('#preview-goal .select_amount').css('display','none');
-                    var trigger_name = jQuery('input[name="trigger_name"]').val();
+                    var trigger_name = jQuery('input[name="post_title"]').val();
                     var image_url = jQuery('input[name="image_url"]').val();
                     var trigger_desc = jQuery('textarea[name="trigger_desc"]').val();
                     var fixed_radio = jQuery('input[name="fixed_radio"]:checked').val();
@@ -365,16 +361,11 @@ class AngellEYE_Give_When_interface {
                 }
             });
             /* Below code will use whenever we want further clipboard work */
-            clipboard.on('success', function(e) {
-                alertify.defaults.transition = "slide";
-                alertify.defaults.theme.ok = "btn btn-primary";
-                alertify.defaults.theme.cancel = "btn btn-danger";
-                alertify.defaults.theme.input = "form-control";
-                alertify.set('notifier','position', 'bottom-left');                 
-                alertify.success('GiveWhen Shortcode has Copied to Clipboard.'); 
+            /*clipboard.on('success', function(e) {
+                console.log(e);
              });
                      
-             /*clipboard.on('error', function(e) {
+             clipboard.on('error', function(e) {
              console.log(e);
              });*/
         </script>
