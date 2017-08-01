@@ -192,13 +192,9 @@ class AngellEYE_Give_When_interface {
                             <h4 class="modal-title">Your Goal will be Displayed like this.</h4>
                           </div>
                           <div class="modal-body">
-                                    <div id="overlay" style=" background: #f6f6f6;opacity: 0.8;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
-                                        <div style="display: table; width:100%; height: 100%;">
-                                            <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>admin/images/loading.gif"  style=" position: relative;top: 50%; height: 100px"/>
-                                                <h1 style="font-weight: 600;"><?php _e('Please dont\'t go back , We are redirecting you to PayPal',''); ?></h1></div>
-                                        </div>            
-                                    </div>
-                                    <div class="give_when_container">
+                              <div class="row">
+                                  <div class="col-md-8 col-md-offset-2">
+                                      <div class="give_when_container">
                                         <div class="row">                                               
                                             <div class="col-md-12"><h1 class="trigger_name"></h1></div>
                                             <div class="col-md-12">
@@ -274,6 +270,9 @@ class AngellEYE_Give_When_interface {
                                             </div>
                                         </div>                                        
                                     </div>
+                                  </div>
+                              </div>                                    
+                                    
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
