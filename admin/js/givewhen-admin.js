@@ -1,10 +1,6 @@
 (function ($) {
     'use strict';
-    jQuery(document).ready(function ($) {
-        alertify.defaults.transition = "slide";
-        alertify.defaults.theme.ok = "btn btn-primary";
-        alertify.defaults.theme.cancel = "btn btn-danger";
-        alertify.defaults.theme.input = "form-control";
+    jQuery(document).ready(function ($) {        
         $('#upload-btn').click(function (e) {
             e.preventDefault();
             var image = wp.media({
@@ -91,6 +87,10 @@
         }
         
         $(document).on('click','#give_when_fun',function(){
+            alertify.defaults.transition = "slide";
+            alertify.defaults.theme.ok = "btn btn-primary";
+            alertify.defaults.theme.cancel = "btn btn-danger";
+            alertify.defaults.theme.input = "form-control";
             alertify.confirm('Process Donation', 'Are you sure you want to Process Donation..?',
                 function ()
                 {                                        

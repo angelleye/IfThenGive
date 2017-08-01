@@ -366,8 +366,12 @@ class AngellEYE_Give_When_interface {
             });
             /* Below code will use whenever we want further clipboard work */
             clipboard.on('success', function(e) {
-                 alertify.set('notifier','position', 'bottom-left');                 
-                 alertify.success('GiveWhen Shortcode has Copied to Clipboard.'); 
+                alertify.defaults.transition = "slide";
+                alertify.defaults.theme.ok = "btn btn-primary";
+                alertify.defaults.theme.cancel = "btn btn-danger";
+                alertify.defaults.theme.input = "form-control";
+                alertify.set('notifier','position', 'bottom-left');                 
+                alertify.success('GiveWhen Shortcode has Copied to Clipboard.'); 
              });
                      
              /*clipboard.on('error', function(e) {
