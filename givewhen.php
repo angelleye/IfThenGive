@@ -13,7 +13,7 @@
  * @package           GiveWhen
  *
  * @wordpress-plugin
- * Plugin Name:       Give When
+ * Plugin Name:       GiveWhen
  * Plugin URI:        http://www.angelleye.com/product/give-when-wordpress-donation-plugin/
  * Description:       Allow donors to Give a donation When a particular goal or event occurs.
  * Version:           1.0.0
