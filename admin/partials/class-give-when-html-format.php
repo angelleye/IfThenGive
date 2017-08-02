@@ -100,7 +100,7 @@ class AngellEYE_Give_When_interface {
                     <div class="form-group">
                         <label for="image_url"><?php echo __('Image', 'angelleye_give_when'); ?></label>
                         <input type="text" name="image_url" id="image_url" class="form-control" value="<?php echo $image_url; ?>"><br>
-                        <input type="button" name="upload-btn" id="upload-btn" class="btn btn-primary" value="Upload Image">
+                        <input type="button" name="upload-btn" id="upload-btn" class="btn btn-primary" value="Add Image">
                     </div>                
                     <div class="form-group">
                         <input type="radio" name="fixed_radio" id="fixed_radio" value="fixed" <?php echo $fixed_amount_check; ?>><label class="radio-inline" for="fixed_radio"><strong><?php echo __('Fixed', 'angelleye_give_when'); ?></strong></label>
@@ -347,7 +347,7 @@ class AngellEYE_Give_When_interface {
                 <div class="col-md-12">
                     <p><?php echo __('You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.', 'angelleye_give_when'); ?></p>                    
                     <div class="give_when_highlight">
-                        <h4><?php echo '[give_when_goal id=' . $post_ID . ']'; ?></h4>
+                        <h4 id="h4_clipboard"><?php echo '[give_when_goal id=' . $post_ID . ']'; ?></h4>
                         <span class="btn-clipboard" data-toggle="tooltip" data-placement="right" title="Copy To Clipboard"><?php echo __('Copy', 'angelleye_give_when'); ?></span>
                     </div>                    
                 </div>
@@ -356,17 +356,18 @@ class AngellEYE_Give_When_interface {
         <script type="text/javascript">
             jQuery('[data-toggle="tooltip"]').tooltip();
 
-            var clipboard = new Clipboard('.btn-clipboard', {
+            var clipboard = new Clipboard('#h4_clipboard,.btn-clipboard', {
                 target: function () {
                     return document.querySelector('.give_when_highlight h4');
                 }
             });
             /* Below code will use whenever we want further clipboard work */
-            /*clipboard.on('success', function(e) {
-                console.log(e);
+            clipboard.on('success', function(e) {
+                //console.log(e);
+                alertify.success('Shortcode is copied to your clipboard.'); 
              });
                      
-             clipboard.on('error', function(e) {
+             /*clipboard.on('error', function(e) {
              console.log(e);
              });*/
         </script>
