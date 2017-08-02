@@ -81,6 +81,8 @@
                 }
                 
             });
-            
+            $(document).on('input','#gw_manual_amount_input', function() {
+                this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+            });
         });
 })( jQuery );

@@ -64,16 +64,16 @@ class AngellEYE_Give_When_Public_Display {
                             $html .= $post->post_content;
                         $html .= '</div>';
                         $html .= '<div class="col-md-12">';
-                        $html .= $amount = get_post_meta($post->ID,'amount',true);
+                        $amount = get_post_meta($post->ID,'amount',true);
                                 if($amount == 'fixed'){
-                                    $html .= $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);
+                                    $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);
                                 
-                                $html .= '<p class="lead">'. esc_html('I will Give :','').' $ <span id="give_when_fixed_price_span">'.number_format($fixed_amount,2).'</span> '. esc_html('When',''). get_post_meta( $post->ID, 'trigger_thing', true ).'</p>';
+                                $html .= '<p class="lead">'. esc_html('I will Give :','').' $ <span id="give_when_fixed_price_span">'.number_format($fixed_amount,2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</p>';
                                 
                                 }
                                 elseif($amount == 'manual'){
                                     
-                                $html .= '<p class="lead">'.esc_html('I will Give :','').'  $ <span id="give_when_manual_price_span">50</span> '.esc_html('When',''). get_post_meta( $post->ID, 'trigger_thing', true ).'</p>';
+                                $html .= '<p class="lead">'.esc_html('I will Give :','').'  $ <span id="give_when_manual_price_span">50</span> '.esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</p>';
                                 $html .= '<div class="form-group">';
                                     $html .= '<label for="manualamout" class="control-label">'. esc_html('Enter Amount','').'</label>';
                                     $html .= '<input type="text" name="gw_manual_amount_input" value="50.00" class="form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>';
@@ -84,7 +84,7 @@ class AngellEYE_Give_When_Public_Display {
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);
                                     $i=0;
                             
-                                $html .= '<p class="lead">'.esc_html('I will Give :','').' $ <span id="give_when_fixed_price_span_select">'.number_format($option_amount[0],2).'</span> '. esc_html('When',''). get_post_meta( $post->ID, 'trigger_name', true ).'</p>';
+                                $html .= '<p class="lead">'.esc_html('I will Give :','').' $ <span id="give_when_fixed_price_span_select">'.number_format($option_amount[0],2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).'</p>';
                             $html .= '<div class="form-group">';
                                 $html .= '<select class="form-control" name="give_when_option_amount" id="give_when_option_amount">';
                                 
@@ -102,7 +102,7 @@ class AngellEYE_Give_When_Public_Display {
                      $html .= '<div class="row" id="give_when_signup_form">';
                         $html .= '<div class="col-md-12">';
                             $html .= '<div class="panel panel-info">';
-                                $html .= '<div class="panel-heading">'.esc_html('Sign up for',''). get_post_meta( $post->ID, 'trigger_name', true ).'</div>';
+                                $html .= '<div class="panel-heading">'.esc_html('Sign up for ',''). get_post_meta( $post->ID, 'trigger_name', true ).'</div>';
                                 $html .= '<div class="panel-body">';
                                      $html .= '<div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">';
                                         $html .= '<span id="connect_paypal_error_p"></span>';
@@ -146,7 +146,7 @@ class AngellEYE_Give_When_Public_Display {
                                         $html .= '</div>';
                                          }
                                         $html .= '<input type="hidden" class="form-control" name="give_when_page_id" id="give_when_page_id" value="'.$give_when_page_id.'">';
-                                        $html .= '<button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="">'.esc_html('Sign Up For','angelleye_give_when') . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
+                                        $html .= '<button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="">'.esc_html('Sign Up For ','angelleye_give_when') . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
                                     $html .= '</form>';
                                 $html .= '</div>';
                             $html .= '</div>';
