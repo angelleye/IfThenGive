@@ -237,6 +237,16 @@ class AngellEYE_Give_When_interface {
                                                         </div>
                                                         
                                                         <form method="post" name="signup" id="give_when_signup">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <p class="text-primary">Instruction:</p>
+                                                                    <ol>
+                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
+                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
+                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
+                                                                    </ol>
+                                                                </div>
+                                                            </div>
                                                             <div class="form-group">
                                                               <label for="name"><?php _e('First Name','angelleye_give_when'); ?></label>
                                                               <input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="" autocomplete="off">

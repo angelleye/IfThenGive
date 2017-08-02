@@ -124,6 +124,16 @@ class AngellEYE_Give_When_Public_Display {
                                     
                                     $html .= '<form method="post" name="signup" id="give_when_signup">';
                                         $html .= '<div class="form-group">';
+                                        $html .='<div class="row">
+                                                                <div class="col-md-12">
+                                                                    <p class="text-primary">Instruction:</p>
+                                                                    <ol>
+                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
+                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
+                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
+                                                                    </ol>
+                                                                </div>
+                                                            </div>';
                                           $html .= '<label for="name">'.esc_html('First Name','angelleye_give_when').'</label>';
                                           $html .= '<input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="'.$User_first_name.'">';
                                         $html .= '</div>';
