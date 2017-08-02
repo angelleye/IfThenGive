@@ -61,17 +61,13 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
     }
 
     public static function give_when_connect_to_paypal_create_setting() {
+                
+        $conncet_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
+        $conncet_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');
         
-        $conncet_to_paypal_flag = get_option('give_when_permission_connected_to_paypal');
         $genral_setting_fields = self::give_when_connect_to_paypal_setting_fields();
         $Html_output = new AngellEYE_Give_When_Html_output();
-        if ($conncet_to_paypal_flag == 'Yes') {
-            $label = 'You are Connected With PayPal';
-            $labelClass = 'label-success';
-        } else {
-            $label = 'You are not Connected With PayPal';
-            $labelClass = 'label-danger';
-        }
+        
         $sanbox_enable = get_option('sandbox_enable_give_when');
         if ($sanbox_enable === 'yes') {
             $sandbox_class = "";
@@ -97,8 +93,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-heading gw-panel-heading">
-                                <h3 class="panel-title"><img class="pull-right" width="135" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal Logo"></h3>
-                                <div class="pull-right"><span class="label <?php echo $labelClass; ?>"><?php _e($label, 'angelleye_give_when'); ?></span></div>
+                                <h3 class="panel-title"><img class="pull-right" width="135" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal Logo"></h3>                                
                             </div>
                             <div class="panel-body">
                                 <?php 
@@ -117,35 +112,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                     echo '</div></div></div>';
                                     delete_option('give_when_permission_connect_to_paypal_failed_notice');
                                 }
-                                ?>
-                                <?php
-                                if ($conncet_to_paypal_flag == 'Yes') {
-                                ?>                    
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6">
-                                            <div class="table-responsive">
-                                                <table class="table table-responsive">
-                                                    <tr>        
-                                                        <td>
-                                                            <strong>                                                            
-                                                                <?php echo __('PayPal Account ID', 'angelleye_give_when'); ?>
-                                                            </strong>
-                                                        </td>
-                                                        <td class="text-primary">
-                                                            <?php
-                                                            $paypal_account_id = get_option('give_when_permission_connected_person_merchant_id');
-                                                            echo isset($paypal_account_id) ? $paypal_account_id : '';
-                                                            ?>
-                                                        </td>
-                                                    </tr>                                                
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 col-lg-12 col-sm-12">
-                                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/?page=give_when_disconnect_paypal&action=true'; ?>">Disconnect</a>
-                                        </div>
-                                    </div>
-                                <?php } ?>
+                                ?>                                
                                 <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
                                 <div class="div_log_settings">                                    
                                         <table class="form-table">
@@ -155,10 +122,43 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         </table>                                                                        
                                 </div>
                                 <div id="give_when_sandbox_fields" class="<?php echo $sandbox_class; ?>">
+                                <?php
+                                    $sb_paypal_account_id = get_option('give_when_permission_sandbox_connected_person_merchant_id');                                    
+                                    if ($sb_paypal_account_id !== false && !empty($sb_paypal_account_id)) {
+                                ?>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="table-responsive">
+                                                <table class="table table-responsive">
+                                                    <tr>        
+                                                        <td><strong><?php echo __('PayPal Account ID', 'angelleye_give_when'); ?></strong></td>
+                                                        <td class="text-primary"><?php echo $sb_paypal_account_id; ?></td>
+                                                    </tr>                                                
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-sm-6">
+                                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/?page=give_when_disconnect_paypal&action=true&env=sandbox'; ?>">Disconnect</a>
+                                        </div>                                        
+                                    </div>                                    
+                                    <div class="clearfix"></div>
+                                <?php } ?>
+                                    <div class="row">                                        
+                                         <div class="col-md-6 col-lg-6 col-sm-6">
+                                            <?php 
+                                            if ($sb_paypal_account_id !== false && $conncet_to_sandbox_paypal_flag == 'Yes') {
+                                                echo '<span class="label label-success">'.__('You are Connected with SandBox PayPal Environment.','angelleye_give_when').'</span><br><br><br>';
+                                            }
+                                            else{
+                                                echo '<span class="label label-danger">'.__('You are not Connected with SandBox PayPal Environment.','angelleye_give_when').'</span><br><br><br>';
+                                            }
+                                            ?>
+                                        </div>                                           
+                                    </div>
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <?php                                           
-                                            if ($conncet_to_paypal_flag != 'Yes') {                                
+                                            if ($sb_paypal_account_id == false) {                                
                                                 $sandbox = 'true';
                                                 $url = 'http://angelleye.project-demo.info/paypal/';
                                                 $return_url = site_url('?action=permission_callback');
@@ -196,7 +196,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                 <?php }
                                             }
                                             ?>
-                                        <a class="btn btn-sm btn-default" data-toggle="collapse" href="#gwsandboxClass" aria-expanded="false" aria-controls="gwsandboxClass" id="gwsandbox_details">Show Advanced Details</a><br><br>
+                                            <a class="btn btn-sm btn-default" data-toggle="collapse" href="#gwsandboxClass" aria-expanded="false" aria-controls="gwsandboxClass" id="gwsandbox_details">Show Advanced Details</a><br><br>
                                         </div>                                                                                                                        
                                         <div class="col-lg-12 col-md-12 col-sm-12 collapse" id="gwsandboxClass">
                                             <div class="form-group">
@@ -215,10 +215,43 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                     </div>
                                 </div>
                                 <div id="give_when_live_fields"  class="<?php echo $live_class; ?>">
+                                    <?php
+                                        $live_paypal_account_id = get_option('give_when_permission_live_connected_person_merchant_id');
+                                        if ($live_paypal_account_id !== false && !empty($live_paypal_account_id)) {
+                                    ?>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="table-responsive">
+                                                <table class="table table-responsive">
+                                                    <tr>        
+                                                        <td><strong><?php echo __('PayPal Account ID', 'angelleye_give_when'); ?></strong></td>
+                                                        <td class="text-primary"><?php echo $live_paypal_account_id; ?></td>
+                                                    </tr>                                                
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-sm-6">
+                                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/?page=give_when_disconnect_paypal&action=true&env=live'; ?>">Disconnect</a>
+                                        </div>
+                                    </div>                                    
+                                    <div class="clearfix"></div>
+                                <?php } ?>
+                                    <div class="row">                                        
+                                         <div class="col-md-6 col-lg-6 col-sm-6">
+                                            <?php 
+                                            if ($live_paypal_account_id !== false && $conncet_to_live_paypal_flag == 'Yes') {
+                                                echo '<span class="label label-success">'.__('You are Connected with Live PayPal Environment.','angelleye_give_when').'</span><br><br><br>';
+                                            }
+                                            else{
+                                                echo '<span class="label label-danger">'.__('You are not Connected with Live PayPal Environment.','angelleye_give_when').'</span><br><br><br>';
+                                            }
+                                            ?>
+                                        </div>                                           
+                                    </div>
                                     <div class="row">                                        
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <?php                                            
-                                            if ($conncet_to_paypal_flag != 'Yes') {                                
+                                            if ($live_paypal_account_id == false) {
                                                 $sandbox = 'false';
                                                 $url = 'http://angelleye.project-demo.info/paypal/';
                                                 $return_url = site_url('?action=permission_callback');

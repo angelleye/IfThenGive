@@ -33,8 +33,9 @@ class AngellEYE_Give_When_interface {
      * @access public
      */
     public static function give_when_interface_html() {
-        $conncet_to_paypal_flag = get_option('give_when_permission_connected_to_paypal');
-        if ($conncet_to_paypal_flag != 'Yes') {
+        $conncet_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
+        $conncet_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');        
+        if ($conncet_to_sandbox_paypal_flag != 'Yes' && $conncet_to_live_paypal_flag != 'Yes') {
             ?>
             <div style="padding-top: 25px"></div>
             <div class="container" style="max-width: 100%">
@@ -965,15 +966,21 @@ class AngellEYE_Give_When_interface {
     
     public static function give_when_disconnect_interface_html() {
         
-        update_option('give_when_permission_connected_to_paypal', 'no');
-        delete_option('give_when_permission_connected_person_merchant_id');
+        if($_GET['env']=='sandbox'){
+            delete_option('give_when_permission_sandbox_connected_person_merchant_id');
+            delete_option('give_when_sandbox_api_credentials_api_user_name');
+            delete_option('give_when_sandbox_api_credentials_api_password');
+            delete_option('give_when_sandbox_api_credentials_signature');
+            update_option('give_when_sandbox_connected_to_paypal', 'no');
+        }
+        if($_GET['env']=='live'){
+            delete_option('give_when_permission_live_connected_person_merchant_id');
+            delete_option('give_when_live_api_credentials_api_user_name');
+            delete_option('give_when_live_api_credentials_api_password');
+            delete_option('give_when_live_api_credentials_signature');
+            update_option('give_when_live_connected_to_paypal', 'no');
+        }        
         
-        delete_option('give_when_sandbox_api_credentials_api_user_name');
-        delete_option('give_when_sandbox_api_credentials_api_password');
-        delete_option('give_when_sandbox_api_credentials_signature');
-        delete_option('give_when_live_api_credentials_api_user_name');
-        delete_option('give_when_live_api_credentials_api_password');
-        delete_option('give_when_live_api_credentials_signature');
         
         $url = admin_url('admin.php?page=give_when_option&tab=connect_to_paypal');
         echo "<script>";
@@ -985,8 +992,9 @@ class AngellEYE_Give_When_interface {
     public static function give_when_hide_publish_button_until() {
         if (isset($_REQUEST['post_type'])) {
             if ($_REQUEST['post_type'] == 'give_when_goals') {
-                $conncet_to_paypal_flag = get_option('give_when_permission_connected_to_paypal');
-                if ($conncet_to_paypal_flag != 'Yes') {
+                $conncet_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
+                $conncet_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');
+                if ($conncet_to_sandbox_paypal_flag != 'Yes' && $conncet_to_live_paypal_flag != 'Yes') {
                     ?>
                     <style>
                         #publishing-action { display: none; }

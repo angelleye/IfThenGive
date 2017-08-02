@@ -50,7 +50,7 @@ class AngellEYE_Give_When_Public_Display {
         
                 $html .= '<div id="overlay" style=" background: #f6f6f6;opacity: 0.8;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
                     <div style="display: table; width:100%; height: 100%;">
-                        <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>admin/images/loading.gif"  style=" position: relative;top: 50%; height: 100px"/>
+                        <div style="display: table-cell;vertical-align: middle;"><img src="'.GW_PLUGIN_URL.'admin/images/loading.gif"  style=" position: relative;top: 50%; height: 100px"/>
                             <h1 style="font-weight: 600;">'.esc_html('Please dont\'t go back , We are redirecting you to PayPal','').'</h1></div>';
                 $html .= '</div>';
                 $html .= '</div>';
@@ -153,7 +153,6 @@ class AngellEYE_Give_When_Public_Display {
                         $html .= '</div>';
                     $html .= '</div>';
                 $html .= '</div>';
-            
             }
         }
         return $html;        
