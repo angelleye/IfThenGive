@@ -523,11 +523,14 @@ class AngellEYE_Give_When_interface {
                 'PaymentDetails' => $PaymentDetails,
             );
             $PayPalResultDRT = $PayPal->DoReferenceTransaction($PayPalRequestData);
+            $logArray = $PayPalResultDRT;
+            $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultDRT['RAWREQUEST']);
+            $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
             //save log
             $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
             if ('yes' == $debug) {
                 $log_write = new AngellEYE_Give_When_Logger();
-                $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($PayPalResultDRT, true), 'transactions');
+                $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
             }
             $paypal_email = get_user_meta($value['user_id'], 'give_when_gec_email', true);
             if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {
@@ -884,11 +887,14 @@ class AngellEYE_Give_When_interface {
                                             'PaymentDetails' => $PaymentDetails,
                                         );
                                         $PayPalResultDRT = $PayPal->DoReferenceTransaction($PayPalRequestData);
+                                        $logArray = $PayPalResultDRT;
+                                        $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultDRT['RAWREQUEST']);
+                                        $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
                                         //save log
                                         $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
                                         if ('yes' == $debug) {
                                             $log_write = new AngellEYE_Give_When_Logger();
-                                            $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($PayPalResultDRT, true), 'transactions');
+                                            $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
                                         }
                                         $paypal_email = get_user_meta($value['user_id'], 'give_when_gec_email', true);
                                         if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {

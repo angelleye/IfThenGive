@@ -33,7 +33,7 @@ class AngellEYE_Give_When_Log {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <h4 class="text-info"><?php printf(__('Log file: %s', 'angelleye_give_when'), ucwords($directory_name,'_')); ?></h4>
+                            <h4 class="text-info"><?php printf(__('Log file: %s', 'angelleye_give_when'), str_replace('_',' ',ucwords($directory_name,'_'))); ?></h4>
                         </div>    
                     </div>
                     <div class="clearfix"></div>
@@ -45,7 +45,7 @@ class AngellEYE_Give_When_Log {
                                 foreach ($logs as $log_key => $log_file) :
                                     foreach ($log_file as $file_key => $file_value) :
                                         ?>
-                                <option value="<?php echo esc_attr($file_key.'|'.$log_key); ?>" <?php selected(sanitize_title($viewed_log), $file_key); ?>><?php echo esc_html(ucwords($log_key,'_')); ?></option>
+                                <option value="<?php echo esc_attr($file_key.'|'.$log_key); ?>" <?php selected(sanitize_title($viewed_log), $file_key); ?>><?php echo esc_html(str_replace('_',' ',ucwords($log_key,'_'))); ?></option>
                                         <?php
                                     endforeach;
                                 endforeach;
