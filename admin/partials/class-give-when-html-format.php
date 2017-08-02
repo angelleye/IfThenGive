@@ -181,7 +181,11 @@ class AngellEYE_Give_When_interface {
                     <!-- Modal -->
                     <div id="preview-goal" class="modal fade" role="dialog">
                       <div class="modal-dialog modal-lg">
-
+                        <?php 
+                            $ccode = get_option('gw_currency_code');
+                            $paypal = new Give_When_PayPal_Helper();
+                            $symbol = $paypal->get_currency_symbol($ccode);
+                        ?>    
                         <!-- Modal content-->
                         <div class="modal-content">
                           <div class="modal-header">
@@ -202,12 +206,11 @@ class AngellEYE_Give_When_interface {
                                             <div class="col-md-12">
                                                     <div class="fixed_amount" style="display: none">
                                                         <p class="lead fixed_amount">
-                                                        <?php _e('I will Give :',''); ?>
-                                                         $ <span id="give_when_fixed_price_span"></span> <?php _e('When ',''); ?> <span class="trigger_thing"> </span>
+                                                        <?php _e('I will Give : ',''); ?> <?php echo " ".$symbol; ?><span id="give_when_fixed_price_span"></span> <?php _e('When ',''); ?> <span class="trigger_thing"> </span>
                                                          </p>
                                                     </div>
                                                     <div class="manual_amount" style="display: none">
-                                                        <p class="lead manual_amount"><?php _e('I will Give :',''); ?>  $ <span id="give_when_manual_price_span">50.00</span> <?php _e('When ',''); ?><span class="trigger_thing"></span></p>
+                                                        <p class="lead manual_amount"><?php _e('I will Give :',''); ?><?php echo " ".$symbol." "; ?><span id="give_when_manual_price_span">50.00</span> <?php _e('When ',''); ?><span class="trigger_thing"></span></p>
                                                         <div class="form-group">
                                                             <label for="manualamout" class="control-label"><?php _e('Enter Amount',''); ?></label>
                                                             <input type="text" name="gw_manual_amount_input" value="50" class="form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
@@ -215,7 +218,7 @@ class AngellEYE_Give_When_interface {
                                                     </div>
                                                      
                                                 <div class="select_amount" style="display: none">
-                                                    <p class="lead"> <?php _e('I will Give :',''); ?> $ <span id="give_when_fixed_price_span_select"></span> <?php _e('When ',''); ?><span class="trigger_name"></span></p>
+                                                    <p class="lead"> <?php _e('I will Give :',''); ?><?php echo " ".$symbol." "; ?><span id="give_when_fixed_price_span_select"></span> <?php _e('When ',''); ?><span class="trigger_name"></span></p>
                                                     <div class="form-group">
                                                         <select class="form-control" name="give_when_option_amount" id="give_when_option_amount">                                                            
                                                         </select>
@@ -516,6 +519,8 @@ class AngellEYE_Give_When_interface {
         $PayPal_config = new Give_When_PayPal_Helper();        
         $PayPal_config->set_api_cedentials();        
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+        $ccode = get_option('gw_currency_code');        
+        $symbol = $PayPal_config->get_currency_symbol($ccode);
         $total_txn = 0;
         $total_txn_success = 0;
         $total_txn_failed = 0;
@@ -555,7 +560,7 @@ class AngellEYE_Give_When_interface {
                 $total_txn_success++;
                 echo $trEmailString = "<tr>
                     <td>{$PayPalResultDRT['TRANSACTIONID']}</td>
-                    <td>".number_format($PayPalResultDRT['AMT'],2)."</td>
+                    <td>".$symbol.number_format($PayPalResultDRT['AMT'],2)."</td>
                     <td>{$paypal_email}</td>
                     <td>{$PayPalResultDRT['ACK']}</td>
                     <td>{$PayPalResultDRT['PAYMENTSTATUS']}</td>
@@ -567,7 +572,7 @@ class AngellEYE_Give_When_interface {
 
                 echo $trEmailString = "<tr>
                     <td>-</td>
-                    <td>{$value['amount']}</td>
+                    <td>".$symbol.$value['amount']."</td>
                     <td>{$paypal_email}</td>
                     <td>{$PayPalResultDRT['ACK']}</td>
                     <td>-</td>
@@ -878,7 +883,9 @@ class AngellEYE_Give_When_interface {
                                     $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
                                     $givers = AngellEYE_Give_When_Transactions_Table::get_all_failed_givers($goal_id);
                                     $PayPal_config = new Give_When_PayPal_Helper();                                    
-                                    $PayPal_config->set_api_cedentials();                                    
+                                    $PayPal_config->set_api_cedentials(); 
+                                    $ccode = get_option('gw_currency_code');        
+                                    $symbol = $PayPal_config->get_currency_symbol($ccode);
                                     $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
                                     $total_txn = 0;
                                     $total_txn_success = 0;
@@ -919,7 +926,7 @@ class AngellEYE_Give_When_interface {
                                             $total_txn_success++;
                                             echo $trEmailString = "<tr>
                     <td>{$PayPalResultDRT['TRANSACTIONID']}</td>
-                    <td>{$PayPalResultDRT['AMT']}</td>
+                    <td>".$symbol.number_format($PayPalResultDRT['AMT'],2)."</td>
                     <td>{$paypal_email}</td>
                     <td>{$PayPalResultDRT['ACK']}</td>
                     <td>{$PayPalResultDRT['PAYMENTSTATUS']}</td>
@@ -931,7 +938,7 @@ class AngellEYE_Give_When_interface {
 
                                             echo $trEmailString = "<tr>
                     <td>-</td>
-                    <td>{$value['amount']}</td>
+                    <td>".$symbol.$value['amount']."</td>
                     <td>{$paypal_email}</td>
                     <td>{$PayPalResultDRT['ACK']}</td>
                     <td>-</td>

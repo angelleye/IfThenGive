@@ -92,4 +92,38 @@ class Give_When_PayPal_Helper {
                  $this->application_id='';
              }
         }
+        
+        public function get_currency_symbol($Currency){
+            $CurrencyCodes = array(
+                'AUD' => '&#36;',         // Austrailian Dollar
+                'BRL' => '&#82;&#36;',    //Brazilian Real
+                'CAD' => '&#36;',         //Canadian Dollar
+                'CZK' => '&#75;&#269;',   //Czeck Koruna
+                'DKK' => '&#107;&#114;',  //Danish Krone
+                'EUR' => '&#8364;',       //Euro
+                'HKD' => '&#36;',         //Hong Kong Dollar
+                'HUF' => '&#70;&#116;',   //Hungarian Forint
+                'ILS' => '&#8362;',       //Israeli New Sheqel
+                'JPY' => '&#165;',        //Japanese Yen
+                'MYR' => '&#82;&#77;',    //Malaysian Ringgit
+                'MXN' => '&#36;',         //Mexican Peso
+                'NOK' => '&#107;&#114;',  //Norwegian Krone
+                'NZD' => '&#36;',         //New Zealand Dollar
+                'PHP' => '&#8369;',       //Philippine Peso
+                'PLN' => '&#122;&#322;',  //Polish Zloty
+                'GBP' => '&#163;',        //Pound Sterling
+                'SGD' => '&#36;',         //Singapore Dollar
+                'SEK' => '&#107;&#114;',  //Swedish Krona
+                'CHF' => '&#67;&#72;&#70;', //Swiss Franc
+                'TWD' => '&#78;&#84;&#36;', //Taiwan New Dollar
+                'THB' => '&#3647;',         //Thai Baht
+                'USD' => '&#36;',          //U.S. Dollar
+                );
+            if (array_key_exists($Currency,$CurrencyCodes)){
+                return $CurrencyCodes[$Currency];
+            }
+            else{
+                return false;
+            }
+        }
 }

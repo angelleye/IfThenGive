@@ -29,8 +29,11 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $post_meta_array = get_post_meta($post_id);
         $trigger_name = $post_meta_array['trigger_name'][0];
         $trigger_thing = $post_meta_array['trigger_thing'][0];
+        $ccode = get_option('gw_currency_code');
+        $paypal = new Give_When_PayPal_Helper();
+        $symbol = $paypal->get_currency_symbol($ccode);
         echo "<center><h1>".__('Hi '). $current_user->display_name . __(', Thank You for signed up in ') . $trigger_name. "</h1></center>";
-        echo "<center><h2>" . __('Each time you will give $').$amount. __('when '). $trigger_thing. "</h2></center>";
+        echo "<center><h2>" . __('Each time you will give ').$symbol.$amount.' '. __('when').' '.$trigger_thing. "</h2></center>";
         $EmailString='';
         $EmailString.='<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
                                 <tr>
