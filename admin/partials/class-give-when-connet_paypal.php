@@ -171,7 +171,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                 $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
                                                 if ('yes' == $debug) {
                                                     $log_write = new AngellEYE_Give_When_Logger();
-                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With Facebook RequestData : ' . print_r($log_sandbox_connect, true), 'connect_to_paypal');
+                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With PayPal RequestData : ' . print_r($log_sandbox_connect, true), 'connect_to_paypal');
                                                 }
                                                 $ConnectPayPalJson = self::curl_request($url, $postData);
                                                 $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
@@ -179,7 +179,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                 $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
                                                 if ('yes' == $debug) {
                                                     $log_write = new AngellEYE_Give_When_Logger();
-                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With Facebook ResponseData : ' . print_r($ConnectPayPalArray, true), 'connect_to_paypal');
+                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With PayPal ResponseData : ' . print_r($ConnectPayPalArray, true), 'connect_to_paypal');
                                                 }
                                                 if ($ConnectPayPalArray['ACK'] == 'success') {
                                                     ?>                                                                          

@@ -16,9 +16,9 @@ class AngellEYE_Give_When_Public_Display {
         add_shortcode('give_when_goal', array(__CLASS__, 'give_when_create_shortcode'));
         add_action( 'wp_enqueue_scripts', array(__CLASS__,'give_when_detect_shortcode'));
         add_action( 'wp_ajax_start_express_checkout', array(__CLASS__,'start_express_checkout'));
-        add_action("wp_ajax_nopriv_start_express_checkout",  array(__CLASS__,'start_express_checkout'));
+        add_action("wp_ajax_nopriv_start_express_checkout",  array(__CLASS__,'start_express_checkout'));       
     }
-
+   
     public static function give_when_detect_shortcode()
     {
         global $post;
@@ -37,7 +37,7 @@ class AngellEYE_Give_When_Public_Display {
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_create_shortcode($atts, $content = null) {
+    public static function give_when_create_shortcode($atts, $content = null) {       
         global $post, $post_ID; 
         $give_when_page_id = $post->ID;
         extract(shortcode_atts(array(
@@ -135,15 +135,15 @@ class AngellEYE_Give_When_Public_Display {
                                                                 </div>
                                                             </div>';
                                           $html .= '<label for="name">'.esc_html('First Name','angelleye_give_when').'</label>';
-                                          $html .= '<input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="'.$User_first_name.'">';
+                                          $html .= '<input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" autocomplete="off" required="required" value="'.$User_first_name.'" autofocus="true">';
                                         $html .= '</div>';
                                         $html .= '<div class="form-group">';
                                           $html .= '<label for="name">'.esc_html('Last Name','angelleye_give_when').'</label>';
-                                          $html .= '<input type="text" class="form-control" name="give_when_lastname" id="give_when_lastname" required="required" value="'. $User_last_name.'">';
+                                          $html .= '<input type="text" class="form-control" name="give_when_lastname" id="give_when_lastname" autocomplete="off" required="required" value="'. $User_last_name.'">';
                                         $html .= '</div>';
                                         $html .= '<div class="form-group">';
                                           $html .= '<label for="email">'. esc_html('Email address','angelleye_give_when').'</label>';
-                                          $html .= '<input type="email" class="form-control" name="give_when_email" id="give_when_email" required="required" value="'.$User_email.'">';
+                                          $html .= '<input type="email" class="form-control" name="give_when_email" id="give_when_email" autocomplete="off" required="required" value="'.$User_email.'">';
                                         $html .= '</div>';
                                     
                                          if ( ! is_user_logged_in() ) {
@@ -170,54 +170,54 @@ class AngellEYE_Give_When_Public_Display {
         return $html;        
     }
          
-    public function start_express_checkout(){
-        global $post;         
+    public function start_express_checkout(){                
         /*Getting data from ajax */
         $page_id = $_POST['give_when_page_id'];
         $post_id = $_POST['post_id'];
-        $amount = number_format($_POST['amount'],2);
+        $amount = number_format($_POST['amount'],2);        
+        
+        /* Get user information  from Form Data. */
+        $gwuser = array();
+        parse_str($_POST['formData'], $gwuser);
+        
+        /*valodation starts */
+        $ValidationErrors = array();
+        $fname = sanitize_text_field( $gwuser['give_when_firstname']);
+        if (!preg_match("/^[a-zA-Z]+$/",$fname)) {
+          $ValidationErrors['FirstName'] = __("Invalid Input : Only letters allowed in First Name");
+        }
+        $lname = sanitize_text_field($gwuser['give_when_lastname']);
+        if (!preg_match("/^[a-zA-Z]+$/",$lname)) {
+          $ValidationErrors['LastName'] = __("Invalid Input : Only letters allowed in Last Name");
+        }
 
-        /*Get Post details*/
-        $post = get_post($post_id);
-        $trigger_name = get_post_meta( $post->ID, 'trigger_name', true );
-        /*Create cancel page url like return to the cancel page from where it goes.*/
-        $cancel_page = site_url('?action=ec_cancel');
-        if(!empty($_POST['formData'])){
-            $gwuser = array();
-            parse_str($_POST['formData'], $gwuser);
-            $page_id = $gwuser['give_when_page_id'];
-            $cancel_page =  get_permalink( $page_id );                    
-            /*if no role defined in the code then it adds new role as giver */
-            $role = get_role( 'giver' );
-            if($role==NULL){
-                add_role('giver','Giver');
-            }
-            /*valodation starts */
-            $ValidationErrors = array();
-            $fname = sanitize_text_field( $gwuser['give_when_firstname']);
-            if (!preg_match("/^[a-zA-Z]+$/",$fname)) {
-              $ValidationErrors['FirstName'] = __("Invalid Input : Only letters allowed in First Name");
-            }
-            $lname = sanitize_text_field($gwuser['give_when_lastname']);
-            if (!preg_match("/^[a-zA-Z]+$/",$lname)) {
-              $ValidationErrors['LastName'] = __("Invalid Input : Only letters allowed in Last Name");
-            }
-             
-            $email = $gwuser['give_when_email'];
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $ValidationErrors['Email'] = __("Invalid email format");
-            }
-            if ($gwuser['give_when_password'] !== $gwuser['give_when_retype_password']) {
-                $ValidationErrors['Password'] = __("Mismatch Input : Password Fields are not matched");
-            }                        
-            if(!empty($ValidationErrors)){
-                echo json_encode(array('Ack'=>__('ValidationError'),'ErrorCode'=>__('Invalid Inputs'),'ErrorLong'=>'Please find Following Error','Errors'=>$ValidationErrors));
-                exit;
-            }            
-            /*valodation End */
+        $email = $gwuser['give_when_email'];
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $ValidationErrors['Email'] = __("Invalid email format");
+        }
+        if ($gwuser['give_when_password'] !== $gwuser['give_when_retype_password']) {
+            $ValidationErrors['Password'] = __("Mismatch Input : Password Fields are not matched");
+        }                        
+        if(!empty($ValidationErrors)){
+            echo json_encode(array('Ack'=>__('ValidationError'),'ErrorCode'=>__('Invalid Inputs'),'ErrorLong'=>'Please find Following Error','Errors'=>$ValidationErrors));
+            exit;
+        }            
+        /*valodation End */            
             
-            /*Get user data */
-            $userdata=array(
+        /*Get trigger_name of Post */        
+        $trigger_name = get_post_meta( $post_id, 'trigger_name', true );       
+        
+        /*Create cancel page url like return to the cancel page from where it goes.*/
+        $page_id = $gwuser['give_when_page_id'];
+        $cancel_page =  get_permalink( $page_id );        
+            
+        /*if no role defined in the code then it adds new role as giver */
+        $role = get_role( 'giver' );
+        if($role==NULL){
+            add_role('giver','Giver');
+        }
+        /*Create array of user data */
+        $userdata=array(
                 'user_pass' => md5($gwuser['give_when_password']),
                 'user_login' => $gwuser['give_when_email'],
                 'user_email' => $gwuser['give_when_email'],
@@ -225,22 +225,37 @@ class AngellEYE_Give_When_Public_Display {
                 'first_name' => $gwuser['give_when_firstname'],
                 'last_name' => $gwuser['give_when_lastname'],
                 'role' => 'giver'
-            );
-            $user_exist = email_exists($gwuser['give_when_email']);
-            /*If user exist then just add capabilities of giver with current capabilities. */
-            if($user_exist){
-                unset($userdata['user_pass']);
-                /*if user is admin then no change in the role*/
-                $is_admin = user_can($user_exist, 'manage_options' );
-                if($is_admin){
-                    unset($userdata['role']);
-                }else{
-                    /* if user is not admin then add additional role to the current user */
-                    $theUser = new WP_User($user_exist);
-                    $theUser->add_role( 'giver' );
-                    unset($userdata['role']);
-                }                
-                $userdata['ID'] = $user_exist;
+        );                
+        $user_exist = email_exists($gwuser['give_when_email']);
+        /*If user exist then just add capabilities of giver with current capabilities. */
+        if($user_exist){
+            unset($userdata['user_pass']);
+            /*if user is admin then no change in the role*/
+            $is_admin = user_can($user_exist, 'manage_options' );
+            if($is_admin){
+                unset($userdata['role']);
+            }else{
+                /* if user is not admin then add additional role to the current user */
+                $theUser = new WP_User($user_exist);
+                $theUser->add_role( 'giver' );
+                unset($userdata['role']);
+            }                
+            $userdata['ID'] = $user_exist;        
+            $user_id =$user_exist;
+        }
+        else{            
+            // user not exist. i.e. Always new user
+            $user_id = $_POST['login_user_id'];
+        }
+        
+        /*if user is logged in then take id from the hidden input */
+        
+        if(!empty($user_id)){
+            // User login
+            
+            /*Check if user have already a Billing Agreement then add just signedup for that goal and get it back with info */
+            $isAvailableBAID = get_user_meta($user_id,'give_when_gec_billing_agreement_id',true);        
+            if(!empty($isAvailableBAID)){
                 /*Check if user is already signed up for this goal then get him back with info.*/
                 $signnedup_goals = get_user_meta($user_exist,'give_when_signedup_goals');        
                 $goalArray = explode('|', $signnedup_goals[0]);                
@@ -250,58 +265,50 @@ class AngellEYE_Give_When_Public_Display {
                         exit;
                     }
                 }
-            }
-            /*inserting new user and if user_id is available then update user.*/
-            $user_id = wp_insert_user($userdata);
-            if( is_wp_error( $user_id ) ) {
-                $error = __('Error on user creation: ') . $user_id->get_error_message();
-                echo json_encode(array('Ack'=>__('Failure'),'ErrorCode'=>__('WP Error'),'ErrorShort'=>__('Error on user creation:'),'ErrorLong'=>$error));
+                /* Create new post for signup post type and save goal_id,user_id,amount */
+                $new_post_id = wp_insert_post( array(
+                    'post_author' => $user_id,
+                    'post_status' => 'publish',
+                    'post_type' => 'give_when_sign_up',
+                    'post_title' => ('User ID : '.$user_id.'& Goal ID : '.$post_id)
+                ) );
+
+                update_post_meta($new_post_id,'give_when_signup_amount',$amount);                    
+                update_post_meta($new_post_id,'give_when_signup_wp_user_id',$user_id);
+                update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$post_id);
+
+                $amount = base64_encode($amount);
+                $post = get_post($post_id); 
+                $slug = $post->post_name;
+                $REDIRECTURL = site_url('givewhenthankyou?goal='.$slug.'&amt='.$amount);
+                /* Add post id in the user's signedup goals */
+                $signedup_goals= get_user_meta($user_id,'give_when_signedup_goals',true);
+                if($signedup_goals !=''){
+                $signedup_goals = $signedup_goals."|".$post_id;
+                }
+                else{
+                    $signedup_goals = $post_id;
+                }        
+                wp_set_auth_cookie( $user_id, true );
+                update_user_meta($user_id,'give_when_signedup_goals',$signedup_goals);
+                echo json_encode(array('Ack'=>'Success','RedirectURL'=>$REDIRECTURL));
                 exit;
             }
-            else{                
-                /*it makes user a normal login*/
-                wp_set_auth_cookie( $user_id, true );
-            }
         }
-        else{
-            /*if user is logged in then take id from the hidden input */
-            $user_id = $_POST['login_user_id'];
-        }   
-
-        /*Check if user have already a Billing Agreement then add just signedup for that goal and get it back with info */
-        $isAvailableBAID = get_user_meta($user_id,'give_when_gec_billing_agreement_id');
-        if($isAvailableBAID){
-            /* Create new post for signup post type and save goal_id,user_id,amount */
-            $new_post_id = wp_insert_post( array(
-                'post_author' => $user_id,
-                'post_status' => 'publish',
-                'post_type' => 'give_when_sign_up',
-                'post_title' => ('User ID : '.$user_id.'& Goal ID : '.$post_id)
-            ) );
-
-            update_post_meta($new_post_id,'give_when_signup_amount',$amount);                    
-            update_post_meta($new_post_id,'give_when_signup_wp_user_id',$user_id);
-            update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$post_id);
-            
-            $amount = base64_encode($amount);
-            $post = get_post($post_id); 
-            $slug = $post->post_name;
-            $REDIRECTURL = site_url('givewhenthankyou?goal='.$slug.'&amt='.$amount);
-            /* Add post id in the user's signedup goals */
-            $signedup_goals= get_user_meta($user_id,'give_when_signedup_goals',true);
-            if($signedup_goals !=''){
-            $signedup_goals = $signedup_goals."|".$post_id;
-            }
-            else{
-                $signedup_goals = $post_id;
-            }                    
-            update_user_meta($user_id,'give_when_signedup_goals',$signedup_goals);
-            echo json_encode(array('Ack'=>'Success','RedirectURL'=>$REDIRECTURL));
-            exit;
+        else{            
+            // User not login I.e. Always new user            
         }
+
+        /*Save user data in Session. */
+        if(!session_id()) {
+                session_start();
+            }            
+        $_SESSION['gw_user_data'] = $userdata;
+        
+        
         /*PayPal setup */                
-        $PayPal_config = new Give_When_PayPal_Helper();        
-        $PayPal_config->set_api_cedentials();               
+        $PayPal_config = new Give_When_PayPal_Helper();
+        $PayPal_config->set_api_cedentials();
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
         $SECFields = array(
                 'maxamt' => round($amount * 2,2),
@@ -343,8 +350,7 @@ class AngellEYE_Give_When_Public_Display {
             echo json_encode(array('Ack'=>'Failure','ErrorCode'=>$PayPalResult['L_ERRORCODE0'],'ErrorShort'=>$PayPalResult['L_SHORTMESSAGE0'],'ErrorLong'=>$PayPalResult['L_LONGMESSAGE0']));            
         }
         exit;
-    }
-    
+    }    
 }
 
 AngellEYE_Give_When_Public_Display::init();
