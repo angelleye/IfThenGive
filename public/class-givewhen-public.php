@@ -102,6 +102,12 @@ class Givewhen_Public {
          * The class responsible for defining all actions that occur in the Frontend
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/givewhen-public-display.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_transactions.php';
+        
+        //require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+        require_once( ABSPATH . 'wp-admin/includes/screen.php' );
+        require_once( ABSPATH . 'wp-admin/includes/class-wp-screen.php' );
+        require_once( ABSPATH . 'wp-admin/includes/template.php' );
         //add_shortcode( 'givewhen_thankyou', array(__CLASS__,'givewhen_thankyou_shortcode'));
     }
 
@@ -164,7 +170,9 @@ class Givewhen_Public {
         if (is_singular() && is_page('givewhenerrors')):
             $file = 'gw-errors-display.php';
         endif;
-
+        if (is_singular() && is_page('GiveWhen Transaction')):
+            $file = 'givewhen-my-transactions.php';
+        endif;
         if ($file) :
             $template = $this->give_when_locate_template($file);
         endif;
