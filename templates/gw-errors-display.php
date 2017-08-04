@@ -14,21 +14,31 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Don't allow direct access
 <?php 
 @session_start();
 get_header(); 
+?>
+<div class="gw_center_container">
+    <div class="gwcontainer">
+        <div class="gw_heading gw_heading-center">
+<?php
 if(isset($_SESSION['GW_Error']) && isset($_SESSION['GW_Error_Type'])){
     ?>
-<center>
-    <h1> <?php _e('Error Type :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Type']; ?> </h1>
-    <p> <?php _e('PayPal Acknowledgement :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['ACK']; ?></p>
-    <p> <?php _e('PayPal Error Code :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_ERRORCODE0']; ?></p>
-    <p> <?php _e('PayPal Error Short Message :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_SHORTMESSAGE0']; ?></p>
-    <p> <?php _e('PayPal Error Long Message :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_LONGMESSAGE0']; ?></p>
-</center>
+
+        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Errors', 'angelleye_give_when') ?></abbr></div>
+    
+    <h3> <?php _e('Error Type :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Type']; ?> </h3>
+    <span> <?php _e('PayPal Acknowledgement :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['ACK']; ?></span>
+    <span> <?php _e('PayPal Error Code :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_ERRORCODE0']; ?></span>
+    <span> <?php _e('PayPal Error Short Message :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_SHORTMESSAGE0']; ?></span>
+    <span> <?php _e('PayPal Error Long Message :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_LONGMESSAGE0']; ?></span>
 <?php    
     unset($_SESSION['GW_Error'],$_SESSION['GW_Error_Type'],$_SESSION['GW_Error_Array']);
 }
 else{
-    _e("No Data Found.","angelleye_give_when");
+    ?> <h3><?php _e("No Data Found.","angelleye_give_when"); ?></h3> <?php 
 }
-
+?>
+    </div>
+    </div>
+</div>
+<?php
 get_footer();
 ?>
