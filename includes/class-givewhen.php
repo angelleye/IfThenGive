@@ -412,6 +412,6 @@ class Givewhen {
                         wp_redirect(site_url('givewhenerrors'));
                         exit;
                     }
-            }
+            }                        
         }
 }

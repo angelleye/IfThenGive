@@ -16,7 +16,9 @@ class AngellEYE_Give_When_Public_Display {
         add_shortcode('give_when_goal', array(__CLASS__, 'give_when_create_shortcode'));
         add_action( 'wp_enqueue_scripts', array(__CLASS__,'give_when_detect_shortcode'));
         add_action( 'wp_ajax_start_express_checkout', array(__CLASS__,'start_express_checkout'));
-        add_action("wp_ajax_nopriv_start_express_checkout",  array(__CLASS__,'start_express_checkout'));       
+        add_action("wp_ajax_nopriv_start_express_checkout",  array(__CLASS__,'start_express_checkout'));
+        add_action( 'wp_ajax_givewhen_my_transactions', array(__CLASS__,'givewhen_my_transactions'));
+        add_action("wp_ajax_nopriv_givewhen_my_transactions",  array(__CLASS__,'givewhen_my_transactions'));
     }
    
     public static function give_when_detect_shortcode()
@@ -351,6 +353,18 @@ class AngellEYE_Give_When_Public_Display {
         }
         exit;
     }    
+    
+    public static function givewhen_my_transactions(){
+        $table = new AngellEYE_Give_When_My_Transactions_Table();
+        $my_transactions_data = $table->get_transactions();        
+        $recordsTotal = $table->record_count();
+        if(!empty($my_transactions_data))
+            echo json_encode(array('recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal,'data'=>$my_transactions_data));
+        else {
+            echo json_encode(array('recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal,'data'=>''));
+        }
+        exit;
+    }
 }
 
 AngellEYE_Give_When_Public_Display::init();

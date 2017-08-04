@@ -72,6 +72,8 @@ class Givewhen_Public {
          * between the defined hooks and the functions defined in this
          * class.
          */
+        wp_enqueue_style($this->plugin_name . 'publicDataTablecss', '//cdn.datatables.net/1.10.7/css/jquery.dataTables.css', array(), $this->version, 'all');
+        wp_enqueue_style($this->plugin_name . 'publicDataTable', '//cdn.datatables.net/responsive/1.0.6/css/dataTables.responsive.css', array(), $this->version, 'all');
         wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/givewhen-public.css', array(), $this->version, 'all');
     }
 
@@ -93,6 +95,8 @@ class Givewhen_Public {
          * between the defined hooks and the functions defined in this
          * class.
          */
+        wp_enqueue_script($this->plugin_name . 'DataTablejs', '//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js', array('jquery'), $this->version, true);
+        wp_enqueue_script($this->plugin_name . 'DataTable', '//cdn.datatables.net/responsive/1.0.6/js/dataTables.responsive.js', array('jquery'), $this->version, true);
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/givewhen-public.js', array('jquery'), $this->version, false);
         wp_localize_script($this->plugin_name, 'admin_ajax_url', admin_url('admin-ajax.php'));
     }
@@ -102,12 +106,7 @@ class Givewhen_Public {
          * The class responsible for defining all actions that occur in the Frontend
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/givewhen-public-display.php';
-        require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_transactions.php';
-        
-        //require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-        require_once( ABSPATH . 'wp-admin/includes/screen.php' );
-        require_once( ABSPATH . 'wp-admin/includes/class-wp-screen.php' );
-        require_once( ABSPATH . 'wp-admin/includes/template.php' );
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_transactions.php';        
         //add_shortcode( 'givewhen_thankyou', array(__CLASS__,'givewhen_thankyou_shortcode'));
     }
 
