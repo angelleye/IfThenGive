@@ -683,12 +683,12 @@ class AngellEYE_Give_When_interface {
     public static function give_when_get_transaction_detail_html() {
         $transaction_id = $_REQUEST['txn_id'];
         global $post, $post_ID;
-        $goal_id = $post_ID;
+        $goal_id = $_REQUEST['post'];
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
         $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal_config->set_api_cedentials();
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
-        $trigger_name = get_post_meta($goal_id, 'trigger_name');
+        $trigger_name = get_post_meta($goal_id, 'trigger_name',true);
         $GTDFields = array(
             'transactionid' => $transaction_id
         );
