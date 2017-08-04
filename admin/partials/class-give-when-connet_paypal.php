@@ -88,7 +88,14 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             <div class="container-fluid">
                 <div class="alert alert-warning" id="connect_paypal_error" style="display: none">
                     <p id="connect_paypal_error_p"></p>
-                </div>                
+                </div>  
+                <div id="overlay" style=" background: #f6f6f6;opacity: 0.8;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
+                    <div style="display: table; width:100%; height: 100%;">
+                        <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>admin/images/loading.gif"  style=" position: relative;top: 50%; height: 100px"/>
+                        <h1 style="font-weight: 600;"><?php _e('Please Wait , We will redirect back you to Settings.',''); ?></h1>
+                    </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="panel panel-default">
@@ -184,7 +191,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                 if ($ConnectPayPalArray['ACK'] == 'success') {
                                                     ?>                                                                          
                                                     <div class="form-group">
-                                                        <a data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
+                                                        <a id="gw_connect_with_paypal_sb" data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
                                                     </div>
                                                     <?php
                                                 } else {
@@ -277,7 +284,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                 if ($ConnectPayPalArray['ACK'] == 'success') {
                                                     ?>                                                                          
                                                     <div class="form-group">
-                                                        <a data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
+                                                        <a id="gw_connect_with_paypal_live" data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
                                                     </div>
                                                     <?php
                                                 } else {
