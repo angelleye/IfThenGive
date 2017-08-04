@@ -62,8 +62,7 @@
     text-transform: uppercase;
 }
 .gw_hr-title abbr {
-    background-color: #ffffff;
-    font-weight: 600;
+    background-color: #ffffff;    
 }
 .gw_table-responsive {
     min-height: .01%;
@@ -165,6 +164,48 @@ select[name=GiveWhen_Transaction_Table_length]:focus {
 
 .gw_center_container{
     text-align: center;
+}
+
+.gw_heading {
+    padding-top: 80px;
+    margin-bottom: 80px;
+}
+.gw_heading h3 {
+    font-size: 30px;
+    line-height: 42px;
+}
+.gw_heading h1, .gw_heading h2, .gw_heading h3, .gw_heading h4 {
+    color: #303030;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.gw_heading-center {    
+    text-align: center;
+    float: none;
+}
+.gw_heading.gw_heading-center > span, .gw_heading.title-center > span {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.gw_heading h3 + span, .gw_heading h3 + span.lead {
+    font-size: 20px;
+}
+.gw_heading > span {
+    display: block;
+    color: #888;
+}
+.gw_heading.gw_heading-center:after, .gw_heading.title-center:after {
+    margin: 30px auto 0;
+}
+.gw_heading:after {
+    border-top: 3px solid #303030;
+    display: block;
+    margin-top: 10px;
+    width: 30px;
+    content: "";
 }
 
 @media (min-width: 1200px){

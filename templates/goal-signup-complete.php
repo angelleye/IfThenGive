@@ -13,6 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Don't allow direct access
 
 <?php 
 get_header(); 
+?>
+
+<div class="gw_center_container">
+    <div class="gwcontainer">
+        <div class="gw_heading gw_heading-center">            
+<?php
 if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
     $the_slug = $_REQUEST['goal'];
     $amount = base64_decode($_REQUEST['amt']);
@@ -32,8 +38,8 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $ccode = get_option('gw_currency_code');
         $paypal = new Give_When_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
-        echo "<center><h1>".__('Hi '). $current_user->display_name . __(', Thank You for signed up in ') . $trigger_name. "</h1></center>";
-        echo "<center><h2>" . __('Each time you will give ').$symbol.$amount.' '. __('when').' '.$trigger_thing. "</h2></center>";
+        echo "<h2>".__('Hi '). $current_user->display_name . __(', Thank You for signed up in ') . $trigger_name. "</h2>";
+        echo "<span>" . __('Each time you will give ').$symbol.$amount.' '. __('when').' '.$trigger_thing. "</span>";
         $EmailString='';
         $EmailString.='<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
                                 <tr>
@@ -76,7 +82,14 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
     }
 }
 else{
-    echo __("No data found in URL");
-}
-
+    ?>
+            <h3><?php echo __("You are accessing this page without signed up for GiveWhen Goal"); ?></h3>
+            <span><?php echo __("Try again Sigining in for GiveWhen Goals."); ?></span>
+<?php
+    }
+?>
+         </div>
+    </div>
+</div>
+<?php
 get_footer();
