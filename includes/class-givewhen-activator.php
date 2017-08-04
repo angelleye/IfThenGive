@@ -120,7 +120,7 @@ class Givewhen_Activator {
                 'content' => '',
             ),
             array(
-                'base' => GW_LOG_DIR . '/connect_to_paypal',
+                'base' => GW_LOG_DIR . '/connect_to_PayPal',
                 'file' => 'index.html',
                 'content' => '',
             ),
