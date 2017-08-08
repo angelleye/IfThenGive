@@ -62,7 +62,8 @@
         });
                         
         if(typeof tinymce != 'undefined') {
-            tinymce.PluginManager.add('pushortcodes', function( editor )
+            console.log('Hey');
+            tinymce.PluginManager.add('give_when_shortcodes', function( editor )
             {
                 var shortcodeValues = [];
                 jQuery.each(gw_shortcodes_button_array.shortcodes_button, function( post_id, post_title )
@@ -73,10 +74,11 @@
                     });
 
                 });
-                editor.addButton('pushortcodes', {
+                editor.addButton('give_when_shortcodes', {
                     text: 'GiveWhen',
                     type: 'listbox',
                     title: 'GiveWhen',
+                    cmd: 'give_when_shortcodes',
                     icon: 'mce-ico mce-i-wp_more',
                     onselect: function() {
                          tinyMCE.activeEditor.selection.setContent( '[give_when_goal id=' + this.value() + ']' );

@@ -136,7 +136,7 @@ class Givewhen_Admin {
                 wp_localize_script($this->plugin_name, 'give_when_sanbox_enable_js', $sanbox_enable);
                 
                 wp_localize_script($this->plugin_name, 'admin_ajax_url', admin_url('admin-ajax.php'));
-                                
+                
 	}
         
     private function load_dependencies() {
@@ -180,12 +180,12 @@ class Givewhen_Admin {
     }
     
     public function give_when_register_tinymce_plugin($plugin_array) {
-        $plugin_array['pushortcodes'] = plugin_dir_url(__FILE__) . 'js/givewhen-admin.js';
+        $plugin_array['give_when_shortcodes'] = plugin_dir_url(__FILE__) . 'js/givewhen-admin.js';
 	return $plugin_array;                
     }
 
     public function give_when_add_tinymce_button($buttons) {
-        array_push($buttons, 'pushortcodes');
+        array_push($buttons, 'give_when_shortcodes');
         return $buttons;
     }
       
