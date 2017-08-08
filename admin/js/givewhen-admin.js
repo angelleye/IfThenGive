@@ -148,13 +148,7 @@
         $('#gw_manual_amount_input').on('input', function() {
             this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
         });
-        
-        $('#gw_connect_with_paypal_sb').click(function (){
-            $('#overlay').show();
-        });
-        $('#gw_connect_with_paypal_live').click(function (){
-            $('#overlay').show();
-        });
+                
     });
     
 
