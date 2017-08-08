@@ -33,9 +33,9 @@ class AngellEYE_Give_When_interface {
      * @access public
      */
     public static function give_when_interface_html() {
-        $conncet_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
-        $conncet_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');        
-        if ($conncet_to_sandbox_paypal_flag != 'Yes' && $conncet_to_live_paypal_flag != 'Yes') {
+        $connect_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
+        $connect_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');
+        if ($connect_to_sandbox_paypal_flag != 'Yes' && $connect_to_live_paypal_flag != 'Yes') {
             ?>
             <div style="padding-top: 25px"></div>
             <div class="container" style="max-width: 100%">
@@ -1032,9 +1032,9 @@ class AngellEYE_Give_When_interface {
     public static function give_when_hide_publish_button_until() {
         if (isset($_REQUEST['post_type'])) {
             if ($_REQUEST['post_type'] == 'give_when_goals') {
-                $conncet_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
-                $conncet_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');
-                if ($conncet_to_sandbox_paypal_flag != 'Yes' && $conncet_to_live_paypal_flag != 'Yes') {
+                $connect_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
+                $connect_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');
+                if ($connect_to_sandbox_paypal_flag != 'Yes' && $connect_to_live_paypal_flag != 'Yes') {
                     ?>
                     <style>
                         #publishing-action { display: none; }

@@ -62,10 +62,10 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
 
     public static function give_when_connect_to_paypal_create_setting() {
                 
-        $conncet_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
-        $conncet_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');
+        $connect_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
+        $connect_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');
         
-        $genral_setting_fields = self::give_when_connect_to_paypal_setting_fields();
+        $general_setting_fields = self::give_when_connect_to_paypal_setting_fields();
         $Html_output = new AngellEYE_Give_When_Html_output();
         
         $sanbox_enable = get_option('sandbox_enable_give_when');
@@ -124,7 +124,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                 <div class="div_log_settings">                                    
                                         <table class="form-table">
                                             <tbody>
-                                                <?php $Html_output->init($genral_setting_fields); ?>                                                
+                                                <?php $Html_output->init($general_setting_fields); ?>                                                
                                             </tbody>
                                         </table>                                                                        
                                 </div>
@@ -152,8 +152,8 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                 <?php } ?>
                                     <div class="row">                                        
                                          <div class="col-md-6 col-lg-6 col-sm-6">
-                                            <?php 
-                                            if ($sb_paypal_account_id !== false && $conncet_to_sandbox_paypal_flag == 'Yes') {
+                                            <?php
+                                            if ($sb_paypal_account_id !== false && $connect_to_sandbox_paypal_flag == 'Yes') {
                                                 echo '<span class="label label-success">'.__('You are Connected with SandBox PayPal Environment.','angelleye_give_when').'</span><br><br><br>';
                                             }
                                             else{
@@ -246,7 +246,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                     <div class="row">                                        
                                          <div class="col-md-6 col-lg-6 col-sm-6">
                                             <?php 
-                                            if ($live_paypal_account_id !== false && $conncet_to_live_paypal_flag == 'Yes') {
+                                            if ($live_paypal_account_id !== false && $connect_to_live_paypal_flag == 'Yes') {
                                                 echo '<span class="label label-success">'.__('You are Connected with Live PayPal Environment.','angelleye_give_when').'</span><br><br><br>';
                                             }
                                             else{
