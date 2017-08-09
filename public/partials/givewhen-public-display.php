@@ -117,11 +117,13 @@ class AngellEYE_Give_When_Public_Display {
                                         $User_email      = !empty($current_user->user_email) ? $current_user->user_email : '';
                                         $User_first_name = !empty($current_user->user_firstname) ? $current_user->user_firstname : '';
                                         $User_last_name  = !empty($current_user->user_lastname) ? $current_user->user_lastname : '';
+                                        $user_id = !empty($current_user->ID) ? $current_user->ID : '';
                                      }
                                      else{
                                         $User_email      = '';
                                         $User_first_name = '';
                                         $User_last_name  = '';
+                                        $user_id = '';
                                      }
                                     
                                     $html .= '<form method="post" name="signup" id="give_when_signup">';
@@ -146,26 +148,24 @@ class AngellEYE_Give_When_Public_Display {
                                         $html .= '<div class="form-group">';
                                           $html .= '<label for="email">'. esc_html('Email address','angelleye_give_when').'</label>';
                                           $html .= '<input type="email" class="form-control" name="give_when_email" id="give_when_email" autocomplete="off" required="required" value="'.$User_email.'">';
-                                        $html .= '</div>';
+                                        $html .= '</div>';                                                                            
                                         $html .=  '<div class="checkbox">';
                                         $html .=    '<label>';
-                                        $html .=      '<input type="checkbox">'.esc_html('Signup as Guest','angelleye_give_when');
+                                        $html .=      '<input type="checkbox" name="gw_signup_as_guest" id="gw_signup_as_guest">'.esc_html('Signup as Guest','angelleye_give_when');
                                         $html .=    '</label>';
                                         $html .=  '</div>';
-                                    
-                                         if ( ! is_user_logged_in() ) {
-                                    
-                                        $html .= '<div class="form-group">';
+                                         if ( ! is_user_logged_in() ) {                                    
+                                        $html .= '<div class="form-group gw-password">';
                                           $html .= '<label for="password">'.esc_html('Password','angelleye_give_when').'</label>';
                                           $html .= '<input type="password" class="form-control" name="give_when_password" id="give_when_password" required="required">';
                                         $html .= '</div>';
-                                        $html .= '<div class="form-group">';
+                                        $html .= '<div class="form-group gw-password">';
                                           $html .= '<label for="password">'.esc_html('Re-type Password','angelleye_give_when').'</label>';
                                           $html .= '<input type="password" class="form-control" name="give_when_retype_password" id="give_when_retype_password" required="required">';
                                         $html .= '</div>';
-                                         }
+                                         }                                        
                                         $html .= '<input type="hidden" class="form-control" name="give_when_page_id" id="give_when_page_id" value="'.$give_when_page_id.'">';
-                                        $html .= '<button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="">'.esc_html('Sign Up For ','angelleye_give_when') . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
+                                        $html .= '<button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="'.$user_id.'">'.esc_html('Sign Up For ','angelleye_give_when') . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
                                     $html .= '</form>';
                                 $html .= '</div>';
                             $html .= '</div>';
@@ -177,9 +177,8 @@ class AngellEYE_Give_When_Public_Display {
         return $html;        
     }
          
-    public function start_express_checkout(){                
-        /*Getting data from ajax */
-        $page_id = $_POST['give_when_page_id'];
+    public function start_express_checkout(){        
+        /*Getting data from ajax */        
         $post_id = $_POST['post_id'];
         $amount = number_format($_POST['amount'],2);        
         
@@ -202,9 +201,11 @@ class AngellEYE_Give_When_Public_Display {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $ValidationErrors['Email'] = __("Invalid email format");
         }
-        if ($gwuser['give_when_password'] !== $gwuser['give_when_retype_password']) {
-            $ValidationErrors['Password'] = __("Mismatch Input : Password Fields are not matched");
-        }                        
+        if(isset($gwuser['give_when_password'])){
+            if ($gwuser['give_when_password'] !== $gwuser['give_when_retype_password']) {
+                $ValidationErrors['Password'] = __("Mismatch Input : Password Fields are not matched");
+            }
+        }                                
         if(!empty($ValidationErrors)){
             echo json_encode(array('Ack'=>__('ValidationError'),'ErrorCode'=>__('Invalid Inputs'),'ErrorLong'=>'Please find Following Error','Errors'=>$ValidationErrors));
             exit;
@@ -253,9 +254,7 @@ class AngellEYE_Give_When_Public_Display {
         else{            
             // user not exist. i.e. Always new user
             $user_id = $_POST['login_user_id'];
-        }
-        
-        /*if user is logged in then take id from the hidden input */
+        }        
         
         if(!empty($user_id)){
             // User login
@@ -283,7 +282,7 @@ class AngellEYE_Give_When_Public_Display {
                 update_post_meta($new_post_id,'give_when_signup_amount',$amount);                    
                 update_post_meta($new_post_id,'give_when_signup_wp_user_id',$user_id);
                 update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$post_id);
-
+                
                 $amount = base64_encode($amount);
                 $post = get_post($post_id); 
                 $slug = $post->post_name;
@@ -310,8 +309,15 @@ class AngellEYE_Give_When_Public_Display {
         if(!session_id()) {
                 session_start();
             }            
-        $_SESSION['gw_user_data'] = $userdata;
         
+        if(isset($gwuser['gw_signup_as_guest']) && $gwuser['gw_signup_as_guest']=='on' ){
+            $_SESSION['gw_guest_user'] = 'yes';
+            $userdata['user_pass'] = md5('GWPassword');
+        }
+        else{
+            $_SESSION['gw_guest_user'] = 'no';
+        }
+        $_SESSION['gw_user_data'] = $userdata;
         
         /*PayPal setup */                
         $PayPal_config = new Give_When_PayPal_Helper();

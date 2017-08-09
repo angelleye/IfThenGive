@@ -294,7 +294,7 @@ class Givewhen {
             if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {
                 if(!session_id()) {
                     session_start();
-                }
+                }                
                 $token = $_GET['token'];                
                 $PayPal_config = new Give_When_PayPal_Helper();                
                 $PayPal_config->set_api_cedentials();                
@@ -343,7 +343,9 @@ class Givewhen {
                         }
                         else{                
                             /*it makes user a normal login*/
-                            wp_set_auth_cookie( $goal_user_id, true );
+                            if($_SESSION['gw_guest_user'] == 'no'){
+                                wp_set_auth_cookie( $goal_user_id, true );
+                            }                            
                         }
                             
                         /* save GetExpressCheckoutDetails to User Meta */
@@ -353,6 +355,7 @@ class Givewhen {
                         update_user_meta($goal_user_id,'give_when_gec_last_name',$PayPalResultGEC['LASTNAME']);
                         update_user_meta($goal_user_id,'give_when_gec_country_code',$PayPalResultGEC['COUNTRYCODE']);
                         update_user_meta($goal_user_id,'give_when_gec_currency_code',$PayPalResultGEC['CURRENCYCODE']);
+                        update_user_meta($goal_user_id,'give_when_guest_user',$_SESSION['gw_guest_user']);
                         $signedup_goals= get_user_meta($goal_user_id,'give_when_signedup_goals',true);
                         if($signedup_goals !=''){
                         $signedup_goals = $signedup_goals."|".$goal_post_id;
@@ -364,7 +367,7 @@ class Givewhen {
                         
                         /*unset session variable*/
                         unset($_SESSION['gw_user_data']);
-
+                        unset($_SESSION['gw_guest_user']);
                         /* Save BILLING AGREEMENT ID in the UserMeta */
                         update_user_meta($goal_user_id,'give_when_gec_billing_agreement_id',$PayPalResultCBA['BILLINGAGREEMENTID']);
 
@@ -390,9 +393,10 @@ class Givewhen {
                                 $log_write->add('angelleye_give_when_express_checkout', 'CreateBillingAgreement Success : ' . print_r($PayPalResultCBA, true), 'express_checkout');
                         }
                         $amount = base64_encode($amount);
+                        $urlusr = base64_encode($goal_user_id);
                         $post = get_post($goal_post_id); 
                         $slug = $post->post_name;
-                        wp_redirect(site_url('givewhenthankyou?goal='.$slug.'&amt='.$amount));                        
+                        wp_redirect(site_url('givewhenthankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr));
                         exit;
                     }
                     else{

@@ -13,14 +13,10 @@
                 }
                 if($('#give_when_manual_price_span').length){
                     amount = $('#give_when_manual_price_span').html();
-                }                
+                }
                 
-                if($(this).attr('data-userid')===''){
-                   formData = $("#give_when_signup").serialize();
-                }
-                else{                    
-                     user_id = $(this).attr('data-userid');
-                }
+                formData = $("#give_when_signup").serialize();                
+                user_id = $(this).attr('data-userid');                
                 
                 $.ajax({
                     type: 'POST',
@@ -84,5 +80,14 @@
             $(document).on('input','#gw_manual_amount_input', function() {
                 this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
             });
+            
+            $(document).on('click','#gw_signup_as_guest',function() {
+                if($(this).is(":checked")) {
+                    $(".gw-password").hide(200);
+                } else {
+                    $(".gw-password").show(300);
+                }
+            });
+
         });
 })( jQuery );

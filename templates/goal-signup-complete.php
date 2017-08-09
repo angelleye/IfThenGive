@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Don't allow direct access
 ?>
 
 <?php 
-get_header(); 
+get_header();
 ?>
 
 <div class="gw_center_container">
@@ -30,7 +30,8 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
     );
     $my_posts = get_posts($args);
     if( $my_posts ) {
-        $current_user = wp_get_current_user(); 
+        $user_id = base64_decode($_REQUEST['user']);
+        $user = get_user_by('id', $user_id);        
         $post_id = $my_posts[0]->ID;
         $post_meta_array = get_post_meta($post_id);
         $trigger_name = $post_meta_array['trigger_name'][0];
@@ -38,7 +39,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $ccode = get_option('gw_currency_code');
         $paypal = new Give_When_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
-        echo "<h2>".__('Hi '). $current_user->display_name . __(', Thank You for signed up in ') . $trigger_name. "</h2>";
+        echo "<h2>".__('Hi '). $user->display_name . __(', Thank You for signed up in ') . $trigger_name. "</h2>";
         echo "<span>" . __('Each time you will give ').$symbol.$amount.' '. __('when').' '.$trigger_thing. "</span>";
         $EmailString='';
         $EmailString.='<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
