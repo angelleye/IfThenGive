@@ -208,6 +208,174 @@ select[name=GiveWhen_Transaction_Table_length]:focus {
     content: "";
 }
 
+/*give when form.*/
+form {
+    display: block;
+    margin-top: 0em;
+}
+.gw_form-group {
+    margin-bottom: 15px;
+}
+.gw_form-group > label {
+    display: block;
+}
+.gw_form-group label {
+    color: #444;
+    cursor: pointer;
+    /* display: inline-block; */
+    margin-top: 8px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    font-size: 13px;
+        /* display: inline-block; */
+    max-width: 100%;
+    /* margin-bottom: 5px; */
+    font-weight: 700;
+}
+.gw_sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+.gw_upper{
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+.gw_form-control, .gw_input-group-addon {
+    border: 2px solid #ebebeb !important;
+}
+.gw_form-control {
+    border-radius: 0;
+    box-shadow: none;
+    height: auto;
+    line-height: 1.33333;
+    padding: 12px 18px !important;
+    display: block;
+    width: 100%;
+     color: #555;
+    background-color: #fff;
+    background-image: none;
+    font-size: 14px;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.gw_form-control:focus {
+    box-shadow: none;
+    border-color: #66afe9 !important;
+    outline: 0;
+}
+.button.color, .gw_btn.gw_btn-primary {
+    background-color: #26B8F3;
+    border-color: #26B8F3;
+    color: #fff;
+}
+.gw_form-inline button {
+    margin: 0px;
+}
+.gw_btn {
+    border-radius: 4px;
+    padding: 12px 20px;
+    display: inline-block;
+    /* padding: 6px 12px; */
+    /* margin-bottom: 0; */
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    /* -webkit-user-select: none; */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+}
+/*give when form image*/
+.gw_post-item {
+    float: left;
+    position: relative;
+    width: 100%;
+   /* border-bottom: 1px solid #eee;*/
+    /*margin-bottom: 40px;*/
+    padding-bottom: 20px;
+    /*position: relative;*/
+    display: block;
+}
+.gw_post-image{
+    margin-bottom: 20px;
+}
+.gw_post-title a {
+    color: #111;
+    text-decoration: none !important;
+    background-color: transparent;
+    font-family: "Open Sans", sans-serif;
+}
+.gw_post-title a:hover {
+    color: #26B8F3;
+}
+.gw_post-title a:focus {
+    outline: none;
+    outline-offset: -2px;
+}
+.gw_post-item .gw_post-title h3 {
+    margin-bottom: 4px;
+    font-size: 26px;
+    line-height: 30px;
+}
+.gw_post-item .gw_post-title h3 {
+    margin-bottom: 10px;
+    font-size: 26px;
+    line-height: 30px;
+    text-rendering: optimizelegibility;
+    margin-top: 0;
+    color: #222222;
+    font-family: "Open Sans", sans-serif;
+}
+.gw_post-item .gw_post-title h4 {
+    text-rendering: optimizelegibility;
+    margin-top: 0;
+    color: #222222;
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 10px;
+    font-weight: 600;
+    line-height: 1.5;
+        font-size: 18px;
+}
+.gw_post-item p {
+    margin-bottom: 30px;
+    color: #696f6f;
+    text-rendering: optimizelegibility;
+    margin-top: 0;
+    font-family: "Open Sans", sans-serif;
+}
+.gwcontainer ol{
+    padding-left: 0.8em;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.gwcontainer ol li{
+    padding-left: 0px;
+    font-size: 12px;
+    color: #31708f;
+    font-family: "Open Sans", sans-serif;
+}
+.gwcontainer p{
+    color: #31708f;
+    margin-bottom: 0px;
+    text-rendering: optimizelegibility;
+    margin-top: 0;
+    font-family: "Open Sans", sans-serif;
+}
+
 @media (min-width: 1200px){
 .gwcontainer {
     width: 1170px;

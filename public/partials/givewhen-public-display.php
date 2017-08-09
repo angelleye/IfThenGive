@@ -30,10 +30,87 @@ class AngellEYE_Give_When_Public_Display {
             && array_key_exists( 2, $matches )
             && in_array( 'give_when_goal', $matches[2] ) )
         {            
-            wp_enqueue_style( 'givewhen-one', GW_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
+            //wp_enqueue_style( 'givewhen-one', GW_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
         }
     }
-    
+    public static function give_when_create_shortcode2($atts, $content = null) {
+    ?>
+    <div class="gw_container">
+
+        <div class="gw_post-item">
+            <div class="gw_post-title">
+                <h3><a href="#">Title Name</a></h3>
+            </div>
+            <div class="gw_post-image">
+                <a href="#">
+                    <img alt="" src="http://localhost/wp_event/wp-content/uploads/2017/08/Three-Swans.jpg">
+                </a>
+            </div>
+            <div class="gw_post-content-details">
+                <div class="gw_post-description">
+                    <p>In architecto adipisicing eu tempore In architecto adipisicing eu temporeIn architecto adipisicing eu temporeIn architecto adipisicing eu temporeIn architecto adipisicing eu tempore.</p>
+                </div>
+                <div class="gw_post-title">
+                    <h4><a href="#">I will Give : $1.00 When Thing Happned</a></h4>
+                </div>
+                <div class="gw_form-group">
+                    <label class="gw_upper">Select</label>
+                     <select class="gw_form-control" name="give_when_option_amount" id="give_when_option_amount"><option value="NaN">NaN</option></select> 
+                </div>
+                <div class="gw_form-group">
+                    <label class="gw_upper">Enter Amount</label>
+                     <input type="text" class="gw_form-control" placeholder="Enter Amount">
+                </div>
+                              
+            </div>
+        </div>   
+
+        <div class="gwcontainer">
+            <div class="gw_hr-title gw_center">
+                <abbr>Sign up for GiveWhen Goal</abbr>
+            </div>
+                <p class="text-info">Instruction</p>
+                
+            <ol>
+                    <li>Lorem ipsum dolor sit amet</li>
+                    <li>Consectetur adipiscing elit</li>
+                    <li>Integer molestie lorem at massa</li>
+                </ol>            
+            <form>
+                <div class="gw_form-group">
+                    <label class="gw_upper">Frist Name</label>
+                    <input type="text" class="gw_form-control" placeholder="Frist Name">
+                </div>
+                <div class="gw_form-group">
+                    <label class="gw_upper">Last Name</label>
+                    <input type="text" class="gw_form-control" placeholder="Last Name">
+                </div>
+                <div class="gw_form-group">
+                    <label class="gw_upper">Email</label>
+                    <input type="text" class="gw_form-control" placeholder="Email Address">
+                </div>
+
+                <div class="gw_form-group">
+                    <label class="gw_upper">Password</label>
+                    <input type="text" class="gw_form-control" placeholder="Password">
+                </div>
+                <div class="gw_form-group">
+                    <label class="gw_upper">Re-type Password</label>
+                    <input type="text" class="gw_form-control" placeholder="Re-Type Password">
+                </div>
+                <div class="gw_form-inline gw_form-group">
+                    <button class="gw_btn gw_btn-primary" type="button">Login</button>
+                        <!-- <div class="checkbox float-right">
+                            <label class="no-margin">
+                                <input type="checkbox">
+                                <small> Remember me</small> </label>
+                            </div> -->
+                        </div>
+                        <!-- <a href="#"><small>Lost your Password?</small></a> -->
+                    </form>
+                </div></div>    
+                <?php
+            }       
     /**
      * give_when_create_shortcode function is for generate
      * @since 1.0.0
@@ -58,59 +135,74 @@ class AngellEYE_Give_When_Public_Display {
                             <h1 style="font-weight: 600;">'.esc_html('Please dont\'t go back , We are redirecting you to PayPal','').'</h1></div>';
                 $html .= '</div>';
                 $html .= '</div>';
-                $html .= '<div class="give_when_container">';
-                    $html .= '<div class="row">';
-                        $html .= '<div class="col-md-12"><h1>'.get_post_meta( $post->ID, 'trigger_name', true ).'</h1></div>
-                        <div class="col-md-12">';
+                $html .= '<div class="gw_container">';     // baki               
+                    $html .= '<div class="gw_post-item">';                           
+                            
+                            $html .= '<div class="gw_post-title">
+                                        <h3><a href="#">'.get_post_meta( $post->ID, 'trigger_name', true ).'</a></h3>
+                                      </div>';
+                            
+                            $html .= '<div class="gw_post-image">';
                             $html .= '<img src="'.get_post_meta( $post->ID, 'image_url', true ).'">';
-                            $html .= '<br><br>';
-                            $html .= '<p>'.get_post_meta( $post->ID, 'trigger_desc', true ).'</p>';
-                            $html .= $post->post_content;
-                        $html .= '</div>';
-                        $html .= '<div class="col-md-12">';
-                        $amount = get_post_meta($post->ID,'amount',true);
+                            $html .= '</div>';
+
+                            $html .= '<div class="gw_post-content-details">'; 
+                                $html .= '<div class="gw_post-description">
+                                            <p>'.get_post_meta( $post->ID, 'trigger_desc', true ).'</p>
+                                          </div>';
+                                $html .= $post->post_content;                                                                                
+                                $amount = get_post_meta($post->ID,'amount',true);
+
                                 if($amount == 'fixed'){
-                                    $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);
-                                
-                                $html .= '<p class="lead">'. esc_html('I will Give : ','angelleye_give_when').$symbol.'<span id="give_when_fixed_price_span">'.number_format($fixed_amount,2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</p>';
-                                
-                                }
+                                    $html .= '<div class="gw_post-title">';
+                                    $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);                                
+                                    $html .= '<h4><a href="#">'. esc_html('I will Give : ','angelleye_give_when').$symbol.'<span id="give_when_fixed_price_span">'.number_format($fixed_amount,2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</a></h4>';
+                                    $html .= '</div>';                                    
+                                }                                
                                 elseif($amount == 'manual'){
-                                    
-                                $html .= '<p class="lead">'.esc_html('I will Give : ','angelleye_give_when').$symbol.'<span id="give_when_manual_price_span">50</span> '.esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</p>';
-                                $html .= '<div class="form-group">';
-                                    $html .= '<label for="manualamout" class="control-label">'. esc_html('Enter Amount','').'</label>';
-                                    $html .= '<input type="text" name="gw_manual_amount_input" value="50.00" class="form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>';
-                                $html .= '</div>';
+                                    $html .= '<div class="gw_post-title">';
+                                        $html .= '<h4><a href="#">'.esc_html('I will Give : ','angelleye_give_when').$symbol.'<span id="give_when_manual_price_span">50</span> '.esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</a></h4>';
+                                    $html .= '</div>';
+                                    $html .= '<div class="gw_form-group">';
+                                        $html .= '<label for="manualamout" class="gw_upper">'. esc_html('Enter Amount','').'</label>';
+                                        $html .= '<input type="text" name="gw_manual_amount_input" value="50.00" class="gw_form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>';                                    
+                                    $html .= '</div>';
                                 }
                                 else{
                                     $option_name = get_post_meta($post->ID,'option_name',true);
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);
                                     $i=0;
-                            
-                                $html .= '<p class="lead">'.esc_html('I will Give : ','angelleye_give_when').$symbol.'<span id="give_when_fixed_price_span_select">'.number_format($option_amount[0],2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).'</p>';
-                            $html .= '<div class="form-group">';
-                                $html .= '<select class="form-control" name="give_when_option_amount" id="give_when_option_amount">';
-                                
-                                    foreach ($option_name as $name) {
-                                        $html .=  '<option value="'.number_format($option_amount[$i],2).'">'.$name."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".number_format($option_amount[$i],2).'</option>';                                        
-                                        $i++;
-                                    }
-                                
-                                $html .= '</select>';
-                            $html .= '</div>';
-                            } 
-                        $html .= '</div>';
-                    $html .= '</div>';
-                                       
-                     $html .= '<div class="row" id="give_when_signup_form">';
-                        $html .= '<div class="col-md-12">';
-                            $html .= '<div class="panel panel-info">';
-                                $html .= '<div class="panel-heading">'.esc_html('Sign up for ',''). get_post_meta( $post->ID, 'trigger_name', true ).'</div>';
-                                $html .= '<div class="panel-body">';
-                                     $html .= '<div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">';
-                                        $html .= '<span id="connect_paypal_error_p"></span>';
+                                    $html .= '<div class="gw_post-title">';
+                                        $html .= '<h4><a href="#">'.esc_html('I will Give : ','angelleye_give_when').$symbol.'<span id="give_when_fixed_price_span_select">'.number_format($option_amount[0],2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).'</a></h4>';
                                     $html .= '</div>';
+                                    $html .= '<div class="gw_form-group">';
+                                        $html .= '<select class="gw_form-control" name="give_when_option_amount" id="give_when_option_amount">';
+                                
+                                        foreach ($option_name as $name) {
+                                             $html .=  '<option value="'.number_format($option_amount[$i],2).'">'.$name." ".number_format($option_amount[$i],2).'</option>';                                        
+                                        $i++;
+                                        }
+                                        $html .= '</select>';
+                                    $html .= '</div>';
+                                }
+                        $html .= '</div>'; // gw_post-content-details
+                    $html .= '</div>'; // gw_post-item 
+                                       
+                    $html .= '<div class="gwcontainer" id="give_when_signup_form">';                 
+                        $html .= '<div class="gw_hr-title gw_center">';
+                        $html .= '<abbr>'.esc_html('Sign up for ',''). get_post_meta( $post->ID, 'trigger_name', true ).'</abbr>';
+                        $html .= '</div>';
+                                                             
+                        $html .= '<div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">';
+                        $html .= '<span id="connect_paypal_error_p"></span>';
+                        $html .= '</div>';
+                        
+                        $html .= '<p class="text-info">Instructions</p>';
+                        $html .='<ol>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                    <li>Consectetur adipiscing elit</li>
+                                    <li>Integer molestie lorem at massa</li>
+                                </ol>';
                                     
                                      if ( is_user_logged_in() ) {
                                         $current_user    = wp_get_current_user();
@@ -127,51 +219,38 @@ class AngellEYE_Give_When_Public_Display {
                                      }
                                     
                                     $html .= '<form method="post" name="signup" id="give_when_signup">';
-                                        $html .= '<div class="form-group">';
-                                        $html .='<div class="row">
-                                                                <div class="col-md-12">
-                                                                    <p class="text-primary">Instruction:</p>
-                                                                    <ol>
-                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
-                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
-                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
-                                                                    </ol>
-                                                                </div>
-                                                            </div>';
-                                          $html .= '<label for="name">'.esc_html('First Name','angelleye_give_when').'</label>';
-                                          $html .= '<input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" autocomplete="off" required="required" value="'.$User_first_name.'" autofocus="true">';
+                                        $html .= '<div class="gw_form-group">';                                        
+                                          $html .= '<label class="gw_upper" for="name">'.esc_html('First Name','angelleye_give_when').'</label>';
+                                          $html .= '<input type="text" class="gw_form-control" name="give_when_firstname" id="give_when_firstname" autocomplete="off" required="required" value="'.$User_first_name.'" autofocus="true">';
                                         $html .= '</div>';
-                                        $html .= '<div class="form-group">';
-                                          $html .= '<label for="name">'.esc_html('Last Name','angelleye_give_when').'</label>';
-                                          $html .= '<input type="text" class="form-control" name="give_when_lastname" id="give_when_lastname" autocomplete="off" required="required" value="'. $User_last_name.'">';
+                                        $html .= '<div class="gw_form-group">';
+                                          $html .= '<label class="gw_upper" for="name">'.esc_html('Last Name','angelleye_give_when').'</label>';
+                                          $html .= '<input type="text" class="gw_form-control" name="give_when_lastname" id="give_when_lastname" autocomplete="off" required="required" value="'. $User_last_name.'">';
                                         $html .= '</div>';
-                                        $html .= '<div class="form-group">';
-                                          $html .= '<label for="email">'. esc_html('Email address','angelleye_give_when').'</label>';
-                                          $html .= '<input type="email" class="form-control" name="give_when_email" id="give_when_email" autocomplete="off" required="required" value="'.$User_email.'">';
+                                        $html .= '<div class="gw_form-group">';
+                                          $html .= '<label class="gw_upper" for="email">'. esc_html('Email address','angelleye_give_when').'</label>';
+                                          $html .= '<input type="email" class="gw_form-control" name="give_when_email" id="give_when_email" autocomplete="off" required="required" value="'.$User_email.'">';
                                         $html .= '</div>';                                                                            
                                         $html .=  '<div class="checkbox">';
-                                        $html .=    '<label>';
+                                        $html .=    '<label class="gw_upper">';
                                         $html .=      '<input type="checkbox" name="gw_signup_as_guest" id="gw_signup_as_guest">'.esc_html('Signup as Guest','angelleye_give_when');
                                         $html .=    '</label>';
-                                        $html .=  '</div>';
+                                        $html .=  '</div><br>';
                                          if ( ! is_user_logged_in() ) {                                    
-                                        $html .= '<div class="form-group gw-password">';
-                                          $html .= '<label for="password">'.esc_html('Password','angelleye_give_when').'</label>';
-                                          $html .= '<input type="password" class="form-control" name="give_when_password" id="give_when_password" required="required">';
+                                        $html .= '<div class="gw_form-group gw-password">';
+                                          $html .= '<label class="gw_upper" for="password">'.esc_html('Password','angelleye_give_when').'</label>';
+                                          $html .= '<input type="password" class="gw_form-control" name="give_when_password" id="give_when_password" required="required">';
                                         $html .= '</div>';
-                                        $html .= '<div class="form-group gw-password">';
-                                          $html .= '<label for="password">'.esc_html('Re-type Password','angelleye_give_when').'</label>';
-                                          $html .= '<input type="password" class="form-control" name="give_when_retype_password" id="give_when_retype_password" required="required">';
+                                        $html .= '<div class="gw_form-group gw-password">';
+                                          $html .= '<label class="gw_upper" for="password">'.esc_html('Re-type Password','angelleye_give_when').'</label>';
+                                          $html .= '<input type="password" class="gw_form-control" name="give_when_retype_password" id="give_when_retype_password" required="required">';
                                         $html .= '</div>';
                                          }                                        
-                                        $html .= '<input type="hidden" class="form-control" name="give_when_page_id" id="give_when_page_id" value="'.$give_when_page_id.'">';
-                                        $html .= '<button type="button" class="btn btn-primary" id="give_when_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="'.$user_id.'">'.esc_html('Sign Up For ','angelleye_give_when') . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
+                                        $html .= '<input type="hidden" name="give_when_page_id" id="give_when_page_id" value="'.$give_when_page_id.'">';
+                                        $html .= '<button type="button" class="gw_btn gw_btn-primary" id="give_when_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="'.$user_id.'">'.esc_html('Sign Up For ','angelleye_give_when') . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
                                     $html .= '</form>';
-                                $html .= '</div>';
-                            $html .= '</div>';
-                        $html .= '</div>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                                $html .= '</div>'; // gwcontainer
+                            $html .= '</div>'; // gw_container                        
             }
         }
         return $html;        
