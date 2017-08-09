@@ -264,7 +264,7 @@ class Givewhen {
                     $sandbox = 'false';
                 }
                 if(isset($_GET['merchantIdInPayPal'])){
-                    $url = 'http://angelleye.project-demo.info/paypal/';
+                    $url = 'https://www.angelleye.com/web-services/givewhen/paypal-isu/';
                     $postData = "sandbox={$sandbox}&api=account_detail&merchantIdInPayPal={$_GET['merchantIdInPayPal']}";
                     $AccountDetail = AngellEYE_Give_When_PayPal_Connect_Setting::curl_request($url,$postData);
                     $AccountDetailArray = json_decode($AccountDetail,true);

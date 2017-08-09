@@ -147,6 +147,11 @@ class AngellEYE_Give_When_Public_Display {
                                           $html .= '<label for="email">'. esc_html('Email address','angelleye_give_when').'</label>';
                                           $html .= '<input type="email" class="form-control" name="give_when_email" id="give_when_email" autocomplete="off" required="required" value="'.$User_email.'">';
                                         $html .= '</div>';
+                                        $html .=  '<div class="checkbox">';
+                                        $html .=    '<label>';
+                                        $html .=      '<input type="checkbox">'.esc_html('Signup as Guest','angelleye_give_when');
+                                        $html .=    '</label>';
+                                        $html .=  '</div>';
                                     
                                          if ( ! is_user_logged_in() ) {
                                     

@@ -167,7 +167,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             <?php                                           
                                             if ($sb_paypal_account_id == false) {                                
                                                 $sandbox = 'true';
-                                                $url = 'http://angelleye.project-demo.info/paypal/';
+                                                $url = 'https://www.angelleye.com/web-services/givewhen/paypal-isu/';
                                                 $return_url = site_url('?action=permission_callback');
                                                 $postData = "sandbox={$sandbox}&api=connect_to_paypal&return_url={$return_url}";
                                                 $log_sandbox_connect = array(
@@ -260,7 +260,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             <?php                                            
                                             if ($live_paypal_account_id == false) {
                                                 $sandbox = 'false';
-                                                $url = 'http://angelleye.project-demo.info/paypal/';
+                                                $url = 'https://www.angelleye.com/web-services/givewhen/paypal-isu/';
                                                 $return_url = site_url('?action=permission_callback');
                                                 $postData = "sandbox={$sandbox}&api=connect_to_paypal&return_url={$return_url}";                                                
                                                 $log_live_connect = array(
