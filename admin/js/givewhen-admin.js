@@ -157,7 +157,12 @@
         $('#gw_connect_with_paypal_live').click(function (){
             $('#overlay').show();
         });
-    });
-    
+        $( "input[name='post_title']" ).focusout(function() {
+            $('input[name="trigger_thing"]').focus();    
+        });
+        $( ".btn-preview" ).focusout(function() {
+            $('#save-post').focus();
+        });
+    });    
 
 })(jQuery);
