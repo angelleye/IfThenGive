@@ -76,7 +76,7 @@ class Givewhen {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
                 //Handle callback response.
-                add_action('parse_request', array($this, 'handle_callback_permission'), 0);                
+                add_action('parse_request', array($this, 'handle_callback_permission'), 0);               
 	}
 
 	/**
@@ -203,7 +203,11 @@ class Givewhen {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-                $this->loader->add_filter( 'template_include', $plugin_public, 'give_when_template_loader' );                
+                
+                $this->loader->add_action( 'init', $plugin_public, 'rewrite');
+                $this->loader->add_filter( 'query_vars', $plugin_public, 'query_vars');
+                $this->loader->add_action( 'template_include', $plugin_public, 'change_template');
+                //$this->loader->add_filter( 'template_include', $plugin_public, 'give_when_template_loader' );                
 	}
 
 	/**
@@ -328,7 +332,7 @@ class Givewhen {
                         $log_write = new AngellEYE_Give_When_Logger();
                         $log_write->add('angelleye_give_when_express_checkout', 'GetExpressCheckout Failed : ' . print_r($logArray, true), 'express_checkout');
                     }
-                    wp_redirect(site_url('givewhenerrors'));
+                    wp_redirect(site_url('give-when-error'));
                     exit;
                 }
                     $PayPalResultCBA = $PayPal->CreateBillingAgreement($token);
@@ -396,7 +400,7 @@ class Givewhen {
                         $urlusr = base64_encode($goal_user_id);
                         $post = get_post($goal_post_id); 
                         $slug = $post->post_name;
-                        wp_redirect(site_url('givewhenthankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr));
+                        wp_redirect(site_url('give-when-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr));
                         exit;
                     }
                     else{
@@ -413,9 +417,9 @@ class Givewhen {
                                 $log_write = new AngellEYE_Give_When_Logger();
                                 $log_write->add('angelleye_give_when_express_checkout', 'CreateBillingAgreement Failed : ' . print_r($logArray, true), 'express_checkout');
                         }
-                        wp_redirect(site_url('givewhenerrors'));
+                        wp_redirect(site_url('give-when-error'));
                         exit;
                     }
             }                        
-        }
+        }                
 }

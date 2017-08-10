@@ -51,7 +51,7 @@ class Givewhen_Public {
 
         $this->plugin_name = $plugin_name;
         $this->version = $version;
-        $this->load_dependencies();
+        $this->load_dependencies();        
     }
 
     /**
@@ -131,50 +131,74 @@ class Givewhen_Public {
         return apply_filters('give_when_locate_template', $template, $template_name, $template_path, $default_path);
     }
 
-    /**
-     * Get template.
-     *
-     * Search for the template and include the file.
-     *
-     * @since 1.0.0
-     *
-     * @see PLUGIN_locate_template()
-     *
-     * @param string  $template_name          Template to load.
-     * @param array   $args                   Args passed for the template file.
-     * @param string  $string $template_path  Path to templates.
-     * @param string  $default_path           Default path to template files.
-     */
-    public function give_when_get_template($template_name, $args = array(), $tempate_path = '', $default_path = '') {        
-        if (is_array($args) && isset($args)) :
-            extract($args);
-        endif;
-        $template_file = contests_locate_template($template_name, $tempate_path, $default_path);
-        if (!file_exists($template_file)) :
-            _doing_it_wrong(__FUNCTION__, sprintf('<code>%s</code> does not exist.', $template_file), '1.0.0');
-            return;
-        endif;
-        include $template_file;
-    }
 
     public function give_when_template_loader($template) {
-        $find = array();
-        $file = '';
-        if (is_embed()) {
-            return $template;
+//        $find = array();
+//        $file = '';
+//        if (is_embed()) {
+//            return $template;
+//        }
+//        if (is_singular() && is_page('givewhenthankyou')):
+//            $file = 'goal-signup-complete.php';        
+//        endif;
+//        if (is_singular() && is_page('givewhenerrors')):
+//            $file = 'gw-errors-display.php';
+//        endif;
+//        if (is_singular() && is_page('GiveWhen Transaction')):
+//            $file = 'givewhen-my-transactions.php';
+//        endif;
+//        if ($file) :
+//            $template = $this->give_when_locate_template($file);
+//        endif;
+        return $template;
+    }
+    
+    /* rewrite function will be called at the time of Init action hook.
+         * it will rewrite our thing with endpoint urls.
+         * 
+         */
+        public function rewrite() {		
+		add_rewrite_rule( '^give-when-thankyou$', 'index.php?gwthankyou=1', 'top' );
+                add_rewrite_rule( '^give-when-error$', 'index.php?gwerror=1', 'top' );
+		if(get_transient( 'gw_flush' )) {
+			delete_transient( 'gw_flush' );
+			flush_rewrite_rules();
+		}
+	}  
+        
+        public function query_vars($vars){
+            $vars[] = 'gwthankyou';
+            $vars[] = 'gwerror';
+            return $vars;
         }
-        if (is_singular() && is_page('givewhenthankyou')):
-            $file = 'goal-signup-complete.php';        
-        endif;
-        if (is_singular() && is_page('givewhenerrors')):
-            $file = 'gw-errors-display.php';
-        endif;
-        if (is_singular() && is_page('GiveWhen Transaction')):
-            $file = 'givewhen-my-transactions.php';
-        endif;
-        if ($file) :
-            $template = $this->give_when_locate_template($file);
-        endif;
+        
+        public function change_template($template) {       
+
+        if (get_query_var('gwthankyou', false) !== false) {            
+
+            $newTemplate = locate_template(array('goal-signup-complete.php'));            
+            if ('' != $newTemplate)
+                return $newTemplate;
+
+            //Check plugin directory next
+            $newTemplate = GW_PLUGIN_DIR . '/templates/goal-signup-complete.php';
+            if (file_exists($newTemplate))
+                return $newTemplate;
+        }
+        
+        if (get_query_var('gwerror', false) !== false) {            
+
+            $newTemplate = locate_template(array('gw-errors-display.php'));            
+            if ('' != $newTemplate)
+                return $newTemplate;
+
+            //Check plugin directory next
+            $newTemplate = GW_PLUGIN_DIR . '/templates/gw-errors-display.php';
+            if (file_exists($newTemplate))
+                return $newTemplate;
+        }
+                
+        //Fall back to original template
         return $template;
     }
     
