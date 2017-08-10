@@ -33,84 +33,7 @@ class AngellEYE_Give_When_Public_Display {
             //wp_enqueue_style( 'givewhen-one', GW_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
         }
     }
-    public static function give_when_create_shortcode2($atts, $content = null) {
-    ?>
-    <div class="gw_container">
-
-        <div class="gw_post-item">
-            <div class="gw_post-title">
-                <h3><a href="#">Title Name</a></h3>
-            </div>
-            <div class="gw_post-image">
-                <a href="#">
-                    <img alt="" src="http://localhost/wp_event/wp-content/uploads/2017/08/Three-Swans.jpg">
-                </a>
-            </div>
-            <div class="gw_post-content-details">
-                <div class="gw_post-description">
-                    <p>In architecto adipisicing eu tempore In architecto adipisicing eu temporeIn architecto adipisicing eu temporeIn architecto adipisicing eu temporeIn architecto adipisicing eu tempore.</p>
-                </div>
-                <div class="gw_post-title">
-                    <h4><a href="#">I will Give : $1.00 When Thing Happned</a></h4>
-                </div>
-                <div class="gw_form-group">
-                    <label class="gw_upper">Select</label>
-                     <select class="gw_form-control" name="give_when_option_amount" id="give_when_option_amount"><option value="NaN">NaN</option></select> 
-                </div>
-                <div class="gw_form-group">
-                    <label class="gw_upper">Enter Amount</label>
-                     <input type="text" class="gw_form-control" placeholder="Enter Amount">
-                </div>
-                              
-            </div>
-        </div>   
-
-        <div class="gwcontainer">
-            <div class="gw_hr-title gw_center">
-                <abbr>Sign up for GiveWhen Goal</abbr>
-            </div>
-                <p class="text-info">Instruction</p>
-                
-            <ol>
-                    <li>Lorem ipsum dolor sit amet</li>
-                    <li>Consectetur adipiscing elit</li>
-                    <li>Integer molestie lorem at massa</li>
-                </ol>            
-            <form>
-                <div class="gw_form-group">
-                    <label class="gw_upper">Frist Name</label>
-                    <input type="text" class="gw_form-control" placeholder="Frist Name">
-                </div>
-                <div class="gw_form-group">
-                    <label class="gw_upper">Last Name</label>
-                    <input type="text" class="gw_form-control" placeholder="Last Name">
-                </div>
-                <div class="gw_form-group">
-                    <label class="gw_upper">Email</label>
-                    <input type="text" class="gw_form-control" placeholder="Email Address">
-                </div>
-
-                <div class="gw_form-group">
-                    <label class="gw_upper">Password</label>
-                    <input type="text" class="gw_form-control" placeholder="Password">
-                </div>
-                <div class="gw_form-group">
-                    <label class="gw_upper">Re-type Password</label>
-                    <input type="text" class="gw_form-control" placeholder="Re-Type Password">
-                </div>
-                <div class="gw_form-inline gw_form-group">
-                    <button class="gw_btn gw_btn-primary" type="button">Login</button>
-                        <!-- <div class="checkbox float-right">
-                            <label class="no-margin">
-                                <input type="checkbox">
-                                <small> Remember me</small> </label>
-                            </div> -->
-                        </div>
-                        <!-- <a href="#"><small>Lost your Password?</small></a> -->
-                    </form>
-                </div></div>    
-                <?php
-            }       
+          
     /**
      * give_when_create_shortcode function is for generate
      * @since 1.0.0
@@ -221,7 +144,7 @@ class AngellEYE_Give_When_Public_Display {
                                     $html .= '<form method="post" name="signup" id="give_when_signup">';
                                         $html .= '<div class="gw_form-group">';                                        
                                           $html .= '<label class="gw_upper" for="name">'.esc_html('First Name','angelleye_give_when').'</label>';
-                                          $html .= '<input type="text" class="gw_form-control" name="give_when_firstname" id="give_when_firstname" autocomplete="off" required="required" value="'.$User_first_name.'" autofocus="true">';
+                                          $html .= '<input type="text" class="gw_form-control" name="give_when_firstname" id="give_when_firstname" autocomplete="off" required="required" value="'.$User_first_name.'">';
                                         $html .= '</div>';
                                         $html .= '<div class="gw_form-group">';
                                           $html .= '<label class="gw_upper" for="name">'.esc_html('Last Name','angelleye_give_when').'</label>';
