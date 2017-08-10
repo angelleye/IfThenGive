@@ -180,7 +180,7 @@ class AngellEYE_Give_When_interface {
                     <div class=""><button type="button" class="btn btn-info btn-preview" data-toggle="modal" data-target="#preview-goal" >Preview</button></div>
                     <!-- Modal -->
                     <div id="preview-goal" class="modal fade" role="dialog">
-                      <div class="modal-dialog modal-lg">
+                      <div class="modal-dialog modal-md">
                         <?php 
                             $ccode = get_option('gw_currency_code');
                             $paypal = new Give_When_PayPal_Helper();
@@ -194,88 +194,78 @@ class AngellEYE_Give_When_interface {
                           </div>
                           <div class="modal-body">
                               <div class="row">
-                                  <div class="col-md-8 col-md-offset-2">
+                                  <div class="modal_gw_container">
                                       <div class="give_when_container">
-                                        <div class="row">                                               
-                                            <div class="col-md-12"><h1 class="trigger_name"></h1></div>
-                                            <div class="col-md-12">
-                                                <img src="" class="image_url" width="100%">
-                                                <br><br>
-                                                <p class="trigger_desc"></p>
+                                        <div class="gw_post-item">                                               
+                                            <div class="gw_post-title"><h3 class="trigger_name"></h3></div>
+                                            <div class="gw_post-image">
+                                                <img src="" class="image_url" width="100%">                                                
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="gw_post-content-details">
+                                                <div class="gw_post-description">
+                                                    <p class="trigger_desc"></p>
+                                                </div>
+                                                <div class="gw_post-title">
                                                     <div class="fixed_amount" style="display: none">
-                                                        <p class="lead fixed_amount">
+                                                        <h4 class="lead fixed_amount">
                                                         <?php _e('I will Give : ',''); ?> <?php echo " ".$symbol; ?><span id="give_when_fixed_price_span"></span> <?php _e('When ',''); ?> <span class="trigger_thing"> </span>
-                                                         </p>
-                                                    </div>
-                                                    <div class="manual_amount" style="display: none">
-                                                        <p class="lead manual_amount"><?php _e('I will Give :',''); ?><?php echo " ".$symbol." "; ?><span id="give_when_manual_price_span">50.00</span> <?php _e('When ',''); ?><span class="trigger_thing"></span></p>
-                                                        <div class="form-group">
-                                                            <label for="manualamout" class="control-label"><?php _e('Enter Amount',''); ?></label>
-                                                            <input type="text" name="gw_manual_amount_input" value="50" class="form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
-                                                        </div>
-                                                    </div>
-                                                     
-                                                <div class="select_amount" style="display: none">
-                                                    <p class="lead"> <?php _e('I will Give :',''); ?><?php echo " ".$symbol." "; ?><span id="give_when_fixed_price_span_select"></span> <?php _e('When ',''); ?><span class="trigger_name"></span></p>
-                                                    <div class="form-group">
-                                                        <select class="form-control" name="give_when_option_amount" id="give_when_option_amount">                                                            
-                                                        </select>
+                                                         </h4>
                                                     </div>
                                                 </div>
-                                            </div>                       
+                                               <div class="manual_amount" style="display: none">
+                                                        <h4 class="lead manual_amount"><?php _e('I will Give :',''); ?><?php echo " ".$symbol." "; ?><span id="give_when_manual_price_span">50.00</span> <?php _e('When ',''); ?><span class="trigger_thing"></span></h4>
+                                                        <div class="gw_form-group">
+                                                            <label for="manualamout" class="control-label"><?php _e('Enter Amount',''); ?></label>
+                                                            <input type="text" name="gw_manual_amount_input" value="50" class="gw_form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
+                                                        </div>
+                                                </div>
+                                                <div class="select_amount" style="display: none">
+                                                    <h4 class="lead"> <?php _e('I will Give :',''); ?><?php echo " ".$symbol." "; ?><span id="give_when_fixed_price_span_select"></span> <?php _e('When ',''); ?><span class="trigger_name"></span></h4>
+                                                    <div class="gw_form-group">
+                                                        <label class="gw_upper">Select</label>
+                                                        <select class="gw_form-control" name="give_when_option_amount" id="give_when_option_amount"></select>
+                                                    </div>
+                                                </div>
+                                            </div>                                                            
                                         </div>
                                                            
-                                         <div class="row" id="give_when_signup_form">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-info">
-                                                    <div class="panel-heading"> <?php _e('Sign up for',''); ?> <span class="trigger_name"></span></div>
-                                                    <div class="panel-body">
-                                                         <div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">
-                                                            <span id="connect_paypal_error_p"></span>
-                                                        </div>
-                                                        
-                                                        <form method="post" name="signup" id="give_when_signup">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <p class="text-primary">Instruction:</p>
-                                                                    <ol>
-                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
-                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
-                                                                        <li class="text-primary">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </li>
-                                                                    </ol>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                              <label for="name"><?php _e('First Name','angelleye_give_when'); ?></label>
-                                                              <input type="text" class="form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="" autocomplete="off">
-                                                            </div>
-                                                            <div class="form-group">
-                                                              <label for="name"><?php _e('Last Name','angelleye_give_when'); ?></label>
-                                                              <input type="text" class="form-control" name="give_when_lastname" id="give_when_lastname" required="required" value="" autocomplete="off">
-                                                            </div>
-                                                            <div class="form-group">
-                                                              <label for="email"><?php _e('Email address','angelleye_give_when'); ?></label>
-                                                              <input type="email" class="form-control" name="give_when_email" id="give_when_email" required="required" value="" autocomplete="off">
-                                                            </div>
-                                                            
-                                                            <div class="signup-fields">
-                                                                <div class="form-group">
-                                                                  <label for="password"><?php _e('Password','angelleye_give_when'); ?></label>
-                                                                  <input type="password" class="form-control" name="give_when_password" id="give_when_password" required="required" autocomplete="off">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                  <label for="password"><?php _e('Re-type Password','angelleye_give_when'); ?></label>
-                                                                  <input type="password" class="form-control" name="give_when_retype_password" id="give_when_retype_password" required="required" autocomplete="off">
-                                                                </div>
-                                                            </div>                                                            
-                                                            <button type="button" class="btn btn-primary" ><?php _e('Sign Up For','angelleye_give_when'); ?> <span class="trigger_name"></span></button>
-                                                        </form>
-                                                    </div>
-                                                </div>
+                                        <div class="gwcontainer" id="give_when_signup_form">
+                                            <div class="gw_hr-title gw_center">
+                                                <abbr><?php _e('Sign up for',''); ?> <span class="trigger_name"></span></abbr>
                                             </div>
-                                        </div>                                        
+                                            <p class="text-info">Instruction</p>
+                                            <ol>
+                                                <li>Lorem ipsum dolor sit amet</li>
+                                                <li>Consectetur adipiscing elit</li>
+                                                <li>Integer molestie lorem at massa</li>
+                                            </ol>
+                                            <form method="post" name="signup" id="give_when_signup">
+                                                <div class="gw_form-group">
+                                                    <label class="gw_upper">Frist Name</label>
+                                                    <input type="text" class="gw_form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="" autocomplete="off">
+                                                </div>
+                                                <div class="gw_form-group">
+                                                     <label for="gw_upper"><?php _e('Last Name','angelleye_give_when'); ?></label>
+                                                      <input type="text" class="gw_form-control" name="give_when_lastname" id="give_when_lastname" required="required" value="" autocomplete="off">
+                                                </div>
+                                                 <div class="gw_form-group">
+                                                    <label for="gw_upper"><?php _e('Email address','angelleye_give_when'); ?></label>
+                                                    <input type="email" class="gw_form-control" name="give_when_email" id="give_when_email" required="required" value="" autocomplete="off">
+                                                </div>
+                                                <div class="gw_form-group">
+                                                    <label for="gw_upper"><?php _e('Password','angelleye_give_when'); ?></label>
+                                                    <input type="password" class="gw_form-control" name="give_when_password" id="give_when_password" required="required" autocomplete="off">
+                                                </div>
+                                                <div class="gw_form-group">
+                                                    <label for="gw_upper"><?php _e('Re-type Password','angelleye_give_when'); ?></label>
+                                                    <input type="password" class="gw_form-control" name="give_when_retype_password" id="give_when_retype_password" required="required" autocomplete="off">
+                                                </div>
+                                                <div class="gw_form-inline gw_form-group">
+                                                    <button type="button" class="gw_btn gw_btn-primary" ><?php _e('Sign Up For','angelleye_give_when'); ?> <span class="trigger_name"></span></button>
+                                                </div>  
+                                                 
+                                            </form>
+                                        </div>                                                                                 
                                     </div>
                                   </div>
                               </div>
@@ -284,7 +274,6 @@ class AngellEYE_Give_When_interface {
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                           </div>
                         </div>
-
                       </div>
                     </div>
                     <!-- End Modal -->
