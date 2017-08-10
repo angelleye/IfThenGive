@@ -135,7 +135,7 @@ class AngellEYE_Give_When_Public_Display {
                             <h1 style="font-weight: 600;">'.esc_html('Please dont\'t go back , We are redirecting you to PayPal','').'</h1></div>';
                 $html .= '</div>';
                 $html .= '</div>';
-                $html .= '<div class="gw_container">';     // baki               
+                $html .= '<div class="gw_container">';
                     $html .= '<div class="gw_post-item">';                           
                             
                             $html .= '<div class="gw_post-title">
@@ -193,7 +193,7 @@ class AngellEYE_Give_When_Public_Display {
                         $html .= '<abbr>'.esc_html('Sign up for ',''). get_post_meta( $post->ID, 'trigger_name', true ).'</abbr>';
                         $html .= '</div>';
                                                              
-                        $html .= '<div class="alert alert-warning" id="connect_paypal_error_public" style="display: none">';
+                        $html .= '<div class="gw_alert gw_alert-warning" id="connect_paypal_error_public" style="display: none">';
                         $html .= '<span id="connect_paypal_error_p"></span>';
                         $html .= '</div>';
                         

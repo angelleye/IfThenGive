@@ -376,6 +376,20 @@ form {
     font-family: "Open Sans", sans-serif;
 }
 
+.gw_alert {
+    color: #fff;    
+    border-radius: 0;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-left-width: 10px;
+}
+
+.gw_alert-warning {
+    background-color: #f6b63a;
+    border-color: #ffcd51;
+}
+
 @media (min-width: 1200px){
 .gwcontainer {
     width: 1170px;
