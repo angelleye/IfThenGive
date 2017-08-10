@@ -337,6 +337,31 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     exit;
   }
 }
+    public function extra_tablenav($which) {
+        global $wpdb, $testiURL, $tablename, $tablet;
+        $move_on_url = '&post=' . $_REQUEST['post'] . '&view=ListTransactions&payment_status-filter=';
+        $selected = "selected='selected'";
+        $status_filter = !empty($_REQUEST['payment_status-filter']) ? $_REQUEST['payment_status-filter'] : '';
+        $rs_filter = !empty($_REQUEST['records_show-filter']) ? $_REQUEST['records_show-filter'] : '';
+        if ($which == "top") {
+            ?>
+            <div class="alignleft actions bulkactions">                                
+                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
+                <select name="number_of_trans" class="ewc-filter-num">
+                    <option value=""><?php _e('Show Number of Records','angelleye_give_when'); ?></option>
+                    <option value="10" <?php if($rs_filter === '10') { echo $selected; } ?>>10</option>
+                    <option value="25" <?php if($rs_filter === '25') { echo $selected; } ?>>25</option>
+                    <option value="50" <?php if($rs_filter === '50') { echo $selected; } ?>>50</option>
+                    <option value="100" <?php if($rs_filter === '100') { echo $selected; } ?>>100</option>
+                </select>
+            </div>
+            <?php
+        }
+        if ($which == "bottom") {
+            //The code that goes after the table is there
+        }
+    }
+
 }
 
 AngellEYE_Give_When_Givers_Table::init();

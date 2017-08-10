@@ -384,6 +384,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
         if ($which == "top") {
             ?>
             <div class="alignleft actions bulkactions">
+                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
                 <select name="cat-filter" class="ewc-filter-cat">
                     <option value=""><?php _e('Filter by Payment Status','angelleye_give_when'); ?></option>
                     <option value="all"><?php _e('Show All','angelleye_give_when'); ?></option>

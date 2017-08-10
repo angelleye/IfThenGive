@@ -4,9 +4,17 @@
  */
 
 .give_when_container{
-    max-width: 100%;    
+    max-width: 100%;     
 }
 
+.give_when_admin_container{
+    border-radius: 6px;
+    border: 1px solid rgba(7, 103, 153, 0.98);
+    position: relative;
+    overflow: hidden;
+    padding: 24px 30px;
+    background-color: white;
+}
 .give_when_container p{
     font-size: 14px;
     font-weight: bold;
@@ -192,3 +200,47 @@ input:checked + .slider:before {
     color: whitesmoke !important ;
     font-weight: 600;
 }
+
+.gw_hr-title {
+    border-top-style: solid;
+    border-top-width: 1px;
+    font-size: 22px;
+    text-align: center;
+    height: 10px;
+    line-height: 20px;
+    margin: 10px 0;
+    height: auto;
+    color: #f58634;
+    font-weight: 600;
+}
+
+.gw_hr-title.gw_hr-long {
+    width: 100%;
+    margin: 25px auto 5px;
+}
+
+.gw_hr-title abbr {
+    padding: 2px 10px;
+    border-radius: 2px;
+    position: relative;
+    top: -10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+.gw_hr-title abbr {
+    background-color: #ffffff;    
+}
+.tablenav-pages-navspan{
+    height: auto;
+}
+.gw_text-info {
+    color: #076799;
+}
+.gw_btn-primary {
+    color: #fff;
+    background-color: #076799;
+    border-color: #076799;
+}
+.gw_btn-primary:hover, .gw_btn-primary:focus, .gw_btn-primary.focus{
+    color: #fff;
+} 

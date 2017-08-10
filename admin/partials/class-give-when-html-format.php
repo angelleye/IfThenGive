@@ -407,24 +407,20 @@ class AngellEYE_Give_When_interface {
         global $post, $post_ID;
         ?>
         <div class="wrap">            
-            <div class="give_when_container">
+            <div class="give_when_admin_container">
                 <div class="row">
-                    <div class="col-md-12 text-center">
-        <?php
-        $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
-        ?>
-                        <h3 class="text-info"><?php echo __('Givers For ', 'angelleye_give_when'); ?><?php echo $trigger_name; ?> </h3>
-                    </div>                
-                </div>
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <span class="text-info"><?php echo __('Click ', 'angelleye_give_when'); ?><strong>"Process Donation"</strong><?php echo __(' Button to Capture your Transactions.', 'angelleye_give_when'); ?></span><br/>                    
-                        <a class="btn btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation','angelleye_give_when'); ?></a>
-                    </div>
                     <div class="col-md-12">
-                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
+                        <?php
+                        $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
+                        ?>
+                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
+                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php echo __('Givers For ', 'angelleye_give_when'); ?><?php echo $trigger_name; ?></abbr></div>
                     </div>
-                </div>            
+                    <div class="col-md-12 text-center">
+                        <span class="gw_text-info"><?php echo __('Click ', 'angelleye_give_when'); ?><strong>"Process Donation"</strong><?php echo __(' Button to Capture your Transactions.', 'angelleye_give_when'); ?></span><br/>                    
+                        <a class="btn gw_btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation','angelleye_give_when'); ?></a>
+                    </div>
+                </div>                            
                 <div class="row">
                     <div class="col-md-12">                                     
         <?php
@@ -506,12 +502,12 @@ class AngellEYE_Give_When_interface {
             ob_start();
         ?>
         <div class="wrap">
-            <div class="give_when_container">
+            <div class="give_when_admin_container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading"><?php _e('Capturing Transactions','angelleye_give_when'); ?></div>
-                            <div class="panel-body">
+                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
+                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Transactions','angelleye_give_when'); ?></abbr></div>
+                        
+                    <div class="col-md-12">                        
                                 <div class="table-responsive">
         <?php
         echo $EmailString.='<table class="table table-striped">
@@ -609,8 +605,8 @@ class AngellEYE_Give_When_interface {
                                     ?>              <?php echo $endtabeEmailString = "</table>";
                             $EmailString.=$endtabeEmailString; ?>
                                 </div>
-                            </div>
-                        </div>
+                            
+                        
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -651,17 +647,15 @@ class AngellEYE_Give_When_interface {
         global $post, $post_ID;
         ?>
         <div class="wrap">
-            <div class="give_when_container">
+            <div class="give_when_admin_container">
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <?php
                         $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
                         ?>
-                        <h3 class="text-info"><?php _e('Transactions for ','angelleye_give_when'); ?> <?php echo __($trigger_name,'angelleye_give_when') ; ?></h3>
-                    </div>
-                    <div class="col-md-12">
-                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
-                    </div>
+                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
+                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transactions for ','angelleye_give_when'); ?> <?php echo __($trigger_name,'angelleye_give_when') ; ?></abbr></div>                        
+                    </div>                    
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -700,25 +694,11 @@ class AngellEYE_Give_When_interface {
             $requestData = $PayPalResultTransactionDetail['REQUESTDATA'];
             ?>
             <div class="wrap">
-                <div class="give_when_container">
+                <div class="give_when_admin_container">                                    
                     <div class="row">
-                        <div class="col-md-12 text-center">
-                            <h3 class="text-info"><?php _e('Transaction Details','angelleye_give_when'); ?></h3>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-md-12">
-                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>"><?php _e('Back To Goals','angelleye_give_when'); ?></a>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <?php _e('Transaction Id ','angelleye_give_when'); ?> <?php echo '#' . $_REQUEST['txn_id']; ?> 
-                                </div>
-                                <div class="panel-body">
+                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
+                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transaction Id ','angelleye_give_when'); ?> <?php echo '#' . $_REQUEST['txn_id']; ?></abbr></div>                            
+                        <div class="col-md-10">
                                     <div class="col-md-2">
                                         <label class="text-primary"><?php _e('Payer Email :','angelleye_give_when'); ?></label>
                                     </div>
@@ -798,18 +778,19 @@ class AngellEYE_Give_When_interface {
                                     <div class="col-md-3">
                                         <?php echo isset($PayPalResultTransactionDetail['PENDINGREASON']) ? $PayPalResultTransactionDetail['PENDINGREASON'] : ''; ?>
                                     </div>                                                                        
-                                    <div class="clearfix"></div>
-                                </div>                        
-                            </div>
-                        </div>                
-                    </div>
+                                    <div class="clearfix"></div>                                                                                   
+                                    <div class="col-md-3">
+                                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>"><?php _e('Back To Goals','angelleye_give_when'); ?></a>
+                                    </div>
+                        </div>                                        
+                    </div>                     
                 </div>        
             </div>
             <?php
         } else {
             ?>
                 <div class="wrap">
-                    <div class="give_when_container">
+                    <div class="give_when_admin_container">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-success" role="alert">
@@ -872,12 +853,11 @@ class AngellEYE_Give_When_interface {
             ob_start();
         ?>
         <div class="wrap">
-            <div class="give_when_container">
+            <div class="give_when_admin_container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading"><?php _e('Capturing Failure Payments','angelleye_give_when'); ?></div>
-                            <div class="panel-body">
+                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
+                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Failure Payments','angelleye_give_when'); ?></abbr></div>                    
+                    <div class="col-md-12">                        
                                 <div class="table-responsive">
                                     <?php
                                     echo $EmailString.='<table class="table table-striped">
@@ -965,9 +945,7 @@ class AngellEYE_Give_When_interface {
                                     }
                                     ?>              <?php echo $endtabeEmailString = "</table>";
                             $EmailString.=$endtabeEmailString; ?>
-                                </div>
-                            </div>
-                        </div>
+                                </div>                            
                     </div>
                 </div>
                 <div class="clearfix"></div>
