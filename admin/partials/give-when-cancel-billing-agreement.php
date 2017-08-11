@@ -39,12 +39,23 @@ class AngellEYE_Give_When_Cancel_Billing_Agreement {
         //print_r($PayPalResult);
     }
     public static function Cancel_Billing_Agreement_delete_giver_message($users){
-        $user_id = $_REQUEST['user'];
-        $user_meta=get_userdata($user_id); 
-        $user_roles=$user_meta->roles; 
-        if (in_array("giver", $user_roles)){
-            echo '<b>'.__('Deleting this Giver will also cancel their PayPal billing agreement.').'</b>';
+        if(isset($_REQUEST['user'])){
+            $user_meta=get_userdata($user_id); 
+            $user_roles=$user_meta->roles; 
+            if (in_array("giver", $user_roles)){
+                echo '<b>'.__('Deleting this Giver will also cancel their PayPal billing agreement.').'</b>';
+            }
         }
+        if(isset($_REQUEST['users']) && !empty($_REQUEST['users'])){
+            foreach ($_REQUEST['users'] as $user_id) {
+                $user_meta=get_userdata($user_id); 
+                $user_roles=$user_meta->roles; 
+            }
+            if (in_array("giver", $user_roles)){
+                echo '<b>'.__('Deleting this Givers will also cancel their PayPal billing agreement.').'</b>';
+            }
+        }
+        
     }
 
 }
