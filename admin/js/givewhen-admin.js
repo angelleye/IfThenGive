@@ -67,12 +67,12 @@
             {
                 var shortcodeValues = [];                
                 jQuery.each(gw_shortcodes_button_array.shortcodes_button, function( post_id, post_title )
-                {
+                {                    
                     shortcodeValues.push({
                         text: post_title, 
                         value: post_id
-                    });
-
+                    });                  
+                    
                 });
                 editor.addButton('give_when_shortcodes', {
                     text: 'GiveWhen',
@@ -80,8 +80,13 @@
                     title: 'GiveWhen',
                     cmd: 'give_when_shortcodes',
                     icon: 'mce-ico mce-i-wp_more',
-                    onselect: function() {
-                         tinyMCE.activeEditor.selection.setContent( '[give_when_goal id=' + this.value() + ']' );
+                    onselect: function() {                        
+                        if(this.text()=='GiveWhen Trnasaction'){
+                            tinyMCE.activeEditor.selection.setContent( '[givewhen_my_transaction]' );
+                        }
+                        else{
+                            tinyMCE.activeEditor.selection.setContent( '[give_when_goal id=' + this.value() + ']' );
+                        }                         
                     },
                     values: shortcodeValues
                 });                                
