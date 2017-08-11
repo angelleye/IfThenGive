@@ -120,7 +120,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                     delete_option('give_when_permission_connect_to_paypal_failed_notice');
                                 }
                                 ?>                                
-                                <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
+                                <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">                                    
                                 <div class="div_log_settings">                                    
                                         <table class="form-table">
                                             <tbody>
@@ -302,15 +302,15 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         <div class="col-lg-12 col-md-12 col-sm-12 collapse" id="gwliveClass">
                                             <div class="form-group">
                                                 <label for="APIUserName"><?php _e('API User Name','angelleye_give_when'); ?></label>
-                                                <input type="text" class="form-control" id="give_when_sandbox_api_credentials_api_user_name" name="give_when_sandbox_api_credentials_api_user_name" value="<?php echo isset($live_api_user_name) ? $live_api_user_name : ''; ?>">
+                                                <input type="text" class="form-control" id="give_when_live_api_credentials_api_user_name" name="give_when_live_api_credentials_api_user_name" value="<?php echo isset($live_api_user_name) ? $live_api_user_name : ''; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="APIPassword"><?php _e('API Password','angelleye_give_when'); ?></label>
-                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_api_password" name="give_when_sandbox_api_credentials_api_password" value="<?php echo isset($live_api_password) ? $live_api_password : ''; ?>">
+                                                <input type="password" class="form-control" id="give_when_live_api_credentials_api_password" name="give_when_live_api_credentials_api_password" value="<?php echo isset($live_api_password) ? $live_api_password : ''; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="APISignature"><?php _e('API Signature','angelleye_give_when'); ?></label>
-                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_signature" name="give_when_sandbox_api_credentials_signature" value="<?php echo isset($live_signature) ? $live_signature : ''; ?>">
+                                                <input type="password" class="form-control" id="give_when_live_api_credentials_signature" name="give_when_live_api_credentials_signature" value="<?php echo isset($live_signature) ? $live_signature : ''; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -414,11 +414,23 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
      * @access public static
      * 
      */
-    public static function give_when_connect_to_paypal_setting_save_field() {
+    public static function give_when_connect_to_paypal_setting_save_field() {        
         $givewhen_setting_fields = self::give_when_connect_to_paypal_setting_fields();
         $Html_output = new AngellEYE_Give_When_Html_output();
         $Html_output->save_fields($givewhen_setting_fields);        
-        if (isset($_POST['give_when_intigration'])):            
+        if (isset($_POST['give_when_intigration'])): 
+            if(isset($_POST['sandbox_enable_give_when']) && $_POST['sandbox_enable_give_when'] == '1'){                                
+                update_option('give_when_sandbox_api_credentials_api_user_name',$_POST["give_when_sandbox_api_credentials_api_user_name"]);
+                update_option('give_when_sandbox_api_credentials_api_password',$_POST["give_when_sandbox_api_credentials_api_password"]);
+                update_option('give_when_sandbox_api_credentials_signature',$_POST["give_when_sandbox_api_credentials_signature"]);
+                update_option('give_when_sandbox_connected_to_paypal', 'Yes');                                                                
+            }
+            else{                
+                update_option('give_when_live_api_credentials_api_user_name',$_POST['give_when_live_api_credentials_api_user_name']);
+                update_option('give_when_live_api_credentials_api_password',$_POST['give_when_live_api_credentials_api_password']);
+                update_option('give_when_live_api_credentials_signature',$_POST['give_when_live_api_credentials_signature']);
+                update_option('give_when_live_connected_to_paypal', 'Yes');
+            }
             if(isset($_POST['gw_currency_code'])){
                 update_option('gw_currency_code', $_POST['gw_currency_code']);
             }

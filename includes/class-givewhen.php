@@ -393,7 +393,7 @@ class Givewhen {
                                 $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultCBA['RAWREQUEST']);
                                 $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
                                 $log_write = new AngellEYE_Give_When_Logger();
-                                $log_write->add('angelleye_give_when_express_checkout', 'CreateBillingAgreement Success : ' . print_r($PayPalResultCBA, true), 'express_checkout');
+                                $log_write->add('angelleye_give_when_express_checkout', 'CreateBillingAgreement Success : ' . print_r($logArray, true), 'express_checkout');
                         }
                         $amount = base64_encode($amount);
                         $urlusr = base64_encode($goal_user_id);
