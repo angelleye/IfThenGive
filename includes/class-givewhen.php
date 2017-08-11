@@ -206,8 +206,7 @@ class Givewhen {
                 
                 $this->loader->add_action( 'init', $plugin_public, 'rewrite');
                 $this->loader->add_filter( 'query_vars', $plugin_public, 'query_vars');
-                $this->loader->add_action( 'template_include', $plugin_public, 'change_template');
-                //$this->loader->add_filter( 'template_include', $plugin_public, 'give_when_template_loader' );                
+                $this->loader->add_action( 'template_include', $plugin_public, 'change_template');                
 	}
 
 	/**

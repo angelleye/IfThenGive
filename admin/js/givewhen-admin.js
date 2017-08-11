@@ -65,7 +65,7 @@
             console.log('Hey');
             tinymce.PluginManager.add('give_when_shortcodes', function( editor )
             {
-                var shortcodeValues = [];
+                var shortcodeValues = [];                
                 jQuery.each(gw_shortcodes_button_array.shortcodes_button, function( post_id, post_title )
                 {
                     shortcodeValues.push({
@@ -84,7 +84,7 @@
                          tinyMCE.activeEditor.selection.setContent( '[give_when_goal id=' + this.value() + ']' );
                     },
                     values: shortcodeValues
-                });
+                });                                
             });
         }
         

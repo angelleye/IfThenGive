@@ -107,10 +107,10 @@ class Givewhen_Public {
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/givewhen-public-display.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_transactions.php';        
-        //add_shortcode( 'givewhen_thankyou', array(__CLASS__,'givewhen_thankyou_shortcode'));
+        add_shortcode( 'givewhen_my_transaction', array(__CLASS__,'givewhen_my_transaction_shortcode'));
     }
 
-    public function give_when_locate_template($template_name, $template_path = '', $default_path = '') {
+    public static function give_when_locate_template($template_name, $template_path = '', $default_path = '') {
         // Set variable to search in the templates folder of theme.
         if (!$template_path) :
             $template_path = 'templates/';
@@ -130,27 +130,17 @@ class Givewhen_Public {
         endif;
         return apply_filters('give_when_locate_template', $template, $template_name, $template_path, $default_path);
     }
-
-
-    public function give_when_template_loader($template) {
-//        $find = array();
-//        $file = '';
-//        if (is_embed()) {
-//            return $template;
-//        }
-//        if (is_singular() && is_page('givewhenthankyou')):
-//            $file = 'goal-signup-complete.php';        
-//        endif;
-//        if (is_singular() && is_page('givewhenerrors')):
-//            $file = 'gw-errors-display.php';
-//        endif;
-//        if (is_singular() && is_page('GiveWhen Transaction')):
-//            $file = 'givewhen-my-transactions.php';
-//        endif;
-//        if ($file) :
-//            $template = $this->give_when_locate_template($file);
-//        endif;
-        return $template;
+    
+    public static function gw_get_template( $template_name, $args = array(), $tempate_path = '', $default_path = '' ) {
+	if ( is_array( $args ) && isset( $args ) ) :
+		extract( $args );
+	endif;
+	$template_file = self::give_when_locate_template( $template_name, $tempate_path, $default_path );
+	if ( ! file_exists( $template_file ) ) :
+		_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_file ), '1.0.0' );
+		return;
+	endif;
+	include $template_file;
     }
     
     /* rewrite function will be called at the time of Init action hook.
@@ -202,8 +192,9 @@ class Givewhen_Public {
         return $template;
     }
     
-//    public function givewhen_thankyou_shortcode() {
-//    	return give_when_get_template( 'goal-signup-complete.php');
-//    }
+    public static function givewhen_my_transaction_shortcode() {
+        $template = self::gw_get_template('givewhen-my-transactions.php');
+        return $template; 
+    }
 
 }

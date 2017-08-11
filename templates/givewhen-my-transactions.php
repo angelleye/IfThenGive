@@ -1,8 +1,8 @@
 <?php
 /**
- * GiveWhen Thankyou template.
+ * GiveWhenTransaction template.
  *
- * This template can be overriden by copying this file to your-theme/GiveWhen/goal-signup-complete.php
+ * This template can be overriden by copying this file to your-theme/GiveWhen/givewhen-my-transactions.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	Givewhen
@@ -13,7 +13,7 @@ if (!defined('ABSPATH'))
 ?>
 
 <?php
-get_header();
+if(! is_admin()){
 ?>
 <div class="gw_center_container">
     
@@ -23,7 +23,7 @@ get_header();
 
     <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Transactions', 'angelleye_give_when') ?></abbr></div>
     <div class="gw_table-responsive">
-        <table class="gw_table" id="GiveWhen_Transaction_Table">
+        <table class="gw_table" id="GiveWhen_Transaction_Table" width="100%">
             <thead>
                 <tr>
                     <th><?php _e('Transaction ID', 'angelleye_give_when'); ?></th>
@@ -43,7 +43,6 @@ get_header();
 $ccode = get_option('gw_currency_code');
 $paypal = new Give_When_PayPal_Helper();
 $symbol = $paypal->get_currency_symbol($ccode);
-get_footer();
 ?>
 <script>
     jQuery(document).ready(function ($) {
@@ -107,3 +106,4 @@ get_footer();
         });
     });
 </script>
+<?php }
