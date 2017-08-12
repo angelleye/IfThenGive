@@ -199,19 +199,19 @@ class Givewhen_Admin {
         $custom_message = 'Goal Created Successfully';
         $messages['give_when_goals'] = array(
 		0 => '', // Unused. Messages start at index 1.
-		1 => sprintf(__('Goal Updated Successfully')),
-		2 => __('Custom field updated.'),
-		3 => __('Custom field deleted.'),
-		4 => __($custom_message),
+		1 => sprintf(__('Goal Updated Successfully','givewhen')),
+		2 => __('Custom field updated.','givewhen'),
+		3 => __('Custom field deleted.','givewhen'),
+		4 => __($custom_message,'givewhen'),
 		/* translators: %s: date and time of the revision */
-		5 => isset($_GET['revision']) ? sprintf(__('Goal restored to revision from %s'), wp_post_revision_title((int) $_GET['revision'], false)) : false,
-		6 => sprintf(__($custom_message)),
-		7 => __('Goal saved.'),
-		8 => sprintf(__('Goal submitted. <a target="_blank" href="%s">Preview Goal</a>'), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
-		9 => sprintf(__('Goal scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Goal</a>'),
+		5 => isset($_GET['revision']) ? sprintf(__('Goal restored to revision from %s','givewhen'), wp_post_revision_title((int) $_GET['revision'], false)) : false,
+		6 => sprintf(__($custom_message,'givewhen')),
+		7 => __('Goal saved.','givewhen'),
+		8 => sprintf(__('Goal submitted. <a target="_blank" href="%s">Preview Goal</a>','givewhen'), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+		9 => sprintf(__('Goal scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Goal</a>','givewhen'),
 		// translators: Publish box date format, see http://php.net/date
 		date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date)), esc_url(get_permalink($post_ID))),
-		10 => sprintf(__('Goal draft updated. <a target="_blank" href="%s">Preview Goal</a>'), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+		10 => sprintf(__('Goal draft updated. <a target="_blank" href="%s">Preview Goal</a>','givewhen'), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
 		);
 		return $messages;
 

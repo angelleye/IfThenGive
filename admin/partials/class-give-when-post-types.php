@@ -102,9 +102,9 @@ class AngellEYE_Give_When_Post_types {
 
         $columns = array(
             'cb' => '<input type="checkbox" />',
-            'title' => __('Give Goal Name'),
-            'shortcodes' => __('Shortcodes'),
-            'date' => __('Date')
+            'title' => __('Give Goal Name','givewhen'),
+            'shortcodes' => __('Shortcodes','givewhen'),
+            'date' => __('Date','givewhen')
         );
 
         return $columns;
@@ -145,7 +145,7 @@ class AngellEYE_Give_When_Post_types {
      * @access public
      */
     public static function give_when_add_meta_boxes() {
-        add_meta_box('give-when-meta-id', __('GiveWhen Goal'), array(__CLASS__, 'give_when_metabox'), 'give_when_goals', 'normal', 'high');
+        add_meta_box('give-when-meta-id', __('GiveWhen Goal','givewhen'), array(__CLASS__, 'give_when_metabox'), 'give_when_goals', 'normal', 'high');
     }
     
      /**

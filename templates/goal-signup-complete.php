@@ -39,8 +39,8 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $ccode = get_option('gw_currency_code');
         $paypal = new Give_When_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
-        echo "<h2>".__('Hi '). $user->display_name . __(', Thank You for signed up in ') . $trigger_name. "</h2>";
-        echo "<span>" . __('Each time you will give ').$symbol.$amount.' '. __('when').' '.$trigger_thing. "</span>";
+        echo "<h2>".__('Hi ','givewhen'). $user->display_name . __(', Thank You for signed up in ','givewhen') . $trigger_name. "</h2>";
+        echo "<span>" . __('Each time you will give ','givewhen').$symbol.$amount.' '. __('when','givewhen').' '.$trigger_thing. "</span>";
         $EmailString='';
         $EmailString.='<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
                                 <tr>
@@ -84,8 +84,8 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
 }
 else{
     ?>
-            <h3><?php echo __("You are accessing this page without signed up for GiveWhen Goal"); ?></h3>
-            <span><?php echo __("Try again Sigining in for GiveWhen Goals."); ?></span>
+            <h3><?php echo __("You are accessing this page without signed up for GiveWhen Goal",'givewhen'); ?></h3>
+            <span><?php echo __("Try again Sigining in for GiveWhen Goals.",'givewhen'); ?></span>
 <?php
     }
 ?>

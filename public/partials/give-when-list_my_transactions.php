@@ -140,7 +140,7 @@ class AngellEYE_Give_When_My_Transactions_Table {
     public function column_default($item, $column_name) {
         switch ($column_name) {
             case 'transactionId':
-                _e($item['transactionId']);
+                _e($item['transactionId'],'givewhen');
                 break;
             case 'user_display_name':
                 _e($item['user_display_name'],'givewhen');

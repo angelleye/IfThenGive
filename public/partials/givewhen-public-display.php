@@ -192,24 +192,24 @@ class AngellEYE_Give_When_Public_Display {
         $ValidationErrors = array();
         $fname = sanitize_text_field( $gwuser['give_when_firstname']);
         if (!preg_match("/^[a-zA-Z]+$/",$fname)) {
-          $ValidationErrors['FirstName'] = __("Invalid Input : Only letters allowed in First Name");
+          $ValidationErrors['FirstName'] = __("Invalid Input : Only letters allowed in First Name",'givewhen');
         }
         $lname = sanitize_text_field($gwuser['give_when_lastname']);
         if (!preg_match("/^[a-zA-Z]+$/",$lname)) {
-          $ValidationErrors['LastName'] = __("Invalid Input : Only letters allowed in Last Name");
+          $ValidationErrors['LastName'] = __("Invalid Input : Only letters allowed in Last Name",'givewhen');
         }
 
         $email = $gwuser['give_when_email'];
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $ValidationErrors['Email'] = __("Invalid email format");
+            $ValidationErrors['Email'] = __("Invalid email format",'givewhen');
         }
         if(isset($gwuser['give_when_password'])){
             if ($gwuser['give_when_password'] !== $gwuser['give_when_retype_password']) {
-                $ValidationErrors['Password'] = __("Mismatch Input : Password Fields are not matched");
+                $ValidationErrors['Password'] = __("Mismatch Input : Password Fields are not matched",'givewhen');
             }
         }                                
         if(!empty($ValidationErrors)){
-            echo json_encode(array('Ack'=>__('ValidationError'),'ErrorCode'=>__('Invalid Inputs'),'ErrorLong'=>'Please find Following Error','Errors'=>$ValidationErrors));
+            echo json_encode(array('Ack'=>__('ValidationError','givewhen'),'ErrorCode'=>__('Invalid Inputs','givewhen'),'ErrorLong'=>__('Please find Following Error','givewhen'),'Errors'=>$ValidationErrors));
             exit;
         }            
         /*valodation End */            
@@ -269,7 +269,7 @@ class AngellEYE_Give_When_Public_Display {
                 $goalArray = explode('|', $signnedup_goals[0]);                
                 if(!empty($goalArray)){
                     if(in_array($post_id, $goalArray)){
-                        echo json_encode(array('Ack'=>__('Information'),'ErrorCode'=>__('GiveWhenInfo'),'ErrorShort'=>__('You are already signed up for this goal.'),'ErrorLong'=>__('You are already signed up for this goal.')));
+                        echo json_encode(array('Ack'=>__('Information','givewhen'),'ErrorCode'=>__('GiveWhenInfo','givewhen'),'ErrorShort'=>__('You are already signed up for this goal.','givewhen'),'ErrorLong'=>__('You are already signed up for this goal.','givewhen')));
                         exit;
                     }
                 }
