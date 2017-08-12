@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       GiveWhen
  * Plugin URI:        http://www.angelleye.com/product/give-when-wordpress-donation-plugin/
- * Description:       Allow donors to Give a donation When a particular goal or event occurs.
+ * Description:       Allow donors to create a billing agreement to automatically Give a specified donation amount When a particular event or goal is achieved.
  * Version:           1.0.0
  * Author:            Angell EYE
  * Author URI:        http://www.angelleye.com/
