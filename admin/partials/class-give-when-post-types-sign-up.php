@@ -34,20 +34,20 @@ class AngellEYE_Give_When_Post_type_Sign_Up {
 
         register_post_type('give_when_sign_up', apply_filters('give_when_register_post_type_sign_up', array(
                     'labels' => array(
-                        'name' => __('GiveWhen Sign up', 'angelleye_give_when'),
-                        'singular_name' => __('GiveWhen Sign up', 'angelleye_give_when'),
-                        'menu_name' => _x('GiveWhen Sign up', 'Admin menu name', 'angelleye_give_when'),                        
-                        'edit' => __('Edit', 'angelleye_give_when'),
-                        'edit_item' => __('View GiveWhen Sign up', 'angelleye_give_when'),
-                        'new_item' => __('New GiveWhen Sign up', 'angelleye_give_when'),
-                        'view' => __('View GiveWhen Sign up', 'angelleye_give_when'),
-                        'view_item' => __('View GiveWhen Sign up', 'angelleye_give_when'),
-                        'search_items' => __('Search GiveWhen Sign up', 'angelleye_give_when'),
-                        'not_found' => __('No users found', 'angelleye_give_when'),
-                        'not_found_in_trash' => __('No users found in trash', 'angelleye_give_when'),
-                        'parent' => __('Parent GiveWhen Sign up', 'angelleye_give_when')
+                        'name' => __('GiveWhen Sign up', 'givewhen'),
+                        'singular_name' => __('GiveWhen Sign up', 'givewhen'),
+                        'menu_name' => _x('GiveWhen Sign up', 'Admin menu name', 'givewhen'),                        
+                        'edit' => __('Edit', 'givewhen'),
+                        'edit_item' => __('View GiveWhen Sign up', 'givewhen'),
+                        'new_item' => __('New GiveWhen Sign up', 'givewhen'),
+                        'view' => __('View GiveWhen Sign up', 'givewhen'),
+                        'view_item' => __('View GiveWhen Sign up', 'givewhen'),
+                        'search_items' => __('Search GiveWhen Sign up', 'givewhen'),
+                        'not_found' => __('No users found', 'givewhen'),
+                        'not_found_in_trash' => __('No users found in trash', 'givewhen'),
+                        'parent' => __('Parent GiveWhen Sign up', 'givewhen')
                     ),
-                    'description' => __('This is where you can create new GiveWhen Sign up.', 'angelleye_give_when'),
+                    'description' => __('This is where you can create new GiveWhen Sign up.', 'givewhen'),
                     'public' => false,
                     'show_ui' => false,
                     'capability_type' => 'post',                    

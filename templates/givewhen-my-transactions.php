@@ -21,18 +21,18 @@ if(! is_admin()){
 <div class="gwcontainer">
 
 
-    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Transactions', 'angelleye_give_when') ?></abbr></div>
+    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Transactions', 'givewhen') ?></abbr></div>
     <div class="gw_table-responsive">
         <table class="gw_table" id="GiveWhen_Transaction_Table" width="100%">
             <thead>
                 <tr>
-                    <th><?php _e('Transaction ID', 'angelleye_give_when'); ?></th>
-                    <th><?php _e('Name', 'angelleye_give_when'); ?></th>
-                    <th><?php _e('Amount', 'angelleye_give_when'); ?></th>
-                    <th><?php _e('PayPal Email ID', 'angelleye_give_when'); ?></th>
-                    <th><?php _e('PayPal Payer ID', 'angelleye_give_when'); ?></th>
-                    <th><?php _e('Payment Status', 'angelleye_give_when'); ?></th>
-                    <th><?php _e('Payment Date', 'angelleye_give_when'); ?></th>
+                    <th><?php _e('Transaction ID', 'givewhen'); ?></th>
+                    <th><?php _e('Name', 'givewhen'); ?></th>
+                    <th><?php _e('Amount', 'givewhen'); ?></th>
+                    <th><?php _e('PayPal Email ID', 'givewhen'); ?></th>
+                    <th><?php _e('PayPal Payer ID', 'givewhen'); ?></th>
+                    <th><?php _e('Payment Status', 'givewhen'); ?></th>
+                    <th><?php _e('Payment Date', 'givewhen'); ?></th>
                 </tr>
             </thead>
         </table>            

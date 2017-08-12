@@ -143,25 +143,25 @@ class AngellEYE_Give_When_My_Transactions_Table {
                 _e($item['transactionId']);
                 break;
             case 'user_display_name':
-                _e($item['user_display_name'],'angelleye_give_when');
+                _e($item['user_display_name'],'givewhen');
                 break;
             case 'amount' :
                 $ccode = get_option('gw_currency_code');
                 $paypal = new Give_When_PayPal_Helper();
                 $symbol = $paypal->get_currency_symbol($ccode);
-                _e($symbol.$item['amount'],'angelleye_give_when');
+                _e($symbol.$item['amount'],'givewhen');
                 break;
             case 'PayPalPayerID' :
-                _e($item['PayPalPayerID'],'angelleye_give_when');
+                _e($item['PayPalPayerID'],'givewhen');
                 break;
             case 'user_paypal_email' :
-                _e($item['user_paypal_email'],'angelleye_give_when');
+                _e($item['user_paypal_email'],'givewhen');
                 break;
             case 'ppack' :
-                _e($item['ppack'],'angelleye_give_when');
+                _e($item['ppack'],'givewhen');
                 break;
             case 'Txn_date' :
-                _e(date('Y-m-d', strtotime($item['Txn_date'])),'angelleye_give_when');
+                _e(date('Y-m-d', strtotime($item['Txn_date'])),'givewhen');
                 break;
         }
     }
@@ -223,20 +223,20 @@ class AngellEYE_Give_When_My_Transactions_Table {
             ?>
             <div class="alignleft actions bulkactions">
                 <select name="cat-filter" class="ewc-filter-cat">
-                    <option value=""><?php _e('Filter by Payment Status','angelleye_give_when'); ?></option>
-                    <option value="all"><?php _e('Show All','angelleye_give_when'); ?></option>
+                    <option value=""><?php _e('Filter by Payment Status','givewhen'); ?></option>
+                    <option value="all"><?php _e('Show All','givewhen'); ?></option>
                     <option value="<?php echo $move_on_url; ?>Success" <?php if ($status_filter == "Success") {
                 echo $selected;
-            } ?>><?php _e('Success','angelleye_give_when'); ?></option>
+            } ?>><?php _e('Success','givewhen'); ?></option>
                     <option value="<?php echo $move_on_url; ?>Failure" <?php if ($status_filter == "Failure") {
                 echo $selected;
-            } ?>><?php _e('Failure','angelleye_give_when'); ?></option>
+            } ?>><?php _e('Failure','givewhen'); ?></option>
                     <option value="<?php echo $move_on_url; ?>pending" <?php if ($status_filter == "pending") {
                 echo $selected;
-            } ?>><?php _e('Pending','angelleye_give_when'); ?></option>
+            } ?>><?php _e('Pending','givewhen'); ?></option>
                 </select>                            
                 <select name="number_of_trans" class="ewc-filter-num">
-                    <option value=""><?php _e('Show Number of Records','angelleye_give_when'); ?></option>
+                    <option value=""><?php _e('Show Number of Records','givewhen'); ?></option>
                     <option value="10" <?php if($rs_filter === '10') { echo $selected; } ?>>10</option>
                     <option value="25" <?php if($rs_filter === '25') { echo $selected; } ?>>25</option>
                     <option value="50" <?php if($rs_filter === '50') { echo $selected; } ?>>50</option>

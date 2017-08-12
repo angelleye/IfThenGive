@@ -23,8 +23,8 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     public function __construct() {
         
         parent::__construct( [
-                'singular' => __( 'Giver', 'angelleye_give_when' ), //singular name of the listed records
-                'plural'   => __( 'Givers', 'angelleye_give_when' ), //plural name of the listed records
+                'singular' => __( 'Giver', 'givewhen' ), //singular name of the listed records
+                'plural'   => __( 'Givers', 'givewhen' ), //plural name of the listed records
                 'ajax'     => false //should this table support ajax?
 
         ] );
@@ -156,7 +156,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     
     /** Text displayed when no giver's data is available */
     public function no_items() {
-      _e( 'No Givers avaliable.', 'angelleye_give_when' );
+      _e( 'No Givers avaliable.', 'givewhen' );
     }
     
     /**
@@ -191,22 +191,22 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     public function column_default( $item, $column_name ) {
       switch ( $column_name ) {
         case 'BillingAgreement':
-             _e($item['BillingAgreement'],'angelleye_give_when');
+             _e($item['BillingAgreement'],'givewhen');
             break;
         case 'PayPalEmail':
-            _e($item['PayPalEmail'],'angelleye_give_when');
+            _e($item['PayPalEmail'],'givewhen');
             break;
         case 'amount' :
             $ccode = get_option('gw_currency_code');
             $paypal = new Give_When_PayPal_Helper();
             $symbol = $paypal->get_currency_symbol($ccode);
-            _e($symbol.number_format($item['amount'],2),'angelleye_give_when');
+            _e($symbol.number_format($item['amount'],2),'givewhen');
             break;
         case 'PayPalPayerID' :
-            _e($item['PayPalPayerID'],'angelleye_give_when');
+            _e($item['PayPalPayerID'],'givewhen');
             break;
         case 'DisplayName' :
-            _e($item['DisplayName'],'angelleye_give_when');
+            _e($item['DisplayName'],'givewhen');
             break;
       }
     }
@@ -234,11 +234,11 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     public function get_columns() {
       $columns = [
         //'cb'           => '<input type="checkbox" />',
-        'BillingAgreement'=> __( 'Billing Agreement ID', 'angelleye_give_when' ),
-        'DisplayName'    => __( 'Name', 'angelleye_give_when' ),
-        'PayPalEmail'         => __( 'Givers', 'angelleye_give_when' ),
-        'amount'       => __( 'Amount', 'angelleye_give_when' ),
-        'PayPalPayerID' => __('PayPal Payer ID','angelleye_give_when')
+        'BillingAgreement'=> __( 'Billing Agreement ID', 'givewhen' ),
+        'DisplayName'    => __( 'Name', 'givewhen' ),
+        'PayPalEmail'         => __( 'Givers', 'givewhen' ),
+        'amount'       => __( 'Amount', 'givewhen' ),
+        'PayPalPayerID' => __('PayPal Payer ID','givewhen')
       ];
 
       return $columns;

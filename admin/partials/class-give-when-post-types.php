@@ -57,22 +57,22 @@ class AngellEYE_Give_When_Post_types {
 
         register_post_type('give_when_goals', apply_filters('give_when_register_post_types', array(
                     'labels' => array(
-                        'name' => __('GiveWhen Goals', 'angelleye_give_when'),
-                        'singular_name' => __('GiveWhen Goals', 'angelleye_give_when'),
-                        'menu_name' => _x('GiveWhen', 'Admin menu name', 'angelleye_give_when'),
-                        'add_new' => __('Add Goal', 'angelleye_give_when'),
-                        'add_new_item' => __('Add New Goal', 'angelleye_give_when'),
-                        'edit' => __('Edit', 'angelleye_give_when'),
-                        'edit_item' => __('View Goal', 'angelleye_give_when'),
-                        'new_item' => __('New Goal', 'angelleye_give_when'),
-                        'view' => __('View Goal', 'angelleye_give_when'),
-                        'view_item' => __('View Goal', 'angelleye_give_when'),
-                        'search_items' => __('Search Goal', 'angelleye_give_when'),
-                        'not_found' => __('No Goal found', 'angelleye_give_when'),
-                        'not_found_in_trash' => __('No Goal found in trash', 'angelleye_give_when'),
-                        'parent' => __('Parent Goal', 'angelleye_give_when')
+                        'name' => __('GiveWhen Goals', 'givewhen'),
+                        'singular_name' => __('GiveWhen Goals', 'givewhen'),
+                        'menu_name' => _x('GiveWhen', 'Admin menu name', 'givewhen'),
+                        'add_new' => __('Add Goal', 'givewhen'),
+                        'add_new_item' => __('Add New Goal', 'givewhen'),
+                        'edit' => __('Edit', 'givewhen'),
+                        'edit_item' => __('View Goal', 'givewhen'),
+                        'new_item' => __('New Goal', 'givewhen'),
+                        'view' => __('View Goal', 'givewhen'),
+                        'view_item' => __('View Goal', 'givewhen'),
+                        'search_items' => __('Search Goal', 'givewhen'),
+                        'not_found' => __('No Goal found', 'givewhen'),
+                        'not_found_in_trash' => __('No Goal found in trash', 'givewhen'),
+                        'parent' => __('Parent Goal', 'givewhen')
                     ),
-                    'description' => __('This is where you can create new Goal.', 'angelleye_give_when'),
+                    'description' => __('This is where you can create new Goal.', 'givewhen'),
                     'public' => false,
                     'show_ui' => true,
                     'capability_type' => 'post',
@@ -219,19 +219,19 @@ class AngellEYE_Give_When_Post_types {
     public static function register_give_when_submenu_page() {
         add_submenu_page( 
             null,
-            __('GiveWhen Givers Page', 'angelleye_give_when'),
-            __('GiveWhen Givers Page', 'angelleye_give_when'),
+            __('GiveWhen Givers Page', 'givewhen'),
+            __('GiveWhen Givers Page', 'givewhen'),
             'manage_options',
-            __('give_when_givers', 'angelleye_give_when'),
+            __('give_when_givers', 'givewhen'),
             array(__CLASS__,'give_when_givers_page_callback')
         );
         
         add_submenu_page(
             null,
-            __('GiveWhen disconnect Page', 'angelleye_give_when'),
-            __('GiveWhen disconnect Page', 'angelleye_give_when'),
+            __('GiveWhen disconnect Page', 'givewhen'),
+            __('GiveWhen disconnect Page', 'givewhen'),
             'manage_options',
-            __('give_when_disconnect_paypal', 'angelleye_give_when'),
+            __('give_when_disconnect_paypal', 'givewhen'),
             array(__CLASS__,'give_when_disconnect_paypal_page_callback')
         );
     }

@@ -23,8 +23,8 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
     public function __construct() {
 
         parent::__construct([
-            'singular' => __('Giver', 'angelleye_give_when'), //singular name of the listed records
-            'plural' => __('Givers', 'angelleye_give_when'), //plural name of the listed records
+            'singular' => __('Giver', 'givewhen'), //singular name of the listed records
+            'plural' => __('Givers', 'givewhen'), //plural name of the listed records
             'ajax' => false //should this table support ajax?
         ]);
     }
@@ -170,7 +170,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
 
     /** Text displayed when no giver's data is available */
     public function no_items() {
-        _e('No Transactions avaliable.', 'angelleye_give_when');
+        _e('No Transactions avaliable.', 'givewhen');
     }
 
     /**
@@ -205,28 +205,28 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
     public function column_default($item, $column_name) {
         switch ($column_name) {
             case 'transactionId':
-                _e('<a href="' . site_url() . '/wp-admin/?page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id=' . $item['transactionId'] . '">' . $item['transactionId'] . '</a>','angelleye_give_when');
+                _e('<a href="' . site_url() . '/wp-admin/?page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id=' . $item['transactionId'] . '">' . $item['transactionId'] . '</a>','givewhen');
                 break;
             case 'user_display_name':
-                _e($item['user_display_name'],'angelleye_give_when');
+                _e($item['user_display_name'],'givewhen');
                 break;
             case 'amount' :
                 $ccode = get_option('gw_currency_code');
                 $paypal = new Give_When_PayPal_Helper();
                 $symbol = $paypal->get_currency_symbol($ccode);
-                _e($symbol.number_format($item['amount'],2),'angelleye_give_when');
+                _e($symbol.number_format($item['amount'],2),'givewhen');
                 break;
             case 'PayPalPayerID' :
-                _e($item['PayPalPayerID'],'angelleye_give_when');
+                _e($item['PayPalPayerID'],'givewhen');
                 break;
             case 'user_paypal_email' :
-                _e($item['user_paypal_email'],'angelleye_give_when');
+                _e($item['user_paypal_email'],'givewhen');
                 break;
             case 'ppack' :
-                _e($item['ppack'],'angelleye_give_when');
+                _e($item['ppack'],'givewhen');
                 break;
             case 'Txn_date' :
-                _e(date('Y-m-d', strtotime($item['Txn_date'])),'angelleye_give_when');
+                _e(date('Y-m-d', strtotime($item['Txn_date'])),'givewhen');
                 break;
         }
     }
@@ -251,13 +251,13 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
      */
     public function get_columns() {
         $columns = [
-            'transactionId' => __('Transaction ID', 'angelleye_give_when'),
-            'user_display_name' => __('Name', 'angelleye_give_when'),
-            'amount' => __('Amount', 'angelleye_give_when'),
-            'user_paypal_email' => __('PayPal Email ID', 'angelleye_give_when'),
-            'PayPalPayerID' => __('PayPal Payer ID', 'angelleye_give_when'),
-            'ppack' => __('Payment Status', 'angelleye_give_when'),
-            'Txn_date' => __('Payment Date', 'angelleye_give_when')
+            'transactionId' => __('Transaction ID', 'givewhen'),
+            'user_display_name' => __('Name', 'givewhen'),
+            'amount' => __('Amount', 'givewhen'),
+            'user_paypal_email' => __('PayPal Email ID', 'givewhen'),
+            'PayPalPayerID' => __('PayPal Payer ID', 'givewhen'),
+            'ppack' => __('Payment Status', 'givewhen'),
+            'Txn_date' => __('Payment Date', 'givewhen')
         ];
 
         return $columns;
@@ -386,26 +386,26 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
             <div class="alignleft actions bulkactions">
                 <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
                 <select name="cat-filter" class="ewc-filter-cat">
-                    <option value=""><?php _e('Filter by Payment Status','angelleye_give_when'); ?></option>
-                    <option value="all"><?php _e('Show All','angelleye_give_when'); ?></option>
+                    <option value=""><?php _e('Filter by Payment Status','givewhen'); ?></option>
+                    <option value="all"><?php _e('Show All','givewhen'); ?></option>
                     <option value="<?php echo $move_on_url; ?>Success" <?php if ($status_filter == "Success") {
                 echo $selected;
-            } ?>><?php _e('Success','angelleye_give_when'); ?></option>
+            } ?>><?php _e('Success','givewhen'); ?></option>
                     <option value="<?php echo $move_on_url; ?>Failure" <?php if ($status_filter == "Failure") {
                 echo $selected;
-            } ?>><?php _e('Failure','angelleye_give_when'); ?></option>
+            } ?>><?php _e('Failure','givewhen'); ?></option>
                     <option value="<?php echo $move_on_url; ?>pending" <?php if ($status_filter == "pending") {
                 echo $selected;
-            } ?>><?php _e('Pending','angelleye_give_when'); ?></option>
+            } ?>><?php _e('Pending','givewhen'); ?></option>
                 </select>                            
                 <select name="number_of_trans" class="ewc-filter-num">
-                    <option value=""><?php _e('Show Number of Records','angelleye_give_when'); ?></option>
+                    <option value=""><?php _e('Show Number of Records','givewhen'); ?></option>
                     <option value="10" <?php if($rs_filter === '10') { echo $selected; } ?>>10</option>
                     <option value="25" <?php if($rs_filter === '25') { echo $selected; } ?>>25</option>
                     <option value="50" <?php if($rs_filter === '50') { echo $selected; } ?>>50</option>
                     <option value="100" <?php if($rs_filter === '100') { echo $selected; } ?>>100</option>
                 </select>
-                <a class="btn btn-primary btn-sm" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=RetryFailedTransactions"><?php _e('Retry Failure Payments','angelleye_give_when') ?></a>
+                <a class="btn btn-primary btn-sm" href="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=RetryFailedTransactions"><?php _e('Retry Failure Payments','givewhen') ?></a>
                 
             </div>
             <?php

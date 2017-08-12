@@ -33,7 +33,7 @@ class AngellEYE_Give_When_Log {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <h4 class="text-info"><?php printf(__('Log file: %s', 'angelleye_give_when'), str_replace('_',' ',ucwords($directory_name,'_'))); ?></h4>
+                            <h4 class="text-info"><?php printf(__('Log file: %s', 'givewhen'), str_replace('_',' ',ucwords($directory_name,'_'))); ?></h4>
                         </div>    
                     </div>
                     <div class="clearfix"></div>
@@ -51,7 +51,7 @@ class AngellEYE_Give_When_Log {
                                 endforeach;
                                 ?>
                             </select>
-                            <input type="submit" class="button" value="<?php esc_attr_e('View', 'angelleye_give_when'); ?>" />
+                            <input type="submit" class="button" value="<?php esc_attr_e('View', 'givewhen'); ?>" />
                         </form>
                       </div>                        
                     </div>
@@ -68,7 +68,7 @@ class AngellEYE_Give_When_Log {
             </div>
             </div>                        
         <?php else : ?>
-            <div class="updated woocommerce-message inline"><p><?php _e('There are currently no logs to view.', 'angelleye_give_when'); ?></p></div>
+            <div class="updated woocommerce-message inline"><p><?php _e('There are currently no logs to view.', 'givewhen'); ?></p></div>
         <?php
         endif;
     }

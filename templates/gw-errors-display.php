@@ -22,13 +22,13 @@ get_header();
 if(isset($_SESSION['GW_Error']) && isset($_SESSION['GW_Error_Type'])){
     ?>
 
-        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Errors', 'angelleye_give_when') ?></abbr></div>
+        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Errors', 'givewhen') ?></abbr></div>
     
-    <h3> <?php _e('Error Type :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Type']; ?> </h3>
-    <span> <?php _e('PayPal Acknowledgement :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['ACK']; ?></span>
-    <span> <?php _e('PayPal Error Code :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_ERRORCODE0']; ?></span>
-    <span> <?php _e('PayPal Error Short Message :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_SHORTMESSAGE0']; ?></span>
-    <span> <?php _e('PayPal Error Long Message :','angelleye_give_when'); ?> <?php echo $_SESSION['GW_Error_Array']['L_LONGMESSAGE0']; ?></span>
+    <h3> <?php _e('Error Type :','givewhen'); ?> <?php echo $_SESSION['GW_Error_Type']; ?> </h3>
+    <span> <?php _e('PayPal Acknowledgement :','givewhen'); ?> <?php echo $_SESSION['GW_Error_Array']['ACK']; ?></span>
+    <span> <?php _e('PayPal Error Code :','givewhen'); ?> <?php echo $_SESSION['GW_Error_Array']['L_ERRORCODE0']; ?></span>
+    <span> <?php _e('PayPal Error Short Message :','givewhen'); ?> <?php echo $_SESSION['GW_Error_Array']['L_SHORTMESSAGE0']; ?></span>
+    <span> <?php _e('PayPal Error Long Message :','givewhen'); ?> <?php echo $_SESSION['GW_Error_Array']['L_LONGMESSAGE0']; ?></span>
 <?php    
     unset($_SESSION['GW_Error'],$_SESSION['GW_Error_Type'],$_SESSION['GW_Error_Array']);
 }
