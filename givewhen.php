@@ -18,7 +18,7 @@
  * Description:       Allow donors to create a billing agreement to automatically Give a specified donation amount When a particular event or goal is achieved.
  * Version:           1.0.0
  * Author:            Angell EYE
- * Author URI:        http://www.angelleye.com/
+ * Author URI:        https://www.angelleye.com/
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       givewhen
