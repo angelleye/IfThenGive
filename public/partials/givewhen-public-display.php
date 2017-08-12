@@ -288,7 +288,8 @@ class AngellEYE_Give_When_Public_Display {
                 $amount = base64_encode($amount);
                 $post = get_post($post_id); 
                 $slug = $post->post_name;
-                $REDIRECTURL = site_url('givewhenthankyou?goal='.$slug.'&amt='.$amount);
+                $urlusr = base64_encode($user_id);
+                $REDIRECTURL = site_url('give-when-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr);                
                 /* Add post id in the user's signedup goals */
                 $signedup_goals= get_user_meta($user_id,'give_when_signedup_goals',true);
                 if($signedup_goals !=''){
