@@ -21,7 +21,7 @@
  * Author URI:        http://www.angelleye.com/
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain:       give-when
+ * Text Domain:       givewhen
  * Domain Path:       /languages
  */
 
