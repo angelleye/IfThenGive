@@ -83,12 +83,13 @@ class AngellEYE_Give_When_Public_Display {
                                     $html .= '</div>';                                    
                                 }                                
                                 elseif($amount == 'manual'){
+                                    $manual_amount_input_value = get_post_meta($post->ID, 'manual_amount_input', true);
                                     $html .= '<div class="gw_post-title">';
-                                        $html .= '<h4>'.esc_html('I will Give ','givewhen').$symbol.'<span id="give_when_manual_price_span">50</span> '.esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</h4>';
+                                        $html .= '<h4>'.esc_html('I will Give ','givewhen').$symbol.'<span id="give_when_manual_price_span">'.$manual_amount_input_value.'</span> '.esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</h4>';
                                     $html .= '</div>';
                                     $html .= '<div class="gw_form-group">';
                                         $html .= '<label for="manualamout" class="gw_upper">'. esc_html('Enter Amount','').'</label>';
-                                        $html .= '<input type="text" name="gw_manual_amount_input" value="50.00" class="gw_form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>';                                    
+                                        $html .= '<input type="text" name="gw_manual_amount_input" value="'.$manual_amount_input_value.'" class="gw_form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>';
                                     $html .= '</div>';
                                 }
                                 else{

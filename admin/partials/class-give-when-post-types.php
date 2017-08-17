@@ -188,6 +188,10 @@ class AngellEYE_Give_When_Post_types {
             }
             elseif($_POST['fixed_radio']=='manual'){
                 update_post_meta($post_ID, 'amount','manual');
+                if(empty(trim($_POST['manual_amount_input']))){
+                    $_POST['manual_amount_input']=50.00;
+                }
+                update_post_meta($post_ID, 'manual_amount_input',  number_format($_POST['manual_amount_input'],2));
             }
             else{
                 update_post_meta($post_ID, 'amount','select');

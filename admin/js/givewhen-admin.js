@@ -23,19 +23,22 @@
             if ($(this).is(':checked')) {
                 $('#fixed_amount_input_div').removeClass('hidden');
                 $('#dynamic_options').addClass('hidden');
+                $('#manual_amount_input_div').addClass('hidden');
             }
         });
         $(document).on('click','#manual_radio',function () {
             if ($(this).is(':checked')) {
+                $('#manual_amount_input_div').removeClass('hidden');
                 $('#fixed_amount_input_div').addClass('hidden');
-                $('#dynamic_options').addClass('hidden');
+                $('#dynamic_options').addClass('hidden');                
             }
         });
         
         $(document).on('click','#option_radio',function () {
             if ($(this).is(':checked')) {
-                $('#fixed_amount_input_div').addClass('hidden');
                 $('#dynamic_options').removeClass('hidden');
+                $('#fixed_amount_input_div').addClass('hidden');                
+                $('#manual_amount_input_div').addClass('hidden');
             }
         });
                 
