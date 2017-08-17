@@ -64,8 +64,7 @@
            $('.removeclass'+rid).remove();
         });
                         
-        if(typeof tinymce != 'undefined') {
-            console.log('Hey');
+        if(typeof tinymce != 'undefined') {            
             tinymce.PluginManager.add('give_when_shortcodes', function( editor )
             {
                 var shortcodeValues = [];                
@@ -83,7 +82,7 @@
                     title: 'GiveWhen',
                     cmd: 'give_when_shortcodes',
                     icon: 'mce-ico mce-i-wp_more',
-                    onselect: function() {                        
+                    onselect: function() {                           
                         if(this.text()=='GiveWhen Transaction'){
                             tinyMCE.activeEditor.selection.setContent( '[givewhen_my_transaction]' );
                         }
