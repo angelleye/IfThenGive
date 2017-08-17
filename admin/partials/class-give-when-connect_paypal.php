@@ -98,9 +98,19 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
+                        <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
                         <div class="panel panel-default">
                             <div class="panel-heading gw-panel-heading">
-                                <h3 class="panel-title"><img class="pull-right" width="135" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal Logo"></h3>                                
+                                <h3 class="panel-title">
+                                    <img class="pull-right"  src="<?php echo GW_PLUGIN_URL.'admin/images/PayPal_GiveWhen.png' ?>" alt="PayPal Logo">
+                                    <div class="gw_div_log_settings">                                    
+                                        <table class="form-table">
+                                            <tbody>
+                                                <?php $Html_output->init($general_setting_fields); ?>                                                
+                                            </tbody>
+                                        </table>                                                                        
+                                </div>
+                                </h3>
                             </div>
                             <div class="panel-body">
                                 <?php 
@@ -119,15 +129,8 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                     echo '</div></div></div>';
                                     delete_option('give_when_permission_connect_to_paypal_failed_notice');
                                 }
-                                ?>                                
-                                <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">                                    
-                                <div class="div_log_settings">                                    
-                                        <table class="form-table">
-                                            <tbody>
-                                                <?php $Html_output->init($general_setting_fields); ?>                                                
-                                            </tbody>
-                                        </table>                                                                        
-                                </div>
+                                ?>                                                                                                    
+                                
                                 <div id="give_when_sandbox_fields" class="<?php echo $sandbox_class; ?>">
                                 <?php
                                     $sb_paypal_account_id = get_option('give_when_permission_sandbox_connected_person_merchant_id');                                    
@@ -355,10 +358,10 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                 </div>  
                                 <p class="submit">
                                     <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
-                                </p>
-                                </form>
+                                </p>                                
                             </div>
                         </div>
+                       </form>
                     </div>                    
                 </div>
                 <div dir="ltr" style="text-align: left;" trbidi="on"></div>

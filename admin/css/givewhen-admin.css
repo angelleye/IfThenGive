@@ -51,8 +51,16 @@
     border: 1px solid #e1e1e8;
     border-radius: 0 4px 0 4px;
 }
-.div_log_settings .form-table th{
-    width: 100px !important;
+.gw_div_log_settings {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    padding-right: 25px;
+}
+.gw_div_log_settings .form-table th{
+    padding-top: 28px;
+    width: auto;
 }
 .circle_red {
     width: 20px;
