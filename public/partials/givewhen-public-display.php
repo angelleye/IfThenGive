@@ -79,12 +79,12 @@ class AngellEYE_Give_When_Public_Display {
                                 if($amount == 'fixed'){
                                     $html .= '<div class="gw_post-title">';
                                     $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);                                
-                                    $html .= '<h4><a href="#">'. esc_html('I will Give : ','givewhen').$symbol.'<span id="give_when_fixed_price_span">'.number_format($fixed_amount,2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</a></h4>';
+                                    $html .= '<h4><a href="#">'. esc_html('I will Give ','givewhen').$symbol.'<span id="give_when_fixed_price_span">'.number_format($fixed_amount,2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</a></h4>';
                                     $html .= '</div>';                                    
                                 }                                
                                 elseif($amount == 'manual'){
                                     $html .= '<div class="gw_post-title">';
-                                        $html .= '<h4><a href="#">'.esc_html('I will Give : ','givewhen').$symbol.'<span id="give_when_manual_price_span">50</span> '.esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</a></h4>';
+                                        $html .= '<h4><a href="#">'.esc_html('I will Give ','givewhen').$symbol.'<span id="give_when_manual_price_span">50</span> '.esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</a></h4>';
                                     $html .= '</div>';
                                     $html .= '<div class="gw_form-group">';
                                         $html .= '<label for="manualamout" class="gw_upper">'. esc_html('Enter Amount','').'</label>';
@@ -96,7 +96,7 @@ class AngellEYE_Give_When_Public_Display {
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);
                                     $i=0;
                                     $html .= '<div class="gw_post-title">';
-                                        $html .= '<h4><a href="#">'.esc_html('I will Give : ','givewhen').$symbol.'<span id="give_when_fixed_price_span_select">'.number_format($option_amount[0],2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).'</a></h4>';
+                                        $html .= '<h4><a href="#">'.esc_html('I will Give ','givewhen').$symbol.'<span id="give_when_fixed_price_span_select">'.number_format($option_amount[0],2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).'</a></h4>';
                                     $html .= '</div>';
                                     $html .= '<div class="gw_form-group">';
                                         $html .= '<select class="gw_form-control" name="give_when_option_amount" id="give_when_option_amount">';
