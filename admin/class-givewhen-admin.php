@@ -119,7 +119,7 @@ class Givewhen_Admin {
 		$give_when_posts = get_posts($args);                
 		$shortcodes = array();
 		$shortcodes_values = array();
-                $shortcodes['[givewhen_my_transaction]']='GiveWhen Trnasaction';
+                $shortcodes['[givewhen_my_transaction]']='GiveWhen Transaction';
                 foreach ($give_when_posts as $key_post => $give_when_posts_value) {
 			$shortcodes[$give_when_posts_value->ID] = $give_when_posts_value->post_title;
 		}

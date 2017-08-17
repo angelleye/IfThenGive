@@ -81,7 +81,7 @@
                     cmd: 'give_when_shortcodes',
                     icon: 'mce-ico mce-i-wp_more',
                     onselect: function() {                        
-                        if(this.text()=='GiveWhen Trnasaction'){
+                        if(this.text()=='GiveWhen Transaction'){
                             tinyMCE.activeEditor.selection.setContent( '[givewhen_my_transaction]' );
                         }
                         else{
