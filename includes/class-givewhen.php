@@ -188,7 +188,8 @@ class Givewhen {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
                 $this->loader->add_action('admin_init', $plugin_admin, 'give_when_shortcode_button_init');
                 $this->loader->add_filter('post_updated_messages', $plugin_admin, 'give_when_messages');
-	}
+                $this->loader->add_filter('plugin_row_meta', $plugin_admin, 'give_when_plugin_action_links', 10, 2);
+    }
 
 	/**
 	 * Register all of the hooks related to the public-facing functionality

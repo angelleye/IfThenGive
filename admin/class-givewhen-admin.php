@@ -216,5 +216,20 @@ class Givewhen_Admin {
 		return $messages;
 
         return $messages;
-    } 
+    }
+    public function give_when_plugin_action_links( $links, $file ){
+           $plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . 'givewhen.php' );
+           if($file == $plugin_basename)
+           {
+               $new_links = array(
+                   sprintf( '<a href="%s">%s</a>', admin_url('options-general.php?page=give_when_option'), __( 'Configure', 'givewhen' ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', 'https://www.angelleye.com/category/docs/givewhen-wordpress', __( 'Docs', 'givewhen' ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Support', 'givewhen' ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Write a Review', 'givewhen' ) ),
+               );
+
+               $links = array_merge( $links, $new_links );
+           }
+           return $links;
+    }
 }
