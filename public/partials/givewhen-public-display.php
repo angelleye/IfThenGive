@@ -156,7 +156,7 @@ class AngellEYE_Give_When_Public_Display {
                                         $html .= '</div>';                                                                            
                                         $html .=  '<div class="checkbox">';
                                         $html .=    '<label class="gw_upper">';
-                                        $html .=      '<input type="checkbox" name="gw_signup_as_guest" id="gw_signup_as_guest">'.esc_html('Signup as Guest','givewhen');
+                                        $html .=      '<input type="checkbox" name="gw_signup_as_guest" id="gw_signup_as_guest" checked>'.esc_html('Create a account','givewhen');
                                         $html .=    '</label>';
                                         $html .=  '</div><br>';
                                          if ( ! is_user_logged_in() ) {                                    
@@ -314,11 +314,11 @@ class AngellEYE_Give_When_Public_Display {
             }            
         
         if(isset($gwuser['gw_signup_as_guest']) && $gwuser['gw_signup_as_guest']=='on' ){
-            $_SESSION['gw_guest_user'] = 'yes';
-            $userdata['user_pass'] = md5('GWPassword');
+            $_SESSION['gw_guest_user'] = 'no';            
         }
         else{
-            $_SESSION['gw_guest_user'] = 'no';
+            $_SESSION['gw_guest_user'] = 'yes';
+            $userdata['user_pass'] = md5('GWPassword');
         }
         $_SESSION['gw_user_data'] = $userdata;
         

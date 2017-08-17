@@ -83,9 +83,9 @@
             
             $(document).on('click','#gw_signup_as_guest',function() {
                 if($(this).is(":checked")) {
-                    $(".gw-password").hide(200);
-                } else {
                     $(".gw-password").show(300);
+                } else {
+                    $(".gw-password").hide(200);
                 }
             });
 
