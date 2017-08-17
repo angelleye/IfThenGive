@@ -180,7 +180,7 @@ class AngellEYE_Give_When_interface {
                     <div class=""><button type="button" class="btn btn-info btn-preview" data-toggle="modal" data-target="#preview-goal" >Preview</button></div>
                     <!-- Modal -->
                     <div id="preview-goal" class="modal fade" role="dialog">
-                      <div class="modal-dialog modal-md">
+                      <div class="modal-dialog modal-lg">
                         <?php 
                             $ccode = get_option('gw_currency_code');
                             $paypal = new Give_When_PayPal_Helper();
