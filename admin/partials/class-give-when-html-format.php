@@ -519,6 +519,9 @@ class AngellEYE_Give_When_interface {
         $total_txn = 0;
         $total_txn_success = 0;
         $total_txn_failed = 0;
+        $total_amount=0;
+        $total_amount_success=0;
+        $total_amount_failed=0;
         foreach ($givers as $value) {
             $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
             $desc = !empty($trigger_name) ? $trigger_name : '';
@@ -553,6 +556,7 @@ class AngellEYE_Give_When_interface {
             if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {
 
                 $total_txn_success++;
+                $total_amount_success += $value['amount'];
                 echo $trEmailString = "<tr>
                     <td>{$PayPalResultDRT['TRANSACTIONID']}</td>
                     <td>".$symbol.number_format($PayPalResultDRT['AMT'],2)."</td>
@@ -563,6 +567,7 @@ class AngellEYE_Give_When_interface {
                 $EmailString.= $trEmailString;
             } else {
                 $total_txn_failed++;
+                $total_amount_failed += $value['amount'];
                 $PayPalResultDRT['TRANSACTIONID'] = '';
 
                 echo $trEmailString = "<tr>
@@ -570,7 +575,7 @@ class AngellEYE_Give_When_interface {
                     <td>".$symbol.$value['amount']."</td>
                     <td>{$paypal_email}</td>
                     <td>{$PayPalResultDRT['ACK']}</td>
-                    <td>-</td>
+                    <td>{$PayPalResultDRT['L_SHORTMESSAGE0']} <br>See <a href='".admin_url('admin.php?page=give_when_option&tab=logs')."'>logs</a> for more details</td>
                 </tr>";
                 $EmailString.= $trEmailString;
             }
@@ -587,6 +592,7 @@ class AngellEYE_Give_When_interface {
             ?>
                                         <?php
                                         $total_txn++;
+                                        $total_amount += $value['amount'];
                                         ob_flush();
                                         flush();
                                         sleep(2);
@@ -606,6 +612,10 @@ class AngellEYE_Give_When_interface {
                     <p>Total Transactions : <strong>' . $total_txn . '</strong></p>
                     <p>Total Successful Transactions : <strong>' . $total_txn_success . '</strong></p>
                     <p>Total Failed Transactions : <strong>' . $total_txn_failed . '</strong></p>
+                    <hr>    
+                    <p>Total Transactions Amount : <strong>' . $symbol.number_format($total_amount,2) . '</strong></p>
+                    <p>Total Successful Transactions Amount : <strong>' . $symbol.number_format($total_amount_success,2) . '</strong></p> 
+                    <p>Total Failed Transactions Amount  : <strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
                 </div>';
                         $EmailString.=$alert_info_email_string;
 
