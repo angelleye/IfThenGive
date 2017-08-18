@@ -42,37 +42,17 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         echo "<h2>".__('Hi ','givewhen'). $user->display_name . __(', Thank You for signed up in ','givewhen') . $trigger_name. "</h2>";
         echo "<span>" . __('Each time you will give ','givewhen').$symbol.$amount.' '. __('when','givewhen').' '.$trigger_thing. "</span>";
         $EmailString='';
-        $EmailString.='<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
-                                <tr>
-                                    <td align="center" valign="top">
-                                        <div id="template_header_image">
-                                        </div>
-                                        <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container">
-                                            <tr>
-                                                <td align="center" valign="top">                        
-                                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_body">
-                                                        <tr>
-                                                            <td valign="top" id="body_content">                                    
-                                                                <table border="0" cellpadding="20" cellspacing="0" width="100%">
-                                                                    <tr>
-                                                                        <td valign="top">
-                                                                            <div id="body_content_inner">
-                                                                                <h2 style="text-align:center;color: #008CBA;">Hi '.$current_user->display_name.',Thank You for signed up in '.$trigger_name.'</h2>
-                                                                                <p style="font-size: 16px;text-align: center;font-family: inherit; color: rgb(255, 111, 0)"><strong>Each time you will give $ '.$amount.' when '.$trigger_thing.'</strong></p>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>                                    
-                                                            </td>
-                                                        </tr>
-                                                    </table>                        
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>';
+        $EmailString .= '<div style="margin-right: -15px; margin-left: -15px;">
+            <div style="width: 100%;">
+                <div style="text-align: center;"><img style="vertical-align:margin:0 auto; middle;"src="https://image.ibb.co/ngdvbk/icon.png" alt="GiveWhen"></div>
+                <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634; font-weight: 600; text-align: center;">
+                    <strong style="background-color: #ffffff; font-weight: 300; letter-spacing: 1px;text-transform: uppercase; margin-bottom:10px; font-size: 25px;">Hi '.$current_user->display_name.',Thank You for signed up in Anthony Rizzo Home Run Challenge'.$trigger_name.'</strong>
+                    <p style="font-size: 16px;text-align: center;font-family: inherit; color: #076799"><strong>Each time you will give $ '.$amount.' when '.$trigger_thing.'</strong></p>      
+                </div>
+            </div>
+        </div>';        
 
-        $headers = "From: noreply@givewhen.com \r\n";
+        $headers = "From: GiveWhen <info@givewhen.com> \r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
