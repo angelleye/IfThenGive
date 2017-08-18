@@ -612,7 +612,7 @@ class AngellEYE_Give_When_interface {
                 </div>';
                         $EmailString.=$alert_info_email_string;
 
-                        $headers = "From:<info@givewhen.com> \r\n";
+                        $headers = "From: GiveWhen <info@givewhen.com> \r\n";
                         $headers .= "Reply-To: noreply@givewhen.com \r\n";
                         //$headers .= "CC: examplename@example.com\r\n";
                         $headers .= "MIME-Version: 1.0\r\n";
