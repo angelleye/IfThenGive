@@ -457,46 +457,6 @@ class AngellEYE_Give_When_interface {
         @set_time_limit(GW_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
         $EmailString = '';
-        $EmailString.='<style>.table {
-                                width: 100%;
-                                max-width: 100%;
-                                margin-bottom: 20px;
-                                background-color: transparent;
-                                border-spacing: 0;
-                                border-collapse: collapse;
-                                }
-                                .table-striped > tbody > tr:nth-of-type(odd){
-                                    background-color: #f9f9f9;
-                                }
-                                .table > thead > tr > th, 
-                                .table > tbody > tr > th, 
-                                .table > tfoot > tr > th, 
-                                .table > thead > tr > td, 
-                                .table > tbody > tr > td, 
-                                .table > tfoot > tr > td {                                
-                                    padding: 8px;
-                                    line-height: 1.42857143;
-                                    vertical-align: top;
-                                    border-top: 1px solid #ddd;
-                                }
-                                .alert {
-                                    padding: 15px;
-                                    margin-bottom: 20px;
-                                    border: 1px solid transparent;
-                                    border-radius: 4px;
-                                }
-                                .alert-info {
-                                    color: #31708f;
-                                    background-color: #d9edf7;
-                                    border-color: #bce8f1;
-                                }
-                                p {
-                                    margin: 0 0 10px;
-                                }
-                                .alert > p, .alert > ul {
-                                    margin-bottom: 0;
-                                }
-                       </style>';
         if (ob_get_level() == 0)
             ob_start();
         ?>
@@ -508,15 +468,7 @@ class AngellEYE_Give_When_interface {
                         
                     <div class="col-md-12">                        
                                 <div class="table-responsive">
-        <?php
-        echo $EmailString.='<table class="table table-striped">
-                                            <tr>
-                                                <th>Transaction ID</th>
-                                                <th>Amount</th>
-                                                <th>Payer Email</th>
-                                                <th>PayPal ACK</th>
-                                                <th>Payment Status</th>
-                                            </tr>';
+        <?php        
         global $post, $post_ID;
         $goal_id = $_REQUEST['post'];
         $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
@@ -532,8 +484,39 @@ class AngellEYE_Give_When_interface {
         $total_amount=0;
         $total_amount_success=0;
         $total_amount_failed=0;
-        foreach ($givers as $value) {
-            $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
+        $n = count($givers);        
+        
+        $headerString = '<div style="margin-right: -15px; margin-left: -15px;">
+            <div style="width: 100%;">
+                <div style="text-align: center;"><img style="vertical-align:margin:0 auto; middle;"src="'.GW_PLUGIN_URL.'admin\images\icon.png" alt="GiveWhen"></div>
+                <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634;text-align: center;">
+                    <strong style="background-color: #ffffff; font-weight: 300; font-size:20px; padding:2px 10px; border-radius: 2px; position:relative; top:-10px;  letter-spacing:.2em;  text-transform:uppercase; border:none;
+                          ">'. __('Transactions Report For ', 'givewhen').__($trigger_name,'givewhen').'</strong></div>
+            </div>
+        </div>';
+       echo $EmailString.='<table style="                                
+                                width: 100%;
+                                max-width: 100%;
+                                margin-bottom: 20px;
+                                background-color: transparent;
+                                border-spacing: 0;
+                                border-collapse: collapse;
+                                ">
+                                            <tr style="background-color: #f9f9f9;">
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Transaction ID','givewhen').'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Amount','givewhen').'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payer Email','givewhen').'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('PayPal ACK','givewhen').'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payment Status','givewhen').'</th>
+                                            </tr>';       
+        foreach ($givers as $value) {    
+            if($total_txn %2== 0){
+                $css = "";
+            }
+            else{
+                $css = "background-color: #f9f9f9;";
+            }
+            
             $desc = !empty($trigger_name) ? $trigger_name : '';
 
             $DRTFields = array(
@@ -567,12 +550,12 @@ class AngellEYE_Give_When_interface {
 
                 $total_txn_success++;
                 $total_amount_success += $value['amount'];
-                echo $trEmailString = "<tr>
-                    <td>{$PayPalResultDRT['TRANSACTIONID']}</td>
-                    <td>".$symbol.number_format($PayPalResultDRT['AMT'],2)."</td>
-                    <td>{$paypal_email}</td>
-                    <td>{$PayPalResultDRT['ACK']}</td>
-                    <td>{$PayPalResultDRT['PAYMENTSTATUS']}</td>
+                echo $trEmailString = "<tr style='".$css."'>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],'givewhen')."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),'givewhen')."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__('$paypal_email','givewhen')."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],'givewhen')."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],'givewhen')."</td>
                 </tr>";
                 $EmailString.= $trEmailString;
             } else {
@@ -580,12 +563,12 @@ class AngellEYE_Give_When_interface {
                 $total_amount_failed += $value['amount'];
                 $PayPalResultDRT['TRANSACTIONID'] = '';
 
-                echo $trEmailString = "<tr>
-                    <td>-</td>
-                    <td>".$symbol.$value['amount']."</td>
-                    <td>{$paypal_email}</td>
-                    <td>{$PayPalResultDRT['ACK']}</td>
-                    <td>{$PayPalResultDRT['L_SHORTMESSAGE0']} <br>See <a href='".admin_url('admin.php?page=give_when_option&tab=logs')."'>logs</a> for more details</td>
+                echo $trEmailString = "<tr style='".$css."'>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.$value['amount']."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>{$paypal_email}</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>{$PayPalResultDRT['ACK']}</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>{$PayPalResultDRT['L_SHORTMESSAGE0']} <br>See <a href='".admin_url('admin.php?page=give_when_option&tab=logs')."'>logs</a> for more details</td>
                 </tr>";
                 $EmailString.= $trEmailString;
             }
@@ -618,18 +601,18 @@ class AngellEYE_Give_When_interface {
                 <div class="row">
                     <div class="col-md-12">
                         <?php
-                        echo $alert_info_email_string = '<div class="alert alert-info">
-                    <p>Total Transactions : <strong>' . $total_txn . '</strong></p>
-                    <p>Total Successful Transactions : <strong>' . $total_txn_success . '</strong></p>
-                    <p>Total Failed Transactions : <strong>' . $total_txn_failed . '</strong></p>
-                    <hr>    
-                    <p>Total Transactions Amount : <strong>' . $symbol.number_format($total_amount,2) . '</strong></p>
-                    <p>Total Successful Transactions Amount : <strong>' . $symbol.number_format($total_amount_success,2) . '</strong></p> 
-                    <p>Total Failed Transactions Amount  : <strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
+                        echo $alert_info_email_string = '<div style="padding: 15px;margin-bottom: 20px;border: 1px solid transparent;color: #31708f;background-color: #d9edf7;border-color: #bce8f1; border-radius: 4px; ">
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">Total Transactions : <strong>' . $total_txn . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">Total Successful Transactions : <strong>' . $total_txn_success . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">Total Failed Transactions : <strong>' . $total_txn_failed . '</strong></p>
+                    <hr style="box-sizing: content-box;height: 0;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;border-top-color: #a6e1ec;">    
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">Total Transactions Amount : <strong>' . $symbol.number_format($total_amount,2) . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">Total Successful Transactions Amount : <strong>' . $symbol.number_format($total_amount_success,2) . '</strong></p> 
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">Total Failed Transactions Amount  : <strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
                 </div>';
                         $EmailString.=$alert_info_email_string;
 
-                        $headers = "From: info@givewhen.com \r\n";
+                        $headers = "From: GiveWhen <info@givewhen.com> \r\n";
                         $headers .= "Reply-To: noreply@givewhen.com \r\n";
                         //$headers .= "CC: examplename@example.com\r\n";
                         $headers .= "MIME-Version: 1.0\r\n";
@@ -637,7 +620,7 @@ class AngellEYE_Give_When_interface {
 
                         $to = $admin_email = get_option('admin_email');
                         $subject = 'GiveWhen Transaction Report For ' . $trigger_name;
-                        $message = $EmailString;
+                        $message = $headerString.$EmailString;
                         wp_mail($to, $subject, $message, $headers);
                         ?>
                     </div>
