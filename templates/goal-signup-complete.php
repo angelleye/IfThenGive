@@ -44,7 +44,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $EmailString='';
         $EmailString .= '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">
-                <div style="text-align: center;"><img style="vertical-align:margin:0 auto; middle;"src="https://image.ibb.co/ngdvbk/icon.png" alt="GiveWhen"></div>
+                <div style="text-align: center;"><img style="vertical-align:margin:0 auto; middle;" src="'.GW_PLUGIN_URL.'admin\images\icon.png" alt="GiveWhen"></div>
                 <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634; font-weight: 600; text-align: center;">
                     <strong style="background-color: #ffffff; font-weight: 300; letter-spacing: 1px;text-transform: uppercase; margin-bottom:10px; font-size: 25px;">Hi '.$current_user->display_name.',Thank You for signed up in Anthony Rizzo Home Run Challenge'.$trigger_name.'</strong>
                     <p style="font-size: 16px;text-align: center;font-family: inherit; color: #076799"><strong>Each time you will give $ '.$amount.' when '.$trigger_thing.'</strong></p>      
