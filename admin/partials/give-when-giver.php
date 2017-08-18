@@ -208,6 +208,9 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         case 'DisplayName' :
             _e($item['DisplayName'],'givewhen');
             break;
+        case 'GWAction' :
+            echo '<button type="button" class="btn btn-info btn-sm btn-cbaid" data-userid="'.$item['user_id'].'">'.__('Cancel Billing Agreement','givewhen').'</button>';
+            break;
       }
     }
     
@@ -238,7 +241,8 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         'DisplayName'    => __( 'Name', 'givewhen' ),
         'PayPalEmail'         => __( 'Givers', 'givewhen' ),
         'amount'       => __( 'Amount', 'givewhen' ),
-        'PayPalPayerID' => __('PayPal Payer ID','givewhen')
+        'PayPalPayerID' => __('PayPal Payer ID','givewhen'),
+        'GWAction' => __('Action','givewhen')
       ];
 
       return $columns;

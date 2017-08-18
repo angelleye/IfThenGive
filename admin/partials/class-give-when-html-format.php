@@ -24,6 +24,8 @@ class AngellEYE_Give_When_interface {
         add_action('give_when_retry_failed_transactions_interface', array(__CLASS__, 'give_when_retry_failed_transactions_interface_html'));
         add_action('give_when_disconnect_interface',array(__CLASS__,'give_when_disconnect_interface_html'));
         add_action('admin_head', array(__CLASS__, 'give_when_hide_publish_button_until'));
+        add_action('wp_ajax_cancel_billing_agreement_giver', array(__CLASS__, 'cancel_billing_agreement_giver'));
+        add_action("wp_ajax_nopriv_cancel_billing_agreement_giver", array(__CLASS__, 'cancel_billing_agreement_giver'));
     }
 
     /**
@@ -1031,6 +1033,28 @@ class AngellEYE_Give_When_interface {
                 }
             }
         }
+    }
+    
+    public function cancel_billing_agreement_giver() {
+        if (isset($_POST['userid'])) {
+            $userid = $_POST['userid'];    
+            $return = AngellEYE_Give_When_Cancel_Billing_Agreement::Cancel_Billing_Agreement_delete_giver($userid);
+            if($return['ACK']=='Success'){
+                delete_user_meta($userid, 'give_when_gec_email');                     
+                delete_user_meta($userid,'give_when_gec_payer_id');
+                delete_user_meta($userid,'give_when_gec_first_name');
+                delete_user_meta($userid,'give_when_gec_last_name');
+                delete_user_meta($userid,'give_when_gec_country_code');
+                delete_user_meta($userid,'give_when_gec_currency_code');
+                delete_user_meta($userid,'give_when_guest_user');
+                delete_user_meta($userid,'give_when_gec_billing_agreement_id');
+                echo json_encode(array('Ack' => 'success'));   
+            }            
+            else{
+                echo json_encode(array('Ack' => 'failed'));
+            }
+        }
+        exit;
     }
 }
 

@@ -39,7 +39,7 @@ class AngellEYE_Give_When_Public_Display {
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_create_shortcode($atts, $content = null) {       
+    public static function give_when_create_shortcode($atts, $content = null) {
         global $post, $post_ID; 
         $give_when_page_id = $post->ID;
         extract(shortcode_atts(array(

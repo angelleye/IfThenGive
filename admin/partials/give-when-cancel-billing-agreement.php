@@ -35,7 +35,13 @@ class AngellEYE_Give_When_Cancel_Billing_Agreement {
             'BILLINGAGREEMENTDESCRIPTION' => 'Givewhen Giver Role deleted.'
         );        
         $PayPalRequestData = array('BAUFields' => $BAUpdateFields);        
-        $PayPalResult = $PayPal->BillAgreementUpdate($PayPalRequestData);        
+        $PayPalResult = $PayPal->BillAgreementUpdate($PayPalRequestData);
+        if($PayPal->APICallSuccessful($PayPalResult['ACK'])){
+            return array('ACK'=>'Success');
+        }
+        else{
+            return array('ACK'=>'Failed');
+        }
         //print_r($PayPalResult);
     }
     public static function Cancel_Billing_Agreement_delete_giver_message($users){

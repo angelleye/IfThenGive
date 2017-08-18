@@ -164,6 +164,34 @@
         $( ".btn-preview" ).focusout(function() {
             $('#save-post').focus();
         });
+        
+        $(document).on('click','.btn-cbaid',function(){
+            var userid = $(this).data('userid');
+            alertify.defaults.transition = "slide";
+            alertify.defaults.theme.ok = "btn btn-primary";
+            alertify.defaults.theme.cancel = "btn btn-danger";
+            alertify.defaults.theme.input = "form-control";
+            alertify.confirm('Cancel Billing Agreement', 'Are you sure you want to Cancel Billing Agreement for this Giver..?',
+                function ()
+                {                                                            
+                    $.ajax({
+                       type: 'POST',
+                       url: admin_ajax_url,
+                        data: { 
+                           action  : 'cancel_billing_agreement_giver',
+                           userid : userid
+                       },
+                       dataType: "json",
+                       success: function (result) {
+                       }
+                   });
+                },
+                function ()
+                {
+                    alertify.error('You Pressed Cancel');
+                });               
+        });
+        
     });    
 
 })(jQuery);
