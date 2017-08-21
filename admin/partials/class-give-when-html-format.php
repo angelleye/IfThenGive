@@ -23,6 +23,7 @@ class AngellEYE_Give_When_interface {
         add_action('give_when_get_transaction_detail', array(__CLASS__, 'give_when_get_transaction_detail_html'));
         add_action('give_when_retry_failed_transactions_interface', array(__CLASS__, 'give_when_retry_failed_transactions_interface_html'));
         add_action('give_when_disconnect_interface',array(__CLASS__,'give_when_disconnect_interface_html'));
+        add_action('give_when_get_users_transactions_interface',array(__CLASS__,'give_when_get_users_transactions_interface_html'));
         add_action('admin_head', array(__CLASS__, 'give_when_hide_publish_button_until'));
         add_action('wp_ajax_cancel_billing_agreement_giver', array(__CLASS__, 'cancel_billing_agreement_giver'));
         add_action("wp_ajax_nopriv_cancel_billing_agreement_giver", array(__CLASS__, 'cancel_billing_agreement_giver'));
@@ -1018,6 +1019,33 @@ class AngellEYE_Give_When_interface {
         die();
     }
 
+    public static function give_when_get_users_transactions_interface_html(){
+        ?>
+        <div class="wrap">
+            <div class="give_when_admin_container">
+                <div class="row">
+                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>
+                    <?php if(isset($_REQUEST['user_id'])){ 
+                          $user_info = get_userdata($_REQUEST['user_id']);  
+                    ?>
+                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transactions Of '.$user_info->display_name,'givewhen'); ?></abbr></div>
+                    <div class="col-md-12">
+                        <form method="post">
+                            <?php
+                            $table = new AngellEYE_Give_When_users_Transactions_Table();
+                            $table->prepare_items();
+                            $table->search_box('Search', 'givers_users_transaction_search_id');
+                            $table->display();
+                            ?>
+                        </form>
+                    </div>
+                    <?php } ?>                        
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+    
     public static function give_when_hide_publish_button_until() {
         if (isset($_REQUEST['post_type'])) {
             if ($_REQUEST['post_type'] == 'give_when_goals') {

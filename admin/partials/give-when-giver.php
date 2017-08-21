@@ -53,8 +53,9 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         global $wpdb;        
         $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
-             um.meta_value As PayPalEmail,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'give_when_gec_email') AS PayPalEmail,
              um.user_id,
+             p.post_date as BADate,
              u.display_name as DisplayName,
              pm.meta_value as amount,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID 
@@ -75,14 +76,14 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
                  }                 
                  else{
                      /* by default we will add post time/post type time order by  */
-                     $sql .= ' ORDER BY PayPalEmail ';
+                     $sql .= ' ORDER BY BADate ';
                  }
-                 $sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
+                 $sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' DESC';
              }
              else{
                 /* by default we will add post time/post type time order by  */
-                $sql .= ' ORDER BY PayPalEmail ';
-                $sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
+                $sql .= ' ORDER BY BADate ';
+                $sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' DESC';
             }                    
         $sql .= " LIMIT $per_page";
         $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;    
@@ -95,8 +96,9 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         global $wpdb;        
         $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
-             um.meta_value As PayPalEmail,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'give_when_gec_email') AS PayPalEmail,
              um.user_id,
+             p.post_date as BADate,
              u.display_name as DisplayName,
              pm.meta_value as amount,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID 
@@ -136,8 +138,9 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
 
       $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
-             um.meta_value As PayPalEmail,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'give_when_gec_email') AS PayPalEmail,
              um.user_id,
+             p.post_date as BADate,
              u.display_name as DisplayName,
              pm.meta_value as amount,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID 
@@ -206,8 +209,11 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
             _e($item['PayPalPayerID'],'givewhen');
             break;
         case 'DisplayName' :
-            _e($item['DisplayName'],'givewhen');
+            _e('<a href="' . site_url() . '/wp-admin/?page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>','givewhen');
             break;
+         case 'BADate' :
+            _e(date('Y-m-d',  strtotime($item['BADate'])),'givewhen');
+             break;
         case 'GWAction' :
             echo '<button type="button" class="btn btn-info btn-sm btn-cbaid" data-userid="'.$item['user_id'].'">'.__('Cancel Billing Agreement','givewhen').'</button>';
             break;
@@ -242,6 +248,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         'PayPalEmail'         => __( 'Givers', 'givewhen' ),
         'amount'       => __( 'Amount', 'givewhen' ),
         'PayPalPayerID' => __('PayPal Payer ID','givewhen'),
+        'BADate'       => __('Agreement Date','givewhen'),
         'GWAction' => __('Action','givewhen')
       ];
 

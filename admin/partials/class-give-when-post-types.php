@@ -28,19 +28,20 @@ class AngellEYE_Give_When_Post_types {
     }
 
 
-//    public static function admin_header() {   
-//        $page = ( isset($_GET['view'] ) ) ? esc_attr( $_GET['view'] ) : false;
-//        if( 'givers' != $page )
-//          return; 
-//
-//        echo '<style type="text/css">';
-//        echo '';
-//        echo '.wp-list-table .column-id { width: 5%; }';
-//        echo '.wp-list-table .column-booktitle { width: 40%; }';
-//        echo '.wp-list-table .column-author { width: 35%; }';
-//        echo '.wp-list-table .column-isbn { width: 20%; }';
-//        echo '</style>';
-//    }
+    public static function admin_header() {   
+        $page = ( isset($_GET['view'] ) ) ? esc_attr( $_GET['view'] ) : false;
+        if( 'givers' != $page )
+          return; 
+
+        echo '<style type="text/css">';
+        echo '';
+        echo '.wp-list-table .column-BillingAgreement { width: 15%; }';
+        echo '.wp-list-table .column-PayPalEmail { width: 30%; }';
+        echo '.wp-list-table .column-amount { width: 15%; }';
+        echo '.wp-list-table .column-PayPalPayerID { width: 12%; }';
+        echo '.wp-list-table .column-BADate { width: 12%; }';
+        echo '</style>';
+    }
     
     /**
      * give_when_register_post_types function is user for register custom post type
@@ -269,6 +270,9 @@ class AngellEYE_Give_When_Post_types {
             }
             elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'RetryFailedTransactions'){
                 do_action('give_when_retry_failed_transactions_interface');
+            }
+            elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'GetUsersTransactions'){
+                do_action('give_when_get_users_transactions_interface');
             }
             else{
                 return '';    
