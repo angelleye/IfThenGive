@@ -348,6 +348,7 @@ class Givewhen {
                         else{                
                             /*it makes user a normal login*/
                             if($_SESSION['gw_guest_user'] == 'no'){
+                                wp_new_user_notification($goal_user_id,null,'user');
                                 wp_set_auth_cookie( $goal_user_id, true );
                             }                            
                         }
