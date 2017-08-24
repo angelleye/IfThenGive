@@ -12,7 +12,7 @@
 class AngellEYE_Give_When_Post_types {
     /**
      * Hook in methods
-     * @since    0.1.0
+     * @since    1.0.0
      * @access   static
      */
     public static function init() {      
@@ -202,12 +202,12 @@ class AngellEYE_Give_When_Post_types {
                 update_post_meta($post_ID, 'option_amount',$_POST['option_amount']);
             }
         }
-        if(isset($_POST['publish'])){
-            $url = site_url()."/wp-admin/post.php?post=".$post_ID."&action=edit&view=true&add_post_success=true";
+        if(isset($_POST['publish']) && $_POST['post_type']=='give_when_goals'){
+            $url = admin_url()."post.php?post=".$post_ID."&action=edit&view=true&add_post_success=true";
             wp_redirect( $url );
             exit;
-        }elseif(isset($_POST['save'])){
-            $url = site_url()."/wp-admin/post.php?post=".$post_ID."&action=edit&view=true&update_post_success=true";
+        }elseif(isset($_POST['save'])  && $_POST['post_type']=='give_when_goals'){
+            $url = admin_url()."post.php?post=".$post_ID."&action=edit&view=true&update_post_success=true";
             wp_redirect( $url );
             exit;
         }
