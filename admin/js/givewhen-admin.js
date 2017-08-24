@@ -167,11 +167,14 @@
         
         $(document).on('click','.btn-cbaid',function(){
             var userid = $(this).data('userid');
+            var status = $(this).data('gwchangestatus');
+            var post_id = $(this).data('postid');
+            var btn = $(this);
             alertify.defaults.transition = "slide";
             alertify.defaults.theme.ok = "btn btn-primary";
             alertify.defaults.theme.cancel = "btn btn-danger";
             alertify.defaults.theme.input = "form-control";
-            alertify.confirm('Cancel Billing Agreement', 'Are you sure you want to Cancel Billing Agreement for this Giver..?',
+            alertify.confirm(status + ' this Giver ?', 'Are you sure you want to '+status+' this Giver..?',
                 function ()
                 {                                                            
                     $.ajax({
@@ -179,10 +182,25 @@
                        url: admin_ajax_url,
                         data: { 
                            action  : 'cancel_billing_agreement_giver',
-                           userid : userid
+                           userid : userid,
+                           postid : post_id
                        },
                        dataType: "json",
-                       success: function (result) {
+                       success: function (result) {                           
+                           if(btn.hasClass('btn-warning')){
+                               btn.removeClass('btn-warning');
+                               btn.addClass('btn-defalt');
+                               btn.text('Activate');
+                               btn.closest('tr').addClass('gw_suspended_row');
+                               alertify.error('Giver Suspended');
+                           }
+                           else{
+                               btn.removeClass('btn-defalt');
+                               btn.addClass('btn-warning');
+                               btn.text('Suspend');
+                               btn.closest('tr').removeClass('gw_suspended_row');
+                               alertify.success('Giver Activated');
+                           }
                        }
                    });
                 },

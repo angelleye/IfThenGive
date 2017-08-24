@@ -1065,21 +1065,16 @@ class AngellEYE_Give_When_interface {
     
     public function cancel_billing_agreement_giver() {
         if (isset($_POST['userid'])) {
-            $userid = $_POST['userid'];    
-            $return = AngellEYE_Give_When_Cancel_Billing_Agreement::Cancel_Billing_Agreement_delete_giver($userid);
-            if($return['ACK']=='Success'){
-                delete_user_meta($userid, 'give_when_gec_email');                     
-                delete_user_meta($userid,'give_when_gec_payer_id');
-                delete_user_meta($userid,'give_when_gec_first_name');
-                delete_user_meta($userid,'give_when_gec_last_name');
-                delete_user_meta($userid,'give_when_gec_country_code');
-                delete_user_meta($userid,'give_when_gec_currency_code');
-                delete_user_meta($userid,'give_when_guest_user');
-                delete_user_meta($userid,'give_when_gec_billing_agreement_id');
-                echo json_encode(array('Ack' => 'success'));   
-            }            
+            $user_id = $_POST['userid'];
+            $data = get_user_meta($user_id,'givewhen_giver_'.$_POST['postid'].'_status',true);
+            if(empty($data)){
+               update_user_meta( $user_id , 'givewhen_giver_'.$_POST['postid'].'_status', 'suspended' );
+            }
+            elseif($data == 'suspended'){
+                update_user_meta( $user_id , 'givewhen_giver_'.$_POST['postid'].'_status', 'active' );
+            }
             else{
-                echo json_encode(array('Ack' => 'failed'));
+                update_user_meta( $user_id , 'givewhen_giver_'.$_POST['postid'].'_status', 'suspended' );
             }
         }
         exit;

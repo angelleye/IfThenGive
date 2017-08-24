@@ -451,3 +451,7 @@ form {
   padding-left: 50px;
   padding-right: 50px;
 }
+.gw_suspended_row {
+    background-color: #f3a19b !important;
+    cursor: no-drop;
+}

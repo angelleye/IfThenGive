@@ -54,6 +54,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'give_when_gec_email') AS PayPalEmail,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'givewhen_giver_".$_REQUEST['post']."_status') AS GiverStatus,
              um.user_id,
              p.post_date as BADate,
              u.display_name as DisplayName,
@@ -97,6 +98,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'give_when_gec_email') AS PayPalEmail,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'givewhen_giver_".$_REQUEST['post']."_status') AS GiverStatus,             
              um.user_id,
              p.post_date as BADate,
              u.display_name as DisplayName,
@@ -107,9 +109,9 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
              join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
              left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
              WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_signup_wp_goal_id') 
-             group by u.ID";                    
+             group by u.ID Having GiverStatus = 'active' OR GiverStatus IS NULL";
              
-        $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );       
+        $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );               
         return $result_array;
     }
     
@@ -139,6 +141,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
       $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'give_when_gec_email') AS PayPalEmail,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'givewhen_giver_".$_REQUEST['post']."_status') AS GiverStatus,
              um.user_id,
              p.post_date as BADate,
              u.display_name as DisplayName,
@@ -215,9 +218,43 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
             _e(date('Y-m-d',  strtotime($item['BADate'])),'givewhen');
              break;
         case 'GWAction' :
-            echo '<button type="button" class="btn btn-info btn-sm btn-cbaid" data-userid="'.$item['user_id'].'">'.__('Cancel Billing Agreement','givewhen').'</button>';
+            $giverstatus = $item['GiverStatus'];
+            /* if status is active we have to change it into suspended */
+            if($giverstatus == 'active'){               
+                $label = __('Suspend','givewhen');                
+                $class = "btn-warning";
+            }
+            /* if no status found,default is suspended */
+            else if($giverstatus === NULL){                
+                $label = __('Suspend','givewhen');               
+                $class = "btn-warning";
+            }
+            /* else status is always suspended so make it active */
+            else{                
+                $label = __('Activate','givewhen');
+                $class = "btn-defalt";
+            }            
+            echo '<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-gwchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,'givewhen').'</button>';
             break;
       }
+    }
+    
+    function single_row( $item ) {
+        $giverstatus = $item['GiverStatus'];
+        if($giverstatus == 'active'){
+            $class = "";
+        }
+        /* if no status found,default is suspended */
+        else if($giverstatus === NULL){                            
+            $class = "";
+        }
+        /* else status is always suspended so make it active */
+        else{
+            $class = "gw_suspended_row";
+        }
+        echo '<tr class="'.$class.'">';
+        echo $this->single_row_columns( $item );
+        echo "</tr>\n";
     }
     
     

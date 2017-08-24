@@ -23,7 +23,7 @@ class AngellEYE_Give_When_Post_types {
         add_action('manage_give_when_goals_posts_custom_column', array(__CLASS__, 'give_when_buttons_columns'), 10, 2);
         /* custom **/
         add_filter('post_row_actions',array(__CLASS__, 'my_action_row'), 10, 2);        
-        //add_action( 'admin_head', array( __CLASS__, 'admin_header' ) );        
+        add_action( 'admin_head', array( __CLASS__, 'admin_header' ) );        
         add_action( 'admin_menu', array(__CLASS__,'register_give_when_submenu_page' ));        
     }
 
@@ -36,10 +36,12 @@ class AngellEYE_Give_When_Post_types {
         echo '<style type="text/css">';
         echo '';
         echo '.wp-list-table .column-BillingAgreement { width: 15%; }';
-        echo '.wp-list-table .column-PayPalEmail { width: 30%; }';
-        echo '.wp-list-table .column-amount { width: 15%; }';
-        echo '.wp-list-table .column-PayPalPayerID { width: 12%; }';
-        echo '.wp-list-table .column-BADate { width: 12%; }';
+        echo '.wp-list-table .column-DisplayName { width: 15%; }';
+        echo '.wp-list-table .column-PayPalEmail { width: 25%; }';
+        echo '.wp-list-table .column-amount { width: 7%; }';
+        echo '.wp-list-table .column-PayPalPayerID { width: 10%; }';
+        echo '.wp-list-table .column-BADate { width: 10%; }';
+        echo '.wp-list-table .column-GWAction { width: 7%; }';
         echo '</style>';
     }
     
