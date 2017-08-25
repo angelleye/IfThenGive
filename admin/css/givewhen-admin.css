@@ -215,7 +215,7 @@ input:checked + .slider:before {
     font-size: 22px;
     text-align: center;
     height: 10px;
-    line-height: 20px;
+    line-height: 30px;
     margin: 10px 0;
     height: auto;
     color: #f58634;

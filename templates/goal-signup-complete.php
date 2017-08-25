@@ -36,11 +36,19 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $post_meta_array = get_post_meta($post_id);
         $trigger_name = $post_meta_array['trigger_name'][0];
         $trigger_thing = $post_meta_array['trigger_thing'][0];
+        $image_url= $post_meta_array['image_url'][0];
+        $trigger_desc = $post_meta_array['trigger_desc'][0];
         $ccode = get_option('gw_currency_code');
         $paypal = new Give_When_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
         echo "<h2>".__('Hi ','givewhen'). $user->display_name . __(', Thank You for signed up in ','givewhen') . $trigger_name. "</h2>";
         echo "<span>" . __('Each time you will give ','givewhen').$symbol.$amount.' '. __('when','givewhen').' '.$trigger_thing. "</span>";
+        echo '<div class="gw_post-image" style="margin-top: 30px;margin-top: 30px;max-width: 600px;margin-left: auto;margin-right: auto;">
+                <img src="'.$image_url.'" alt="Goal Image">
+              </div>
+              <div class="gw_post-description" style="    max-width: 600px;margin-left: auto;margin-right: auto;">
+                <p>'.$trigger_desc.'</p>
+              </div>';
         $EmailString='';
         $EmailString .= '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">

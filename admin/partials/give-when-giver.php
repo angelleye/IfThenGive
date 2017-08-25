@@ -282,7 +282,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         //'cb'           => '<input type="checkbox" />',
         'BillingAgreement'=> __( 'Billing Agreement ID', 'givewhen' ),
         'DisplayName'    => __( 'Name', 'givewhen' ),
-        'PayPalEmail'         => __( 'Givers', 'givewhen' ),
+        'PayPalEmail'         => __( 'PayPal Email ID', 'givewhen' ),
         'amount'       => __( 'Amount', 'givewhen' ),
         'PayPalPayerID' => __('PayPal Payer ID','givewhen'),
         'BADate'       => __('Agreement Date','givewhen'),

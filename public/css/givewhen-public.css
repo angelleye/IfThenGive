@@ -467,6 +467,10 @@ form {
   cursor: no-drop;  
 }
 
+.gw_post-description{
+    text-align: justify;        
+}
+
 @media (min-width: 1200px){
 .gwcontainer {
     width: 1170px;
