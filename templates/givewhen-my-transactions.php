@@ -29,6 +29,7 @@ if(! is_admin()){
                     <th><?php _e('Transaction ID', 'givewhen'); ?></th>
                     <th><?php _e('Name', 'givewhen'); ?></th>
                     <th><?php _e('Amount', 'givewhen'); ?></th>
+                    <th><?php _e('Goal Name', 'givewhen'); ?></th>
                     <th><?php _e('PayPal Email ID', 'givewhen'); ?></th>
                     <th><?php _e('PayPal Payer ID', 'givewhen'); ?></th>
                     <th><?php _e('Payment Status', 'givewhen'); ?></th>
@@ -77,27 +78,33 @@ $symbol = $paypal->get_currency_symbol($ccode);
                         var amount = parseFloat(row.amount).toFixed(2);
                         return str + amount;
                     }
-                },
+                },                    
                 {
                     "targets": [3],
+                    "render": function (data, type, row) {
+                        return row.goal_name;
+                    }
+                },    
+                {
+                    "targets": [4],
                     "render": function (data, type, row) {
                         return row.user_paypal_email;
                     }
                 },
                 {
-                    "targets": [4], 'searchable': false, 'orderable': false,
+                    "targets": [5], 'searchable': false, 'orderable': false,
                     "render": function (data, type, row) {
                         return row.PayPalPayerID;
                     }
                 },
                 {
-                    "targets": [5], 'searchable': false, 'orderable': false,
+                    "targets": [6],
                     "render": function (data, type, row) {
                         return row.ppack;
                     }
                 },
                 {
-                    "targets": [6], 'searchable': false, 'orderable': false,
+                    "targets": [7],
                     "render": function (data, type, row) {
                         return row.Txn_date;
                     }

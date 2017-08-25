@@ -55,15 +55,26 @@ class AngellEYE_Give_When_My_Transactions_Table {
         else if($colOrder==1)
             $col='user_display_name';
         else if($colOrder==2)
-            $col='amount';        
+            $col='amount';      
+        else if($colOrder==3)
+            $col='goal_name';      
+        else if($colOrder==4)
+            $col='user_paypal_email';      
+        else if($colOrder==5)
+            $col='PayPalPayerID';      
+        else if($colOrder==6)
+            $col='ppack';
+        else if($colOrder==6)
+            $col='Txn_date';
         else
-            $col='transactionId';
+            $col='Txn_date';
         
         
         $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'give_when_gec_email') as user_paypal_email,
              (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
               pm.post_id,
+              (SELECT pg.post_title from {$wpdb->prefix}posts pg where pg.ID = g.meta_value) AS goal_name,
               pm.meta_value as amount,
               b.meta_value as userId,
               c.meta_value as transactionId,
@@ -71,6 +82,7 @@ class AngellEYE_Give_When_My_Transactions_Table {
               p.post_date as Txn_date
               FROM `{$wpdb->prefix}postmeta` as pm 
               left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
+              LEFT JOIN {$wpdb->prefix}postmeta g ON g.post_id = pm.post_id AND g.meta_key = 'give_when_transactions_wp_goal_id'  
               left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
               left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_transactions_ack'
               JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id 
