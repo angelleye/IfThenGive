@@ -985,6 +985,7 @@ class AngellEYE_Give_When_interface {
             delete_option('give_when_sandbox_api_credentials_api_password');
             delete_option('give_when_sandbox_api_credentials_signature');
             update_option('give_when_sandbox_connected_to_paypal', 'no');
+            delete_option('give_when_sandbox_api_credentials_addded_manually');
         }
         if($_GET['env']=='live'){
             delete_option('give_when_permission_live_connected_person_merchant_id');
@@ -992,6 +993,7 @@ class AngellEYE_Give_When_interface {
             delete_option('give_when_live_api_credentials_api_password');
             delete_option('give_when_live_api_credentials_signature');
             update_option('give_when_live_connected_to_paypal', 'no');
+            delete_option('give_when_live_api_credentials_addded_manually');
         }        
         
         

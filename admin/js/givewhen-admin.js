@@ -210,6 +210,32 @@
                 });               
         });
         
+        $(document).on('click','#gw_sandbox_add_manually', function(){
+            if ($(this).is(':checked')){                
+                $("#give_when_sandbox_api_credentials_api_user_name").removeAttr('disabled');
+                $("#give_when_sandbox_api_credentials_api_password").removeAttr('disabled');
+                $("#give_when_sandbox_api_credentials_signature").removeAttr('disabled');
+            }
+            else{
+                $('#give_when_sandbox_api_credentials_api_user_name').attr('disabled','disabled');
+                $('#give_when_sandbox_api_credentials_api_password').attr('disabled','disabled');
+                $('#give_when_sandbox_api_credentials_signature').attr('disabled','disabled');
+            }
+        });
+        
+        $(document).on('click','#gw_live_add_manually', function(){
+            if ($(this).is(':checked')){                
+                $("#give_when_live_api_credentials_api_user_name").removeAttr('disabled');
+                $("#give_when_live_api_credentials_api_password").removeAttr('disabled');
+                $("#give_when_live_api_credentials_signature").removeAttr('disabled');
+            }
+            else{
+                $('#give_when_live_api_credentials_api_user_name').attr('disabled','disabled');
+                $('#give_when_live_api_credentials_api_password').attr('disabled','disabled');
+                $('#give_when_live_api_credentials_signature').attr('disabled','disabled');
+            }
+        });
+        
     });    
 
 })(jQuery);
