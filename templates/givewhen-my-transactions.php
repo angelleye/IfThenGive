@@ -74,7 +74,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
                 {
                     "targets": [2],
                     "render": function (data, type, row) {
-                        var str = '<?php echo $symbol . " "; ?>';
+                        var str = '<?php echo $symbol; ?>';
                         var amount = parseFloat(row.amount).toFixed(2);
                         return str + amount;
                     }
