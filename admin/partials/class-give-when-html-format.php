@@ -684,12 +684,31 @@ class AngellEYE_Give_When_interface {
         );
         $PayPalRequestData = array('GTDFields' => $GTDFields);
         $PayPalResultTransactionDetail = $PayPal->GetTransactionDetails($PayPalRequestData);
-        if ($PayPal->APICallSuccessful($PayPalResultTransactionDetail['ACK'])) {
-            $requestString = $PayPalResultTransactionDetail['RAWREQUEST'];
-            $responseString = $PayPalResultTransactionDetail['RAWRESPONSE'];
-            $requestData = $PayPalResultTransactionDetail['REQUESTDATA'];
+        if($PayPalResultTransactionDetail['RAWRESPONSE'] == false){
             ?>
-            <div class="wrap">
+                <div class="wrap">
+                    <div class="give_when_admin_container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-info" role="alert">
+                                    <h4 class="alert-heading"><?php _e('Error..!','givewhen'); ?></h4>
+                                    <p><?php _e('PayPal Timout Error occured.','givewhen'); ?></p>
+                                    <?php
+                                        if(isset($PayPalResultTransactionDetail['ERRORS'])){
+                                            $PayPal->DisplayErrors($PayPalResultTransactionDetail['ERRORS']);
+                                        }                                        
+                                    ?>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php
+            exit;    
+        }                    
+        if ($PayPal->APICallSuccessful($PayPalResultTransactionDetail['ACK'])) {
+            ?>
+              <div class="wrap">
                 <div class="give_when_admin_container">                                    
                     <div class="row">
                         <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
@@ -775,21 +794,23 @@ class AngellEYE_Give_When_interface {
                                         <?php echo isset($PayPalResultTransactionDetail['PENDINGREASON']) ? $PayPalResultTransactionDetail['PENDINGREASON'] : ''; ?>
                                     </div>                                                                        
                                     <div class="clearfix"></div>                                                                                   
-                                    <div class="col-md-3">
-                                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>"><?php _e('Back To Goals','givewhen'); ?></a>
+                                    <div class="col-md-6">
+                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=give_when_goals'); ?>"><?php _e('Back To Goals','givewhen'); ?></a>
+                                        <a class="btn btn-info" href="<?php echo admin_url('?page=give_when_givers&post='.$goal_id.'&view=ListTransactions'); ?>"><?php _e('Back To Transactions','givewhen'); ?></a>
                                     </div>
                         </div>                                        
                     </div>                     
                 </div>        
             </div>
             <?php
-        } else {
+            }
+        else {
             ?>
                 <div class="wrap">
                     <div class="give_when_admin_container">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="alert alert-success" role="alert">
+                                <div class="alert alert-info" role="alert">
                                     <h4 class="alert-heading">Error..!</h4>
                                     <?php $PayPal->DisplayErrors($PayPalResultTransactionDetail['ERRORS']); ?>
                                 </div>                                
