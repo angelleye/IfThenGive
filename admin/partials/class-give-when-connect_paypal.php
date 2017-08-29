@@ -239,15 +239,15 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             </div>
                                             <div class="form-group">
                                                 <label for="SandboxAPIUserName"><?php _e('Sandbox API User Name','givewhen'); ?></label>
-                                                <input type="text" class="form-control" id="give_when_sandbox_api_credentials_api_user_name" name="give_when_sandbox_api_credentials_api_user_name" value="<?php echo isset($sandbox_api_user_name) ? $sandbox_api_user_name : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <input type="text" class="form-control" id="give_when_sandbox_api_credentials_api_user_name" name="give_when_sandbox_api_credentials_api_user_name" value="<?php echo isset($sandbox_api_user_name) ? esc_attr($sandbox_api_user_name,'givewhen') : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>
                                             <div class="form-group">
                                                 <label for="SandboxAPIPassword"><?php _e('Sandbox API Password','givewhen'); ?></label>
-                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_api_password" name="give_when_sandbox_api_credentials_api_password" value="<?php echo isset($sandbox_api_password) ? $sandbox_api_password : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_api_password" name="give_when_sandbox_api_credentials_api_password" value="<?php echo isset($sandbox_api_password) ? esc_attr($sandbox_api_password,'givewhen') : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>
                                             <div class="form-group">
                                                 <label for="SandboxAPISignature"><?php _e('Sandbox API Signature','givewhen'); ?></label>
-                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_signature" name="give_when_sandbox_api_credentials_signature" value="<?php echo isset($sandbox_signature) ? $sandbox_signature : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_signature" name="give_when_sandbox_api_credentials_signature" value="<?php echo isset($sandbox_signature) ? esc_attr($sandbox_signature,'givewhen') : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>                                                                                                                
                                         </div>
                                     </div>
@@ -357,15 +357,15 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             </div>
                                             <div class="form-group">
                                                 <label for="APIUserName"><?php _e('API User Name','givewhen'); ?></label>
-                                                <input type="text" class="form-control" id="give_when_live_api_credentials_api_user_name" name="give_when_live_api_credentials_api_user_name" value="<?php echo isset($live_api_user_name) ? $live_api_user_name : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <input type="text" class="form-control" id="give_when_live_api_credentials_api_user_name" name="give_when_live_api_credentials_api_user_name" value="<?php echo isset($live_api_user_name) ? esc_attr($live_api_user_name,'givewhen') : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                             <div class="form-group">
                                                 <label for="APIPassword"><?php _e('API Password','givewhen'); ?></label>
-                                                <input type="password" class="form-control" id="give_when_live_api_credentials_api_password" name="give_when_live_api_credentials_api_password" value="<?php echo isset($live_api_password) ? $live_api_password : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <input type="password" class="form-control" id="give_when_live_api_credentials_api_password" name="give_when_live_api_credentials_api_password" value="<?php echo isset($live_api_password) ? esc_attr($live_api_password,'givewhen') : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                             <div class="form-group">
                                                 <label for="APISignature"><?php _e('API Signature','givewhen'); ?></label>
-                                                <input type="password" class="form-control" id="give_when_live_api_credentials_signature" name="give_when_live_api_credentials_signature" value="<?php echo isset($live_signature) ? $live_signature : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <input type="password" class="form-control" id="give_when_live_api_credentials_signature" name="give_when_live_api_credentials_signature" value="<?php echo isset($live_signature) ? esc_attr($live_signature,'givewhen') : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                         </div>
                                     </div>
