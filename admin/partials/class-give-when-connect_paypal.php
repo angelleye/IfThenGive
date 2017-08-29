@@ -414,7 +414,21 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                             </div>
                         </div>
                        </form>
-                    </div>                    
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title"><h4 class="text-info"><?php _e('Instruction for Connect with PayPal','givewhen'); ?></h4></div>
+                            </div>
+                            <div class="panel-body">
+                                <ol>
+                                    <li><?php _e('Lorem ipsum dolor sit amet','givewhen'); ?></li>
+                                    <li><?php _e('Consectetur adipiscing elit','givewhen'); ?></li>
+                                    <li><?php _e('Integer molestie lorem at massa','givewhen'); ?></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>    
                 </div>
                 <div dir="ltr" style="text-align: left;" trbidi="on"></div>
                 <script>(function (d, s, id) {
