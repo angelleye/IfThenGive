@@ -1068,6 +1068,14 @@ class AngellEYE_Give_When_interface {
                 }
             }
         }
+        if(isset($_REQUEST['action']) && isset($_REQUEST['view']) && $_REQUEST['action']=== 'edit' && $_REQUEST['view'] =='true'){
+            ?>
+                    <style>
+                        #publishing-action { display: none; }
+                        #save-action{display: none;}
+                    </style>
+                    <?php
+        }        
     }
     
     public function cancel_billing_agreement_giver() {

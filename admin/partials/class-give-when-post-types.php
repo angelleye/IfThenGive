@@ -179,9 +179,9 @@ class AngellEYE_Give_When_Post_types {
      */
     public static function give_when_save_data() {
 
-        global $post, $post_ID, $wpdb;
+        global $post, $post_ID, $wpdb;        
         if (((isset($_POST['publish'])) || isset($_POST['save'])) && ($post->post_type == 'give_when_goals')) {                          
-            update_post_meta($post_ID, 'trigger_name',$post->post_title);
+            update_post_meta($post_ID, 'trigger_name',$_REQUEST['post_title']);
             update_post_meta($post_ID, 'trigger_thing',$_POST['trigger_thing']);
             update_post_meta($post_ID, 'trigger_desc',$_POST['trigger_desc']);
             update_post_meta($post_ID, 'image_url',$_POST['image_url']);            
