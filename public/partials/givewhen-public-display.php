@@ -121,11 +121,11 @@ class AngellEYE_Give_When_Public_Display {
                         $html .= '<span id="connect_paypal_error_p"></span>';
                         $html .= '</div>';
                         
-                        $html .= '<p class="text-info">Instructions</p>';
+                        $html .= '<p class="text-info">'.__('Instructions','givewhen').'</p>';
                         $html .='<ol>
-                                    <li>Lorem ipsum dolor sit amet</li>
-                                    <li>Consectetur adipiscing elit</li>
-                                    <li>Integer molestie lorem at massa</li>
+                                    <li>'.__('Lorem ipsum dolor sit amet.','givewhen').'</li>
+                                    <li>'.__('Consectetur adipiscing elit.','givewhen').'</li>
+                                    <li>'.__('Integer molestie lorem at massa.','givewhen').'</li>
                                 </ol>';
                                     
                                      if ( is_user_logged_in() ) {
