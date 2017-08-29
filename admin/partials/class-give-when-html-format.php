@@ -31,7 +31,8 @@ class AngellEYE_Give_When_interface {
 
     /**
      * give_when_interface_html function is for
-     * html of interface when action is Edit.
+     * HTML interface when action is Edit.
+     * This method also allow you to preview the Goal details
      * @since 1.0.0
      * @access public
      */
@@ -98,16 +99,16 @@ class AngellEYE_Give_When_interface {
                 <form>                    
                     <div class="form-group">
                         <label for="triggerName" class="control-label"><?php echo __('Thing', 'givewhen'); ?></label>
-                        <input type="text" name="trigger_thing" value="<?php echo $trigger_thing ?>" class="form-control" autocomplete="off" id="trigger_thing" placeholder="Enter event Here"/>
+                        <input type="text" name="trigger_thing" value="<?php echo esc_attr( $trigger_thing , 'givewhen'); ?>" class="form-control" autocomplete="off" id="trigger_thing" placeholder="Enter event Here"/>
                     </div>
                     <div class="form-group">
                         <label for="triggerDesc" class="control-label"><?php echo __('Goal Description', 'givewhen'); ?></label>
-                        <textarea name="trigger_desc" class="form-control" autocomplete="off" id="trigger_desc" placeholder="Enter Description Here"><?php echo $trigger_desc; ?></textarea>
+                        <textarea name="trigger_desc" class="form-control" autocomplete="off" id="trigger_desc" placeholder="Enter Description Here"><?php echo esc_attr( $trigger_desc , 'givewhen'); ?></textarea>
                     </div>
                     <div class="form-group">
                         <label for="image_url"><?php echo __('Image', 'givewhen'); ?></label>
-                        <input type="text" name="image_url" id="image_url" class="form-control" value="<?php echo $image_url; ?>"><br>
-                        <input type="button" name="upload-btn" id="upload-btn" class="btn btn-primary" value="Add Image">
+                        <input type="text" name="image_url" id="image_url" class="form-control" value="<?php echo esc_attr( $image_url , 'givewhen'); ?>"><br>
+                        <input type="button" name="upload-btn" id="upload-btn" class="btn btn-primary" value="<?php echo esc_attr( "Add Image" , 'givewhen'); ?>">
                     </div>                
                     <div class="form-group">
                         <input type="radio" name="fixed_radio" id="fixed_radio" value="fixed" <?php echo $fixed_amount_check; ?>><label class="radio-inline" for="fixed_radio"><strong><?php echo __('Fixed', 'givewhen'); ?></strong></label>
@@ -119,11 +120,11 @@ class AngellEYE_Give_When_interface {
 
                     <div class="form-group <?php echo $fixed_amount_input_class; ?>" id="fixed_amount_input_div">
                         <label for="triggerName" class="control-label"><?php echo __('Fixed Amount', 'givewhen'); ?></label>
-                        <input type="text" name="fixed_amount_input" value="<?php echo $fixed_amount_input_value; ?>" class="form-control" autocomplete="off" id="fixed_amount_input" placeholder="Enter Amount"/>
+                        <input type="text" name="fixed_amount_input" value="<?php echo esc_attr($fixed_amount_input_value, 'givewhen'); ?>" class="form-control" autocomplete="off" id="fixed_amount_input" placeholder="Enter Amount"/>
                     </div>
                     <div class="form-group <?php echo $manual_amount_class; ?>" id="manual_amount_input_div">
                         <label for="manualamount" class="control-label"><?php echo __('Set Default Amount', 'angelleye_give_when'); ?></label>
-                        <input type="text" name="manual_amount_input" value="<?php echo $manual_amount_input_value; ?>" class="form-control" autocomplete="off" id="manual_amount_input" placeholder="Enter Amount"/>
+                        <input type="text" name="manual_amount_input" value="<?php echo esc_attr($manual_amount_input_value, 'givewhen'); ?>" class="form-control" autocomplete="off" id="manual_amount_input" placeholder="Enter Amount"/>
                     </div>
                     <div id="dynamic_options" class="<?php echo $dynamic_options_class; ?>">                        
             <?php
@@ -138,13 +139,13 @@ class AngellEYE_Give_When_interface {
                                         </div>
                                         <div class="col-sm-3 nopadding">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="option_name" name="option_name[]" value="<?php echo $name; ?>" placeholder="Option Name">
+                                                <input type="text" class="form-control" id="option_name" name="option_name[]" value="<?php echo esc_attr($name,'givewhen'); ?>" placeholder="Option Name">
                                             </div>
                                         </div>                
                                         <div class="col-sm-3 nopadding">
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" id="option_amount" name="option_amount[]" value="<?php echo $dynamic_option_amount[$i]; ?>" placeholder="Option Amount">
+                                                    <input type="text" class="form-control" id="option_amount" name="option_amount[]" value="<?php echo esc_attr($dynamic_option_amount[$i],'givewhen'); ?>" placeholder="Option Amount">
                                                     <div class="input-group-btn">
                     <?php if (($i + 1) == $total_options) { ?>
                                                             <button class="btn btn-success" type="button" id="add_dynamic_field"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
@@ -200,7 +201,7 @@ class AngellEYE_Give_When_interface {
                         <div class="modal-content">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Your Goal will be Displayed like this.</h4>
+                            <h4 class="modal-title"><?php _e('Your Goal will be Displayed like this.','givewhen'); ?></h4>
                           </div>
                           <div class="modal-body">
                               <div class="row">
@@ -243,15 +244,15 @@ class AngellEYE_Give_When_interface {
                                             <div class="gw_hr-title gw_center">
                                                 <abbr><?php _e('Sign up for','givewhen'); ?> <span class="trigger_name"></span></abbr>
                                             </div>
-                                            <p class="text-info">Instruction</p>
+                                            <p class="text-info"><?php _e('Instruction','givewhen'); ?></p>
                                             <ol>
-                                                <li>Lorem ipsum dolor sit amet</li>
-                                                <li>Consectetur adipiscing elit</li>
-                                                <li>Integer molestie lorem at massa</li>
+                                                <li><?php _e('Lorem ipsum dolor sit amet','givewhen'); ?></li>
+                                                <li><?php _e('Consectetur adipiscing elit','givewhen'); ?></li>
+                                                <li><?php _e('Integer molestie lorem at massa','givewhen'); ?></li>
                                             </ol>
                                             <form method="post" name="signup" id="give_when_signup">
                                                 <div class="gw_form-group">
-                                                    <label class="gw_upper">Frist Name</label>
+                                                    <label class="gw_upper"><?php _e('Frist Name','givewhen'); ?></label>
                                                     <input type="text" class="gw_form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="gw_form-group">
