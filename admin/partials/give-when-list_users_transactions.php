@@ -358,7 +358,8 @@ class AngellEYE_Give_When_users_Transactions_Table extends WP_List_Table {
         if ($which == "top") {
             ?>
             <div class="alignleft actions bulkactions">
-                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
+                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo admin_url('edit.php?post_type=give_when_goals'); ?>"><?php _e('Back to Goals','givewhen'); ?></a>
+                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo admin_url('?page=give_when_givers&post='.$_REQUEST['post'].'&view=givers'); ?>"><?php _e('Back to Givers','givewhen'); ?></a>
                 <select name="cat-filter" class="ewc-filter-cat">
                     <option value=""><?php _e('Filter by Payment Status','givewhen'); ?></option>
                     <option value="all"><?php _e('Show All','givewhen'); ?></option>
