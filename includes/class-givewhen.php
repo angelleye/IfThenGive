@@ -321,7 +321,7 @@ class Givewhen {
                 else{
                     $_SESSION['GW_Error'] = true;
                     $_SESSION['GW_Error_Type'] = __('PayPal Error','givewhen');
-                    $_SESSION['GW_Error_Array'] = $PayPalResultGEC;                    
+                    $_SESSION['GW_Error_Array'] = $PayPalResultGEC['ERRORS'];                    
                     /* save log */
                     $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
                     if ('yes' == $debug) {
