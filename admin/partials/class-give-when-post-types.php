@@ -30,19 +30,31 @@ class AngellEYE_Give_When_Post_types {
 
     public static function admin_header() {   
         $page = ( isset($_GET['view'] ) ) ? esc_attr( $_GET['view'] ) : false;
-        if( 'givers' != $page )
-          return; 
-
-        echo '<style type="text/css">';
-        echo '';
-        echo '.wp-list-table .column-BillingAgreement { width: 15%; }';
-        echo '.wp-list-table .column-DisplayName { width: 15%; }';
-        echo '.wp-list-table .column-PayPalEmail { width: 25%; }';
-        echo '.wp-list-table .column-amount { width: 7%; }';
-        echo '.wp-list-table .column-PayPalPayerID { width: 10%; }';
-        echo '.wp-list-table .column-BADate { width: 10%; }';
-        echo '.wp-list-table .column-GWAction { width: 7%; }';
-        echo '</style>';
+        if( 'givers' == $page ){
+            echo '<style type="text/css">';            
+            echo '.wp-list-table .column-BillingAgreement { width: 15%; }';
+            echo '.wp-list-table .column-DisplayName { width: 15%; }';
+            echo '.wp-list-table .column-PayPalEmail { width: 25%; }';
+            echo '.wp-list-table .column-amount { width: 7%; }';
+            echo '.wp-list-table .column-PayPalPayerID { width: 11%; }';
+            echo '.wp-list-table .column-BADate { width: 10%; }';
+            echo '.wp-list-table .column-GWAction { width: 7%; }';        
+            echo '</style>';
+        }
+        elseif( 'ListTransactions' == $page || 'GetUsersTransactions' == $page){
+            echo '<style type="text/css">';            
+            echo '.wp-list-table .column-transactionId { width: 13%; }';      
+            echo '.wp-list-table .column-user_display_name { width: 15%; }';
+            echo '.wp-list-table .column-amount { width: 7%; }';
+            echo '.wp-list-table .column-user_paypal_email { width: 25%; }';
+            echo '.wp-list-table .column-PayPalPayerID { width: 15%; }';
+            echo '.wp-list-table .column-ppack { width: 11%; }';
+            echo '.wp-list-table .column-Txn_date { width: 11%; }';            
+            echo '</style>';            
+        }        
+        else{
+            return; 
+        }
     }
     
     /**
