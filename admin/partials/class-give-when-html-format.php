@@ -557,7 +557,7 @@ class AngellEYE_Give_When_interface {
                 echo $trEmailString = "<tr style='".$css."'>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],'givewhen')."</td>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),'givewhen')."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__('$paypal_email','givewhen')."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,'givewhen')."</td>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],'givewhen')."</td>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],'givewhen')."</td>
                 </tr>";
@@ -569,10 +569,10 @@ class AngellEYE_Give_When_interface {
 
                 echo $trEmailString = "<tr style='".$css."'>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.$value['amount']."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>{$paypal_email}</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>{$PayPalResultDRT['ACK']}</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>{$PayPalResultDRT['L_SHORTMESSAGE0']} <br>See <a href='".admin_url('admin.php?page=give_when_option&tab=logs')."'>logs</a> for more details</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),'givewhen')."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,'givewhen')."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],'givewhen')."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],'givewhen')."<br>".__("See ",'givewhen')."<a href='".admin_url('admin.php?page=give_when_option&tab=logs')."'>".__('logs','givewhen')."</a>". __(' for more details','givewhen')."</td>
                 </tr>";
                 $EmailString.= $trEmailString;
             }
@@ -983,7 +983,7 @@ class AngellEYE_Give_When_interface {
                         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
                         $to = $admin_email = get_option('admin_email');
-                        $subject = 'GiveWhen Transaction Report For ' . $trigger_name;
+                        $subject = 'Retried GiveWhen Transaction Report For ' . $trigger_name;
                         $message = $EmailString;
                         wp_mail($to, $subject, $message, $headers);
                         ?>
