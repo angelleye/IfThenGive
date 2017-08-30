@@ -223,18 +223,22 @@ class AngellEYE_Give_When_interface {
                                                          </h4>
                                                     </div>
                                                 </div>
-                                               <div class="manual_amount" style="display: none">
+                                                <div class="gw_post-title">
+                                                    <div class="manual_amount" style="display: none">
                                                         <h4 class="lead manual_amount"><?php _e('I will Give ','givewhen'); ?><?php echo $symbol; ?><span id="give_when_manual_price_span"></span> <?php _e('When ','givewhen'); ?><span class="trigger_thing"></span></h4>
                                                         <div class="gw_form-group">
                                                             <label for="manualamout" class="control-label"><?php _e('Enter Amount','givewhen'); ?></label>
                                                             <input type="text" name="gw_manual_amount_input" value="50" class="gw_form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
                                                         </div>
+                                                    </div>
                                                 </div>
-                                                <div class="select_amount" style="display: none">
-                                                    <h4 class="lead"> <?php _e('I will Give ','givewhen'); ?><?php echo $symbol; ?><span id="give_when_fixed_price_span_select"></span> <?php _e('When ','givewhen'); ?><span class="trigger_name"></span></h4>
-                                                    <div class="gw_form-group">
-                                                        <label class="gw_upper">Select</label>
-                                                        <select class="gw_form-control" name="give_when_option_amount" id="give_when_option_amount"></select>
+                                                <div class="gw_post-title">
+                                                    <div class="select_amount" style="display: none">
+                                                        <h4 class="lead"> <?php _e('I will Give ','givewhen'); ?><?php echo $symbol; ?><span id="give_when_fixed_price_span_select"></span> <?php _e('When ','givewhen'); ?><span class="trigger_name"></span></h4>
+                                                        <div class="gw_form-group">
+                                                            <label class="gw_upper">Select</label>
+                                                            <select class="gw_form-control" name="give_when_option_amount" id="give_when_option_amount"></select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>                                                            
