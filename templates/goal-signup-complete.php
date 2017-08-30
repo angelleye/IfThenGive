@@ -51,22 +51,55 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
               </div>';
         $EmailString='';
         $EmailString .= '<div style="margin-right: -15px; margin-left: -15px;">
-            <div style="width: 100%;">
-                <div style="text-align: center;"><img style="vertical-align:margin:0 auto; middle;" src="'.GW_PLUGIN_URL.'admin\images\icon.png" alt="GiveWhen"></div>
+            <div style="width: 100%;">                
                 <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634; font-weight: 600; text-align: center;">
-                    <strong style="background-color: #ffffff; font-weight: 300; letter-spacing: 1px;text-transform: uppercase; margin-bottom:10px; font-size: 25px;">Hi '.$current_user->display_name.',Thank You for signed up in Anthony Rizzo Home Run Challenge'.$trigger_name.'</strong>
+                    <strong style="line-height: 25px;padding: 10px 10px 10px 10px;font-weight: 300; letter-spacing: 1px;text-transform: uppercase; margin-bottom:10px; font-size: 15px;">Hi '.$current_user->display_name.',Thank You for signed up in Anthony Rizzo Home Run Challenge'.$trigger_name.'</strong>
                     <p style="font-size: 16px;text-align: center;font-family: inherit; color: #076799"><strong>Each time you will give $ '.$amount.' when '.$trigger_thing.'</strong></p>      
                 </div>
             </div>
         </div>';        
 
+        
+        $EmailHeader = '<div dir="ltr" style="background-color: rgb(245, 245, 245); margin: 0; padding: 70px 0 70px 0; width: 100%; height:100%">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" min-height="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="center" valign="top">
+                                            <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: rgb(253, 253, 253); border: 1px solid rgb(220, 220, 220)">
+                                                <tbody>
+                                                    <tr>
+                                                        <td align="center" valign="top">
+                                                            <table border="0" cellpadding="0" cellspacing="0" width="600" style=" color: rgb(255, 255, 255); border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="padding: 10px; display: block">
+                                                                          <h1 style="color: rgb(255, 255, 255); font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: center; text-shadow: 0 1px 0 rgb(119, 151, 180)"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="GiveWhen"></h1> </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td align="center" valign="top">';
+        
+        
+        $EmailFooter = '</td></tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>';
+        
+        
         $headers = "From: GiveWhen <info@givewhen.com> \r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
         $to = $current_user->user_email;
         $subject = 'Thank you for giving!';
-        $message = $EmailString;
+        $message = $EmailHeader .$EmailString . $EmailFooter;
         wp_mail($to, $subject, $message, $headers);
     }
 }
