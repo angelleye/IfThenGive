@@ -496,7 +496,7 @@ class AngellEYE_Give_When_interface {
         
         $headerString = '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">
-                <div style="text-align: center;"><img style="vertical-align:margin:0 auto; middle;"src="'.GW_PLUGIN_URL.'admin\images\icon.png" alt="GiveWhen"></div>
+                <div style="text-align: center;"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="GiveWhen"></div>
                 <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634;text-align: center;">
                     <strong style="background-color: #ffffff; font-weight: 300; font-size:20px; padding:2px 10px; border-radius: 2px; position:relative; top:-10px;  letter-spacing:.2em;  text-transform:uppercase; border:none;
                           ">'. __('Transactions Report For ', 'givewhen').__($trigger_name,'givewhen').'</strong></div>
