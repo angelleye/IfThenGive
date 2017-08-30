@@ -341,8 +341,13 @@ class Givewhen {
                         /*inserting new user and if user_id is available then update user.*/
                         $goal_user_id = wp_insert_user($_SESSION['gw_user_data']);
                         if( is_wp_error( $goal_user_id ) ) {
-                            $error = __('Error on user creation: ','givewhen') . $user_id->get_error_message();
-                            echo json_encode(array('Ack'=>__('Failure','givewhen'),'ErrorCode'=>__('WP Error','givewhen'),'ErrorShort'=>__('Error on user creation:','givewhen'),'ErrorLong'=>$error));
+                            $error = __('Error on user creation.','givewhen');
+                            $_SESSION['GW_Error'] = true;
+                            $_SESSION['GW_Error_Type'] = 'WP Error.';
+                            $_SESSION['GW_Error_Array']['ACK'] = 'Failed';
+                            $_SESSION['GW_Error_Array']['L_SHORTMESSAGE0'] = 'Error on user creation:';
+                            $_SESSION['GW_Error_Array']['L_LONGMESSAGE0'] = 'You are facing problem while creating user for site. Please Contact Administrator for this error.';
+                            wp_redirect(site_url('give-when-error'));
                             exit;
                         }
                         else{                

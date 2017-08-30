@@ -363,7 +363,7 @@ class AngellEYE_Give_When_interface {
         <div class="give_when_container">
             <div class="row">
                 <div class="col-md-12">
-                    <p><?php echo __('You can easily place this button in your pages and posts using this tool....', 'givewhen'); ?></p>
+                    <p><?php echo __('You can easily place this Goal in your pages and posts using this tool....', 'givewhen'); ?></p>
                     <img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/give_when_tool.png" class="img-responsive" style="margin: 0 auto;"/>
                 </div>
             </div>
