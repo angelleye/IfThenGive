@@ -54,7 +54,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
             <div style="width: 100%;">                
                 <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634; font-weight: 600; text-align: center;">
                     <strong style="line-height: 25px;padding: 10px 10px 10px 10px;font-weight: 300; letter-spacing: 1px;text-transform: uppercase; margin-bottom:10px; font-size: 15px;">Hi '.$current_user->display_name.',Thank You for signed up in Anthony Rizzo Home Run Challenge'.$trigger_name.'</strong>
-                    <p style="font-size: 16px;text-align: center;font-family: inherit; color: #076799"><strong>Each time you will give $ '.$amount.' when '.$trigger_thing.'</strong></p>      
+                    <p style="padding: 10px 10px 10px 10px;font-size: 12px;text-align: center;font-family: inherit; color: #076799"><strong>Each time you will give $ '.$amount.' when '.$trigger_thing.'</strong></p>      
                 </div>
             </div>
         </div>';        
