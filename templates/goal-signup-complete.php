@@ -98,7 +98,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
         $to = $current_user->user_email;
-        $subject = __('Thank you for giving '.$symbol.$amount.'For '.$trigger_name,'givewhen');
+        $subject = __('Thank you for giving '.$symbol.$amount.' For '.$trigger_name,'givewhen');
         $message = $EmailHeader .$EmailString . $EmailFooter;
         wp_mail($to, $subject, $message, $headers);
     }
