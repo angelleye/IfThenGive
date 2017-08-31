@@ -92,12 +92,10 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             <div class="container-fluid">
                 <div class="alert alert-warning" id="connect_paypal_error" style="display: none">
                     <p id="connect_paypal_error_p"></p>
-                </div>  
-                <div id="overlay" style=" background: #f6f6f6;opacity: 0.8;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
-                    <div style="display: table; width:100%; height: 100%;">
-                        <div style="display: table-cell;vertical-align: middle;"><img src="<?php echo GW_PLUGIN_URL; ?>admin/images/loading.gif"  style=" position: relative;top: 50%; height: 100px"/>
-                        <h1 style="font-weight: 600;"><?php _e('Processing......','givewhen'); ?></h1>
-                    </div>
+                </div>                  
+                    <div id="overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
+                        <div class="gw_loader"></div>
+                        <h1 style="font-weight: 600;"><?php _e('Processing...','givewhen'); ?></h1>                    
                     </div>
                 </div>
                 <div class="row">
