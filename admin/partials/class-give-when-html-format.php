@@ -311,12 +311,24 @@ class AngellEYE_Give_When_interface {
                    if(fixed_radio == 'fixed'){
                         jQuery('#preview-goal .fixed_amount').css('display','block');
                         famt = parseFloat(jQuery('input[name="fixed_amount_input"]').val()).toFixed(2);
-                        jQuery('#give_when_fixed_price_span').text(famt);
+                        if(isNaN(famt)){
+                            jQuery('#give_when_fixed_price_span').text('0.00');
+                        }
+                        else{
+                            jQuery('#give_when_fixed_price_span').text(famt);
+                        }                        
                    }else if(fixed_radio == 'manual'){
                         jQuery('#preview-goal .manual_amount').css('display','block');
                         mamt = parseFloat(jQuery('input[name="manual_amount_input"]').val()).toFixed(2);
-                        jQuery('#give_when_manual_price_span').text(mamt);
-                        jQuery('#gw_manual_amount_input').val(mamt);
+                        if(isNaN(mamt)){
+                            jQuery('#give_when_manual_price_span').text('0.00');
+                            jQuery('#gw_manual_amount_input').val('0.00');
+                        }
+                        else{
+                            jQuery('#give_when_manual_price_span').text(mamt);
+                            jQuery('#gw_manual_amount_input').val(mamt);
+                        }
+                        
                    }else{
                         jQuery('#preview-goal .select_amount').css('display','block');
                         var selectamt = parseFloat(jQuery('input[name="option_amount[]"]').val()).toFixed(2);
@@ -332,13 +344,15 @@ class AngellEYE_Give_When_interface {
                         jQuery('input[name="option_name[]"]').each(function() {
                             var option_name = jQuery(this).val();
                             var option_amount = parseFloat(jQuery('[id=option_amount]:eq('+i+')').val()).toFixed(2);
-                            
+                            if(isNaN(option_amount)){
+                                option_amount = '0.00';
+                            }
                             jQuery("#give_when_option_amount").append(jQuery('<option>', { value: option_amount, text: option_name+'    '+option_amount }));
                             i++;
                         });
                    }
                    jQuery(document).on('keyup','#gw_manual_amount_input', function (){
-                        var amt = parseFloat(jQuery(this).val()).toFixed(2);
+                        var amt = parseFloat(jQuery(this).val()).toFixed(2);                        
                         if(isNaN(amt)){
                             jQuery('#give_when_manual_price_span').html('').html(mamt);
                         }else{
