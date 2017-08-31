@@ -68,7 +68,7 @@ class AngellEYE_Give_When_Public_Display {
                             $html .= '</div>';
 
                             $html .= '<div class="gw_post-content-details">'; 
-                                $html .= '<div class="gw_post-description">
+                                $html .= '<div class="gw_post-description" id="scrolltopid">
                                             <p>'.get_post_meta( $post->ID, 'trigger_desc', true ).'</p>
                                           </div>';
                                 $html .= $post->post_content;                                                                                

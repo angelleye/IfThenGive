@@ -49,7 +49,10 @@
                              jQuery.each( result.Errors , function( i, val ) {                                 
                                  $('#connect_paypal_error_p').append('<li>'+val+'</li>');
                              });           
-                             $('#connect_paypal_error_p').append('</ul>');                                
+                             $('#connect_paypal_error_p').append('</ul>');   
+                             $('html, body').animate({
+                                scrollTop: $("#scrolltopid").offset().top
+                            }, 2000);
                            }
                            else{
                             $('#overlay').hide();
@@ -58,7 +61,10 @@
                             $('#connect_paypal_error_p').append('<br><strong>Error Code :</strong> ' + result.ErrorCode);
                             $('#connect_paypal_error_p').append('<br><strong>Short Message :</strong> ' + result.ErrorShort);
                             $('#connect_paypal_error_p').append('<br><strong>Long Message :</strong> ' + result.ErrorLong);
-                            $('#give_when_signup')[0].reset();   
+                            $('#give_when_signup')[0].reset(); 
+                            $('html, body').animate({
+                                scrollTop: $("#scrolltopid").offset().top
+                            }, 2000);
                            }                           
                        }
                     }
