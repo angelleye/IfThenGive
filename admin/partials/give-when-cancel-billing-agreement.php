@@ -28,6 +28,13 @@ class AngellEYE_Give_When_Cancel_Billing_Agreement {
         $PayPal_config = new Give_When_PayPal_Helper();        
         $PayPal_config->set_api_cedentials();        
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+        /*
+         *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
+         *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+         *   It also reflactes in NVPCredentials string so we are also replcing it.
+         */
+        $PayPal->APIButtonSource = 'AngellEYE_GiveWhen';
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass','AngellEYE_GiveWhen',$PayPal->NVPCredentials);        
 
         $BAUpdateFields = array(
             'REFERENCEID' => $billing_agreement_id,           

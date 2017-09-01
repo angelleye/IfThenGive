@@ -498,6 +498,13 @@ class AngellEYE_Give_When_interface {
         $PayPal_config = new Give_When_PayPal_Helper();        
         $PayPal_config->set_api_cedentials();        
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+        /*
+         *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
+         *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+         *   It also reflactes in NVPCredentials string so we are also replcing it.
+         */
+        $PayPal->APIButtonSource = 'AngellEYE_GiveWhen';
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass','AngellEYE_GiveWhen',$PayPal->NVPCredentials);        
         $ccode = get_option('gw_currency_code');        
         $symbol = $PayPal_config->get_currency_symbol($ccode);
         $total_txn = 0;
@@ -696,12 +703,19 @@ class AngellEYE_Give_When_interface {
         $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal_config->set_api_cedentials();
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+        /*
+         *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
+         *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+         *   It also reflactes in NVPCredentials string so we are also replcing it.
+         */  
+        $PayPal->APIButtonSource = 'AngellEYE_GiveWhen';
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass','AngellEYE_GiveWhen',$PayPal->NVPCredentials);        
         $trigger_name = get_post_meta($goal_id, 'trigger_name',true);
         $GTDFields = array(
             'transactionid' => $transaction_id
         );
         $PayPalRequestData = array('GTDFields' => $GTDFields);
-        $PayPalResultTransactionDetail = $PayPal->GetTransactionDetails($PayPalRequestData);
+        $PayPalResultTransactionDetail = $PayPal->GetTransactionDetails($PayPalRequestData);        
         if($PayPalResultTransactionDetail['RAWRESPONSE'] == false){
             ?>
                 <div class="wrap">
@@ -864,6 +878,13 @@ class AngellEYE_Give_When_interface {
                                     $ccode = get_option('gw_currency_code');        
                                     $symbol = $PayPal_config->get_currency_symbol($ccode);
                                     $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+                                    /*
+                                    *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
+                                    *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+                                    *   It also reflactes in NVPCredentials string so we are also replcing it.
+                                    */
+                                    $PayPal->APIButtonSource = 'AngellEYE_GiveWhen';
+                                    $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass','AngellEYE_GiveWhen',$PayPal->NVPCredentials);        
                                     $total_txn = 0;
                                     $total_txn_success = 0;
                                     $total_txn_failed = 0;
