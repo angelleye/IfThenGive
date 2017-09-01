@@ -56,6 +56,9 @@ if (!defined('GT_PLUGIN_BASENAME')) {
     define('GT_PLUGIN_BASENAME', plugin_basename(__FILE__));
 }
 
+if (!defined('GT_BUTTON_SOURCE')) {
+    define('GT_BUTTON_SOURCE', 'AngellEYE_GiveWhen');
+}
 // This is passed to set_time_limit() at various points, to try to maximise run-time.  The effect of this varies according to the hosting setup - it can't necessarily always be controlled.
 if (!defined('GW_PLUGIN_SET_TIME_LIMIT')) define('GW_PLUGIN_SET_TIME_LIMIT', 0);
 

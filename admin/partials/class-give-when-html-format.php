@@ -503,8 +503,8 @@ class AngellEYE_Give_When_interface {
          *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */
-        $PayPal->APIButtonSource = 'AngellEYE_GiveWhen';
-        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass','AngellEYE_GiveWhen',$PayPal->NVPCredentials);        
+        $PayPal->APIButtonSource = GT_BUTTON_SOURCE;
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GT_BUTTON_SOURCE,$PayPal->NVPCredentials);        
         $ccode = get_option('gw_currency_code');        
         $symbol = $PayPal_config->get_currency_symbol($ccode);
         $total_txn = 0;
@@ -708,8 +708,8 @@ class AngellEYE_Give_When_interface {
          *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */  
-        $PayPal->APIButtonSource = 'AngellEYE_GiveWhen';
-        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass','AngellEYE_GiveWhen',$PayPal->NVPCredentials);        
+        $PayPal->APIButtonSource = GT_BUTTON_SOURCE;
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GT_BUTTON_SOURCE,$PayPal->NVPCredentials);        
         $trigger_name = get_post_meta($goal_id, 'trigger_name',true);
         $GTDFields = array(
             'transactionid' => $transaction_id
@@ -883,8 +883,8 @@ class AngellEYE_Give_When_interface {
                                     *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
                                     *   It also reflactes in NVPCredentials string so we are also replcing it.
                                     */
-                                    $PayPal->APIButtonSource = 'AngellEYE_GiveWhen';
-                                    $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass','AngellEYE_GiveWhen',$PayPal->NVPCredentials);        
+                                    $PayPal->APIButtonSource = GT_BUTTON_SOURCE;
+                                    $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GT_BUTTON_SOURCE,$PayPal->NVPCredentials);        
                                     $total_txn = 0;
                                     $total_txn_success = 0;
                                     $total_txn_failed = 0;

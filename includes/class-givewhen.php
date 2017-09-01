@@ -308,8 +308,8 @@ class Givewhen {
                 *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
                 *   It also reflactes in NVPCredentials string so we are also replcing it.
                 */
-                $PayPal->APIButtonSource = 'AngellEYE_GiveWhen';
-                $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass','AngellEYE_GiveWhen',$PayPal->NVPCredentials);        
+                $PayPal->APIButtonSource = GT_BUTTON_SOURCE;
+                $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GT_BUTTON_SOURCE,$PayPal->NVPCredentials);        
                
                 $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
                 if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){
