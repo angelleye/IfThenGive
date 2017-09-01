@@ -94,6 +94,18 @@
                     $(".gw-password").hide(200);
                 }
             });
+            
+            //Check if function exists
+            $.fn.exists = function () {
+                return this.length > 0;
+            };
+            var $tabNavigation = $(".tabs-navigation a");
+            if ($tabNavigation.exists()) {
+                $tabNavigation.on("click", function (e) {
+                    $(this).tab("show"), e.preventDefault();
+                    return false;
+                });
+            }
 
         });
 })( jQuery );
