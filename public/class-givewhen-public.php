@@ -108,6 +108,7 @@ class Givewhen_Public {
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/givewhen-public-display.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_transactions.php';        
         add_shortcode( 'givewhen_my_transaction', array(__CLASS__,'givewhen_my_transaction_shortcode'));
+        add_shortcode( 'givewhen_my_account', array(__CLASS__,'givewhen_my_account_shortcode'));
     }
 
     public static function give_when_locate_template($template_name, $template_path = '', $default_path = '') {
@@ -150,6 +151,7 @@ class Givewhen_Public {
         public function rewrite() {		
 		add_rewrite_rule( '^give-when-thankyou$', 'index.php?gwthankyou=1', 'top' );
                 add_rewrite_rule( '^give-when-error$', 'index.php?gwerror=1', 'top' );
+                add_rewrite_rule( '^givewhen-my-account$', 'index.php?gwmyaccount=1', 'top' );
 		if(get_transient( 'gw_flush' )) {
 			delete_transient( 'gw_flush' );
 			flush_rewrite_rules();
@@ -159,6 +161,7 @@ class Givewhen_Public {
         public function query_vars($vars){
             $vars[] = 'gwthankyou';
             $vars[] = 'gwerror';
+            $vars[] = 'gwmyaccount';
             return $vars;
         }
         
@@ -187,6 +190,18 @@ class Givewhen_Public {
             if (file_exists($newTemplate))
                 return $newTemplate;
         }
+        
+        if (get_query_var('gwmyaccount', false) !== false) {
+
+            $newTemplate = locate_template(array('givewhen-my-account.php'));            
+            if ('' != $newTemplate)
+                return $newTemplate;
+
+            //Check plugin directory next
+            $newTemplate = GW_PLUGIN_DIR . '/templates/givewhen-my-account.php';
+            if (file_exists($newTemplate))
+                return $newTemplate;
+        }
                 
         //Fall back to original template
         return $template;
@@ -196,5 +211,9 @@ class Givewhen_Public {
         $template = self::gw_get_template('givewhen-my-transactions.php');
         return $template; 
     }
-
+    
+    public static function givewhen_my_account_shortcode(){
+        $template = self::gw_get_template('givewhen-my-account.php');
+        return $template; 
+    }
 }

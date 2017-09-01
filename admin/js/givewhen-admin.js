@@ -86,6 +86,9 @@
                         if(this.text()=='GiveWhen Transaction'){
                             tinyMCE.activeEditor.selection.setContent( '[givewhen_my_transaction]' );
                         }
+                        else if(this.text()=='GiveWhen Account'){
+                            tinyMCE.activeEditor.selection.setContent( '[givewhen_my_account]' );
+                        }
                         else{
                             tinyMCE.activeEditor.selection.setContent( '[give_when_goal id=' + this.value() + ']' );
                         }                         
