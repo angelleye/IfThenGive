@@ -99,7 +99,7 @@
             $.fn.exists = function () {
                 return this.length > 0;
             };
-            var $tabNavigation = $(".tabs-navigation a");
+            var $tabNavigation = $(".tabs-navigation span");
             if ($tabNavigation.exists()) {
                 $tabNavigation.on("click", function (e) {
                     $(this).tab("show"), e.preventDefault();

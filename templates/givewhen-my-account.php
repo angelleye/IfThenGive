@@ -23,10 +23,10 @@ if (!is_admin()) {
             </div>             
             <div id="gw-tabs" class="tabs tabs-vertical border">                    
                 <ul class="tabs-navigation">
-                    <li class="active"><a href="#gw_account_goals">GiveWhen Goals</a></li>
-                    <li><a href="#gw_account_txns">GiveWhen Transactions</a></li>
-                    <li><a href="#gw_account_adjust_amount">Adjust Donation Amount</a></li>
-                    <li><a href="#gw_account_status">Account Status</a></li>
+                    <li class="active"><span href="#gw_account_goals">GiveWhen Goals</span></li>
+                    <li><span href="#gw_account_txns">GiveWhen Transactions</span></li>
+                    <li><span href="#gw_account_adjust_amount">Adjust Donation Amount</span></li>
+                    <li><span href="#gw_account_status">Account Status</span></li>
                 </ul>
                 <div class="tabs-content">
                     <div class="tab-pane active" id="gw_account_goals">
