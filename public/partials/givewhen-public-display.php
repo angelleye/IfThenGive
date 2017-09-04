@@ -14,13 +14,19 @@ class AngellEYE_Give_When_Public_Display {
 
     public static function init() {
         add_shortcode('give_when_goal', array(__CLASS__, 'give_when_create_shortcode'));
-        add_action( 'wp_enqueue_scripts', array(__CLASS__,'give_when_detect_shortcode'));
+        //add_action( 'wp_enqueue_scripts', array(__CLASS__,'give_when_detect_shortcode'));
         add_action( 'wp_ajax_start_express_checkout', array(__CLASS__,'start_express_checkout'));
         add_action("wp_ajax_nopriv_start_express_checkout",  array(__CLASS__,'start_express_checkout'));
         add_action( 'wp_ajax_givewhen_my_transactions', array(__CLASS__,'givewhen_my_transactions'));
         add_action("wp_ajax_nopriv_givewhen_my_transactions",  array(__CLASS__,'givewhen_my_transactions'));
     }
    
+    /*
+     * give_when_detect_shortcode function is added only to detect the givewhen shortcode in the page content.
+     * It was neccesory when you have to load particular CSS or JS only when shotcode detect.
+     * we have Bootstrap design before, but now we have our own cutom class so it will not affect/conflict with
+     * other css class.
+     *  
     public static function give_when_detect_shortcode()
     {
         global $post;
@@ -32,7 +38,7 @@ class AngellEYE_Give_When_Public_Display {
         {            
             //wp_enqueue_style( 'givewhen-one', GW_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
         }
-    }
+    }*/
           
     /**
      * give_when_create_shortcode function is for generate
