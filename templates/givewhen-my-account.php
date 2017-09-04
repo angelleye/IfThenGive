@@ -20,26 +20,19 @@ if (!is_admin()) {
         <div class="gwcontainer">
             <div class="gw_heading gw_heading-center">                        
                 <h3><?php _e("GiveWhen Account", "givewhen"); ?></h3>
-            </div>             
+            </div>   
             <div id="gw-tabs" class="tabs tabs-vertical border">                    
                 <ul class="tabs-navigation">
-                    <li class="active"><span href="#gw_account_goals">GiveWhen Goals</span></li>
-                    <li><span href="#gw_account_txns">GiveWhen Transactions</span></li>
-                    <li><span href="#gw_account_adjust_amount">Adjust Donation Amount</span></li>
-                    <li><span href="#gw_account_status">Account Status</span></li>
+                    <li class="active"><span href="#gw_account_txns"><?php _e('GiveWhen Transactions','givewhen'); ?></span></li>
+                    <li><span href="#gw_account_goals"><?php _e('GiveWhen Goals','givewhen'); ?></span></li>                    
+                    <li><span href="#gw_account_status"><?php _e('Account Status','givewhen'); ?></span></li>
                 </ul>
                 <div class="tabs-content">
-                    <div class="tab-pane active" id="gw_account_goals">
-                        <h4>GiveWhen Goals</h4>
-                        <p></p>
+                    <div class="tab-pane active" id="gw_account_txns">                        
+                        <?php echo do_shortcode('[givewhen_my_transaction]'); ?>
                     </div>
-                    <div class="tab-pane" id="gw_account_txns">
-                        <h4>GiveWhen Transactions</h4>
-                        <p></p>
-                    </div>
-                    <div class="tab-pane" id="gw_account_adjust_amount">
-                        <h4>Adjust Donation Amount</h4>
-                        <p></p>
+                    <div class="tab-pane " id="gw_account_goals">
+                        <?php echo do_shortcode('[givewhen_my_goals]'); ?>
                     </div>
                     <div class="tab-pane" id="gw_account_status">
                         <h4>Account Status</h4>

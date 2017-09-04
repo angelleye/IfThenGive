@@ -101,8 +101,11 @@
             };
             var $tabNavigation = $(".tabs-navigation span");
             if ($tabNavigation.exists()) {
-                $tabNavigation.on("click", function (e) {
+                $(document).on("click", '.tabs-navigation span',function (e) {                    
                     $(this).tab("show"), e.preventDefault();
+                    if($(this).attr('href') == '#gw_account_goals'){                        
+                        $('#GiveWhen_Goals_Table').DataTable().columns.adjust().responsive.recalc();
+                    }
                     return false;
                 });
             }

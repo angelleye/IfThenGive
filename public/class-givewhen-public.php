@@ -108,8 +108,10 @@ class Givewhen_Public {
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/givewhen-public-display.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_transactions.php';        
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_goals.php';
         add_shortcode( 'givewhen_my_transaction', array(__CLASS__,'givewhen_my_transaction_shortcode'));
         add_shortcode( 'givewhen_my_account', array(__CLASS__,'givewhen_my_account_shortcode'));
+        add_shortcode( 'givewhen_my_goals', array(__CLASS__,'givewhen_my_goals_shortcode'));
     }
 
     public static function give_when_locate_template($template_name, $template_path = '', $default_path = '') {
@@ -215,6 +217,11 @@ class Givewhen_Public {
     
     public static function givewhen_my_account_shortcode(){
         $template = self::gw_get_template('givewhen-my-account.php');
+        return $template; 
+    }
+    
+    public static function givewhen_my_goals_shortcode(){
+        $template = self::gw_get_template('givewhen-my-goals.php');
         return $template; 
     }
 }

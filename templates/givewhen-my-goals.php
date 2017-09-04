@@ -15,21 +15,19 @@ if (!defined('ABSPATH'))
 <?php
 if(! is_admin()){
 ?>
-<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Transactions', 'givewhen') ?></abbr></div>
+<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Goals', 'givewhen') ?></abbr></div>
 <div class="gw_center_container">   
     <div class="gwcontainer">
         <div class="gw_table-responsive">
-            <table class="gw_table" id="GiveWhen_Transaction_Table" width="100%">
+            <table class="gw_table" id="GiveWhen_Goals_Table" width="100%">
                 <thead>
                     <tr>
-                        <th><?php _e('Transaction ID', 'givewhen'); ?></th>
-                        <th><?php _e('Name', 'givewhen'); ?></th>
+                        <th><?php _e('Goal Name', 'givewhen'); ?></th>                        
                         <th><?php _e('Amount', 'givewhen'); ?></th>
-                        <th><?php _e('Goal Name', 'givewhen'); ?></th>
+                        <th><?php _e('Billing Agreement ID', 'givewhen'); ?></th>
                         <th><?php _e('PayPal Email ID', 'givewhen'); ?></th>
-                        <th><?php _e('PayPal Payer ID', 'givewhen'); ?></th>
-                        <th><?php _e('Payment Status', 'givewhen'); ?></th>
-                        <th><?php _e('Payment Date', 'givewhen'); ?></th>
+                        <th><?php _e('PayPal Payer ID', 'givewhen'); ?></th>                        
+                        <th><?php _e('Agreement Date', 'givewhen'); ?></th>
                     </tr>
                 </thead>
             </table>            
@@ -42,70 +40,62 @@ $paypal = new Give_When_PayPal_Helper();
 $symbol = $paypal->get_currency_symbol($ccode);
 ?>
 <script>
-    jQuery(document).ready(function ($) {
-        var GiveWhen_Transaction_Table = $('#GiveWhen_Transaction_Table').dataTable({
+    jQuery(document).ready(function ($) {        
+        var GiveWhen_Goals_Table = $('#GiveWhen_Goals_Table').dataTable({
             "serverSide": true,
             "responsive": true,
             "colReorder": true,
             "bRetrieve": true,
             "processing": true,
-            "oLanguage": {"sEmptyTable": 'No Transactions Found', "sZeroRecords": 'No records Found'},
+            "oLanguage": {"sEmptyTable": 'No Goals Found', "sZeroRecords": 'No records Found'},
             "ajax": {
-                url: "<?php echo admin_url('admin-ajax.php'); ?>?action=givewhen_my_transactions",
+                url: "<?php echo admin_url('admin-ajax.php'); ?>?action=givewhen_my_goals",
                 type: "POST"
             },
             "columnDefs": [
                 {
                     "targets": [0], 'searchable': false,
                     "render": function (data, type, row) {
-                        return row.transactionId;
+                        return row.GoalName;
                     }
                 },
                 {
                     "targets": [1],
                     "render": function (data, type, row) {
-                        return row.user_display_name;
+                        var str = '<?php echo $symbol; ?>';
+                        var amount = parseFloat(row.amount).toFixed(2);
+                        return str + amount;
                     }
                 },
                 {
                     "targets": [2],
-                    "render": function (data, type, row) {
-                        var str = '<?php echo $symbol; ?>';
-                        var amount = parseFloat(row.amount).toFixed(2);
-                        return str + amount;
+                    "render": function (data, type, row) {                    
+                        return row.BillingAgreement;
                     }
                 },                    
                 {
                     "targets": [3],
                     "render": function (data, type, row) {
-                        return row.goal_name;
+                        return row.PayPalEmail;
                     }
                 },    
                 {
                     "targets": [4],
                     "render": function (data, type, row) {
-                        return row.user_paypal_email;
+                        return row.PayPalPayerId;
                     }
                 },
                 {
-                    "targets": [5], 'searchable': false, 'orderable': false,
+                    "targets": [5],
                     "render": function (data, type, row) {
-                        return row.PayPalPayerID;
+                        return row.post_date;
                     }
-                },
-                {
-                    "targets": [6],
-                    "render": function (data, type, row) {
-                        return row.ppack;
-                    }
-                },
-                {
-                    "targets": [7],
-                    "render": function (data, type, row) {
-                        return row.Txn_date;
-                    }
-                }
+                }                
             ]
+        });
+        $(document).on('click','#gw_account_goals_span',function(){ 
+            console.log('in');
+            //GiveWhen_Goals_Table.api().ajax.reload();
         });
     });
 </script>

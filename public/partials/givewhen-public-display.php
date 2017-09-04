@@ -19,6 +19,9 @@ class AngellEYE_Give_When_Public_Display {
         add_action("wp_ajax_nopriv_start_express_checkout",  array(__CLASS__,'start_express_checkout'));
         add_action( 'wp_ajax_givewhen_my_transactions', array(__CLASS__,'givewhen_my_transactions'));
         add_action("wp_ajax_nopriv_givewhen_my_transactions",  array(__CLASS__,'givewhen_my_transactions'));
+        
+        add_action( 'wp_ajax_givewhen_my_goals', array(__CLASS__,'givewhen_my_goals'));
+        add_action("wp_ajax_nopriv_givewhen_my_goals",  array(__CLASS__,'givewhen_my_goals'));        
     }
    
     public static function give_when_detect_shortcode()
@@ -385,6 +388,19 @@ class AngellEYE_Give_When_Public_Display {
         }
         exit;
     }
+    
+    public static function givewhen_my_goals(){
+        $table = new AngellEYE_Give_When_My_Goals_Table();
+        $my_goals_data = $table->get_goals();        
+        $recordsTotal = $table->record_count();
+        if(!empty($my_goals_data))
+            echo json_encode(array('recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal,'data'=>$my_goals_data));
+        else {
+            echo json_encode(array('recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal,'data'=>''));
+        }
+        exit;
+    }
+    
 }
 
 AngellEYE_Give_When_Public_Display::init();
