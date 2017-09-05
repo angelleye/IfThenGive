@@ -74,6 +74,7 @@ class Givewhen_Public {
          */
         wp_enqueue_style($this->plugin_name . 'publicDataTablecss', plugin_dir_url(__FILE__).'css/datatables/jquery.dataTables.css', array(), $this->version, 'all');
         wp_enqueue_style($this->plugin_name . 'publicDataTable', plugin_dir_url(__FILE__).'css/datatables/dataTables.responsive.css', array(), $this->version, 'all');
+        wp_enqueue_style($this->plugin_name . 'public_alertify_css',  GW_PLUGIN_URL.'includes/css/alertify/alertify.css', array(), $this->version, 'all');
         wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/givewhen-public.css', array(), $this->version, 'all');
     }
 
@@ -97,8 +98,9 @@ class Givewhen_Public {
          */
         wp_enqueue_script($this->plugin_name . 'DataTablejs', plugin_dir_url(__FILE__).'js/datatables/jquery.dataTables.min.js', array('jquery'), $this->version, true);
         wp_enqueue_script($this->plugin_name . 'DataTable', plugin_dir_url(__FILE__).'js/datatables/dataTables.responsive.js', array('jquery'), $this->version, true);
+        wp_enqueue_script($this->plugin_name . 'public_alertify_js', GW_PLUGIN_URL . 'includes/css/alertify/alertify.min.js', array('jquery'), $this->version, false);
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/givewhen-public.js', array('jquery'), $this->version, false);
-        wp_enqueue_script($this->plugin_name.'plugin_compress', plugin_dir_url(__FILE__) . 'js/plugins-compressed.js', array('jquery'), $this->version, false);
+        wp_enqueue_script($this->plugin_name.'plugin_compress', plugin_dir_url(__FILE__) . 'js/plugins-compressed.js', array('jquery'), $this->version, false);        
         wp_localize_script($this->plugin_name, 'admin_ajax_url', admin_url('admin-ajax.php'));
     }
 
@@ -112,6 +114,7 @@ class Givewhen_Public {
         add_shortcode( 'givewhen_my_transaction', array(__CLASS__,'givewhen_my_transaction_shortcode'));
         add_shortcode( 'givewhen_my_account', array(__CLASS__,'givewhen_my_account_shortcode'));
         add_shortcode( 'givewhen_my_goals', array(__CLASS__,'givewhen_my_goals_shortcode'));
+        add_shortcode( 'givewhen_account_info', array(__CLASS__,'givewhen_account_info_shortcode'));
     }
 
     public static function give_when_locate_template($template_name, $template_path = '', $default_path = '') {
@@ -222,6 +225,11 @@ class Givewhen_Public {
     
     public static function givewhen_my_goals_shortcode(){
         $template = self::gw_get_template('givewhen-my-goals.php');
+        return $template; 
+    }
+    
+    public static function givewhen_account_info_shortcode(){
+        $template = self::gw_get_template('givewhen-account-info.php');
         return $template; 
     }
 }

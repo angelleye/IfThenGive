@@ -2,7 +2,7 @@
 /**
  * GiveWhenTransaction template.
  *
- * This template can be overriden by copying this file to your-theme/GiveWhen/givewhen-my-transactions.php
+ * This template can be overriden by copying this file to your-theme/GiveWhen/givewhen-my-goals.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	Givewhen

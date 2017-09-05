@@ -109,6 +109,37 @@
                     return false;
                 });
             }
-
+            
+            $(document).on('click','#gw_account_cancel_baid',function(){
+                var userid = $('#gw_account_cancel_baid').attr('data-userid');
+                alertify.confirm('Cancel Billing Agreement', 'Are you sure you want to Cancel Billing Agreement of PayPal..?',
+                function ()
+                {
+                    $.ajax({
+                       type: 'POST',
+                       url: admin_ajax_url,
+                        data: { 
+                           action  : 'cancel_my_account_ba',
+                           userid : userid
+                       },                       
+                       beforeSend: function () {
+                         $('#canceel_baid_overlay').show();
+                       },
+                       complete: function(){
+                         $('#canceel_baid_overlay').hide();
+                       },
+                       success: function (result) {
+                           $('#cancel_ba_error_public').show();
+                           $('#gw_cancel_ba_msg').html(result);                        
+                       }
+                    });
+                },
+                function ()
+                {
+                    alertify.error('You Pressed Cancel');
+                }); 
+            });
+            
+            
         });
 })( jQuery );

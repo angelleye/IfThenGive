@@ -21,7 +21,10 @@ class AngellEYE_Give_When_Public_Display {
         add_action("wp_ajax_nopriv_givewhen_my_transactions",  array(__CLASS__,'givewhen_my_transactions'));
         
         add_action( 'wp_ajax_givewhen_my_goals', array(__CLASS__,'givewhen_my_goals'));
-        add_action("wp_ajax_nopriv_givewhen_my_goals",  array(__CLASS__,'givewhen_my_goals'));        
+        add_action("wp_ajax_nopriv_givewhen_my_goals",  array(__CLASS__,'givewhen_my_goals'));   
+        
+        add_action( 'wp_ajax_cancel_my_account_ba', array(__CLASS__,'cancel_my_account_ba'));
+        add_action("wp_ajax_nopriv_cancel_my_account_ba",  array(__CLASS__,'cancel_my_account_ba'));
     }
    
     public static function give_when_detect_shortcode()
@@ -398,6 +401,42 @@ class AngellEYE_Give_When_Public_Display {
         else {
             echo json_encode(array('recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal,'data'=>''));
         }
+        exit;
+    }
+    
+    public static function cancel_my_account_ba(){
+        $user_id = $_POST['userid'];        
+        $billing_agreement_id = get_user_meta( $user_id, 'give_when_gec_billing_agreement_id', true );
+        $PayPal_config = new Give_When_PayPal_Helper();        
+        $PayPal_config->set_api_cedentials();        
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+        /*
+         *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
+         *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+         *   It also reflactes in NVPCredentials string so we are also replcing it.
+         */
+        $PayPal->APIButtonSource = GT_BUTTON_SOURCE;
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GT_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+
+        $BAUpdateFields = array(
+            'REFERENCEID' => $billing_agreement_id,           
+            'BILLINGAGREEMENTSTATUS' => 'Canceled',
+            'BILLINGAGREEMENTDESCRIPTION' => 'Cancel Billing Agreement'
+        );        
+        $PayPalRequestData = array('BAUFields' => $BAUpdateFields);        
+        $PayPalResult = $PayPal->BillAgreementUpdate($PayPalRequestData);  
+        if($PayPalResult['RAWRESPONSE'] == false){
+            echo __("PayPal Timeout Error.",'givewhen');
+        }
+        elseif (!empty ($PayPalResult['ERRORS'])){
+            echo $PayPal->DisplayErrors($PayPalResult['ERRORS']);            
+        }
+        elseif($PayPal->APICallSuccessful($PayPalResult['ACK'])){
+            echo __("Successfully Cancelled",'givewhen');
+        }
+        else{
+            echo __("Something went wrong",'givewhen');            
+        } 
         exit;
     }
     

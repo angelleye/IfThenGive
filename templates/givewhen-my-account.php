@@ -2,7 +2,7 @@
 /**
  * GiveWhen My Account template.
  *
- * This template can be overriden by copying this file to your-theme/GiveWhen/gw-errors-display.php
+ * This template can be overriden by copying this file to your-theme/GiveWhen/givewhen-my-account.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	Givewhen
@@ -14,7 +14,7 @@ if (!is_admin()) {
     ?>
 
     <?php
-    get_header();
+    //get_header();
     ?>
     <div class="gw_center_container">
         <div class="gwcontainer">
@@ -25,6 +25,7 @@ if (!is_admin()) {
                 <ul class="tabs-navigation">
                     <li class="active"><span href="#gw_account_txns"><?php _e('GiveWhen Transactions','givewhen'); ?></span></li>
                     <li><span href="#gw_account_goals"><?php _e('GiveWhen Goals','givewhen'); ?></span></li>
+                    <li><span href="#gw_account_info"><?php _e('GiveWhen Account','givewhen'); ?></span></li>
                 </ul>
                 <div class="tabs-content">
                     <div class="tab-pane active" id="gw_account_txns">                        
@@ -32,12 +33,15 @@ if (!is_admin()) {
                     </div>
                     <div class="tab-pane " id="gw_account_goals">
                         <?php echo do_shortcode('[givewhen_my_goals]'); ?>
-                    </div>                    
+                    </div> 
+                    <div class="tab-pane " id="gw_account_info">
+                        <?php echo do_shortcode('[givewhen_account_info]'); ?>
+                    </div> 
                 </div>
             </div>            
         </div>
     </div>
     <?php
-    get_footer();
+    //get_footer();
 }
 ?>
