@@ -24,8 +24,7 @@ if (!is_admin()) {
             <div id="gw-tabs" class="tabs tabs-vertical border">                    
                 <ul class="tabs-navigation">
                     <li class="active"><span href="#gw_account_txns"><?php _e('GiveWhen Transactions','givewhen'); ?></span></li>
-                    <li><span href="#gw_account_goals"><?php _e('GiveWhen Goals','givewhen'); ?></span></li>                    
-                    <li><span href="#gw_account_status"><?php _e('Account Status','givewhen'); ?></span></li>
+                    <li><span href="#gw_account_goals"><?php _e('GiveWhen Goals','givewhen'); ?></span></li>
                 </ul>
                 <div class="tabs-content">
                     <div class="tab-pane active" id="gw_account_txns">                        
@@ -33,11 +32,7 @@ if (!is_admin()) {
                     </div>
                     <div class="tab-pane " id="gw_account_goals">
                         <?php echo do_shortcode('[givewhen_my_goals]'); ?>
-                    </div>
-                    <div class="tab-pane" id="gw_account_status">
-                        <h4>Account Status</h4>
-                        <p></p>
-                    </div>
+                    </div>                    
                 </div>
             </div>            
         </div>

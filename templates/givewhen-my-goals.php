@@ -92,11 +92,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
                     }
                 }                
             ]
-        });
-        $(document).on('click','#gw_account_goals_span',function(){ 
-            console.log('in');
-            //GiveWhen_Goals_Table.api().ajax.reload();
-        });
+        });       
     });
 </script>
 <?php }
