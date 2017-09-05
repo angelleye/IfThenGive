@@ -23,10 +23,7 @@ if(! is_admin()){
                 <thead>
                     <tr>
                         <th><?php _e('Goal Name', 'givewhen'); ?></th>                        
-                        <th><?php _e('Amount', 'givewhen'); ?></th>
-                        <th><?php _e('Billing Agreement ID', 'givewhen'); ?></th>
-                        <th><?php _e('PayPal Email ID', 'givewhen'); ?></th>
-                        <th><?php _e('PayPal Payer ID', 'givewhen'); ?></th>                        
+                        <th><?php _e('Amount', 'givewhen'); ?></th>                                           
                         <th><?php _e('Agreement Date', 'givewhen'); ?></th>
                     </tr>
                 </thead>
@@ -66,27 +63,9 @@ $symbol = $paypal->get_currency_symbol($ccode);
                         var amount = parseFloat(row.amount).toFixed(2);
                         return str + amount;
                     }
-                },
+                },                
                 {
                     "targets": [2],
-                    "render": function (data, type, row) {                    
-                        return row.BillingAgreement;
-                    }
-                },                    
-                {
-                    "targets": [3],
-                    "render": function (data, type, row) {
-                        return row.PayPalEmail;
-                    }
-                },    
-                {
-                    "targets": [4],
-                    "render": function (data, type, row) {
-                        return row.PayPalPayerId;
-                    }
-                },
-                {
-                    "targets": [5],
                     "render": function (data, type, row) {
                         return row.post_date;
                     }

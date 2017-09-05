@@ -71,12 +71,9 @@ class AngellEYE_Give_When_My_Goals_Table {
                 e.meta_value as goal_id,
                 e.post_id AS e_postId,
                 t.post_id AS t_postId,
-                p.post_title as GoalName,  
-                (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = '".$userID."' and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
-                (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = '".$userID."' and usrmeta.meta_key = 'give_when_gec_email') as PayPalEmail,
-                (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = '".$userID."' and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerId,  
-                (SELECT p2.post_date FROM {$wpdb->prefix}posts as p2 where p2.ID = e.post_id) as post_date, 
-                pm.meta_value as amount  
+                p.post_title as GoalName,
+                (SELECT DATE_FORMAT(p2.post_date,'%Y-%m-%d') FROM {$wpdb->prefix}posts as p2 where p2.ID = e.post_id) as post_date,
+                pm.meta_value as amount
                 FROM
                  {$wpdb->prefix}postmeta AS pm
                 LEFT JOIN
@@ -89,7 +86,7 @@ class AngellEYE_Give_When_My_Goals_Table {
         
         $sql .= ' GROUP BY  e.meta_value, t.meta_value';
         if (isset($search)) {
-            $sql .= "  Having (( GoalName LIKE '%{$search}%' ) OR ( BillingAgreement LIKE '%{$search}%' ) OR ( PayPalEmail LIKE '%{$search}%' ) OR ( PayPalPayerId LIKE '%{$search}%' ) OR ( amount LIKE '%{$search}%' ) OR ( post_date LIKE '%{$search}%' ) ) ";
+            $sql .= "  Having (( GoalName LIKE '%{$search}%' ) OR ( amount LIKE '%{$search}%' ) OR ( post_date LIKE '%{$search}%' ) ) ";
         }                            
         $sql .= "ORDER BY {$col} {$coldir} LIMIT {$start}, {$length}";
         
@@ -111,11 +108,8 @@ class AngellEYE_Give_When_My_Goals_Table {
                 e.meta_value as goal_id,
                 e.post_id AS e_postId,
                 t.post_id AS t_postId,
-                p.post_title as GoalName,  
-                (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = '".$userID."' and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
-                (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = '".$userID."' and usrmeta.meta_key = 'give_when_gec_email') as PayPalEmail,
-                (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = '".$userID."' and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerId,  
-                (SELECT p2.post_date FROM {$wpdb->prefix}posts as p2 where p2.ID = e.post_id) as post_date, 
+                p.post_title as GoalName,                
+                (SELECT DATE_FORMAT(p2.post_date,'%Y-%m-%d') FROM {$wpdb->prefix}posts as p2 where p2.ID = e.post_id) as post_date, 
                 pm.meta_value as amount  
                 FROM
                  {$wpdb->prefix}postmeta AS pm
@@ -129,7 +123,7 @@ class AngellEYE_Give_When_My_Goals_Table {
         
         $sql .= ' GROUP BY  e.meta_value, t.meta_value';
         if (isset($search)) {
-            $sql .= "  Having (( GoalName LIKE '%{$search}%' ) OR ( BillingAgreement LIKE '%{$search}%' ) OR ( PayPalEmail LIKE '%{$search}%' ) OR ( PayPalPayerId LIKE '%{$search}%' ) OR ( amount LIKE '%{$search}%' ) OR ( post_date LIKE '%{$search}%' ) ) ";
+            $sql .= "  Having (( GoalName LIKE '%{$search}%' ) OR ( amount LIKE '%{$search}%' ) OR ( post_date LIKE '%{$search}%' ) ) ";
         }
         $wpdb->get_results($sql, 'ARRAY_A');
         return $wpdb->num_rows;
