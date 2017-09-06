@@ -410,8 +410,8 @@ class AngellEYE_Give_When_Public_Display {
         exit;
     }
     
-    public static function cancel_my_account_ba(){
-        $user_id = $_POST['userid'];        
+    public static function cancel_my_account_ba(){        
+        $user_id = $_POST['userid'];
         $billing_agreement_id = get_user_meta( $user_id, 'give_when_gec_billing_agreement_id', true );
         $PayPal_config = new Give_When_PayPal_Helper();        
         $PayPal_config->set_api_cedentials();        
@@ -438,6 +438,12 @@ class AngellEYE_Give_When_Public_Display {
             echo $PayPal->DisplayErrors($PayPalResult['ERRORS']);            
         }
         elseif($PayPal->APICallSuccessful($PayPalResult['ACK'])){
+            $goals = AngellEYE_Give_When_My_Goals_Table::get_all_goal_ids($user_id);
+            foreach ($goals as $goal){                        
+                update_user_meta( $user_id, 'givewhen_giver_'.$goal['goal_id'].'_status', 'suspended' );
+            }
+            update_user_meta( $user_id, 'give_when_gec_billing_agreement_id','');
+            update_user_meta( $user_id, 'give_when_signedup_goals','');
             echo __("Successfully Cancelled",'givewhen');
         }
         else{

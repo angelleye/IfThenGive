@@ -112,7 +112,7 @@
             
             $(document).on('click','#gw_account_cancel_baid',function(){
                 var userid = $('#gw_account_cancel_baid').attr('data-userid');
-                alertify.confirm('Cancel Billing Agreement', 'Are you sure you want to Cancel Billing Agreement of PayPal..?',
+                alertify.confirm('Cancel Billing Agreement', 'All goals will be permanently canceled and a new agreement would have to be setup in order to give again.',
                 function ()
                 {
                     $.ajax({

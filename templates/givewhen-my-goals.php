@@ -72,18 +72,28 @@ $symbol = $paypal->get_currency_symbol($ccode);
                 },
                 {
                     "targets": [2],'searchable': false,'orderable' : false,
-                    "render": function (data, type, row) {                        
-                        return '<button class="gw_btn gw_btn-primary gw_btn-sm gw_adjust_amount" data-goalamount="'+parseFloat(row.amount).toFixed(2)+'"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Adjust','givewhen'); ?></button>';                        
+                    "render": function (data, type, row) {
+                        if(row.BillingAgreement == ''){
+                            return '-';
+                        }
+                        else{
+                            return '<button class="gw_btn gw_btn-primary gw_btn-sm gw_adjust_amount" data-goalamount="'+parseFloat(row.amount).toFixed(2)+'"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Adjust','givewhen'); ?></button>';
+                        }
                     }
                 },
                 {
                     "targets": [3],'searchable': false,'orderable' : false,
                     "render": function (data, type, row) {
-                        if(row.giver_status =='suspended'){
-                            return '<button class="gw_btn gw_btn-sm gw_giver_status" data-changestatus="Active" data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Activate','givewhen'); ?></button>';
+                        if(row.BillingAgreement == ''){
+                            return '-';
                         }
                         else{
-                            return '<button class="gw_btn gw_btn-warning gw_btn-sm gw_giver_status" data-changestatus="Suspend"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Suspend','givewhen'); ?></button>';
+                            if(row.giver_status =='suspended'){
+                                return '<button class="gw_btn gw_btn-sm gw_giver_status" data-changestatus="Active" data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Activate','givewhen'); ?></button>';
+                            }
+                            else{
+                                return '<button class="gw_btn gw_btn-warning gw_btn-sm gw_giver_status" data-changestatus="Suspend"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Suspend','givewhen'); ?></button>';
+                            }
                         }
                     }
                 },    

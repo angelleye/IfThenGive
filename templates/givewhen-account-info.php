@@ -28,19 +28,23 @@ if (!is_admin()) {
     <ul class="gw-list-group">
         <li class="gw-list-group-item">
             <span class="gw_span gw_span_1"><?php _e('Billing Agreement ID : ','givewhen');?></span>
-            <span class="gw_span gw_span_2"><?php ($BAID!=='') ? _e($BAID,'givewhen') : '';?></span>
+            <span class="gw_span gw_span_2"><?php ($BAID!=='') ? _e($BAID,'givewhen') : _e('-','givewhen');?></span>
         </li>
         <li class="gw-list-group-item">
             <span class="gw_span gw_span_1"><?php _e('PayPal Email ID : ','givewhen');?></span>
-            <span class="gw_span gw_span_2"><?php  ($paypal_email !== '') ? _e($paypal_email,'givewhen') : '';?></span>
+            <span class="gw_span gw_span_2"><?php  ($paypal_email !== '') ? _e($paypal_email,'givewhen') : _e('-','givewhen');?></span>
         </li>        
         <li class="gw-list-group-item">
             <span class="gw_span gw_span_1"><?php _e('PayPal Payer ID : ','givewhen');?></span>
-            <span class="gw_span gw_span_2"><?php ($paypal_payer_id !=='') ? _e($paypal_payer_id,'givewhen') : ''; ?></span>
+            <span class="gw_span gw_span_2"><?php ($paypal_payer_id !=='') ? _e($paypal_payer_id,'givewhen') : _e('-','givewhen'); ?></span>
         </li>
+        <?php
+        if($BAID!=='') {
+        ?>
         <li class="gw-list-group-item">
             <button type="button" class="gw_btn gw_btn-primary" id="gw_account_cancel_baid" data-baid="<?php echo $BAID; ?>" data-userid="<?php echo $userID; ?>"><?php _e('Cancel Billing Agreement','givewhen'); ?></button>
         </li>
+        <?php } ?>
     </ul>
     <div class="gw_alert gw_alert-warning" id="cancel_ba_error_public" style="display: none;text-align: left;">
         <div id="gw_cancel_ba_msg"></div>

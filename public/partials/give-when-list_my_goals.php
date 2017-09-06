@@ -53,14 +53,8 @@ class AngellEYE_Give_When_My_Goals_Table {
         if($colOrder==0)
             $col='GoalName';
         else if($colOrder==1)
-            $col='amount';
-        else if($colOrder==2)
-            $col='BillingAgreement';      
-        else if($colOrder==3)
-            $col='PayPalEmail';      
+            $col='amount';        
         else if($colOrder==4)
-            $col='PayPalPayerId';      
-        else if($colOrder==5)
             $col='post_date';              
         else
             $col='post_date';
@@ -72,6 +66,7 @@ class AngellEYE_Give_When_My_Goals_Table {
                 e.post_id AS e_postId,
                 t.post_id AS t_postId,
                 p.post_title as GoalName,
+                (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = '".$userID."' and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
                 (SELECT us.meta_value from wp_usermeta us where us.user_id =  t.meta_value AND us.meta_key = CONCAT('givewhen_giver_',e.meta_value,'_status') ) AS giver_status,
                 (SELECT DATE_FORMAT(p2.post_date,'%Y-%m-%d') FROM {$wpdb->prefix}posts as p2 where p2.ID = e.post_id) as post_date,
                 pm.meta_value as amount
@@ -95,6 +90,25 @@ class AngellEYE_Give_When_My_Goals_Table {
         
         $result_array = $wpdb->get_results($sql, 'ARRAY_A');        
         return $result_array;
+    }
+    
+    public static function get_all_goal_ids($user_id){
+        global $wpdb;                
+        $sql = "SELECT                
+                e.meta_value AS goal_id
+                FROM
+                  wp_postmeta AS pm
+                LEFT JOIN
+                  wp_postmeta AS t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_signup_wp_user_id'
+                LEFT JOIN
+                  wp_postmeta AS e ON e.post_id = pm.post_id AND e.meta_key = 'give_when_signup_wp_goal_id'
+                WHERE
+                  t.meta_value IS NOT NULL AND t.meta_value = '".$user_id."'
+                GROUP BY
+                  e.meta_value,
+                  t.meta_value";
+            $result_array = $wpdb->get_results($sql, 'ARRAY_A');        
+            return $result_array;
     }
 
     /**
