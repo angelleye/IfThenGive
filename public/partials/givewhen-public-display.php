@@ -27,7 +27,10 @@ class AngellEYE_Give_When_Public_Display {
         add_action("wp_ajax_nopriv_cancel_my_account_ba",  array(__CLASS__,'cancel_my_account_ba'));
         
         add_action( 'wp_ajax_gw_adjust_amount', array(__CLASS__,'gw_adjust_amount'));
-        add_action("wp_ajax_nopriv_gw_adjust_amount",  array(__CLASS__,'gw_adjust_amount'));       
+        add_action("wp_ajax_nopriv_gw_adjust_amount",  array(__CLASS__,'gw_adjust_amount'));  
+        
+        add_action( 'wp_ajax_change_giver_status', array(__CLASS__,'change_giver_status'));
+        add_action("wp_ajax_nopriv_change_giver_status",  array(__CLASS__,'change_giver_status'));          
     }
    
     public static function give_when_detect_shortcode()
@@ -444,9 +447,28 @@ class AngellEYE_Give_When_Public_Display {
     }
     
     public static function gw_adjust_amount(){
-        $changed_amount = $_POST['changed_amount'];
-        $postid = $_POST['postid'];
-        update_post_meta( $postid,'give_when_signup_amount',$changed_amount);
+        if(isset($_POST['changed_amount'])){
+            $changed_amount = $_POST['changed_amount'];
+            $postid = $_POST['postid'];
+            update_post_meta( $postid,'give_when_signup_amount',$changed_amount);
+        }        
+        exit;
+    }
+    
+    public static function change_giver_status(){       
+        if(isset($_POST['userId'])){
+            $user_id = $_POST['userId'];
+            $data = get_user_meta($user_id,'givewhen_giver_'.$_POST['goalId'].'_status',true);
+            if(empty($data)){
+               update_user_meta( $user_id , 'givewhen_giver_'.$_POST['goalId'].'_status', 'suspended' );
+            }
+            elseif($data == 'suspended'){
+                update_user_meta( $user_id , 'givewhen_giver_'.$_POST['goalId'].'_status', 'active' );
+            }
+            else{
+                update_user_meta( $user_id , 'givewhen_giver_'.$_POST['goalId'].'_status', 'suspended' );
+            }
+        }
         exit;
     }
     

@@ -276,6 +276,12 @@ form {
     border-color: #26B8F3;
     color: #fff;
 }
+.gw_btn.gw_btn-warning {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+}
+
 .gw_form-inline button {
     margin: 0px;
 }

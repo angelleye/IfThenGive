@@ -28,8 +28,9 @@ if(! is_admin()){
                     <tr>
                         <th><?php _e('Goal Name', 'givewhen'); ?></th>                        
                         <th><?php _e('Amount', 'givewhen'); ?></th>           
-                        <th><?php _e('Adjust Amount', 'givewhen'); ?></th>           
-                        <th><?php _e('Agreement Date', 'givewhen'); ?></th>
+                        <th><?php _e('Adjust Amount', 'givewhen'); ?></th>
+                        <th><?php _e('Action', 'givewhen'); ?></th>
+                        <th><?php _e('Date', 'givewhen'); ?></th>
                     </tr>
                 </thead>
             </table>            
@@ -72,18 +73,29 @@ $symbol = $paypal->get_currency_symbol($ccode);
                 {
                     "targets": [2],'searchable': false,'orderable' : false,
                     "render": function (data, type, row) {                        
-                        return '<button class="gw_btn gw_btn-primary gw_btn-sm" id="gw_adjust_amount" data-goalamount="'+parseFloat(row.amount).toFixed(2)+'"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Adjust','givewhen'); ?></button>';                        
+                        return '<button class="gw_btn gw_btn-primary gw_btn-sm gw_adjust_amount" data-goalamount="'+parseFloat(row.amount).toFixed(2)+'"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Adjust','givewhen'); ?></button>';                        
+                    }
+                },
+                {
+                    "targets": [3],'searchable': false,'orderable' : false,
+                    "render": function (data, type, row) {
+                        if(row.giver_status =='suspended'){
+                            return '<button class="gw_btn gw_btn-sm gw_giver_status" data-changestatus="Active" data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Activate','givewhen'); ?></button>';
+                        }
+                        else{
+                            return '<button class="gw_btn gw_btn-warning gw_btn-sm gw_giver_status" data-changestatus="Suspend"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Suspend','givewhen'); ?></button>';
+                        }
                     }
                 },    
                 {
-                    "targets": [3],
+                    "targets": [4],
                     "render": function (data, type, row) {
                         return row.post_date;
                     }
                 }                
             ]
         });  
-            $(document).on('click','#gw_adjust_amount',function(e){
+            $(document).on('click','.gw_adjust_amount',function(e){
                 var btn = $(this);
                 var goalName = btn.attr('data-goalname');
                 var goalId = btn.attr('data-goalid');
@@ -122,9 +134,41 @@ $symbol = $paypal->get_currency_symbol($ccode);
                         });                        
                     }, 
                     function(){ 
-                        alertify.error('Cancel') 
+                        alertify.error('You Pressed Cancel'); 
                     }
                 );
+            });
+            
+            $(document).on('click','.gw_giver_status',function(e){
+                var btn = $(this);
+                var chnageStatus = btn.attr('data-changestatus'); 
+                var goalName = btn.attr('data-goalname');
+                var goalId = btn.attr('data-goalid');
+                var postId = btn.attr('data-epostid');
+                var userId = btn.attr('data-userid');
+                
+                alertify.confirm(chnageStatus + ' for '+ goalName +'?', 'Are you sure you want to '+chnageStatus+' goal?',
+                function ()
+                {                                                            
+                    $.ajax({
+                       type: 'POST',
+                       url: admin_ajax_url,
+                        data: { 
+                           action  : 'change_giver_status',
+                           userId : userId,
+                           goalId : goalId                           
+                       },
+                       dataType: "json",
+                       success: function (result) {
+                           alertify.success('Status changed for ' + goalName); 
+                           GiveWhen_Goals_Table.api().ajax.reload();
+                       }
+                   });
+                },
+                function ()
+                {
+                    alertify.error('You Pressed Cancel');
+                }); 
             });
     });
 </script>

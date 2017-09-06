@@ -72,6 +72,7 @@ class AngellEYE_Give_When_My_Goals_Table {
                 e.post_id AS e_postId,
                 t.post_id AS t_postId,
                 p.post_title as GoalName,
+                (SELECT us.meta_value from wp_usermeta us where us.user_id =  t.meta_value AND us.meta_key = CONCAT('givewhen_giver_',e.meta_value,'_status') ) AS giver_status,
                 (SELECT DATE_FORMAT(p2.post_date,'%Y-%m-%d') FROM {$wpdb->prefix}posts as p2 where p2.ID = e.post_id) as post_date,
                 pm.meta_value as amount
                 FROM
@@ -80,6 +81,8 @@ class AngellEYE_Give_When_My_Goals_Table {
                  {$wpdb->prefix}postmeta AS t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_signup_wp_user_id'
                 LEFT JOIN
                  {$wpdb->prefix}postmeta AS e ON e.post_id = pm.post_id AND e.meta_key = 'give_when_signup_wp_goal_id'  
+                LEFT JOIN 
+                 {$wpdb->prefix}usermeta as us on us.user_id =  t.meta_value
                 JOIN {$wpdb->prefix}posts as p on p.ID = e.meta_value  
                  WHERE
                   t.meta_value IS NOT NULL AND t.meta_value ='".$userID."'";                                  
