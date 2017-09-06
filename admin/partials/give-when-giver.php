@@ -218,23 +218,28 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
             _e(date('Y-m-d',  strtotime($item['BADate'])),'givewhen');
              break;
         case 'GWAction' :
-            $giverstatus = $item['GiverStatus'];
-            /* if status is active we have to change it into suspended */
-            if($giverstatus == 'active'){               
-                $label = __('Suspend','givewhen');                
-                $class = "btn-warning";
+            if($item['BillingAgreement']==''){
+                echo "-";
             }
-            /* if no status found,default is suspended */
-            else if($giverstatus === NULL){                
-                $label = __('Suspend','givewhen');               
-                $class = "btn-warning";
+            else{
+                $giverstatus = $item['GiverStatus'];
+                /* if status is active we have to change it into suspended */
+                if($giverstatus == 'active'){               
+                    $label = __('Suspend','givewhen');                
+                    $class = "btn-warning";
+                }
+                /* if no status found,default is suspended */
+                else if($giverstatus === NULL){                
+                    $label = __('Suspend','givewhen');               
+                    $class = "btn-warning";
+                }
+                /* else status is always suspended so make it active */
+                else{                
+                    $label = __('Activate','givewhen');
+                    $class = "btn-defalt";
+                }            
+                echo '<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-gwchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,'givewhen').'</button>';            
             }
-            /* else status is always suspended so make it active */
-            else{                
-                $label = __('Activate','givewhen');
-                $class = "btn-defalt";
-            }            
-            echo '<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-gwchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,'givewhen').'</button>';
             break;
       }
     }

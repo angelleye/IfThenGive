@@ -19,6 +19,18 @@ class AngellEYE_Give_When_Public_Display {
         add_action("wp_ajax_nopriv_start_express_checkout",  array(__CLASS__,'start_express_checkout'));
         add_action( 'wp_ajax_givewhen_my_transactions', array(__CLASS__,'givewhen_my_transactions'));
         add_action("wp_ajax_nopriv_givewhen_my_transactions",  array(__CLASS__,'givewhen_my_transactions'));
+        
+        add_action( 'wp_ajax_givewhen_my_goals', array(__CLASS__,'givewhen_my_goals'));
+        add_action("wp_ajax_nopriv_givewhen_my_goals",  array(__CLASS__,'givewhen_my_goals'));   
+        
+        add_action( 'wp_ajax_cancel_my_account_ba', array(__CLASS__,'cancel_my_account_ba'));
+        add_action("wp_ajax_nopriv_cancel_my_account_ba",  array(__CLASS__,'cancel_my_account_ba'));
+        
+        add_action( 'wp_ajax_gw_adjust_amount', array(__CLASS__,'gw_adjust_amount'));
+        add_action("wp_ajax_nopriv_gw_adjust_amount",  array(__CLASS__,'gw_adjust_amount'));  
+        
+        add_action( 'wp_ajax_change_giver_status', array(__CLASS__,'change_giver_status'));
+        add_action("wp_ajax_nopriv_change_giver_status",  array(__CLASS__,'change_giver_status'));          
     }
    
     /*
@@ -391,6 +403,87 @@ class AngellEYE_Give_When_Public_Display {
         }
         exit;
     }
+    
+    public static function givewhen_my_goals(){
+        $table = new AngellEYE_Give_When_My_Goals_Table();
+        $my_goals_data = $table->get_goals();        
+        $recordsTotal = $table->record_count();
+        if(!empty($my_goals_data))
+            echo json_encode(array('recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal,'data'=>$my_goals_data));
+        else {
+            echo json_encode(array('recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal,'data'=>''));
+        }
+        exit;
+    }
+    
+    public static function cancel_my_account_ba(){        
+        $user_id = $_POST['userid'];
+        $billing_agreement_id = get_user_meta( $user_id, 'give_when_gec_billing_agreement_id', true );
+        $PayPal_config = new Give_When_PayPal_Helper();        
+        $PayPal_config->set_api_cedentials();        
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+        /*
+         *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
+         *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+         *   It also reflactes in NVPCredentials string so we are also replcing it.
+         */
+        $PayPal->APIButtonSource = GT_BUTTON_SOURCE;
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GT_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+
+        $BAUpdateFields = array(
+            'REFERENCEID' => $billing_agreement_id,           
+            'BILLINGAGREEMENTSTATUS' => 'Canceled',
+            'BILLINGAGREEMENTDESCRIPTION' => 'Cancel Billing Agreement'
+        );        
+        $PayPalRequestData = array('BAUFields' => $BAUpdateFields);        
+        $PayPalResult = $PayPal->BillAgreementUpdate($PayPalRequestData);  
+        if($PayPalResult['RAWRESPONSE'] == false){
+            echo __("PayPal Timeout Error.",'givewhen');
+        }
+        elseif (!empty ($PayPalResult['ERRORS'])){
+            echo $PayPal->DisplayErrors($PayPalResult['ERRORS']);            
+        }
+        elseif($PayPal->APICallSuccessful($PayPalResult['ACK'])){
+            $goals = AngellEYE_Give_When_My_Goals_Table::get_all_goal_ids($user_id);
+            foreach ($goals as $goal){                        
+                update_user_meta( $user_id, 'givewhen_giver_'.$goal['goal_id'].'_status', 'suspended' );
+            }
+            update_user_meta( $user_id, 'give_when_gec_billing_agreement_id','');
+            update_user_meta( $user_id, 'give_when_signedup_goals','');
+            echo __("Successfully Cancelled",'givewhen');
+        }
+        else{
+            echo __("Something went wrong",'givewhen');            
+        } 
+        exit;
+    }
+    
+    public static function gw_adjust_amount(){
+        if(isset($_POST['changed_amount'])){
+            $changed_amount = $_POST['changed_amount'];
+            $postid = $_POST['postid'];
+            update_post_meta( $postid,'give_when_signup_amount',$changed_amount);
+        }        
+        exit;
+    }
+    
+    public static function change_giver_status(){       
+        if(isset($_POST['userId'])){
+            $user_id = $_POST['userId'];
+            $data = get_user_meta($user_id,'givewhen_giver_'.$_POST['goalId'].'_status',true);
+            if(empty($data)){
+               update_user_meta( $user_id , 'givewhen_giver_'.$_POST['goalId'].'_status', 'suspended' );
+            }
+            elseif($data == 'suspended'){
+                update_user_meta( $user_id , 'givewhen_giver_'.$_POST['goalId'].'_status', 'active' );
+            }
+            else{
+                update_user_meta( $user_id , 'givewhen_giver_'.$_POST['goalId'].'_status', 'suspended' );
+            }
+        }
+        exit;
+    }
+    
 }
 
 AngellEYE_Give_When_Public_Display::init();
