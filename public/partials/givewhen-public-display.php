@@ -25,6 +25,9 @@ class AngellEYE_Give_When_Public_Display {
         
         add_action( 'wp_ajax_cancel_my_account_ba', array(__CLASS__,'cancel_my_account_ba'));
         add_action("wp_ajax_nopriv_cancel_my_account_ba",  array(__CLASS__,'cancel_my_account_ba'));
+        
+        add_action( 'wp_ajax_gw_adjust_amount', array(__CLASS__,'gw_adjust_amount'));
+        add_action("wp_ajax_nopriv_gw_adjust_amount",  array(__CLASS__,'gw_adjust_amount'));       
     }
    
     public static function give_when_detect_shortcode()
@@ -437,6 +440,13 @@ class AngellEYE_Give_When_Public_Display {
         else{
             echo __("Something went wrong",'givewhen');            
         } 
+        exit;
+    }
+    
+    public static function gw_adjust_amount(){
+        $changed_amount = $_POST['changed_amount'];
+        $postid = $_POST['postid'];
+        update_post_meta( $postid,'give_when_signup_amount',$changed_amount);
         exit;
     }
     

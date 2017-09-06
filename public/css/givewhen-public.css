@@ -301,6 +301,14 @@ form {
     background-image: none;
     border: 1px solid transparent;
 }
+
+.gw_btn-sm, .gw_btn-group-sm > .gw_btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}    
+    
 /*give when form image*/
 .gw_post-item {
     float: left;
@@ -708,6 +716,25 @@ Tabs
 .alertify .ajs-dialog {
     top: 50%;
     margin: auto;
+}
+
+.alertify .ajs-body .ajs-content .ajs-input {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 4px;
+    border-radius: 2px;
+    border: 1px solid #CCC;
+}
+
+.alertify .ajs-body .ajs-content .ajs-input:focus{
+    box-shadow: none;
+    border-color: #66afe9 !important;
+    outline: 0;
+}
+.ajs-message{
+    color: whitesmoke !important ;
+    font-weight: 600;
 }
 
 .gw_span{

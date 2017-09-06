@@ -15,6 +15,10 @@ if (!defined('ABSPATH'))
 <?php
 if(! is_admin()){
 ?>
+<div id="adjust_amount_overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
+    <div class="gw_loader"></div>
+    <h1 style="font-weight: 600;">Processing...</h1>
+</div>
 <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Goals', 'givewhen') ?></abbr></div>
 <div class="gw_center_container">   
     <div class="gwcontainer">
@@ -23,7 +27,8 @@ if(! is_admin()){
                 <thead>
                     <tr>
                         <th><?php _e('Goal Name', 'givewhen'); ?></th>                        
-                        <th><?php _e('Amount', 'givewhen'); ?></th>                                           
+                        <th><?php _e('Amount', 'givewhen'); ?></th>           
+                        <th><?php _e('Adjust Amount', 'givewhen'); ?></th>           
                         <th><?php _e('Agreement Date', 'givewhen'); ?></th>
                     </tr>
                 </thead>
@@ -51,7 +56,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
             },
             "columnDefs": [
                 {
-                    "targets": [0], 'searchable': false,
+                    "targets": [0],
                     "render": function (data, type, row) {
                         return row.GoalName;
                     }
@@ -63,15 +68,64 @@ $symbol = $paypal->get_currency_symbol($ccode);
                         var amount = parseFloat(row.amount).toFixed(2);
                         return str + amount;
                     }
-                },                
+                },
                 {
-                    "targets": [2],
+                    "targets": [2],'searchable': false,'orderable' : false,
+                    "render": function (data, type, row) {                        
+                        return '<button class="gw_btn gw_btn-primary gw_btn-sm" id="gw_adjust_amount" data-goalamount="'+parseFloat(row.amount).toFixed(2)+'"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Adjust','givewhen'); ?></button>';                        
+                    }
+                },    
+                {
+                    "targets": [3],
                     "render": function (data, type, row) {
                         return row.post_date;
                     }
                 }                
             ]
-        });       
+        });  
+            $(document).on('click','#gw_adjust_amount',function(e){
+                var btn = $(this);
+                var goalName = btn.attr('data-goalname');
+                var goalId = btn.attr('data-goalid');
+                var goalPostId = btn.attr('data-epostid');
+                var goalUserId = btn.attr('data-userid');
+                var goalAmount = btn.attr('data-goalamount');
+                e.preventDefault();
+                alertify.prompt( 'Adjust Amount for ' + goalName, 'Enter Amount', goalAmount,
+                    function(evt, value) {
+                        var changed_amount = parseFloat(value).toFixed(2);
+                        if(isNaN(changed_amount)){
+                            alertify.error('Please Enter Numeric Value.');
+                            return false;
+                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: admin_ajax_url,
+                             data: { 
+                                action  : 'gw_adjust_amount',
+                                userid  : goalUserId,
+                                postid  : goalPostId,
+                                goalid  : goalId,
+                                actual_amount  : goalAmount,
+                                changed_amount : value
+                            },                       
+                            beforeSend: function () {
+                              $('#adjust_amount_overlay').show();
+                            },
+                            complete: function(){
+                              $('#adjust_amount_overlay').hide();
+                            },
+                            success: function (result) {
+                                alertify.success('Amount changed for ' + goalName); 
+                                GiveWhen_Goals_Table.api().ajax.reload();
+                            }
+                        });                        
+                    }, 
+                    function(){ 
+                        alertify.error('Cancel') 
+                    }
+                );
+            });
     });
 </script>
 <?php }
