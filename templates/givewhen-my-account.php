@@ -14,7 +14,7 @@ if (!is_admin()) {
     ?>
 
     <?php
-    //get_header();
+    get_header();
     ?>
     <div class="gw_center_container">
         <div class="gwcontainer">
@@ -42,6 +42,6 @@ if (!is_admin()) {
         </div>
     </div>
     <?php
-    //get_footer();
+    get_footer();
 }
 ?>
