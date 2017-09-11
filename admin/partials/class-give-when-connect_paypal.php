@@ -381,8 +381,8 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                     *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
                                                     *   It also reflactes in NVPCredentials string so we are also replcing it.
                                                     */
-                                                    $PayPal->APIButtonSource = GT_BUTTON_SOURCE;
-                                                    $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GT_BUTTON_SOURCE,$PayPal->NVPCredentials);
+                                                    $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+                                                    $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GW_BUTTON_SOURCE,$PayPal->NVPCredentials);
                                                     $ccode = get_option('gw_currency_code');
                                                 ?>
                                                 <select class="form-control" name="gw_currency_code">

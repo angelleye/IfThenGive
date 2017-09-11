@@ -36,7 +36,7 @@ class AngellEYE_Give_When_interface {
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_interface_html() {
+    public static function give_when_interface_html() {        
         $connect_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
         $connect_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');
         if ($connect_to_sandbox_paypal_flag != 'Yes' && $connect_to_live_paypal_flag != 'Yes') {
@@ -51,7 +51,7 @@ class AngellEYE_Give_When_interface {
             <?php
         } else {
             $action_request = isset($_REQUEST['view']) ? $_REQUEST['view'] : '';
-            global $post;
+            global $post;            
             $trigger_name = get_post_meta($post->ID, 'trigger_name', true);
             $trigger_thing = get_post_meta($post->ID, 'trigger_thing', true);
             $trigger_desc = get_post_meta($post->ID, 'trigger_desc', true);
@@ -503,8 +503,8 @@ class AngellEYE_Give_When_interface {
          *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */
-        $PayPal->APIButtonSource = GT_BUTTON_SOURCE;
-        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GT_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+        $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GW_BUTTON_SOURCE,$PayPal->NVPCredentials);        
         $ccode = get_option('gw_currency_code');        
         $symbol = $PayPal_config->get_currency_symbol($ccode);
         $total_txn = 0;
@@ -708,8 +708,8 @@ class AngellEYE_Give_When_interface {
          *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */  
-        $PayPal->APIButtonSource = GT_BUTTON_SOURCE;
-        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GT_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+        $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GW_BUTTON_SOURCE,$PayPal->NVPCredentials);        
         $trigger_name = get_post_meta($goal_id, 'trigger_name',true);
         $GTDFields = array(
             'transactionid' => $transaction_id
@@ -883,8 +883,8 @@ class AngellEYE_Give_When_interface {
                                     *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
                                     *   It also reflactes in NVPCredentials string so we are also replcing it.
                                     */
-                                    $PayPal->APIButtonSource = GT_BUTTON_SOURCE;
-                                    $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GT_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+                                    $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+                                    $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GW_BUTTON_SOURCE,$PayPal->NVPCredentials);        
                                     $total_txn = 0;
                                     $total_txn_success = 0;
                                     $total_txn_failed = 0;
