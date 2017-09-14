@@ -64,11 +64,11 @@ class AngellEYE_Give_When_Post_types {
      */
     public static function give_when_register_post_types() {
         global $wpdb;        
-        if (post_type_exists('angelleye_give_when')) {
+        if (post_type_exists('give_when_goals')) {
             return;
         }
         
-        do_action('give_when_register_post_types');
+        //do_action('give_when_register_post_types');
 
         register_post_type('give_when_goals', apply_filters('give_when_register_post_types', array(
                     'labels' => array(
@@ -86,11 +86,11 @@ class AngellEYE_Give_When_Post_types {
                         'not_found' => __('No Goal found', 'givewhen'),
                         'not_found_in_trash' => __('No Goal found in trash', 'givewhen'),
                         'parent' => __('Parent Goal', 'givewhen')
-                    ),
+                    ),                    
                     'description' => __('This is where you can create new Goal.', 'givewhen'),
                     'public' => false,
                     'show_ui' => true,
-                    'capability_type' => 'post',
+                    'capability_type' => __('give_when_goals','givewhen'),                    
                     'map_meta_cap' => true,
                     'publicly_queryable' => false,
                     'exclude_from_search' => true,
@@ -103,7 +103,40 @@ class AngellEYE_Give_When_Post_types {
                     'show_in_nav_menus' => true
                         )
                 )
-        );        
+        );  
+        self::get_givewhen_capabilities();        
+    }
+    
+    public static function get_givewhen_capabilities(){
+        global $wp_roles;
+        if (!class_exists('WP_Roles')) {
+                return;
+        }
+
+        if (!isset($wp_roles)) {
+            $wp_roles = new WP_Roles();
+        }
+        $capability_type = 'give_when_goals';
+        $capabilities['give_when_goals'] = array(
+                // Post type
+                "edit_{$capability_type}",
+                "read_{$capability_type}",
+                "delete_{$capability_type}",
+                "edit_{$capability_type}s",
+                "edit_others_{$capability_type}s",
+                "publish_{$capability_type}s",
+                "read_private_{$capability_type}s",
+                "delete_{$capability_type}s",
+                "delete_private_{$capability_type}s",
+                "delete_published_{$capability_type}s",
+                "delete_others_{$capability_type}s",
+                "edit_private_{$capability_type}s",
+                "edit_published_{$capability_type}s",
+            );
+            foreach ($capabilities['give_when_goals'] as $cap) {                
+                $wp_roles->add_cap('administrator', $cap);
+                $wp_roles->add_cap('givewhen_goal_creators', $cap);
+            }                 
     }
 
     /**
