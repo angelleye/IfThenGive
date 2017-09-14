@@ -108,7 +108,7 @@ class AngellEYE_Give_When_Post_types {
     }
     
     public static function get_givewhen_capabilities(){
-        global $wp_roles;
+        global $wp_roles;        
         if (!class_exists('WP_Roles')) {
                 return;
         }
@@ -133,6 +133,10 @@ class AngellEYE_Give_When_Post_types {
                 "edit_private_{$capability_type}s",
                 "edit_published_{$capability_type}s",
             );
+            $role = get_role('givewhen_goal_creators');
+            if($role==NULL){
+                add_role('givewhen_goal_creators','Givewhen Goal Creators',$capabilities['give_when_goals']);
+            }
             foreach ($capabilities['give_when_goals'] as $cap) {                
                 $wp_roles->add_cap('administrator', $cap);
                 $wp_roles->add_cap('givewhen_goal_creators', $cap);
@@ -261,9 +265,9 @@ class AngellEYE_Give_When_Post_types {
     public static function my_action_row($actions, $post){
         //check for your post type
         if ($post->post_type == "give_when_goals") {           
-            $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">View</a>';
-            $actions['givers'] = '<a href="'.site_url().'/wp-admin/?page=give_when_givers&post=' . $post->ID . '&view=givers">Givers</a>';
-            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/?page=give_when_givers&post=' . $post->ID . '&view=ListTransactions">Transactions</a>';
+            $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">'.__('View','givewhen').'</a>';
+            $actions['givers'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $post->ID . '&view=givers">'.__('Givers','givewhen').'</a>';
+            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $post->ID . '&view=ListTransactions">'.__('Transactions','givewhen').'</a>';
         }
         return $actions;
     }    
@@ -273,7 +277,7 @@ class AngellEYE_Give_When_Post_types {
             null,
             __('GiveWhen Givers Page', 'givewhen'),
             __('GiveWhen Givers Page', 'givewhen'),
-            'manage_options',
+            'edit_give_when_goalss',
             __('give_when_givers', 'givewhen'),
             array(__CLASS__,'give_when_givers_page_callback')
         );
@@ -282,7 +286,7 @@ class AngellEYE_Give_When_Post_types {
             null,
             __('GiveWhen disconnect Page', 'givewhen'),
             __('GiveWhen disconnect Page', 'givewhen'),
-            'manage_options',
+            'edit_give_when_goalss',
             __('give_when_disconnect_paypal', 'givewhen'),
             array(__CLASS__,'give_when_disconnect_paypal_page_callback')
         );
