@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/angelleye/paypal-php-library.git",
-                "reference": "b962b21e7187aac36580dab51d04beea3af3e213"
+                "reference": "9dca1c5e913ffd4edda3b7d7d0b6f0fe06dd1d4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/angelleye/paypal-php-library/zipball/b962b21e7187aac36580dab51d04beea3af3e213",
-                "reference": "b962b21e7187aac36580dab51d04beea3af3e213",
+                "url": "https://api.github.com/repos/angelleye/paypal-php-library/zipball/9dca1c5e913ffd4edda3b7d7d0b6f0fe06dd1d4c",
+                "reference": "9dca1c5e913ffd4edda3b7d7d0b6f0fe06dd1d4c",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "paypal",
                 "rest"
             ],
-            "time": "2017-07-13 08:37:54"
+            "time": "2017-09-15 06:36:12"
         },
         {
             "name": "paypal/rest-api-sdk-php",

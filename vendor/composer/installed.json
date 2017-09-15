@@ -1,58 +1,5 @@
 [
     {
-        "name": "twbs/bootstrap",
-        "version": "v3.3.7",
-        "version_normalized": "3.3.7.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/twbs/bootstrap.git",
-            "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/twbs/bootstrap/zipball/0b9c4a4007c44201dce9a6cc1a38407005c26c86",
-            "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86",
-            "shasum": ""
-        },
-        "replace": {
-            "twitter/bootstrap": "self.version"
-        },
-        "time": "2016-07-25 15:51:55",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.3.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jacob Thornton",
-                "email": "jacobthornton@gmail.com"
-            },
-            {
-                "name": "Mark Otto",
-                "email": "markdotto@gmail.com"
-            }
-        ],
-        "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-        "homepage": "http://getbootstrap.com",
-        "keywords": [
-            "JS",
-            "css",
-            "framework",
-            "front-end",
-            "less",
-            "mobile-first",
-            "responsive",
-            "web"
-        ]
-    },
-    {
         "name": "psr/log",
         "version": "1.0.2",
         "version_normalized": "1.0.2.0",
@@ -153,18 +100,71 @@
         ]
     },
     {
+        "name": "twbs/bootstrap",
+        "version": "v3.3.7",
+        "version_normalized": "3.3.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/twbs/bootstrap.git",
+            "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/twbs/bootstrap/zipball/0b9c4a4007c44201dce9a6cc1a38407005c26c86",
+            "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86",
+            "shasum": ""
+        },
+        "replace": {
+            "twitter/bootstrap": "self.version"
+        },
+        "time": "2016-07-25 15:51:55",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jacob Thornton",
+                "email": "jacobthornton@gmail.com"
+            },
+            {
+                "name": "Mark Otto",
+                "email": "markdotto@gmail.com"
+            }
+        ],
+        "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+        "homepage": "http://getbootstrap.com",
+        "keywords": [
+            "JS",
+            "css",
+            "framework",
+            "front-end",
+            "less",
+            "mobile-first",
+            "responsive",
+            "web"
+        ]
+    },
+    {
         "name": "angelleye/paypal-php-library",
         "version": "dev-givewhen",
         "version_normalized": "dev-givewhen",
         "source": {
             "type": "git",
             "url": "https://github.com/angelleye/paypal-php-library.git",
-            "reference": "b962b21e7187aac36580dab51d04beea3af3e213"
+            "reference": "9dca1c5e913ffd4edda3b7d7d0b6f0fe06dd1d4c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/angelleye/paypal-php-library/zipball/b962b21e7187aac36580dab51d04beea3af3e213",
-            "reference": "b962b21e7187aac36580dab51d04beea3af3e213",
+            "url": "https://api.github.com/repos/angelleye/paypal-php-library/zipball/9dca1c5e913ffd4edda3b7d7d0b6f0fe06dd1d4c",
+            "reference": "9dca1c5e913ffd4edda3b7d7d0b6f0fe06dd1d4c",
             "shasum": ""
         },
         "require": {
@@ -173,7 +173,7 @@
             "php": ">=5.3.0",
             "twbs/bootstrap": "^3.3"
         },
-        "time": "2017-07-13 08:37:54",
+        "time": "2017-09-15 06:36:12",
         "type": "library",
         "installation-source": "source",
         "autoload": {
