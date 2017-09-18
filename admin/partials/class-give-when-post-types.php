@@ -156,6 +156,7 @@ class AngellEYE_Give_When_Post_types {
             'cb' => '<input type="checkbox" />',
             'title' => __('Give Goal Name','givewhen'),
             'shortcodes' => __('Shortcodes','givewhen'),
+            'createdby' => __('Created By','givewhen'),
             'date' => __('Date','givewhen')
         );
 
@@ -184,8 +185,10 @@ class AngellEYE_Give_When_Post_types {
                 }
 
                 break;
-            case 'publisher' :
-                echo get_post_meta($post_id, 'publisher', true);
+            case 'createdby' :                                
+                $author_id = get_post_field ('post_author', $post_id);
+                $display_name = get_the_author_meta( 'display_name' , $author_id ); 
+                echo $display_name;
                 break;
         }
     }
