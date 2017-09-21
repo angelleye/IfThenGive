@@ -424,21 +424,7 @@ class AngellEYE_Give_When_interface {
         <?php
     }
 
-    public static function give_when_givers_interface_html() {        
-        if(!self::is_My_Goal($_REQUEST['post'])){            
-            ?>
-            <div class="wrap">
-                <div class="give_when_admin_container">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
-                        </div>
-                    </div>
-                </div>
-            </div>        
-        <?php
-        }
-        else{            
+    public static function give_when_givers_interface_html() {                            
         ?>
         <div class="wrap">            
             <div class="give_when_admin_container">
@@ -450,10 +436,16 @@ class AngellEYE_Give_When_interface {
                         <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
                         <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php echo __('Givers For ', 'givewhen'); ?><?php echo $trigger_name; ?></abbr></div>
                     </div>
-                    <div class="col-md-12 text-center">
-                        <span class="gw_text-info"><?php echo __('Click ', 'givewhen'); ?><strong>"Process Donation"</strong><?php echo __(' Button to Capture your Transactions.', 'givewhen'); ?></span><br/>                    
-                        <a class="btn gw_btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation','givewhen'); ?></a>
-                    </div>
+                    <?php
+                    if(self::is_My_Goal($_REQUEST['post'])){
+                    ?>    
+                        <div class="col-md-12 text-center">
+                            <span class="gw_text-info"><?php echo __('Click ', 'givewhen'); ?><strong><?php _e('"Process Donation"','givewhen'); ?></strong><?php echo __(' Button to Capture your Transactions.', 'givewhen'); ?></span><br/>
+                            <a class="btn gw_btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation','givewhen'); ?></a>
+                        </div>
+                    <?php                    
+                    }
+                    ?>                    
                 </div>                            
                 <div class="row">
                     <div class="col-md-12">                                     
@@ -469,8 +461,7 @@ class AngellEYE_Give_When_interface {
                 </div>
             </div>   
         </div>   
-        <?php
-        }
+        <?php        
     }
     
     public static function gw_admin_notice__success() {
