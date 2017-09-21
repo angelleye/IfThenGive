@@ -424,8 +424,21 @@ class AngellEYE_Give_When_interface {
         <?php
     }
 
-    public static function give_when_givers_interface_html() {
-        global $post, $post_ID;
+    public static function give_when_givers_interface_html() {        
+        if(!self::is_My_Goal($_REQUEST['post'])){            
+            ?>
+            <div class="wrap">
+                <div class="give_when_admin_container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        <?php
+        }
+        else{            
         ?>
         <div class="wrap">            
             <div class="give_when_admin_container">
@@ -457,6 +470,7 @@ class AngellEYE_Give_When_interface {
             </div>   
         </div>   
         <?php
+        }
     }
     
     public static function gw_admin_notice__success() {
@@ -476,6 +490,20 @@ class AngellEYE_Give_When_interface {
     }
     
     public static function give_when_do_transactions_interface_html() {
+        if(!self::is_My_Goal($_REQUEST['post'])){
+            ?>
+            <div class="wrap">
+                <div class="give_when_admin_container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        <?php
+        }
+        else{ 
         @set_time_limit(GW_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
         $EmailString = '';
@@ -662,10 +690,24 @@ class AngellEYE_Give_When_interface {
         </div>
         <?php
         ob_end_flush();
+       }
     }
 
-    public static function give_when_list_transactions_interface_html() {
-        global $post, $post_ID;
+    public static function give_when_list_transactions_interface_html() {        
+        if(!self::is_My_Goal($_REQUEST['post'])){
+            ?>
+            <div class="wrap">
+                <div class="give_when_admin_container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        <?php
+        }
+        else{
         ?>
         <div class="wrap">
             <div class="give_when_admin_container">
@@ -693,9 +735,24 @@ class AngellEYE_Give_When_interface {
             </div>        
         </div>
         <?php
+        }
     }
 
     public static function give_when_get_transaction_detail_html() {
+        if(!self::is_My_Goal($_REQUEST['post'])){
+            ?>
+            <div class="wrap">
+                <div class="give_when_admin_container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        <?php
+        }
+        else{        
         $transaction_id = $_REQUEST['txn_id'];
         global $post, $post_ID;
         $goal_id = $_REQUEST['post'];
@@ -852,9 +909,24 @@ class AngellEYE_Give_When_interface {
                 </div>
         <?php
         }
+      }
     }
 
     public static function give_when_retry_failed_transactions_interface_html() {
+        if(!self::is_My_Goal($_REQUEST['post'])){
+            ?>
+            <div class="wrap">
+                <div class="give_when_admin_container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        <?php
+        }
+        else{        
         @set_time_limit(GW_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
         $EmailString = '';        
@@ -1028,6 +1100,7 @@ class AngellEYE_Give_When_interface {
         </div>
         <?php
         ob_end_flush();
+        }
     }
     
     public static function give_when_disconnect_interface_html() {
@@ -1124,6 +1197,19 @@ class AngellEYE_Give_When_interface {
             }
         }
         exit;
+    }
+    
+    public static function is_My_Goal($goal_id){
+        global $current_user;
+        $post = get_post($goal_id);	
+	if (is_user_logged_in() && $current_user->ID == $post->post_author)  {
+	    /* You are author of this goal */
+            return true;
+	}
+        else{
+            /* You are not author of this goal */
+            return false;
+        }
     }
 }
 
