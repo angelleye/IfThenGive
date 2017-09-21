@@ -441,7 +441,7 @@ class AngellEYE_Give_When_interface {
                     ?>    
                         <div class="col-md-12 text-center">
                             <span class="gw_text-info"><?php echo __('Click ', 'givewhen'); ?><strong><?php _e('"Process Donation"','givewhen'); ?></strong><?php echo __(' Button to Capture your Transactions.', 'givewhen'); ?></span><br/>
-                            <a class="btn gw_btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/?page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation','givewhen'); ?></a>
+                            <a class="btn gw_btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation','givewhen'); ?></a>
                         </div>
                     <?php                    
                     }
@@ -876,7 +876,7 @@ class AngellEYE_Give_When_interface {
                                     <div class="clearfix"></div>                                                                                   
                                     <div class="col-md-6">
                                         <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=give_when_goals'); ?>"><?php _e('Back To Goals','givewhen'); ?></a>
-                                        <a class="btn btn-info" href="<?php echo admin_url('?page=give_when_givers&post='.$goal_id.'&view=ListTransactions'); ?>"><?php _e('Back To Transactions','givewhen'); ?></a>
+                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=give_when_goals&page=give_when_givers&post='.$goal_id.'&view=ListTransactions'); ?>"><?php _e('Back To Transactions','givewhen'); ?></a>
                                     </div>
                         </div>                                        
                     </div>                     
