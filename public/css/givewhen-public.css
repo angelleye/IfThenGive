@@ -406,6 +406,11 @@ form {
     background-color: #f6b63a;
     border-color: #ffcd51;
 }
+
+.gw_alert-success{
+    background-color: #5cb85c;
+    border-color: #53af53;
+}
 .gw_post-title a{
     box-shadow: none!important;
     border-bottom: 0px !important;
