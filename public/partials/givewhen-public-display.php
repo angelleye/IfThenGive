@@ -368,7 +368,7 @@ class AngellEYE_Give_When_Public_Display {
         
         $BillingAgreements = array();
         $Item = array(
-                'l_billingtype' => 'MerchantInitiatedBilling',
+                'l_billingtype' => apply_filters('gw_ec_billingtype','MerchantInitiatedBilling'),
                 'l_billingagreementdescription' => $trigger_name,
                 'l_paymenttype' => '',
                 'l_billingagreementcustom' => 'give_when_'.$post_id
