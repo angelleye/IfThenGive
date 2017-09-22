@@ -377,51 +377,50 @@ class AngellEYE_Give_When_interface {
     public static function give_when_shortcode_interface_html() {
         global $post, $post_ID;
         self::gw_admin_notice__success();
-        ?>        
-        <div class="give_when_container">
+        $final='<div class="give_when_container">
             <div class="row">
                 <div class="col-md-12">
-                    <p><?php echo __('You can easily place this Goal in your pages and posts using this tool....', 'givewhen'); ?></p>
-                    <img src="<?php echo GW_PLUGIN_URL; ?>/admin/images/give_when_tool.png" class="img-responsive" style="margin: 0 auto;"/>
+                    <p>'. __("You can easily place this Goal in your pages and posts using this tool....", "givewhen").'</p>
+                    <img src="'.GW_PLUGIN_URL.'/admin/images/give_when_tool.png" class="img-responsive" style="margin: 0 auto;"/>
                 </div>
             </div>
             <div class="row">
-                <div class="text-center"><?php echo __('OR', 'givewhen'); ?></div>
+                <div class="text-center">'.__('OR', 'givewhen').'</div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p><?php echo __('You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.', 'givewhen'); ?></p>                    
+                    <p>'. __('You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.', 'givewhen').'</p>                    
                     <div class="give_when_highlight">
-                        <h4 id="h4_clipboard"><?php echo '[give_when_goal id=' . $post_ID . ']'; ?></h4>
-                        <span class="btn-clipboard" data-toggle="tooltip" data-placement="right" title="Copy To Clipboard"><?php echo __('Copy', 'givewhen'); ?></span>
+                        <h4 id="h4_clipboard">[give_when_goal id=' . $post_ID . ']</h4>
+                        <span class="btn-clipboard" data-toggle="tooltip" data-placement="right" title="Copy To Clipboard">'. __('Copy', 'givewhen').'</span>
                     </div>                    
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a class="btn btn-info" href="<?php echo admin_url(); ?>post.php?post=<?php echo $_GET['post']; ?>&action=edit"><?php echo __('Back To Edit Goal','givewhen'); ?></a>
+                    <a class="btn btn-info" href="'. admin_url().'post.php?post='. $_GET['post'] .'&action=edit">'. __('Back To Edit Goal','givewhen').'</a>
                 </div>
             </div>
-        </div>        
+        </div>
         <script type="text/javascript">
-            jQuery('[data-toggle="tooltip"]').tooltip();
+            jQuery(\'[data-toggle="tooltip"]\').tooltip();
 
-            var clipboard = new Clipboard('#h4_clipboard,.btn-clipboard', {
+            var clipboard = new Clipboard(\'#h4_clipboard,.btn-clipboard\', {
                 target: function () {
-                    return document.querySelector('.give_when_highlight h4');
+                    return document.querySelector(\'.give_when_highlight h4\');
                 }
             });
-            /* Below code will use whenever we want further clipboard work */
-            clipboard.on('success', function(e) {
-                //console.log(e);
-                alertify.success('Shortcode is copied to your clipboard.'); 
+            / Below code will use whenever we want further clipboard work /
+            clipboard.on(\'success\', function(e) {
+                //console.log(e);                
+                alertify.success(\'Shortcode is copied to your clipboard.\'); 
              });
                      
-             /*clipboard.on('error', function(e) {
+             /*clipboard.on(\'error\', function(e) {
              console.log(e);
              });*/
-        </script>
-        <?php
+        </script>';
+        echo apply_filters('givewhen_filter_goal_view',$final,$post_ID);
     }
 
     public static function give_when_givers_interface_html() {                            
