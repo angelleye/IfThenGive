@@ -534,7 +534,7 @@ Tabs
 
 .gwcontainer .tabs-navigation {
     margin-bottom: 0px;
-    padding-left: 0px;
+    padding: 0 0 0 0;
     border-bottom-width: 0px;
     list-style: none;
 }
@@ -582,7 +582,7 @@ Tabs
     cursor: pointer;
 }
 .gwcontainer .tabs-navigation li.active span {
-   /* z-index: 3; */
+    z-index: 3;
 }
 .gwcontainer .tabs-navigation li.active span::after {
     content: '';
