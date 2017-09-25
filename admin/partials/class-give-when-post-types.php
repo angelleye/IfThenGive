@@ -132,6 +132,7 @@ class AngellEYE_Give_When_Post_types {
                 "delete_others_{$capability_type}s",
                 "edit_private_{$capability_type}s",
                 "edit_published_{$capability_type}s",
+                "upload_files"        
             );
             $role = get_role('givewhen_goal_creators');
             if($role==NULL){
