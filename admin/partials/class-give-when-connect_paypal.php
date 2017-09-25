@@ -449,8 +449,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                         }
                     }(document, "script", "paypal-js"));
                 </script>
-            </div>
-        </div>
+            </div>        
         <?php
     }
 
