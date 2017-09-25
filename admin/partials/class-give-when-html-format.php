@@ -1121,6 +1121,20 @@ class AngellEYE_Give_When_interface {
     }
 
     public static function give_when_get_users_transactions_interface_html(){
+        if(!self::is_My_Goal($_REQUEST['post'])){
+            ?>
+            <div class="wrap">
+                <div class="give_when_admin_container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        <?php
+        }
+        else{  
         ?>
         <div class="wrap">
             <div class="give_when_admin_container">
@@ -1145,6 +1159,7 @@ class AngellEYE_Give_When_interface {
             </div>
         </div>
         <?php
+        }
     }
     
     public static function give_when_hide_publish_button_until() {

@@ -212,7 +212,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
             _e($item['PayPalPayerID'],'givewhen');
             break;
         case 'DisplayName' :
-            _e('<a href="' . site_url() . '/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>','givewhen');
+            _e(apply_filters('gw_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),'givewhen');
             break;
          case 'BADate' :
             _e(date('Y-m-d',  strtotime($item['BADate'])),'givewhen');
