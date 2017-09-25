@@ -238,7 +238,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
                     $label = __('Activate','givewhen');
                     $class = "btn-defalt";
                 }            
-                echo '<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-gwchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,'givewhen').'</button>';            
+                echo apply_filters('gw_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-gwchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,'givewhen').'</button>',$_REQUEST['post']);
             }
             break;
       }
