@@ -103,47 +103,8 @@ class AngellEYE_Give_When_Post_types {
                     'show_in_nav_menus' => true
                         )
                 )
-        );  
-        self::get_givewhen_capabilities();        
-    }
-    
-    public static function get_givewhen_capabilities(){
-        global $wp_roles;        
-        if (!class_exists('WP_Roles')) {
-                return;
-        }
-
-        if (!isset($wp_roles)) {
-            $wp_roles = new WP_Roles();
-        }
-        $capability_type = 'give_when_goals';
-        $capabilities['give_when_goals'] = array(
-                // Post type
-                "edit_{$capability_type}",
-                "read_{$capability_type}",
-                "delete_{$capability_type}",
-                "edit_{$capability_type}s",
-                "edit_others_{$capability_type}s",
-                "publish_{$capability_type}s",
-                "read_private_{$capability_type}s",
-                "delete_{$capability_type}s",
-                "delete_private_{$capability_type}s",
-                "delete_published_{$capability_type}s",
-                "delete_others_{$capability_type}s",
-                "edit_private_{$capability_type}s",
-                "edit_published_{$capability_type}s",
-                "upload_files"        
-            );
-            $role = get_role('givewhen_goal_creators');
-            if($role==NULL){
-                add_role('givewhen_goal_creators','Givewhen Goal Creators',$capabilities['give_when_goals']);
-            }
-            foreach ($capabilities['give_when_goals'] as $cap) {                
-                $wp_roles->add_cap('administrator', $cap);
-                $wp_roles->add_cap('givewhen_goal_creators', $cap);
-            }                 
-    }
-
+        );
+    }    
     /**
      * give_when_edit_give_when_columns function
      * is use for register button shortcode column.
