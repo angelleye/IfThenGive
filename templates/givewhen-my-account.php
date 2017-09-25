@@ -14,14 +14,14 @@ if (!is_admin()) {
     ?>
 
     <?php
-    get_header();
+    //get_header();
     ?>
     <div class="gw_center_container">
         <div class="gwcontainer">
             <div class="gw_heading gw_heading-center">                        
                 <h3><?php _e("GiveWhen Account", "givewhen"); ?></h3>
             </div>   
-            <div id="gw-tabs" class="tabs tabs-vertical border">                    
+            <div id="gw-tabs" class="tabs border">                    
                 <ul class="tabs-navigation">
                     <li class="active"><span href="#gw_account_txns"><?php _e('GiveWhen Transactions','givewhen'); ?></span></li>
                     <li><span href="#gw_account_goals"><?php _e('GiveWhen Goals','givewhen'); ?></span></li>
@@ -42,6 +42,6 @@ if (!is_admin()) {
         </div>
     </div>
     <?php
-    get_footer();
+    //get_footer();
 }
 ?>
