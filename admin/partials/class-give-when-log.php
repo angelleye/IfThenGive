@@ -60,7 +60,15 @@ class AngellEYE_Give_When_Log {
                     <div class="row">
                         <div class="col-md-12">
                             <div id="log-viewer">
-                                <textarea readonly="true" rows="25" class="form-control"><?php echo esc_textarea(file_get_contents(GW_LOG_DIR .'/'.$directory_name.'/'. $viewed_log)); ?></textarea>
+                                <?php                                                                                                
+                                if ($viewed_log === false) {
+                                    $content = __('There are currently no logs to view.', 'givewhen');
+                                }
+                                else{
+                                    $content = file_get_contents(GW_LOG_DIR .'/'.$directory_name.'/'. $viewed_log);
+                                }
+                                ?>
+                                <textarea readonly="true" rows="25" class="form-control"><?php echo esc_textarea($content); ?></textarea>
                             </div>
                         </div>                        
                     </div>
