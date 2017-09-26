@@ -534,9 +534,12 @@ Tabs
 
 .gwcontainer .tabs-navigation {
     margin-bottom: 0px;
-    padding: 0 0 0 0;
+    padding: 0;
     border-bottom-width: 0px;
     list-style: none;
+}
+ul.tabs-navigation {
+    padding: 0 !important;
 }
 .gwcontainer .tabs-navigation::after,
 .gwcontainer .tabs-navigation::before {
@@ -856,5 +859,5 @@ Tabs
 @media (min-width: 768px)
 {
 .gwcontainer {
-    width: 80%;
+    width: 100%;
 }} 
