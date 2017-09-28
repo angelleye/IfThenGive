@@ -58,8 +58,9 @@ class AngellEYE_Give_When_Public_Display {
      * @access public
      */
     public static function give_when_create_shortcode($atts, $content = null) {
-        global $post, $post_ID; 
-        $give_when_page_id = $post->ID;
+        global $post, $post_ID , $wp;        
+        $current_url =  home_url( $wp->request ); 
+        $give_when_page_id = $current_url;
         extract(shortcode_atts(array(
                     'id' => ''), $atts));
         $html = '';
@@ -233,9 +234,8 @@ class AngellEYE_Give_When_Public_Display {
         /*Get trigger_name of Post */        
         $trigger_name = get_post_meta( $post_id, 'trigger_name', true );       
         
-        /*Create cancel page url like return to the cancel page from where it goes.*/
-        $page_id = $gwuser['give_when_page_id'];
-        $cancel_page =  get_permalink( $page_id );        
+        /*Create cancel page url like return to the cancel page from where it goes.*/        
+        $cancel_page = $gwuser['give_when_page_id'];
             
         /*if no role defined in the code then it adds new role as giver */
         $role = get_role( 'giver' );
