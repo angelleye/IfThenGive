@@ -116,7 +116,7 @@ class AngellEYE_Give_When_Post_types {
 
         $columns = array(
             'cb' => '<input type="checkbox" />',
-            'title' => __('Give Goal Name','givewhen'),
+            'title' => __('GiveWhen Goal Name','givewhen'),
             'shortcodes' => __('Shortcodes','givewhen'),
             'createdby' => __('Created By','givewhen'),
             'date' => __('Date','givewhen')
