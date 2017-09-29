@@ -11,10 +11,15 @@
 if (!defined('ABSPATH'))
     exit; // Don't allow direct access
 if (!is_admin()) {
+    $is_endpoint = false;
+    global $wp_query;
+    if(isset($wp_query->query_vars['gwmyaccount'])){
+        $is_endpoint = true;
+    }
     ?>
 
     <?php
-    //get_header();
+    if($is_endpoint) { get_header(); }
     ?>
     <div class="gw_center_container">
         <div class="gwcontainer">
@@ -42,6 +47,6 @@ if (!is_admin()) {
         </div>
     </div>
     <?php
-    //get_footer();
+    if($is_endpoint) {  get_footer(); } 
 }
 ?>
