@@ -513,12 +513,9 @@ class AngellEYE_Give_When_interface {
         $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
         $PayPal_config = new Give_When_PayPal_Helper();        
-        $PayPal_config->set_api_cedentials();        
-        $post = get_post($goal_id);
-        $author_id=$post->post_author;
-        $API_SUBJECT = get_the_author_meta( 'user_email', $author_id);
-        $PayPal_config->set_api_subject($API_SUBJECT);
-        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+        $PayPal_config->set_api_cedentials();                
+        $PayPal_config->set_api_subject($goal_id);
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());        
         /*
          *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
          *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
@@ -750,11 +747,8 @@ class AngellEYE_Give_When_interface {
         $goal_id = $_REQUEST['post'];
         $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
         $PayPal_config = new Give_When_PayPal_Helper();
-        $PayPal_config->set_api_cedentials();
-        $post = get_post($goal_id);
-        $author_id=$post->post_author;
-        $API_SUBJECT = get_the_author_meta( 'user_email', $author_id);
-        $PayPal_config->set_api_subject($API_SUBJECT);
+        $PayPal_config->set_api_cedentials();        
+        $PayPal_config->set_api_subject($goal_id);
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
         /*
          *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
@@ -942,11 +936,8 @@ class AngellEYE_Give_When_interface {
                                     $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
                                     $givers = AngellEYE_Give_When_Transactions_Table::get_all_failed_givers($goal_id);
                                     $PayPal_config = new Give_When_PayPal_Helper();                                    
-                                    $PayPal_config->set_api_cedentials(); 
-                                    $post = get_post($goal_id);
-                                    $author_id=$post->post_author;
-                                    $API_SUBJECT = get_the_author_meta( 'user_email', $author_id);
-                                    $PayPal_config->set_api_subject($API_SUBJECT);
+                                    $PayPal_config->set_api_cedentials();                                     
+                                    $PayPal_config->set_api_subject($goal_id);
                                     $ccode = get_option('gw_currency_code');        
                                     $symbol = $PayPal_config->get_currency_symbol($ccode);
                                     $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());

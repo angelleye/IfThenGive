@@ -70,8 +70,8 @@ class Give_When_PayPal_Helper {
             return true;
         }
         
-        public function set_api_subject($API_SUBJECT){
-            $this->api_subject = $API_SUBJECT;
+        public function set_api_subject($goal_id){
+            $this->api_subject = apply_filters('givewhen_api_subject_parameter','',$goal_id);
             return true;
         }
         
