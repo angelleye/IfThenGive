@@ -244,7 +244,7 @@ class AngellEYE_Give_When_Public_Display {
         }
         /*Create array of user data */
         $userdata=array(
-                'user_pass' => md5($gwuser['give_when_password']),
+                'user_pass' => $gwuser['give_when_password'],
                 'user_login' => $gwuser['give_when_email'],
                 'user_email' => $gwuser['give_when_email'],
                 'display_name' => $gwuser['give_when_firstname'].' '.$gwuser['give_when_lastname'],
@@ -334,7 +334,7 @@ class AngellEYE_Give_When_Public_Display {
         }
         else{
             $_SESSION['gw_guest_user'] = 'yes';
-            $userdata['user_pass'] = md5('GWPassword');
+            $userdata['user_pass'] = 'GWPassword';
         }
         $_SESSION['gw_user_data'] = $userdata;
         
