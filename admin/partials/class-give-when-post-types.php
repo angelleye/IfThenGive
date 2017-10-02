@@ -90,7 +90,7 @@ class AngellEYE_Give_When_Post_types {
                     'description' => __('This is where you can create new Goal.', 'givewhen'),
                     'public' => false,
                     'show_ui' => true,
-                    'capability_type' => __('give_when_goals','givewhen'),                    
+                    'capability_type' => apply_filters('givewhen_capability_type',__('post','givewhen')),
                     'map_meta_cap' => true,
                     'publicly_queryable' => false,
                     'exclude_from_search' => true,
