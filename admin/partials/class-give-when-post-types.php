@@ -242,7 +242,7 @@ class AngellEYE_Give_When_Post_types {
             null,
             __('GiveWhen Givers Page', 'givewhen'),
             __('GiveWhen Givers Page', 'givewhen'),
-            'edit_give_when_goalss',
+            apply_filters('givewhen_submenu_capability','manage_options'),
             __('give_when_givers', 'givewhen'),
             array(__CLASS__,'give_when_givers_page_callback')
         );
@@ -251,7 +251,7 @@ class AngellEYE_Give_When_Post_types {
             null,
             __('GiveWhen disconnect Page', 'givewhen'),
             __('GiveWhen disconnect Page', 'givewhen'),
-            'edit_give_when_goalss',
+            apply_filters('givewhen_submenu_capability','manage_options'),
             __('give_when_disconnect_paypal', 'givewhen'),
             array(__CLASS__,'give_when_disconnect_paypal_page_callback')
         );
