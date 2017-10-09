@@ -48,13 +48,13 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         global $wpdb;
         $Logger = new AngellEYE_Give_When_Logger();       
         $fields[] = array(
-            'title' => __('Sandbox', 'givewhen'),
+            'title' => __('Sandbox', ITG_TEXT_DOMAIN),
             'id' => 'sandbox_enable_give_when',
             'type' => 'checkbox',
-            'label' => __('Enable logging', 'givewhen'),
+            'label' => __('Enable logging', ITG_TEXT_DOMAIN),
             'default' => 'no',
             'labelClass' => 'switch',
-            'desc' => sprintf(__('<div class="slider round"></div>', 'givewhen'))
+            'desc' => sprintf(__('<div class="slider round"></div>', ITG_TEXT_DOMAIN))
         );
         $fields[] = array('type' => 'sectionend', 'id' => 'general_options_setting');
         return $fields;
@@ -95,7 +95,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                 </div>                  
                     <div id="overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
                         <div class="gw_loader"></div>
-                        <h1 style="font-weight: 600;"><?php _e('Processing...','givewhen'); ?></h1>                    
+                        <h1 style="font-weight: 600;"><?php _e('Processing...',ITG_TEXT_DOMAIN); ?></h1>                    
                     </div>
                 </div>
                 <div class="row">
@@ -119,7 +119,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                 $success_notice = get_option('give_when_permission_connect_to_paypal_success_notice');
                                 if ($success_notice) {
                                     echo '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12"><div class="alert alert-success">';
-                                    echo "<strong>" . __($success_notice, 'givewhen') . "</strong>";
+                                    echo "<strong>" . __($success_notice, ITG_TEXT_DOMAIN) . "</strong>";
                                     echo '</div></div></div>';
                                     delete_option('give_when_permission_connect_to_paypal_success_notice');
                                 }
@@ -127,7 +127,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                 $failed_notice = get_option('give_when_permission_connect_to_paypal_failed_notice');
                                 if ($failed_notice) {
                                     echo '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12"><div class="alert alert-danger">';
-                                    echo "<strong>" . __($failed_notice, 'givewhen') . "</strong>";
+                                    echo "<strong>" . __($failed_notice, ITG_TEXT_DOMAIN) . "</strong>";
                                     echo '</div></div></div>';
                                     delete_option('give_when_permission_connect_to_paypal_failed_notice');
                                 }
@@ -146,7 +146,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             <div class="table-responsive">
                                                 <table class="table table-responsive">
                                                     <tr>        
-                                                        <td><strong><?php echo __('PayPal Account ID', 'givewhen'); ?></strong></td>
+                                                        <td><strong><?php echo __('PayPal Account ID', ITG_TEXT_DOMAIN); ?></strong></td>
                                                         <td class="text-primary"><?php echo $sb_paypal_account_id; ?></td>
                                                     </tr>                                                
                                                 </table>
@@ -163,23 +163,23 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                          <div class="col-md-6 col-lg-6 col-sm-6">
                                             <?php
                                             if ($sb_paypal_account_id !== false && $connect_to_sandbox_paypal_flag == 'Yes') {
-                                                echo '<span class="label label-success">'.__('You are Connected with SandBox PayPal Environment.','givewhen').'</span><br><br><br>';
+                                                echo '<span class="label label-success">'.__('You are Connected with SandBox PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';
                                             }
                                             else if($connect_to_sandbox_paypal_flag == 'Yes'){
-                                                echo '<br><span class="label label-warning">'.__('You are Partially Connected with SandBox PayPal Environment.','givewhen').'</span><br><br><br>';                                               
+                                                echo '<br><span class="label label-warning">'.__('You are Partially Connected with SandBox PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';                                               
                                             }
                                             else{
-                                                echo '<span class="label label-danger">'.__('You are not Connected with SandBox PayPal Environment.','givewhen').'</span><br><br><br>';
+                                                echo '<span class="label label-danger">'.__('You are not Connected with SandBox PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';
                                             }
                                             if($gw_sb_add_manually !== false  && $gw_sb_add_manually ==='Yes' && $sb_paypal_account_id === false){
                                                 $collpase_class = 'in';
-                                                $gw_sb_button_text = __('Hide Advanced Details','givewhen');
+                                                $gw_sb_button_text = __('Hide Advanced Details',ITG_TEXT_DOMAIN);
                                                 $checkbox_sb_manually = 'checked';
                                                 $sb_disabled = '';
                                             }
                                             else{
                                                 $collpase_class = '';
-                                                $gw_sb_button_text = __('Show Advanced Details','givewhen');
+                                                $gw_sb_button_text = __('Show Advanced Details',ITG_TEXT_DOMAIN);
                                                 $checkbox_sb_manually = '';
                                                 $sb_disabled = 'disabled';
                                             }
@@ -232,20 +232,20 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         <div class="col-lg-12 col-md-12 col-sm-12 collapse <?php echo $collpase_class; ?>" id="gwsandboxClass">                                            
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="gw_sandbox_add_manually" id="gw_sandbox_add_manually" <?php echo $checkbox_sb_manually; ?> ><?php _e('Add Sandbox Credentials Manually.','givewhen'); ?>
+                                                    <input type="checkbox" name="gw_sandbox_add_manually" id="gw_sandbox_add_manually" <?php echo $checkbox_sb_manually; ?> ><?php _e('Add Sandbox Credentials Manually.',ITG_TEXT_DOMAIN); ?>
                                                 </label>
                                             </div>
                                             <div class="form-group">
-                                                <label for="SandboxAPIUserName"><?php _e('Sandbox API User Name','givewhen'); ?></label>
-                                                <input type="text" class="form-control" id="give_when_sandbox_api_credentials_api_user_name" name="give_when_sandbox_api_credentials_api_user_name" value="<?php echo isset($sandbox_api_user_name) ? esc_attr($sandbox_api_user_name,'givewhen') : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <label for="SandboxAPIUserName"><?php _e('Sandbox API User Name',ITG_TEXT_DOMAIN); ?></label>
+                                                <input type="text" class="form-control" id="give_when_sandbox_api_credentials_api_user_name" name="give_when_sandbox_api_credentials_api_user_name" value="<?php echo isset($sandbox_api_user_name) ? esc_attr($sandbox_api_user_name,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>
                                             <div class="form-group">
-                                                <label for="SandboxAPIPassword"><?php _e('Sandbox API Password','givewhen'); ?></label>
-                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_api_password" name="give_when_sandbox_api_credentials_api_password" value="<?php echo isset($sandbox_api_password) ? esc_attr($sandbox_api_password,'givewhen') : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <label for="SandboxAPIPassword"><?php _e('Sandbox API Password',ITG_TEXT_DOMAIN); ?></label>
+                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_api_password" name="give_when_sandbox_api_credentials_api_password" value="<?php echo isset($sandbox_api_password) ? esc_attr($sandbox_api_password,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>
                                             <div class="form-group">
-                                                <label for="SandboxAPISignature"><?php _e('Sandbox API Signature','givewhen'); ?></label>
-                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_signature" name="give_when_sandbox_api_credentials_signature" value="<?php echo isset($sandbox_signature) ? esc_attr($sandbox_signature,'givewhen') : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <label for="SandboxAPISignature"><?php _e('Sandbox API Signature',ITG_TEXT_DOMAIN); ?></label>
+                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_signature" name="give_when_sandbox_api_credentials_signature" value="<?php echo isset($sandbox_signature) ? esc_attr($sandbox_signature,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>                                                                                                                
                                         </div>
                                     </div>
@@ -263,7 +263,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             <div class="table-responsive">
                                                 <table class="table table-responsive">
                                                     <tr>        
-                                                        <td><strong><?php echo __('PayPal Account ID', 'givewhen'); ?></strong></td>
+                                                        <td><strong><?php echo __('PayPal Account ID', ITG_TEXT_DOMAIN); ?></strong></td>
                                                         <td class="text-primary"><?php echo $live_paypal_account_id; ?></td>
                                                     </tr>                                                
                                                 </table>
@@ -280,23 +280,23 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                          <div class="col-md-6 col-lg-6 col-sm-6">
                                             <?php 
                                             if ($live_paypal_account_id !== false && $connect_to_live_paypal_flag == 'Yes') {
-                                                echo '<span class="label label-success">'.__('You are Connected with Live PayPal Environment.','givewhen').'</span><br><br><br>';
+                                                echo '<span class="label label-success">'.__('You are Connected with Live PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';
                                             }
                                             else if($connect_to_live_paypal_flag == 'Yes'){
-                                                echo '<br><span class="label label-warning">'.__('You are Partially Connected with Live PayPal Environment.','givewhen').'</span><br><br><br>';                                               
+                                                echo '<br><span class="label label-warning">'.__('You are Partially Connected with Live PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';                                               
                                             }
                                             else{
-                                                echo '<span class="label label-danger">'.__('You are not Connected with Live PayPal Environment.','givewhen').'</span><br><br><br>';
+                                                echo '<span class="label label-danger">'.__('You are not Connected with Live PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';
                                             }
                                             if($gw_lv_add_manually !== false  && $gw_lv_add_manually ==='Yes' && $live_paypal_account_id === false){
                                                 $lv_collpase_class = 'in';
-                                                $gw_lv_button_text = __('Hide Advanced Details','givewhen');
+                                                $gw_lv_button_text = __('Hide Advanced Details',ITG_TEXT_DOMAIN);
                                                 $checkbox_lv_manually = 'checked';
                                                  $lv_disabled = '';
                                             }
                                             else{
                                                 $lv_collpase_class = '';
-                                                $gw_lv_button_text = __('Show Advanced Details','givewhen');
+                                                $gw_lv_button_text = __('Show Advanced Details',ITG_TEXT_DOMAIN);
                                                 $checkbox_lv_manually = '';
                                                 $lv_disabled = 'disabled';
                                             }
@@ -350,20 +350,20 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         <div class="col-lg-12 col-md-12 col-sm-12 collapse <?php echo $lv_collpase_class; ?>" id="gwliveClass">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="gw_live_add_manually" id="gw_live_add_manually" <?php echo $checkbox_lv_manually; ?> ><?php _e('Add Live Credentials Manually.','givewhen'); ?>
+                                                    <input type="checkbox" name="gw_live_add_manually" id="gw_live_add_manually" <?php echo $checkbox_lv_manually; ?> ><?php _e('Add Live Credentials Manually.',ITG_TEXT_DOMAIN); ?>
                                                 </label>
                                             </div>
                                             <div class="form-group">
-                                                <label for="APIUserName"><?php _e('API User Name','givewhen'); ?></label>
-                                                <input type="text" class="form-control" id="give_when_live_api_credentials_api_user_name" name="give_when_live_api_credentials_api_user_name" value="<?php echo isset($live_api_user_name) ? esc_attr($live_api_user_name,'givewhen') : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <label for="APIUserName"><?php _e('API User Name',ITG_TEXT_DOMAIN); ?></label>
+                                                <input type="text" class="form-control" id="give_when_live_api_credentials_api_user_name" name="give_when_live_api_credentials_api_user_name" value="<?php echo isset($live_api_user_name) ? esc_attr($live_api_user_name,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                             <div class="form-group">
-                                                <label for="APIPassword"><?php _e('API Password','givewhen'); ?></label>
-                                                <input type="password" class="form-control" id="give_when_live_api_credentials_api_password" name="give_when_live_api_credentials_api_password" value="<?php echo isset($live_api_password) ? esc_attr($live_api_password,'givewhen') : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <label for="APIPassword"><?php _e('API Password',ITG_TEXT_DOMAIN); ?></label>
+                                                <input type="password" class="form-control" id="give_when_live_api_credentials_api_password" name="give_when_live_api_credentials_api_password" value="<?php echo isset($live_api_password) ? esc_attr($live_api_password,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                             <div class="form-group">
-                                                <label for="APISignature"><?php _e('API Signature','givewhen'); ?></label>
-                                                <input type="password" class="form-control" id="give_when_live_api_credentials_signature" name="give_when_live_api_credentials_signature" value="<?php echo isset($live_signature) ? esc_attr($live_signature,'givewhen') : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <label for="APISignature"><?php _e('API Signature',ITG_TEXT_DOMAIN); ?></label>
+                                                <input type="password" class="form-control" id="give_when_live_api_credentials_signature" name="give_when_live_api_credentials_signature" value="<?php echo isset($live_signature) ? esc_attr($live_signature,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                         </div>
                                     </div>
@@ -371,7 +371,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="selectCurrency"><?php _e('Select Currency','givewhen'); ?></label>;
+                                                <label for="selectCurrency"><?php _e('Select Currency',ITG_TEXT_DOMAIN); ?></label>;
                                                 <?php                                       
                                                     $PayPal_config = new Give_When_PayPal_Helper();        
                                                     $PayPal_config->set_api_cedentials();        
@@ -386,7 +386,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                     $ccode = get_option('gw_currency_code');
                                                 ?>
                                                 <select class="form-control" name="gw_currency_code">
-                                                    <option value=""><?php _e('Select Currency','givewhen'); ?></option>
+                                                    <option value=""><?php _e('Select Currency',ITG_TEXT_DOMAIN); ?></option>
                                                    <?php
                                                         foreach ($PayPal->CurrencyCodes as $Key => $Value) {
                                                             if($ccode == $Key){
@@ -411,7 +411,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             $checkbox_checked = "";
                                         }
                                     ?>
-                                    <label><input type="checkbox" name="log_enable_give_when" id="log_enable_give_when" <?php echo $checkbox_checked; ?> ><?php _e('Save Logs for GiveWhen.','givewhen'); ?></label>
+                                    <label><input type="checkbox" name="log_enable_give_when" id="log_enable_give_when" <?php echo $checkbox_checked; ?> ><?php _e('Save Logs for GiveWhen.',ITG_TEXT_DOMAIN); ?></label>
                                 </div>  
                                 <p class="submit">
                                     <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
@@ -423,13 +423,13 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="panel-title"><h4 class="text-info"><?php _e('Instruction for Connect with PayPal','givewhen'); ?></h4></div>
+                                <div class="panel-title"><h4 class="text-info"><?php _e('Instruction for Connect with PayPal',ITG_TEXT_DOMAIN); ?></h4></div>
                             </div>
                             <div class="panel-body">
                                 <ol>
-                                    <li><?php _e('Lorem ipsum dolor sit amet','givewhen'); ?></li>
-                                    <li><?php _e('Consectetur adipiscing elit','givewhen'); ?></li>
-                                    <li><?php _e('Integer molestie lorem at massa','givewhen'); ?></li>
+                                    <li><?php _e('Lorem ipsum dolor sit amet',ITG_TEXT_DOMAIN); ?></li>
+                                    <li><?php _e('Consectetur adipiscing elit',ITG_TEXT_DOMAIN); ?></li>
+                                    <li><?php _e('Integer molestie lorem at massa',ITG_TEXT_DOMAIN); ?></li>
                                 </ol>
                             </div>
                         </div>
@@ -524,7 +524,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             }
             ?>
             <br><div id="setting-error-settings_updated" class="alert alert-success"> 
-                <p><?php echo '<strong>' . __('Settings were saved successfully.', 'givewhen') . '</strong>'; ?></p></div>
+                <p><?php echo '<strong>' . __('Settings were saved successfully.', ITG_TEXT_DOMAIN) . '</strong>'; ?></p></div>
 
             <?php
         endif;

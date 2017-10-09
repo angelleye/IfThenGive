@@ -15,21 +15,21 @@ if (!defined('ABSPATH'))
 <?php
 if(! is_admin()){
 ?>
-<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Transactions', 'givewhen') ?></abbr></div>
+<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Transactions', ITG_TEXT_DOMAIN) ?></abbr></div>
 <div class="gw_center_container">   
     <div class="gwcontainer">
         <div class="gw_table-responsive">
             <table class="gw_table" id="GiveWhen_Transaction_Table" width="100%">
                 <thead>
                     <tr>
-                        <th><?php _e('Transaction ID', 'givewhen'); ?></th>
-                        <th><?php _e('Name', 'givewhen'); ?></th>
-                        <th><?php _e('Amount', 'givewhen'); ?></th>
-                        <th><?php _e('Goal Name', 'givewhen'); ?></th>
-                        <th><?php _e('PayPal Email ID', 'givewhen'); ?></th>
-                        <th><?php _e('PayPal Payer ID', 'givewhen'); ?></th>
-                        <th><?php _e('Payment Status', 'givewhen'); ?></th>
-                        <th><?php _e('Payment Date', 'givewhen'); ?></th>
+                        <th><?php _e('Transaction ID', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('Name', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('Amount', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('Goal Name', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('PayPal Email ID', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('PayPal Payer ID', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('Payment Status', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('Payment Date', ITG_TEXT_DOMAIN); ?></th>
                     </tr>
                 </thead>
             </table>            

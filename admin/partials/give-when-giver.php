@@ -23,8 +23,8 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     public function __construct() {
         
         parent::__construct( [
-                'singular' => __( 'Giver', 'givewhen' ), //singular name of the listed records
-                'plural'   => __( 'Givers', 'givewhen' ), //plural name of the listed records
+                'singular' => __( 'Giver', ITG_TEXT_DOMAIN ), //singular name of the listed records
+                'plural'   => __( 'Givers', ITG_TEXT_DOMAIN ), //plural name of the listed records
                 'ajax'     => false //should this table support ajax?
 
         ] );
@@ -162,7 +162,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     
     /** Text displayed when no giver's data is available */
     public function no_items() {
-      _e( 'No Givers avaliable.', 'givewhen' );
+      _e( 'No Givers avaliable.', ITG_TEXT_DOMAIN );
     }
     
     /**
@@ -197,25 +197,25 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     public function column_default( $item, $column_name ) {
       switch ( $column_name ) {
         case 'BillingAgreement':
-             _e($item['BillingAgreement'],'givewhen');
+             _e($item['BillingAgreement'],ITG_TEXT_DOMAIN);
             break;
         case 'PayPalEmail':
-            _e($item['PayPalEmail'],'givewhen');
+            _e($item['PayPalEmail'],ITG_TEXT_DOMAIN);
             break;
         case 'amount' :
             $ccode = get_option('gw_currency_code');
             $paypal = new Give_When_PayPal_Helper();
             $symbol = $paypal->get_currency_symbol($ccode);
-            _e($symbol.number_format($item['amount'],2),'givewhen');
+            _e($symbol.number_format($item['amount'],2),ITG_TEXT_DOMAIN);
             break;
         case 'PayPalPayerID' :
-            _e($item['PayPalPayerID'],'givewhen');
+            _e($item['PayPalPayerID'],ITG_TEXT_DOMAIN);
             break;
         case 'DisplayName' :
-            _e(apply_filters('gw_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),'givewhen');
+            _e(apply_filters('gw_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),ITG_TEXT_DOMAIN);
             break;
          case 'BADate' :
-            _e(date('Y-m-d',  strtotime($item['BADate'])),'givewhen');
+            _e(date('Y-m-d',  strtotime($item['BADate'])),ITG_TEXT_DOMAIN);
              break;
         case 'GWAction' :
             if($item['BillingAgreement']==''){
@@ -225,20 +225,20 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
                 $giverstatus = $item['GiverStatus'];
                 /* if status is active we have to change it into suspended */
                 if($giverstatus == 'active'){               
-                    $label = __('Suspend','givewhen');                
+                    $label = __('Suspend',ITG_TEXT_DOMAIN);                
                     $class = "btn-warning";
                 }
                 /* if no status found,default is suspended */
                 else if($giverstatus === NULL){                
-                    $label = __('Suspend','givewhen');               
+                    $label = __('Suspend',ITG_TEXT_DOMAIN);               
                     $class = "btn-warning";
                 }
                 /* else status is always suspended so make it active */
                 else{                
-                    $label = __('Activate','givewhen');
+                    $label = __('Activate',ITG_TEXT_DOMAIN);
                     $class = "btn-defalt";
                 }            
-                echo apply_filters('gw_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-gwchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,'givewhen').'</button>',$_REQUEST['post']);
+                echo apply_filters('gw_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-gwchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,ITG_TEXT_DOMAIN).'</button>',$_REQUEST['post']);
             }
             break;
       }
@@ -285,13 +285,13 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     public function get_columns() {
       $columns = [
         //'cb'           => '<input type="checkbox" />',
-        'BillingAgreement'=> __( 'Billing Agreement ID', 'givewhen' ),
-        'DisplayName'    => __( 'Name', 'givewhen' ),
-        'PayPalEmail'         => __( 'PayPal Email ID', 'givewhen' ),
-        'amount'       => __( 'Amount', 'givewhen' ),
-        'PayPalPayerID' => __('PayPal Payer ID','givewhen'),
-        'BADate'       => __('Agreement Date','givewhen'),
-        'GWAction' => __('Action','givewhen')
+        'BillingAgreement'=> __( 'Billing Agreement ID', ITG_TEXT_DOMAIN ),
+        'DisplayName'    => __( 'Name', ITG_TEXT_DOMAIN ),
+        'PayPalEmail'         => __( 'PayPal Email ID', ITG_TEXT_DOMAIN ),
+        'amount'       => __( 'Amount', ITG_TEXT_DOMAIN ),
+        'PayPalPayerID' => __('PayPal Payer ID',ITG_TEXT_DOMAIN),
+        'BADate'       => __('Agreement Date',ITG_TEXT_DOMAIN),
+        'GWAction' => __('Action',ITG_TEXT_DOMAIN)
       ];
 
       return $columns;

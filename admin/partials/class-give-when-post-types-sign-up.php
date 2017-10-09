@@ -34,20 +34,20 @@ class AngellEYE_Give_When_Post_type_Sign_Up {
 
         register_post_type('give_when_sign_up', apply_filters('give_when_register_post_type_sign_up', array(
                     'labels' => array(
-                        'name' => __('GiveWhen Sign up', 'givewhen'),
-                        'singular_name' => __('GiveWhen Sign up', 'givewhen'),
-                        'menu_name' => _x('GiveWhen Sign up', 'Admin menu name', 'givewhen'),                        
-                        'edit' => __('Edit', 'givewhen'),
-                        'edit_item' => __('View GiveWhen Sign up', 'givewhen'),
-                        'new_item' => __('New GiveWhen Sign up', 'givewhen'),
-                        'view' => __('View GiveWhen Sign up', 'givewhen'),
-                        'view_item' => __('View GiveWhen Sign up', 'givewhen'),
-                        'search_items' => __('Search GiveWhen Sign up', 'givewhen'),
-                        'not_found' => __('No users found', 'givewhen'),
-                        'not_found_in_trash' => __('No users found in trash', 'givewhen'),
-                        'parent' => __('Parent GiveWhen Sign up', 'givewhen')
+                        'name' => __('GiveWhen Sign up', ITG_TEXT_DOMAIN),
+                        'singular_name' => __('GiveWhen Sign up', ITG_TEXT_DOMAIN),
+                        'menu_name' => _x('GiveWhen Sign up', 'Admin menu name', ITG_TEXT_DOMAIN),                        
+                        'edit' => __('Edit', ITG_TEXT_DOMAIN),
+                        'edit_item' => __('View GiveWhen Sign up', ITG_TEXT_DOMAIN),
+                        'new_item' => __('New GiveWhen Sign up', ITG_TEXT_DOMAIN),
+                        'view' => __('View GiveWhen Sign up', ITG_TEXT_DOMAIN),
+                        'view_item' => __('View GiveWhen Sign up', ITG_TEXT_DOMAIN),
+                        'search_items' => __('Search GiveWhen Sign up', ITG_TEXT_DOMAIN),
+                        'not_found' => __('No users found', ITG_TEXT_DOMAIN),
+                        'not_found_in_trash' => __('No users found in trash', ITG_TEXT_DOMAIN),
+                        'parent' => __('Parent GiveWhen Sign up', ITG_TEXT_DOMAIN)
                     ),
-                    'description' => __('This is where you can create new GiveWhen Sign up.', 'givewhen'),
+                    'description' => __('This is where you can create new GiveWhen Sign up.', ITG_TEXT_DOMAIN),
                     'public' => false,
                     'show_ui' => false,
                     'capability_type' => 'post',                    

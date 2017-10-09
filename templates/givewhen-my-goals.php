@@ -19,18 +19,18 @@ if(! is_admin()){
     <div class="gw_loader"></div>
     <h1 style="font-weight: 600;">Processing...</h1>
 </div>
-<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Goals', 'givewhen') ?></abbr></div>
+<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Goals', ITG_TEXT_DOMAIN) ?></abbr></div>
 <div class="gw_center_container">   
     <div class="gwcontainer">
         <div class="gw_table-responsive">
             <table class="gw_table" id="GiveWhen_Goals_Table" width="100%">
                 <thead>
                     <tr>
-                        <th><?php _e('Goal Name', 'givewhen'); ?></th>                        
-                        <th><?php _e('Amount', 'givewhen'); ?></th>           
-                        <th><?php _e('Adjust Amount', 'givewhen'); ?></th>
-                        <th><?php _e('Action', 'givewhen'); ?></th>
-                        <th><?php _e('Date', 'givewhen'); ?></th>
+                        <th><?php _e('Goal Name', ITG_TEXT_DOMAIN); ?></th>                        
+                        <th><?php _e('Amount', ITG_TEXT_DOMAIN); ?></th>           
+                        <th><?php _e('Adjust Amount', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('Action', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('Date', ITG_TEXT_DOMAIN); ?></th>
                     </tr>
                 </thead>
             </table>            
@@ -77,7 +77,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
                             return '-';
                         }
                         else{
-                            return '<button class="gw_btn gw_btn-primary gw_btn-sm gw_adjust_amount" data-goalamount="'+parseFloat(row.amount).toFixed(2)+'"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Adjust','givewhen'); ?></button>';
+                            return '<button class="gw_btn gw_btn-primary gw_btn-sm gw_adjust_amount" data-goalamount="'+parseFloat(row.amount).toFixed(2)+'"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Adjust',ITG_TEXT_DOMAIN); ?></button>';
                         }
                     }
                 },
@@ -89,10 +89,10 @@ $symbol = $paypal->get_currency_symbol($ccode);
                         }
                         else{
                             if(row.giver_status =='suspended'){
-                                return '<button class="gw_btn gw_btn-sm gw_giver_status" data-changestatus="Active" data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Activate','givewhen'); ?></button>';
+                                return '<button class="gw_btn gw_btn-sm gw_giver_status" data-changestatus="Active" data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Activate',ITG_TEXT_DOMAIN); ?></button>';
                             }
                             else{
-                                return '<button class="gw_btn gw_btn-warning gw_btn-sm gw_giver_status" data-changestatus="Suspend"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Suspend','givewhen'); ?></button>';
+                                return '<button class="gw_btn gw_btn-warning gw_btn-sm gw_giver_status" data-changestatus="Suspend"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Suspend',ITG_TEXT_DOMAIN); ?></button>';
                             }
                         }
                     }

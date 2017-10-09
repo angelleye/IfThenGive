@@ -72,25 +72,25 @@ class AngellEYE_Give_When_Post_types {
 
         register_post_type('give_when_goals', apply_filters('give_when_register_post_types', array(
                     'labels' => array(
-                        'name' => __('GiveWhen Goals', 'givewhen'),
-                        'singular_name' => __('GiveWhen Goals', 'givewhen'),
-                        'menu_name' => _x('GiveWhen', 'Admin menu name', 'givewhen'),
-                        'add_new' => __('Add Goal', 'givewhen'),
-                        'add_new_item' => __('Add New Goal', 'givewhen'),
-                        'edit' => __('Edit', 'givewhen'),
-                        'edit_item' => __('View Goal', 'givewhen'),
-                        'new_item' => __('New Goal', 'givewhen'),
-                        'view' => __('View Goal', 'givewhen'),
-                        'view_item' => __('View Goal', 'givewhen'),
-                        'search_items' => __('Search Goal', 'givewhen'),
-                        'not_found' => __('No Goal found', 'givewhen'),
-                        'not_found_in_trash' => __('No Goal found in trash', 'givewhen'),
-                        'parent' => __('Parent Goal', 'givewhen')
+                        'name' => __('GiveWhen Goals', ITG_TEXT_DOMAIN),
+                        'singular_name' => __('GiveWhen Goals', ITG_TEXT_DOMAIN),
+                        'menu_name' => _x('GiveWhen', 'Admin menu name', ITG_TEXT_DOMAIN),
+                        'add_new' => __('Add Goal', ITG_TEXT_DOMAIN),
+                        'add_new_item' => __('Add New Goal', ITG_TEXT_DOMAIN),
+                        'edit' => __('Edit', ITG_TEXT_DOMAIN),
+                        'edit_item' => __('View Goal', ITG_TEXT_DOMAIN),
+                        'new_item' => __('New Goal', ITG_TEXT_DOMAIN),
+                        'view' => __('View Goal', ITG_TEXT_DOMAIN),
+                        'view_item' => __('View Goal', ITG_TEXT_DOMAIN),
+                        'search_items' => __('Search Goal', ITG_TEXT_DOMAIN),
+                        'not_found' => __('No Goal found', ITG_TEXT_DOMAIN),
+                        'not_found_in_trash' => __('No Goal found in trash', ITG_TEXT_DOMAIN),
+                        'parent' => __('Parent Goal', ITG_TEXT_DOMAIN)
                     ),                    
-                    'description' => __('This is where you can create new Goal.', 'givewhen'),
+                    'description' => __('This is where you can create new Goal.', ITG_TEXT_DOMAIN),
                     'public' => false,
                     'show_ui' => true,
-                    'capability_type' => apply_filters('givewhen_capability_type',__('post','givewhen')),
+                    'capability_type' => apply_filters('givewhen_capability_type',__('post',ITG_TEXT_DOMAIN)),
                     'map_meta_cap' => true,
                     'publicly_queryable' => false,
                     'exclude_from_search' => true,
@@ -116,10 +116,10 @@ class AngellEYE_Give_When_Post_types {
 
         $columns = array(
             'cb' => '<input type="checkbox" />',
-            'title' => __('GiveWhen Goal Name','givewhen'),
-            'shortcodes' => __('Shortcodes','givewhen'),
-            'createdby' => __('Created By','givewhen'),
-            'date' => __('Date','givewhen')
+            'title' => __('GiveWhen Goal Name',ITG_TEXT_DOMAIN),
+            'shortcodes' => __('Shortcodes',ITG_TEXT_DOMAIN),
+            'createdby' => __('Created By',ITG_TEXT_DOMAIN),
+            'date' => __('Date',ITG_TEXT_DOMAIN)
         );
 
         return $columns;
@@ -162,7 +162,7 @@ class AngellEYE_Give_When_Post_types {
      * @access public
      */
     public static function give_when_add_meta_boxes() {
-        add_meta_box('give-when-meta-id', __('GiveWhen Goal','givewhen'), array(__CLASS__, 'give_when_metabox'), 'give_when_goals', 'normal', 'high');
+        add_meta_box('give-when-meta-id', __('GiveWhen Goal',ITG_TEXT_DOMAIN), array(__CLASS__, 'give_when_metabox'), 'give_when_goals', 'normal', 'high');
     }
     
      /**
@@ -230,9 +230,9 @@ class AngellEYE_Give_When_Post_types {
     public static function my_action_row($actions, $post){
         //check for your post type
         if ($post->post_type == "give_when_goals") {           
-            $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">'.__('View','givewhen').'</a>';
-            $actions['givers'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $post->ID . '&view=givers">'.__('Givers','givewhen').'</a>';
-            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $post->ID . '&view=ListTransactions">'.__('Transactions','givewhen').'</a>';
+            $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">'.__('View',ITG_TEXT_DOMAIN).'</a>';
+            $actions['givers'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $post->ID . '&view=givers">'.__('Givers',ITG_TEXT_DOMAIN).'</a>';
+            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $post->ID . '&view=ListTransactions">'.__('Transactions',ITG_TEXT_DOMAIN).'</a>';
         }
         return $actions;
     }    
@@ -240,19 +240,19 @@ class AngellEYE_Give_When_Post_types {
     public static function register_give_when_submenu_page() {
         add_submenu_page( 
             null,
-            __('GiveWhen Givers Page', 'givewhen'),
-            __('GiveWhen Givers Page', 'givewhen'),
+            __('GiveWhen Givers Page', ITG_TEXT_DOMAIN),
+            __('GiveWhen Givers Page', ITG_TEXT_DOMAIN),
             apply_filters('givewhen_submenu_capability','manage_options'),
-            __('give_when_givers', 'givewhen'),
+            __('give_when_givers', ITG_TEXT_DOMAIN),
             array(__CLASS__,'give_when_givers_page_callback')
         );
         
         add_submenu_page(
             null,
-            __('GiveWhen disconnect Page', 'givewhen'),
-            __('GiveWhen disconnect Page', 'givewhen'),
+            __('GiveWhen disconnect Page', ITG_TEXT_DOMAIN),
+            __('GiveWhen disconnect Page', ITG_TEXT_DOMAIN),
             apply_filters('givewhen_submenu_capability','manage_options'),
-            __('give_when_disconnect_paypal', 'givewhen'),
+            __('give_when_disconnect_paypal', ITG_TEXT_DOMAIN),
             array(__CLASS__,'give_when_disconnect_paypal_page_callback')
         );
     }

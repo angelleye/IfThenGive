@@ -119,9 +119,9 @@ class Givewhen_Admin {
 		$give_when_posts = get_posts($args);                
 		$shortcodes = array();
 		$shortcodes_values = array();
-                $shortcodes['[givewhen_my_transaction]']='GiveWhen Transaction';
-                $shortcodes['[givewhen_my_account]']='GiveWhen Account';
-                $shortcodes['[givewhen_my_goals]'] = 'My Signedup GiveWhen Goals';
+                $shortcodes['[ifthengive_transactions]']='GiveWhen Transaction';
+                $shortcodes['[ifthengive_account]']='GiveWhen Account';
+                $shortcodes['[ifthengive_goals]'] = 'My Signedup GiveWhen Goals';
                 foreach ($give_when_posts as $key_post => $give_when_posts_value) {
 			$shortcodes[$give_when_posts_value->ID] = $give_when_posts_value->post_title;
 		}
@@ -202,19 +202,19 @@ class Givewhen_Admin {
         $custom_message = 'Goal Created Successfully';
         $messages['give_when_goals'] = array(
 		0 => '', // Unused. Messages start at index 1.
-		1 => sprintf(__('Goal Updated Successfully','givewhen')),
-		2 => __('Custom field updated.','givewhen'),
-		3 => __('Custom field deleted.','givewhen'),
-		4 => __($custom_message,'givewhen'),
+		1 => sprintf(__('Goal Updated Successfully',ITG_TEXT_DOMAIN)),
+		2 => __('Custom field updated.',ITG_TEXT_DOMAIN),
+		3 => __('Custom field deleted.',ITG_TEXT_DOMAIN),
+		4 => __($custom_message,ITG_TEXT_DOMAIN),
 		/* translators: %s: date and time of the revision */
-		5 => isset($_GET['revision']) ? sprintf(__('Goal restored to revision from %s','givewhen'), wp_post_revision_title((int) $_GET['revision'], false)) : false,
-		6 => sprintf(__($custom_message,'givewhen')),
-		7 => __('Goal saved.','givewhen'),
-		8 => sprintf(__('Goal submitted. <a target="_blank" href="%s">Preview Goal</a>','givewhen'), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
-		9 => sprintf(__('Goal scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Goal</a>','givewhen'),
+		5 => isset($_GET['revision']) ? sprintf(__('Goal restored to revision from %s',ITG_TEXT_DOMAIN), wp_post_revision_title((int) $_GET['revision'], false)) : false,
+		6 => sprintf(__($custom_message,ITG_TEXT_DOMAIN)),
+		7 => __('Goal saved.',ITG_TEXT_DOMAIN),
+		8 => sprintf(__('Goal submitted. <a target="_blank" href="%s">Preview Goal</a>',ITG_TEXT_DOMAIN), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+		9 => sprintf(__('Goal scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Goal</a>',ITG_TEXT_DOMAIN),
 		// translators: Publish box date format, see http://php.net/date
 		date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date)), esc_url(get_permalink($post_ID))),
-		10 => sprintf(__('Goal draft updated. <a target="_blank" href="%s">Preview Goal</a>','givewhen'), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+		10 => sprintf(__('Goal draft updated. <a target="_blank" href="%s">Preview Goal</a>',ITG_TEXT_DOMAIN), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
 		);
 		return $messages;
 
@@ -225,10 +225,10 @@ class Givewhen_Admin {
            if($file == $plugin_basename)
            {
                $new_links = array(
-                   sprintf( '<a href="%s">%s</a>', admin_url('options-general.php?page=give_when_option'), __( 'Configure', 'givewhen' ) ),
-                   sprintf( '<a href="%s" target="_blank">%s</a>', 'https://www.angelleye.com/category/docs/givewhen-wordpress', __( 'Docs', 'givewhen' ) ),
-                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Support', 'givewhen' ) ),
-                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Write a Review', 'givewhen' ) ),
+                   sprintf( '<a href="%s">%s</a>', admin_url('options-general.php?page=give_when_option'), __( 'Configure', ITG_TEXT_DOMAIN ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', 'https://www.angelleye.com/category/docs/givewhen-wordpress', __( 'Docs', ITG_TEXT_DOMAIN ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Support', ITG_TEXT_DOMAIN ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Write a Review', ITG_TEXT_DOMAIN ) ),
                );
 
                $links = array_merge( $links, $new_links );

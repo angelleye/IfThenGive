@@ -84,16 +84,16 @@
                     icon: 'mce-ico mce-i-wp_more',
                     onselect: function() {                           
                         if(this.text()=='GiveWhen Transaction'){
-                            tinyMCE.activeEditor.selection.setContent( '[givewhen_my_transaction]' );
+                            tinyMCE.activeEditor.selection.setContent( '[ifthengive_transactions]' );
                         }
                         else if(this.text()=='GiveWhen Account'){
-                            tinyMCE.activeEditor.selection.setContent( '[givewhen_my_account]' );
+                            tinyMCE.activeEditor.selection.setContent( '[ifthengive_account]' );
                         }
                         else if (this.text() == 'My Signedup GiveWhen Goals'){
-                            tinyMCE.activeEditor.selection.setContent( '[givewhen_my_goals]' );
+                            tinyMCE.activeEditor.selection.setContent( '[ifthengive_goals]' );
                         }
                         else{
-                            tinyMCE.activeEditor.selection.setContent( '[give_when_goal id=' + this.value() + ']' );
+                            tinyMCE.activeEditor.selection.setContent( '[ifthengive_goal id=' + this.value() + ']' );
                         }                         
                     },
                     values: shortcodeValues

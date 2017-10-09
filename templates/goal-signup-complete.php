@@ -41,20 +41,20 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $ccode = get_option('gw_currency_code');
         $paypal = new Give_When_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
-        echo "<h2>".__('Hi ','givewhen'). $user->display_name . __(', Thank You for signed up in ','givewhen') . __($trigger_name,'givewhen'). "</h2>";
-        echo "<span>" . __('Each time you will give ','givewhen').$symbol.$amount.' '. __('when','givewhen').' '.__($trigger_thing,'givewhen'). "</span>";
+        echo "<h2>".__('Hi ',ITG_TEXT_DOMAIN). $user->display_name . __(', Thank You for signed up in ',ITG_TEXT_DOMAIN) . __($trigger_name,ITG_TEXT_DOMAIN). "</h2>";
+        echo "<span>" . __('Each time you will give ',ITG_TEXT_DOMAIN).$symbol.$amount.' '. __('when',ITG_TEXT_DOMAIN).' '.__($trigger_thing,ITG_TEXT_DOMAIN). "</span>";
         echo '<div class="gw_post-image" style="margin-top: 30px;margin-top: 30px;max-width: 600px;margin-left: auto;margin-right: auto;">
                 <img src="'.$image_url.'" alt="Goal Image">
               </div>
               <div class="gw_post-description" style="    max-width: 600px;margin-left: auto;margin-right: auto;">
-                <p>'.__($trigger_desc,'givewhen').'</p>
+                <p>'.__($trigger_desc,ITG_TEXT_DOMAIN).'</p>
               </div>';
         $EmailString='';
         $EmailString .= '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">                
                 <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634; font-weight: 600; text-align: center;">
-                    <strong style="line-height: 25px;padding: 10px 10px 10px 10px;font-weight: 300; letter-spacing: 1px;text-transform: uppercase; margin-bottom:10px; font-size: 15px;">'. __('Hi '.$current_user->display_name.',Thank You for signed up in '.$trigger_name,'givewhen').'</strong>
-                    <p style="padding: 10px 10px 10px 10px;font-size: 12px;text-align: center;font-family: inherit; color: #076799"><strong>'.__('Each time you will give '.$symbol.$amount.' when '.$trigger_thing,'givewhen').'</strong></p>      
+                    <strong style="line-height: 25px;padding: 10px 10px 10px 10px;font-weight: 300; letter-spacing: 1px;text-transform: uppercase; margin-bottom:10px; font-size: 15px;">'. __('Hi '.$current_user->display_name.',Thank You for signed up in '.$trigger_name,ITG_TEXT_DOMAIN).'</strong>
+                    <p style="padding: 10px 10px 10px 10px;font-size: 12px;text-align: center;font-family: inherit; color: #076799"><strong>'.__('Each time you will give '.$symbol.$amount.' when '.$trigger_thing,ITG_TEXT_DOMAIN).'</strong></p>      
                 </div>
             </div>
         </div>';        
@@ -98,15 +98,15 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
         $to = $current_user->user_email;
-        $subject = __('Thank you for giving '.$symbol.$amount.' For '.$trigger_name,'givewhen');
+        $subject = __('Thank you for giving '.$symbol.$amount.' For '.$trigger_name,ITG_TEXT_DOMAIN);
         $message = $EmailHeader .$EmailString . $EmailFooter;
         wp_mail($to, $subject, $message, $headers);
     }
 }
 else{
     ?>
-            <h3><?php echo __("You are accessing this page without signed up for GiveWhen Goal",'givewhen'); ?></h3>
-            <span><?php echo __("Try again Sigining in for GiveWhen Goals.",'givewhen'); ?></span>
+            <h3><?php echo __("You are accessing this page without signed up for GiveWhen Goal",ITG_TEXT_DOMAIN); ?></h3>
+            <span><?php echo __("Try again Sigining in for GiveWhen Goals.",ITG_TEXT_DOMAIN); ?></span>
 <?php
     }
 ?>

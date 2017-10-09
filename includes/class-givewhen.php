@@ -68,7 +68,7 @@ class Givewhen {
 	 */
 	public function __construct() {
 
-		$this->plugin_name = 'givewhen';
+		$this->plugin_name = 'ifthengive';
 		$this->version = '1.0.0';
 
 		$this->load_dependencies();
@@ -327,7 +327,7 @@ class Givewhen {
                 }
                 else{
                     $_SESSION['GW_Error'] = true;
-                    $_SESSION['GW_Error_Type'] = __('PayPal Error','givewhen');
+                    $_SESSION['GW_Error_Type'] = __('PayPal Error',ITG_TEXT_DOMAIN);
                     $_SESSION['GW_Error_Array'] = $PayPalResultGEC['ERRORS'];                    
                     /* save log */
                     $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
@@ -348,7 +348,7 @@ class Givewhen {
                         /*inserting new user and if user_id is available then update user.*/
                         $goal_user_id = wp_insert_user($_SESSION['gw_user_data']);
                         if( is_wp_error( $goal_user_id ) ) {
-                            $error = __('Error on user creation.','givewhen');
+                            $error = __('Error on user creation.',ITG_TEXT_DOMAIN);
                             $_SESSION['GW_Error'] = true;
                             $_SESSION['GW_Error_Type'] = 'WP Error.';
                             $_SESSION['GW_Error_Array']['ACK'] = 'Failed';

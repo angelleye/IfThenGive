@@ -44,8 +44,8 @@ class AngellEYE_Give_When_interface {
             <div style="padding-top: 25px"></div>
             <div class="container" style="max-width: 100%">
                 <div class="bs-callout bs-callout-warning">
-                    <h4><?php echo __('You are not Connected with PayPal.', 'givewhen'); ?></h4>
-                    <a href="<?php echo site_url(); ?>/wp-admin/options-general.php?page=give_when_option"><?php echo __('Click Here', 'givewhen'); ?></a><?php echo __(' for Setting page to Connect With PayPal.', 'givewhen'); ?>
+                    <h4><?php echo __('You are not Connected with PayPal.', ITG_TEXT_DOMAIN); ?></h4>
+                    <a href="<?php echo site_url(); ?>/wp-admin/options-general.php?page=give_when_option"><?php echo __('Click Here', ITG_TEXT_DOMAIN); ?></a><?php echo __(' for Setting page to Connect With PayPal.', ITG_TEXT_DOMAIN); ?>
                 </div>               
             </div>
             <?php
@@ -98,33 +98,33 @@ class AngellEYE_Give_When_interface {
             <div class="container" style="max-width: 100%">   
                 <form>                    
                     <div class="form-group">
-                        <label for="triggerName" class="control-label"><?php echo __('Thing', 'givewhen'); ?></label>
-                        <input type="text" name="trigger_thing" value="<?php echo esc_attr( $trigger_thing , 'givewhen'); ?>" class="form-control" autocomplete="off" id="trigger_thing" placeholder="Enter event Here"/>
+                        <label for="triggerName" class="control-label"><?php echo __('Thing', ITG_TEXT_DOMAIN); ?></label>
+                        <input type="text" name="trigger_thing" value="<?php echo esc_attr( $trigger_thing , ITG_TEXT_DOMAIN); ?>" class="form-control" autocomplete="off" id="trigger_thing" placeholder="Enter event Here"/>
                     </div>
                     <div class="form-group">
-                        <label for="triggerDesc" class="control-label"><?php echo __('Goal Description', 'givewhen'); ?></label>
-                        <textarea name="trigger_desc" class="form-control" autocomplete="off" id="trigger_desc" placeholder="Enter Description Here"><?php echo esc_attr( $trigger_desc , 'givewhen'); ?></textarea>
+                        <label for="triggerDesc" class="control-label"><?php echo __('Goal Description', ITG_TEXT_DOMAIN); ?></label>
+                        <textarea name="trigger_desc" class="form-control" autocomplete="off" id="trigger_desc" placeholder="Enter Description Here"><?php echo esc_attr( $trigger_desc , ITG_TEXT_DOMAIN); ?></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="image_url"><?php echo __('Image', 'givewhen'); ?></label>
-                        <input type="text" name="image_url" id="image_url" class="form-control" value="<?php echo esc_attr( $image_url , 'givewhen'); ?>"><br>
-                        <input type="button" name="upload-btn" id="upload-btn" class="btn btn-primary" value="<?php echo esc_attr( "Add Image" , 'givewhen'); ?>">
+                        <label for="image_url"><?php echo __('Image', ITG_TEXT_DOMAIN); ?></label>
+                        <input type="text" name="image_url" id="image_url" class="form-control" value="<?php echo esc_attr( $image_url , ITG_TEXT_DOMAIN); ?>"><br>
+                        <input type="button" name="upload-btn" id="upload-btn" class="btn btn-primary" value="<?php echo esc_attr( "Add Image" , ITG_TEXT_DOMAIN); ?>">
                     </div>                
                     <div class="form-group">
-                        <input type="radio" name="fixed_radio" id="fixed_radio" value="fixed" <?php echo $fixed_amount_check; ?>><label class="radio-inline" for="fixed_radio"><strong><?php echo __('Fixed', 'givewhen'); ?></strong></label>
+                        <input type="radio" name="fixed_radio" id="fixed_radio" value="fixed" <?php echo $fixed_amount_check; ?>><label class="radio-inline" for="fixed_radio"><strong><?php echo __('Fixed', ITG_TEXT_DOMAIN); ?></strong></label>
                         &nbsp;
-                        <input type="radio" name="fixed_radio" id="option_radio" value="select" <?php echo $dynamic_options_check; ?>><label class="radio-inline" for="option_radio"><strong><?php echo __('Select', 'givewhen'); ?></strong></label>
+                        <input type="radio" name="fixed_radio" id="option_radio" value="select" <?php echo $dynamic_options_check; ?>><label class="radio-inline" for="option_radio"><strong><?php echo __('Select', ITG_TEXT_DOMAIN); ?></strong></label>
                         &nbsp;
-                        <input type="radio" name="fixed_radio" id="manual_radio" value="manual" <?php echo $manual_options_check; ?>><label class="radio-inline" for="manual_radio"><strong><?php echo __('Allow User to Manually Add', 'givewhen'); ?></strong></label>
+                        <input type="radio" name="fixed_radio" id="manual_radio" value="manual" <?php echo $manual_options_check; ?>><label class="radio-inline" for="manual_radio"><strong><?php echo __('Allow User to Manually Add', ITG_TEXT_DOMAIN); ?></strong></label>
                     </div>                
 
                     <div class="form-group <?php echo $fixed_amount_input_class; ?>" id="fixed_amount_input_div">
-                        <label for="triggerName" class="control-label"><?php echo __('Fixed Amount', 'givewhen'); ?></label>
-                        <input type="text" name="fixed_amount_input" value="<?php echo esc_attr($fixed_amount_input_value, 'givewhen'); ?>" class="form-control" autocomplete="off" id="fixed_amount_input" placeholder="Enter Amount"/>
+                        <label for="triggerName" class="control-label"><?php echo __('Fixed Amount', ITG_TEXT_DOMAIN); ?></label>
+                        <input type="text" name="fixed_amount_input" value="<?php echo esc_attr($fixed_amount_input_value, ITG_TEXT_DOMAIN); ?>" class="form-control" autocomplete="off" id="fixed_amount_input" placeholder="Enter Amount"/>
                     </div>
                     <div class="form-group <?php echo $manual_amount_class; ?>" id="manual_amount_input_div">
                         <label for="manualamount" class="control-label"><?php echo __('Set Default Amount', 'angelleye_give_when'); ?></label>
-                        <input type="text" name="manual_amount_input" value="<?php echo esc_attr($manual_amount_input_value, 'givewhen'); ?>" class="form-control" autocomplete="off" id="manual_amount_input" placeholder="Enter Amount"/>
+                        <input type="text" name="manual_amount_input" value="<?php echo esc_attr($manual_amount_input_value, ITG_TEXT_DOMAIN); ?>" class="form-control" autocomplete="off" id="manual_amount_input" placeholder="Enter Amount"/>
                     </div>
                     <div id="dynamic_options" class="<?php echo $dynamic_options_class; ?>">                        
             <?php
@@ -135,17 +135,17 @@ class AngellEYE_Give_When_interface {
                             <?php foreach ($dynamic_options_name as $name) { ?>       
                                     <div class="form-group removeclass<?php echo ($i + 1); ?>">
                                         <div class="col-sm-1 nopadding">
-                                            <label class="control-label"><?php echo __('Option', 'givewhen'); ?> </label>
+                                            <label class="control-label"><?php echo __('Option', ITG_TEXT_DOMAIN); ?> </label>
                                         </div>
                                         <div class="col-sm-3 nopadding">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="option_name" name="option_name[]" value="<?php echo esc_attr($name,'givewhen'); ?>" placeholder="Option Name">
+                                                <input type="text" class="form-control" id="option_name" name="option_name[]" value="<?php echo esc_attr($name,ITG_TEXT_DOMAIN); ?>" placeholder="Option Name">
                                             </div>
                                         </div>                
                                         <div class="col-sm-3 nopadding">
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" id="option_amount" name="option_amount[]" value="<?php echo esc_attr($dynamic_option_amount[$i],'givewhen'); ?>" placeholder="Option Amount">
+                                                    <input type="text" class="form-control" id="option_amount" name="option_amount[]" value="<?php echo esc_attr($dynamic_option_amount[$i],ITG_TEXT_DOMAIN); ?>" placeholder="Option Amount">
                                                     <div class="input-group-btn">
                     <?php if (($i + 1) == $total_options) { ?>
                                                             <button class="btn btn-success" type="button" id="add_dynamic_field"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
@@ -165,7 +165,7 @@ class AngellEYE_Give_When_interface {
                 ?>
                             <div id="education_fields">
                                 <div class="col-sm-1 nopadding">
-                                    <label class="control-label"><?php echo __('Option', 'givewhen'); ?> </label>
+                                    <label class="control-label"><?php echo __('Option', ITG_TEXT_DOMAIN); ?> </label>
                                 </div>
                                 <div class="col-sm-3 nopadding">
                                     <div class="form-group">
@@ -201,7 +201,7 @@ class AngellEYE_Give_When_interface {
                         <div class="modal-content">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><?php _e('Your Goal will be Displayed like this.','givewhen'); ?></h4>
+                            <h4 class="modal-title"><?php _e('Your Goal will be Displayed like this.',ITG_TEXT_DOMAIN); ?></h4>
                           </div>
                           <div class="modal-body">
                               <div class="row">
@@ -219,22 +219,22 @@ class AngellEYE_Give_When_interface {
                                                 <div class="gw_post-title">
                                                     <div class="fixed_amount" style="display: none">
                                                         <h4 class="lead fixed_amount">
-                                                        <?php _e('I will Give ','givewhen'); ?> <?php echo $symbol; ?><span id="give_when_fixed_price_span"></span> <?php _e('When ','givewhen'); ?> <span class="trigger_thing"> </span>
+                                                        <?php _e('I will Give ',ITG_TEXT_DOMAIN); ?> <?php echo $symbol; ?><span id="give_when_fixed_price_span"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?> <span class="trigger_thing"> </span>
                                                          </h4>
                                                     </div>
                                                 </div>
                                                 <div class="gw_post-title">
                                                     <div class="manual_amount" style="display: none">
-                                                        <h4 class="lead manual_amount"><?php _e('I will Give ','givewhen'); ?><?php echo $symbol; ?><span id="give_when_manual_price_span"></span> <?php _e('When ','givewhen'); ?><span class="trigger_thing"></span></h4>
+                                                        <h4 class="lead manual_amount"><?php _e('I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="give_when_manual_price_span"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?><span class="trigger_thing"></span></h4>
                                                         <div class="gw_form-group">
-                                                            <label for="manualamout" class="control-label"><?php _e('Enter Amount','givewhen'); ?></label>
+                                                            <label for="manualamout" class="control-label"><?php _e('Enter Amount',ITG_TEXT_DOMAIN); ?></label>
                                                             <input type="text" name="gw_manual_amount_input" value="50" class="gw_form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="gw_post-title">
                                                     <div class="select_amount" style="display: none">
-                                                        <h4 class="lead"> <?php _e('I will Give ','givewhen'); ?><?php echo $symbol; ?><span id="give_when_fixed_price_span_select"></span> <?php _e('When ','givewhen'); ?><span class="trigger_name"></span></h4>
+                                                        <h4 class="lead"> <?php _e('I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="give_when_fixed_price_span_select"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?><span class="trigger_name"></span></h4>
                                                         <div class="gw_form-group">
                                                             <label class="gw_upper">Select</label>
                                                             <select class="gw_form-control" name="give_when_option_amount" id="give_when_option_amount"></select>
@@ -246,37 +246,37 @@ class AngellEYE_Give_When_interface {
                                                            
                                         <div class="gwcontainer" id="give_when_signup_form">
                                             <div class="gw_hr-title gw_center">
-                                                <abbr><?php _e('Sign up for','givewhen'); ?> <span class="trigger_name"></span></abbr>
+                                                <abbr><?php _e('Sign up for',ITG_TEXT_DOMAIN); ?> <span class="trigger_name"></span></abbr>
                                             </div>
-                                            <p class="text-info"><?php _e('Instruction','givewhen'); ?></p>
+                                            <p class="text-info"><?php _e('Instruction',ITG_TEXT_DOMAIN); ?></p>
                                             <ol>
-                                                <li><?php _e('Lorem ipsum dolor sit amet','givewhen'); ?></li>
-                                                <li><?php _e('Consectetur adipiscing elit','givewhen'); ?></li>
-                                                <li><?php _e('Integer molestie lorem at massa','givewhen'); ?></li>
+                                                <li><?php _e('Lorem ipsum dolor sit amet',ITG_TEXT_DOMAIN); ?></li>
+                                                <li><?php _e('Consectetur adipiscing elit',ITG_TEXT_DOMAIN); ?></li>
+                                                <li><?php _e('Integer molestie lorem at massa',ITG_TEXT_DOMAIN); ?></li>
                                             </ol>
                                             <form method="post" name="signup" id="give_when_signup">
                                                 <div class="gw_form-group">
-                                                    <label class="gw_upper"><?php _e('Frist Name','givewhen'); ?></label>
+                                                    <label class="gw_upper"><?php _e('Frist Name',ITG_TEXT_DOMAIN); ?></label>
                                                     <input type="text" class="gw_form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="gw_form-group">
-                                                     <label for="gw_upper"><?php _e('Last Name','givewhen'); ?></label>
+                                                     <label for="gw_upper"><?php _e('Last Name',ITG_TEXT_DOMAIN); ?></label>
                                                       <input type="text" class="gw_form-control" name="give_when_lastname" id="give_when_lastname" required="required" value="" autocomplete="off">
                                                 </div>
                                                  <div class="gw_form-group">
-                                                    <label for="gw_upper"><?php _e('Email address','givewhen'); ?></label>
+                                                    <label for="gw_upper"><?php _e('Email address',ITG_TEXT_DOMAIN); ?></label>
                                                     <input type="email" class="gw_form-control" name="give_when_email" id="give_when_email" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="gw_form-group">
-                                                    <label for="gw_upper"><?php _e('Password','givewhen'); ?></label>
+                                                    <label for="gw_upper"><?php _e('Password',ITG_TEXT_DOMAIN); ?></label>
                                                     <input type="password" class="gw_form-control" name="give_when_password" id="give_when_password" required="required" autocomplete="off">
                                                 </div>
                                                 <div class="gw_form-group">
-                                                    <label for="gw_upper"><?php _e('Re-type Password','givewhen'); ?></label>
+                                                    <label for="gw_upper"><?php _e('Re-type Password',ITG_TEXT_DOMAIN); ?></label>
                                                     <input type="password" class="gw_form-control" name="give_when_retype_password" id="give_when_retype_password" required="required" autocomplete="off">
                                                 </div>
                                                 <div class="gw_form-inline gw_form-group">
-                                                    <button type="button" class="gw_btn gw_btn-primary" ><?php _e('Sign Up For','givewhen'); ?> <span class="trigger_name"></span></button>
+                                                    <button type="button" class="gw_btn gw_btn-primary" ><?php _e('Sign Up For',ITG_TEXT_DOMAIN); ?> <span class="trigger_name"></span></button>
                                                 </div>  
                                                  
                                             </form>
@@ -385,20 +385,20 @@ class AngellEYE_Give_When_interface {
                 </div>
             </div>
             <div class="row">
-                <div class="text-center">'.__('OR', 'givewhen').'</div>
+                <div class="text-center">'.__('OR', ITG_TEXT_DOMAIN).'</div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p>'. __('You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.', 'givewhen').'</p>                    
+                    <p>'. __('You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.', ITG_TEXT_DOMAIN).'</p>                    
                     <div class="give_when_highlight">
                         <h4 id="h4_clipboard">[give_when_goal id=' . $post_ID . ']</h4>
-                        <span class="btn-clipboard" data-toggle="tooltip" data-placement="right" title="Copy To Clipboard">'. __('Copy', 'givewhen').'</span>
+                        <span class="btn-clipboard" data-toggle="tooltip" data-placement="right" title="Copy To Clipboard">'. __('Copy', ITG_TEXT_DOMAIN).'</span>
                     </div>                    
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a class="btn btn-info" href="'. admin_url().'post.php?post='. $_GET['post'] .'&action=edit">'. __('Back To Edit Goal','givewhen').'</a>
+                    <a class="btn btn-info" href="'. admin_url().'post.php?post='. $_GET['post'] .'&action=edit">'. __('Back To Edit Goal',ITG_TEXT_DOMAIN).'</a>
                 </div>
             </div>
         </div>
@@ -433,14 +433,14 @@ class AngellEYE_Give_When_interface {
                         $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
                         ?>
                         <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
-                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php echo __('Givers For ', 'givewhen'); ?><?php echo $trigger_name; ?></abbr></div>
+                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php echo __('Givers For ', ITG_TEXT_DOMAIN); ?><?php echo $trigger_name; ?></abbr></div>
                     </div>
                     <?php
                     if(self::is_My_Goal($_REQUEST['post'])){
                     ?>    
                         <div class="col-md-12 text-center">
-                            <span class="gw_text-info"><?php echo __('Click ', 'givewhen'); ?><strong><?php _e('"Process Donation"','givewhen'); ?></strong><?php echo __(' Button to Capture your Transactions.', 'givewhen'); ?></span><br/>
-                            <a class="btn gw_btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation','givewhen'); ?></a>
+                            <span class="gw_text-info"><?php echo __('Click ', ITG_TEXT_DOMAIN); ?><strong><?php _e('"Process Donation"',ITG_TEXT_DOMAIN); ?></strong><?php echo __(' Button to Capture your Transactions.', ITG_TEXT_DOMAIN); ?></span><br/>
+                            <a class="btn gw_btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation',ITG_TEXT_DOMAIN); ?></a>
                         </div>
                     <?php                    
                     }
@@ -467,13 +467,13 @@ class AngellEYE_Give_When_interface {
         if(isset($_REQUEST['update_post_success']) && $_REQUEST['update_post_success'] == true){
     ?>
             <div class="notice notice-success is-dismissible">
-                <p><?php _e( 'Goal Updated Successfully','givewhen'); ?></p>
+                <p><?php _e( 'Goal Updated Successfully',ITG_TEXT_DOMAIN); ?></p>
             </div>
             <?php
         }elseif(isset($_REQUEST['add_post_success']) && $_REQUEST['add_post_success'] == true){
             ?>
             <div class="notice notice-success is-dismissible">
-                <p><?php _e( 'Goal Added Successfully','givewhen'); ?></p>
+                <p><?php _e( 'Goal Added Successfully',ITG_TEXT_DOMAIN); ?></p>
             </div>
             <?php
         }
@@ -486,7 +486,7 @@ class AngellEYE_Give_When_interface {
                 <div class="give_when_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
+                         <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
                         </div>
                     </div>
                 </div>
@@ -504,7 +504,7 @@ class AngellEYE_Give_When_interface {
             <div class="give_when_admin_container">
                 <div class="row">
                     <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
-                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Transactions','givewhen'); ?></abbr></div>
+                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Transactions',ITG_TEXT_DOMAIN); ?></abbr></div>
                         
                     <div class="col-md-12">                        
                                 <div class="table-responsive">
@@ -538,7 +538,7 @@ class AngellEYE_Give_When_interface {
                 <div style="text-align: center;"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="GiveWhen"></div>
                 <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634;text-align: center;">
                     <strong style="background-color: #ffffff; font-weight: 300; font-size:20px; padding:2px 10px; border-radius: 2px; position:relative; top:-10px;  letter-spacing:.2em;  text-transform:uppercase; border:none;
-                          ">'. __('Transactions Report For ', 'givewhen').__($trigger_name,'givewhen').'</strong></div>
+                          ">'. __('Transactions Report For ', ITG_TEXT_DOMAIN).__($trigger_name,ITG_TEXT_DOMAIN).'</strong></div>
             </div>
         </div>';
        echo $EmailString.='<table style="                                
@@ -550,11 +550,11 @@ class AngellEYE_Give_When_interface {
                                 border-collapse: collapse;
                                 ">
                                             <tr style="background-color: #f9f9f9;">
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Transaction ID','givewhen').'</th>
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Amount','givewhen').'</th>
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payer Email','givewhen').'</th>
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('PayPal ACK','givewhen').'</th>
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payment Status','givewhen').'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Transaction ID',ITG_TEXT_DOMAIN).'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Amount',ITG_TEXT_DOMAIN).'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payer Email',ITG_TEXT_DOMAIN).'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('PayPal ACK',ITG_TEXT_DOMAIN).'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payment Status',ITG_TEXT_DOMAIN).'</th>
                                             </tr>';       
         foreach ($givers as $value) {    
             if($total_txn %2== 0){
@@ -598,11 +598,11 @@ class AngellEYE_Give_When_interface {
                 $total_txn_success++;
                 $total_amount_success += $value['amount'];
                 echo $trEmailString = "<tr style='".$css."'>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],'givewhen')."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),'givewhen')."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,'givewhen')."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],'givewhen')."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],'givewhen')."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],ITG_TEXT_DOMAIN)."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),ITG_TEXT_DOMAIN)."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],ITG_TEXT_DOMAIN)."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],ITG_TEXT_DOMAIN)."</td>
                 </tr>";
                 $EmailString.= $trEmailString;
             } else {
@@ -612,10 +612,10 @@ class AngellEYE_Give_When_interface {
 
                 echo $trEmailString = "<tr style='".$css."'>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),'givewhen')."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,'givewhen')."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],'givewhen')."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],'givewhen')."<br>".__("See ",'givewhen')."<a href='".admin_url('admin.php?page=give_when_option&tab=logs')."'>".__('logs','givewhen')."</a>". __(' for more details','givewhen')."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],ITG_TEXT_DOMAIN)."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=give_when_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
                 </tr>";
                 $EmailString.= $trEmailString;
             }
@@ -649,13 +649,13 @@ class AngellEYE_Give_When_interface {
                     <div class="col-md-12">
                         <?php
                         echo $alert_info_email_string = '<div style="padding: 15px;margin-bottom: 20px;border: 1px solid transparent;color: #31708f;background-color: #d9edf7;border-color: #bce8f1; border-radius: 4px; ">
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions : ','givewhen').'<strong>' . $total_txn . '</strong></p>
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions : ','givewhen').'<strong>' . $total_txn_success . '</strong></p>
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions : ','givewhen').'<strong>' . $total_txn_failed . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions : ',ITG_TEXT_DOMAIN).'<strong>' . $total_txn . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions : ',ITG_TEXT_DOMAIN).'<strong>' . $total_txn_success . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions : ',ITG_TEXT_DOMAIN).'<strong>' . $total_txn_failed . '</strong></p>
                     <hr style="box-sizing: content-box;height: 0;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;border-top-color: #a6e1ec;">    
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions Amount : ','givewhen').'<strong>' . $symbol.number_format($total_amount,2) . '</strong></p>
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions Amount : ','givewhen').'<strong>' . $symbol.number_format($total_amount_success,2) . '</strong></p> 
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ','givewhen').'<strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount,2) . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_success,2) . '</strong></p> 
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
                 </div>';
                         $EmailString.=$alert_info_email_string;
 
@@ -666,14 +666,14 @@ class AngellEYE_Give_When_interface {
                         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
                         $to = $admin_email = get_option('admin_email');
-                        $subject = __('GiveWhen Transaction Report For ' . $trigger_name,'givewhen');
+                        $subject = __('GiveWhen Transaction Report For ' . $trigger_name,ITG_TEXT_DOMAIN);
                         $message = $headerString.$EmailString;
                         wp_mail($to, $subject, $message, $headers);
                         ?>
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-md-12">
-                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>"><?php _e('Back To Goals','givewhen'); ?></a>
+                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>"><?php _e('Back To Goals',ITG_TEXT_DOMAIN); ?></a>
                     </div>
                 </div>
             </div>
@@ -690,7 +690,7 @@ class AngellEYE_Give_When_interface {
                 <div class="give_when_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
+                         <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
                         </div>
                     </div>
                 </div>
@@ -707,7 +707,7 @@ class AngellEYE_Give_When_interface {
                         $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
                         ?>
                         <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
-                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transactions for ','givewhen'); ?> <?php echo __($trigger_name,'givewhen') ; ?></abbr></div>                        
+                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transactions for ',ITG_TEXT_DOMAIN); ?> <?php echo __($trigger_name,ITG_TEXT_DOMAIN) ; ?></abbr></div>                        
                     </div>                    
                 </div>
                 <div class="row">
@@ -735,7 +735,7 @@ class AngellEYE_Give_When_interface {
                 <div class="give_when_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
+                         <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
                         </div>
                     </div>
                 </div>
@@ -770,8 +770,8 @@ class AngellEYE_Give_When_interface {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-info" role="alert">
-                                    <h4 class="alert-heading"><?php _e('Error..!','givewhen'); ?></h4>
-                                    <p><?php _e('PayPal Timout Error occured.','givewhen'); ?></p>
+                                    <h4 class="alert-heading"><?php _e('Error..!',ITG_TEXT_DOMAIN); ?></h4>
+                                    <p><?php _e('PayPal Timout Error occured.',ITG_TEXT_DOMAIN); ?></p>
                                     <?php
                                         if(isset($PayPalResultTransactionDetail['ERRORS'])){
                                             $PayPal->DisplayErrors($PayPalResultTransactionDetail['ERRORS']);
@@ -791,38 +791,38 @@ class AngellEYE_Give_When_interface {
                 <div class="give_when_admin_container">                                    
                     <div class="row">
                         <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
-                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transaction Id ','givewhen'); ?> <?php echo '#' . $_REQUEST['txn_id']; ?></abbr></div>                            
+                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transaction Id ',ITG_TEXT_DOMAIN); ?> <?php echo '#' . $_REQUEST['txn_id']; ?></abbr></div>                            
                         <div class="col-md-10">
                                     <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Payer Email :','givewhen'); ?></label>
+                                        <label class="text-primary"><?php _e('Payer Email :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <?php echo isset($PayPalResultTransactionDetail['EMAIL']) ? $PayPalResultTransactionDetail['EMAIL']: ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Payer ID :','givewhen'); ?></label>
+                                        <label class="text-primary"><?php _e('Payer ID :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <?php echo isset($PayPalResultTransactionDetail['PAYERID']) ? $PayPalResultTransactionDetail['PAYERID'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Country Code :','givewhen'); ?></label>
+                                        <label class="text-primary"><?php _e('Country Code :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <?php echo isset($PayPalResultTransactionDetail['COUNTRYCODE']) ? $PayPalResultTransactionDetail['COUNTRYCODE'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Goal Name :','givewhen'); ?></label>
+                                        <label class="text-primary"><?php _e('Goal Name :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <?php echo isset($trigger_name) ? $trigger_name : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Payer PayPal Name :','givewhen'); ?></label>
+                                        <label class="text-primary"><?php _e('Payer PayPal Name :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <?php 
@@ -832,50 +832,50 @@ class AngellEYE_Give_When_interface {
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Transaction ID :','givewhen'); ?></label>
+                                        <label class="text-primary"><?php _e('Transaction ID :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <?php echo isset($PayPalResultTransactionDetail['TRANSACTIONID']) ? $PayPalResultTransactionDetail['TRANSACTIONID'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Transaction Type :','givewhen'); ?></label>
+                                        <label class="text-primary"><?php _e('Transaction Type :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <?php echo isset($PayPalResultTransactionDetail['TRANSACTIONTYPE']) ? $PayPalResultTransactionDetail['TRANSACTIONTYPE'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Payment Type :','givewhen'); ?></label>
+                                        <label class="text-primary"><?php _e('Payment Type :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <?php echo isset($PayPalResultTransactionDetail['PAYMENTTYPE']) ? $PayPalResultTransactionDetail['PAYMENTTYPE'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Amount :','givewhen'); ?></label>
+                                        <label class="text-primary"><?php _e('Amount :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <?php echo isset($PayPalResultTransactionDetail['AMT']) ? number_format($PayPalResultTransactionDetail['AMT'],2) : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Payment Status :','givewhen'); ?></label>
+                                        <label class="text-primary"><?php _e('Payment Status :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <?php echo isset($PayPalResultTransactionDetail['PAYMENTSTATUS']) ? $PayPalResultTransactionDetail['PAYMENTSTATUS'] : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
-                                        <label class="text-primary"><?php _e('Pending Reason :','givewhen'); ?></label>
+                                        <label class="text-primary"><?php _e('Pending Reason :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <?php echo isset($PayPalResultTransactionDetail['PENDINGREASON']) ? $PayPalResultTransactionDetail['PENDINGREASON'] : ''; ?>
                                     </div>                                                                        
                                     <div class="clearfix"></div>                                                                                   
                                     <div class="col-md-6">
-                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=give_when_goals'); ?>"><?php _e('Back To Goals','givewhen'); ?></a>
-                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=give_when_goals&page=give_when_givers&post='.$goal_id.'&view=ListTransactions'); ?>"><?php _e('Back To Transactions','givewhen'); ?></a>
+                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=give_when_goals'); ?>"><?php _e('Back To Goals',ITG_TEXT_DOMAIN); ?></a>
+                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=give_when_goals&page=give_when_givers&post='.$goal_id.'&view=ListTransactions'); ?>"><?php _e('Back To Transactions',ITG_TEXT_DOMAIN); ?></a>
                                     </div>
                         </div>                                        
                     </div>                     
@@ -890,7 +890,7 @@ class AngellEYE_Give_When_interface {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-info" role="alert">
-                                    <h4 class="alert-heading"><?php _e('Error..!','givewhen'); ?></h4>
+                                    <h4 class="alert-heading"><?php _e('Error..!',ITG_TEXT_DOMAIN); ?></h4>
                                     <?php $PayPal->DisplayErrors($PayPalResultTransactionDetail['ERRORS']); ?>
                                 </div>                                
                             </div>
@@ -909,7 +909,7 @@ class AngellEYE_Give_When_interface {
                 <div class="give_when_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
+                         <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
                         </div>
                     </div>
                 </div>
@@ -927,7 +927,7 @@ class AngellEYE_Give_When_interface {
             <div class="give_when_admin_container">
                 <div class="row">
                     <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
-                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Failure Payments','givewhen'); ?></abbr></div>                    
+                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Failure Payments',ITG_TEXT_DOMAIN); ?></abbr></div>                    
                     <div class="col-md-12">                        
                                 <div class="table-responsive">
                                     <?php                                    
@@ -960,7 +960,7 @@ class AngellEYE_Give_When_interface {
                 <div style="text-align: center;"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="GiveWhen"></div>
                 <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634;text-align: center;">
                     <strong style="background-color: #ffffff; font-weight: 300; font-size:20px; padding:2px 10px; border-radius: 2px; position:relative; top:-10px;  letter-spacing:.2em;  text-transform:uppercase; border:none;
-                          ">'. __('Retried Transactions Report For ', 'givewhen').__($trigger_name,'givewhen').'</strong></div>
+                          ">'. __('Retried Transactions Report For ', ITG_TEXT_DOMAIN).__($trigger_name,ITG_TEXT_DOMAIN).'</strong></div>
             </div>
         </div>';
                                     
@@ -973,11 +973,11 @@ class AngellEYE_Give_When_interface {
                                                         border-collapse: collapse;
                                                         ">
                                             <tr style="background-color: #f9f9f9;">
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Transaction ID','givewhen').'</th>
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Amount','givewhen').'</th>
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payer Email','givewhen').'</th>
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('PayPal ACK','givewhen').'</th>
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payment Status','givewhen').'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Transaction ID',ITG_TEXT_DOMAIN).'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Amount',ITG_TEXT_DOMAIN).'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payer Email',ITG_TEXT_DOMAIN).'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('PayPal ACK',ITG_TEXT_DOMAIN).'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payment Status',ITG_TEXT_DOMAIN).'</th>
                                             </tr>';
                                     
                                     foreach ($givers as $value) {
@@ -1021,11 +1021,11 @@ class AngellEYE_Give_When_interface {
                                             $total_txn_success++;
                                             $total_amount_success += $value['amount'];
                                             echo $trEmailString = "<tr style='".$css."'>
-                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],'givewhen')."</td>
-                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),'givewhen')."</td>
-                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,'givewhen')."</td>
-                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],'givewhen')."</td>
-                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],'givewhen')."</td>
+                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],ITG_TEXT_DOMAIN)."</td>
+                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),ITG_TEXT_DOMAIN)."</td>
+                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
+                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],ITG_TEXT_DOMAIN)."</td>
+                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],ITG_TEXT_DOMAIN)."</td>
                                                                 </tr>";                                            
                                             $EmailString.= $trEmailString;
                                         } else {
@@ -1034,10 +1034,10 @@ class AngellEYE_Give_When_interface {
                                             $PayPalResultDRT['TRANSACTIONID'] = '';
                                              echo $trEmailString = "<tr style='".$css."'>
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
-                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),'givewhen')."</td>
-                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,'givewhen')."</td>
-                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],'givewhen')."</td>
-                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],'givewhen')."<br>".__("See ",'givewhen')."<a href='".admin_url('admin.php?page=give_when_option&tab=logs')."'>".__('logs','givewhen')."</a>". __(' for more details','givewhen')."</td>
+                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
+                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
+                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],ITG_TEXT_DOMAIN)."</td>
+                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=give_when_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
                                             </tr>";
                                             $EmailString.= $trEmailString;
                                         }
@@ -1060,13 +1060,13 @@ class AngellEYE_Give_When_interface {
                     <div class="col-md-12">
                         <?php
                          echo $alert_info_email_string = '<div style="padding: 15px;margin-bottom: 20px;border: 1px solid transparent;color: #31708f;background-color: #d9edf7;border-color: #bce8f1; border-radius: 4px; ">
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions : ','givewhen').'<strong>' . $total_txn . '</strong></p>
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions : ','givewhen').'<strong>' . $total_txn_success . '</strong></p>
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions : ','givewhen').'<strong>' . $total_txn_failed . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions : ',ITG_TEXT_DOMAIN).'<strong>' . $total_txn . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions : ',ITG_TEXT_DOMAIN).'<strong>' . $total_txn_success . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions : ',ITG_TEXT_DOMAIN).'<strong>' . $total_txn_failed . '</strong></p>
                     <hr style="box-sizing: content-box;height: 0;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;border-top-color: #a6e1ec;">    
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions Amount : ','givewhen').'<strong>' . $symbol.number_format($total_amount,2) . '</strong></p>
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions Amount : ','givewhen').'<strong>' . $symbol.number_format($total_amount_success,2) . '</strong></p> 
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ','givewhen').'<strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount,2) . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_success,2) . '</strong></p> 
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
                 </div>';                        
                         $EmailString.=$alert_info_email_string;
 
@@ -1077,14 +1077,14 @@ class AngellEYE_Give_When_interface {
                         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
                         $to = $admin_email = get_option('admin_email');
-                        $subject = __('Retried GiveWhen Transaction Report For ' . $trigger_name,'givewhen');
+                        $subject = __('Retried GiveWhen Transaction Report For ' . $trigger_name,ITG_TEXT_DOMAIN);
                         $message = $headerString.$EmailString;
                         wp_mail($to, $subject, $message, $headers);
                         ?>
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-md-12">
-                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>"><?php _e('Back To Goals','givewhen') ?></a>
+                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>"><?php _e('Back To Goals',ITG_TEXT_DOMAIN) ?></a>
                     </div>
                 </div>
             </div>
@@ -1128,7 +1128,7 @@ class AngellEYE_Give_When_interface {
                 <div class="give_when_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                         <?php _e('Sorry , You are not allow to access this page.','givewhen'); ?>
+                         <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
                         </div>
                     </div>
                 </div>
@@ -1144,7 +1144,7 @@ class AngellEYE_Give_When_interface {
                     <?php if(isset($_REQUEST['user_id'])){ 
                           $user_info = get_userdata($_REQUEST['user_id']);  
                     ?>
-                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transactions Of '.$user_info->display_name,'givewhen'); ?></abbr></div>
+                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transactions Of '.$user_info->display_name,ITG_TEXT_DOMAIN); ?></abbr></div>
                     <div class="col-md-12">
                         <form method="post">
                             <?php

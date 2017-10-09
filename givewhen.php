@@ -21,7 +21,7 @@
  * Author URI:        https://www.angelleye.com/
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain:       givewhen
+ * Text Domain:       ifthengive
  * Domain Path:       /languages
  */
 
@@ -64,6 +64,10 @@ if (!defined('GW_PLUGIN_SET_TIME_LIMIT')) define('GW_PLUGIN_SET_TIME_LIMIT', 0);
 
 if (!defined('GW_ISU_URL')) {
     define('GW_ISU_URL', 'https://www.angelleye.com/web-services/givewhen/paypal-isu/');
+}
+
+if (!defined('ITG_TEXT_DOMAIN')) {
+    define('ITG_TEXT_DOMAIN', 'ifthengive');
 }
 
 /**

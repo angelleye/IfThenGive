@@ -22,19 +22,19 @@ get_header();
 if(isset($_SESSION['GW_Error']) && isset($_SESSION['GW_Error_Type'])){
     ?>
 
-        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Errors', 'givewhen') ?></abbr></div>
+        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Errors', ITG_TEXT_DOMAIN) ?></abbr></div>
     
-        <h3> <?php _e('Error Type :','givewhen'); ?> <?php echo isset($_SESSION['GW_Error_Type']) ? __($_SESSION['GW_Error_Type'],'givewhen') : ''; ?> </h3>
-        <span> <?php _e('Acknowledgement :','givewhen'); ?> <?php echo isset($_SESSION['GW_Error_Array']['ACK']) ? __($_SESSION['GW_Error_Array']['ACK'],'givewhen') : ''; ?></span>
-        <span> <?php _e('Error Code :','givewhen'); ?> <?php echo isset($_SESSION['GW_Error_Array']['L_ERRORCODE0']) ? __($_SESSION['GW_Error_Array']['L_ERRORCODE0'],'givewhen') : ''; ?></span>
-        <span> <?php _e('Error Short Message :','givewhen'); ?> <?php echo isset($_SESSION['GW_Error_Array']['L_SHORTMESSAGE0']) ? __($_SESSION['GW_Error_Array']['L_SHORTMESSAGE0'],'givewhen') : ''; ?></span>
-        <span> <?php _e('Error Long Message :','givewhen'); ?> <?php echo isset($_SESSION['GW_Error_Array']['L_LONGMESSAGE0']) ? __($_SESSION['GW_Error_Array']['L_LONGMESSAGE0'],'givewhen') : ''; ?></span>
+        <h3> <?php _e('Error Type :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['GW_Error_Type']) ? __($_SESSION['GW_Error_Type'],ITG_TEXT_DOMAIN) : ''; ?> </h3>
+        <span> <?php _e('Acknowledgement :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['GW_Error_Array']['ACK']) ? __($_SESSION['GW_Error_Array']['ACK'],ITG_TEXT_DOMAIN) : ''; ?></span>
+        <span> <?php _e('Error Code :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['GW_Error_Array']['L_ERRORCODE0']) ? __($_SESSION['GW_Error_Array']['L_ERRORCODE0'],ITG_TEXT_DOMAIN) : ''; ?></span>
+        <span> <?php _e('Error Short Message :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['GW_Error_Array']['L_SHORTMESSAGE0']) ? __($_SESSION['GW_Error_Array']['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN) : ''; ?></span>
+        <span> <?php _e('Error Long Message :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['GW_Error_Array']['L_LONGMESSAGE0']) ? __($_SESSION['GW_Error_Array']['L_LONGMESSAGE0'],ITG_TEXT_DOMAIN) : ''; ?></span>
 <?php    
     unset($_SESSION['GW_Error'],$_SESSION['GW_Error_Type'],$_SESSION['GW_Error_Array']);
 }
 else{
     ?> <h3><?php _e("You are accessing this page without any process of GiveWhen Goals.","givewhen"); ?></h3>
-        <span><?php echo __("Try again Sigining in for GiveWhen Goals.",'givewhen'); ?></span>
+        <span><?php echo __("Try again Sigining in for GiveWhen Goals.",ITG_TEXT_DOMAIN); ?></span>
         <?php 
 }
 ?>
