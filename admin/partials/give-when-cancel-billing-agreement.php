@@ -33,7 +33,7 @@ class AngellEYE_Give_When_Cancel_Billing_Agreement {
          *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */
-        $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+        $PayPal->APIButtonSource = ITG_BUTTON_SOURCE;
         $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
 
         $BAUpdateFields = array(

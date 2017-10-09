@@ -16,7 +16,7 @@ class AngellEYE_Give_When_Log {
 
     public static function give_when_logs_setting() {
 
-        $logs = self::scan_log_files(GW_LOG_DIR);        
+        $logs = self::scan_log_files(ITG_LOG_DIR);        
         $directory_name = 'transactions';
         if (!empty($_REQUEST['log_file'])) {
             $directory = explode('|',$_REQUEST['log_file']);
@@ -65,7 +65,7 @@ class AngellEYE_Give_When_Log {
                                     $content = __('There are currently no logs to view.', ITG_TEXT_DOMAIN);
                                 }
                                 else{
-                                    $content = file_get_contents(GW_LOG_DIR .'/'.$directory_name.'/'. $viewed_log);
+                                    $content = file_get_contents(ITG_LOG_DIR .'/'.$directory_name.'/'. $viewed_log);
                                 }
                                 ?>
                                 <textarea readonly="true" rows="25" class="form-control"><?php echo esc_textarea($content); ?></textarea>
@@ -86,7 +86,7 @@ class AngellEYE_Give_When_Log {
      * @return array
      */
 //    public static function scan_log_files() {
-//        $files = @scandir(GW_LOG_DIR);
+//        $files = @scandir(ITG_LOG_DIR);
 //        $result = array();
 //        echo "<pre>";
 //        var_dump($files);

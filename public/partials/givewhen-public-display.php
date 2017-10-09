@@ -48,7 +48,7 @@ class AngellEYE_Give_When_Public_Display {
             && array_key_exists( 2, $matches )
             && in_array( 'give_when_goal', $matches[2] ) )
         {            
-            //wp_enqueue_style( 'givewhen-one', GW_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
+            //wp_enqueue_style( 'givewhen-one', ITG_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
         }
     }*/
           
@@ -69,7 +69,7 @@ class AngellEYE_Give_When_Public_Display {
         $symbol = $paypal->get_currency_symbol($ccode);
         if( !empty($id) ) {
             $post = get_post($id);
-            if(!empty($post->post_type) && $post->post_type == 'give_when_goals' && $post->post_status == 'publish') {
+            if(!empty($post->post_type) && $post->post_type == 'ifthengive_goals' && $post->post_status == 'publish') {
         
                 $html .= '<div id="overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">';
                 $html .=  '<div class="gw_loader"></div>
@@ -293,7 +293,7 @@ class AngellEYE_Give_When_Public_Display {
                 $new_post_id = wp_insert_post( array(
                     'post_author' => $user_id,
                     'post_status' => 'publish',
-                    'post_type' => 'give_when_sign_up',
+                    'post_type' => 'itg_sign_up',
                     'post_title' => ('User ID : '.$user_id.'& Goal ID : '.$post_id)
                 ) );
 
@@ -347,7 +347,7 @@ class AngellEYE_Give_When_Public_Display {
          *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */
-        $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+        $PayPal->APIButtonSource = ITG_BUTTON_SOURCE;
         $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
         $SECFields = array(
                 'maxamt' => round($amount * 2,2),
@@ -426,7 +426,7 @@ class AngellEYE_Give_When_Public_Display {
          *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */
-        $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+        $PayPal->APIButtonSource = ITG_BUTTON_SOURCE;
         $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
 
         $BAUpdateFields = array(

@@ -17,7 +17,7 @@ class AngellEYE_Give_When_interface {
     public static function init() {
         add_action('give_when_interface', array(__CLASS__, 'give_when_interface_html'));
         add_action('give_when_shortcode_interface', array(__CLASS__, 'give_when_shortcode_interface_html'));
-        add_action('give_when_givers_interface', array(__CLASS__, 'give_when_givers_interface_html'));
+        add_action('ifthengive_givers_interface', array(__CLASS__, 'ifthengive_givers_interface_html'));
         add_action('give_when_do_transactions_interface', array(__CLASS__, 'give_when_do_transactions_interface_html'));
         add_action('give_when_list_transactions_interface', array(__CLASS__, 'give_when_list_transactions_interface_html'));
         add_action('give_when_get_transaction_detail', array(__CLASS__, 'give_when_get_transaction_detail_html'));
@@ -381,7 +381,7 @@ class AngellEYE_Give_When_interface {
             <div class="row">
                 <div class="col-md-12">
                     <p>'. __("You can easily place this Goal in your pages and posts using this tool....", ITG_TEXT_DOMAIN).'</p>
-                    <img src="'.GW_PLUGIN_URL.'/admin/images/give_when_tool.png" class="img-responsive" style="margin: 0 auto;"/>
+                    <img src="'.ITG_PLUGIN_URL.'/admin/images/give_when_tool.png" class="img-responsive" style="margin: 0 auto;"/>
                 </div>
             </div>
             <div class="row">
@@ -423,7 +423,7 @@ class AngellEYE_Give_When_interface {
         echo apply_filters('itg_filter_goal_view',$final,$post_ID);
     }
 
-    public static function give_when_givers_interface_html() {                            
+    public static function ifthengive_givers_interface_html() {                            
         ?>
         <div class="wrap">            
             <div class="give_when_admin_container">
@@ -432,7 +432,7 @@ class AngellEYE_Give_When_interface {
                         <?php
                         $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
                         ?>
-                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
+                        <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                         <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php echo __('Givers For ', ITG_TEXT_DOMAIN); ?><?php echo $trigger_name; ?></abbr></div>
                     </div>
                     <?php
@@ -440,7 +440,7 @@ class AngellEYE_Give_When_interface {
                     ?>    
                         <div class="col-md-12 text-center">
                             <span class="gw_text-info"><?php echo __('Click ', ITG_TEXT_DOMAIN); ?><strong><?php _e('"Process Donation"',ITG_TEXT_DOMAIN); ?></strong><?php echo __(' Button to Capture your Transactions.', ITG_TEXT_DOMAIN); ?></span><br/>
-                            <a class="btn gw_btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation',ITG_TEXT_DOMAIN); ?></a>
+                            <a class="btn gw_btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation',ITG_TEXT_DOMAIN); ?></a>
                         </div>
                     <?php                    
                     }
@@ -494,7 +494,7 @@ class AngellEYE_Give_When_interface {
         <?php
         }
         else{ 
-        @set_time_limit(GW_PLUGIN_SET_TIME_LIMIT);
+        @set_time_limit(ITG_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
         $EmailString = '';
         if (ob_get_level() == 0)
@@ -503,7 +503,7 @@ class AngellEYE_Give_When_interface {
         <div class="wrap">
             <div class="give_when_admin_container">
                 <div class="row">
-                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
+                    <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                     <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Transactions',ITG_TEXT_DOMAIN); ?></abbr></div>
                         
                     <div class="col-md-12">                        
@@ -521,7 +521,7 @@ class AngellEYE_Give_When_interface {
          *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */
-        $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+        $PayPal->APIButtonSource = ITG_BUTTON_SOURCE;
         $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
         $ccode = get_option('itg_currency_code');        
         $symbol = $PayPal_config->get_currency_symbol($ccode);
@@ -535,7 +535,7 @@ class AngellEYE_Give_When_interface {
         
         $headerString = '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">
-                <div style="text-align: center;"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="IfThenGive"></div>
+                <div style="text-align: center;"><img src="'.ITG_PLUGIN_URL.'/admin/images/givewhen.png" alt="IfThenGive"></div>
                 <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634;text-align: center;">
                     <strong style="background-color: #ffffff; font-weight: 300; font-size:20px; padding:2px 10px; border-radius: 2px; position:relative; top:-10px;  letter-spacing:.2em;  text-transform:uppercase; border:none;
                           ">'. __('Transactions Report For ', ITG_TEXT_DOMAIN).__($trigger_name,ITG_TEXT_DOMAIN).'</strong></div>
@@ -621,7 +621,7 @@ class AngellEYE_Give_When_interface {
             }
             $new_post_id = wp_insert_post(array(
                 'post_status' => 'publish',
-                'post_type' => 'gw_transactions',
+                'post_type' => 'itg_transactions',
                 'post_title' => ('UserID:' . $value['user_id'] . '|GoalID:' . $goal_id . '|TxnID :' . $PayPalResultDRT['TRANSACTIONID'])
                     ));
             update_post_meta($new_post_id, 'give_when_transactions_amount', number_format($value['amount'],2));
@@ -673,7 +673,7 @@ class AngellEYE_Give_When_interface {
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-md-12">
-                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>"><?php _e('Back To Goals',ITG_TEXT_DOMAIN); ?></a>
+                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals'; ?>"><?php _e('Back To Goals',ITG_TEXT_DOMAIN); ?></a>
                     </div>
                 </div>
             </div>
@@ -706,7 +706,7 @@ class AngellEYE_Give_When_interface {
                         <?php
                         $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
                         ?>
-                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
+                        <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                         <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transactions for ',ITG_TEXT_DOMAIN); ?> <?php echo __($trigger_name,ITG_TEXT_DOMAIN) ; ?></abbr></div>                        
                     </div>                    
                 </div>
@@ -755,7 +755,7 @@ class AngellEYE_Give_When_interface {
          *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */  
-        $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+        $PayPal->APIButtonSource = ITG_BUTTON_SOURCE;
         $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
         $trigger_name = get_post_meta($goal_id, 'trigger_name',true);
         $GTDFields = array(
@@ -790,7 +790,7 @@ class AngellEYE_Give_When_interface {
               <div class="wrap">
                 <div class="give_when_admin_container">                                    
                     <div class="row">
-                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
+                        <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                         <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transaction Id ',ITG_TEXT_DOMAIN); ?> <?php echo '#' . $_REQUEST['txn_id']; ?></abbr></div>                            
                         <div class="col-md-10">
                                     <div class="col-md-2">
@@ -874,8 +874,8 @@ class AngellEYE_Give_When_interface {
                                     </div>                                                                        
                                     <div class="clearfix"></div>                                                                                   
                                     <div class="col-md-6">
-                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=give_when_goals'); ?>"><?php _e('Back To Goals',ITG_TEXT_DOMAIN); ?></a>
-                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=give_when_goals&page=give_when_givers&post='.$goal_id.'&view=ListTransactions'); ?>"><?php _e('Back To Transactions',ITG_TEXT_DOMAIN); ?></a>
+                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=ifthengive_goals'); ?>"><?php _e('Back To Goals',ITG_TEXT_DOMAIN); ?></a>
+                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$goal_id.'&view=ListTransactions'); ?>"><?php _e('Back To Transactions',ITG_TEXT_DOMAIN); ?></a>
                                     </div>
                         </div>                                        
                     </div>                     
@@ -917,7 +917,7 @@ class AngellEYE_Give_When_interface {
         <?php
         }
         else{        
-        @set_time_limit(GW_PLUGIN_SET_TIME_LIMIT);
+        @set_time_limit(ITG_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
         $EmailString = '';        
         if (ob_get_level() == 0)
@@ -926,7 +926,7 @@ class AngellEYE_Give_When_interface {
         <div class="wrap">
             <div class="give_when_admin_container">
                 <div class="row">
-                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
+                    <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                     <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Failure Payments',ITG_TEXT_DOMAIN); ?></abbr></div>                    
                     <div class="col-md-12">                        
                                 <div class="table-responsive">
@@ -946,7 +946,7 @@ class AngellEYE_Give_When_interface {
                                     *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
                                     *   It also reflactes in NVPCredentials string so we are also replcing it.
                                     */
-                                    $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+                                    $PayPal->APIButtonSource = ITG_BUTTON_SOURCE;
                                     $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
                                     $total_txn = 0;
                                     $total_txn_success = 0;
@@ -957,7 +957,7 @@ class AngellEYE_Give_When_interface {
 
                                     $headerString = '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">
-                <div style="text-align: center;"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="IfThenGive"></div>
+                <div style="text-align: center;"><img src="'.ITG_PLUGIN_URL.'/admin/images/givewhen.png" alt="IfThenGive"></div>
                 <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634;text-align: center;">
                     <strong style="background-color: #ffffff; font-weight: 300; font-size:20px; padding:2px 10px; border-radius: 2px; position:relative; top:-10px;  letter-spacing:.2em;  text-transform:uppercase; border:none;
                           ">'. __('Retried Transactions Report For ', ITG_TEXT_DOMAIN).__($trigger_name,ITG_TEXT_DOMAIN).'</strong></div>
@@ -1084,7 +1084,7 @@ class AngellEYE_Give_When_interface {
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-md-12">
-                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>"><?php _e('Back To Goals',ITG_TEXT_DOMAIN) ?></a>
+                        <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals'; ?>"><?php _e('Back To Goals',ITG_TEXT_DOMAIN) ?></a>
                     </div>
                 </div>
             </div>
@@ -1140,7 +1140,7 @@ class AngellEYE_Give_When_interface {
         <div class="wrap">
             <div class="give_when_admin_container">
                 <div class="row">
-                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>
+                    <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>
                     <?php if(isset($_REQUEST['user_id'])){ 
                           $user_info = get_userdata($_REQUEST['user_id']);  
                     ?>
@@ -1165,7 +1165,7 @@ class AngellEYE_Give_When_interface {
     
     public static function give_when_hide_publish_button_until() {
         if (isset($_REQUEST['post_type'])) {
-            if ($_REQUEST['post_type'] == 'give_when_goals') {
+            if ($_REQUEST['post_type'] == 'ifthengive_goals') {
                 $connect_to_sandbox_paypal_flag = get_option('itg_sb_connected_to_paypal');
                 $connect_to_live_paypal_flag = get_option('itg_live_connected_to_paypal');
                 if ($connect_to_sandbox_paypal_flag != 'Yes' && $connect_to_live_paypal_flag != 'Yes') {

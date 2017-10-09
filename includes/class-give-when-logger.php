@@ -109,7 +109,7 @@ class AngellEYE_Give_When_Logger {
 	 * @return void
 	 */
 	public function give_when_for_wordpress_get_log_file_path($handle) {
-		return trailingslashit(GW_LOG_DIR) . $handle . '-' . sanitize_file_name(wp_hash($handle)) . '.log';
+		return trailingslashit(ITG_LOG_DIR) . $handle . '-' . sanitize_file_name(wp_hash($handle)) . '.log';
 	}
 
 	/**
@@ -120,7 +120,7 @@ class AngellEYE_Give_When_Logger {
 	 * @return void
 	 */
 	public function give_when_for_wordpress_get_connect_to_paypal_log_file_path($handle) {
-		return trailingslashit(GW_LOG_DIR) . '/connect_to_paypal/' . $handle . '-' . sanitize_file_name(wp_hash($handle)) . '.log';
+		return trailingslashit(ITG_LOG_DIR) . '/connect_to_paypal/' . $handle . '-' . sanitize_file_name(wp_hash($handle)) . '.log';
 	}
 
 	/**
@@ -131,7 +131,7 @@ class AngellEYE_Give_When_Logger {
 	 * @return void
 	 */
 	public function give_when_for_wordpress_get_transactions_log_file_path($handle) {
-		return trailingslashit(GW_LOG_DIR) . '/transactions/' . $handle . '-' . sanitize_file_name(wp_hash($handle)) . '.log';
+		return trailingslashit(ITG_LOG_DIR) . '/transactions/' . $handle . '-' . sanitize_file_name(wp_hash($handle)) . '.log';
 	}
 
 	/**
@@ -142,7 +142,7 @@ class AngellEYE_Give_When_Logger {
 	 * @return void
 	 */
 	public function give_when_for_wordpress_get_express_checkout_log_file_path($handle) {
-		return trailingslashit(GW_LOG_DIR) . '/express_checkout/' . $handle . '-' . sanitize_file_name(wp_hash($handle)) . '.log';
+		return trailingslashit(ITG_LOG_DIR) . '/express_checkout/' . $handle . '-' . sanitize_file_name(wp_hash($handle)) . '.log';
 	}
 
 }

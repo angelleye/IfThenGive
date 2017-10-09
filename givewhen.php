@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- *  define GW_PLUGIN_URL constant for global use
+ *  define ITG_PLUGIN_URL constant for global use
  */
 if (!defined('ITG_PLUGIN_DIR'))
     define('ITG_PLUGIN_DIR', dirname(__FILE__));

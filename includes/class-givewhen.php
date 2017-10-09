@@ -268,7 +268,7 @@ class Givewhen {
                     $sandbox = 'false';
                 }
                 if(isset($_GET['merchantIdInPayPal'])){
-                    $url = GW_ISU_URL;
+                    $url = ITG_ISU_URL;
                     $postData = "sandbox={$sandbox}&api=account_detail&merchantIdInPayPal={$_GET['merchantIdInPayPal']}";
                     $AccountDetail = AngellEYE_Give_When_PayPal_Connect_Setting::curl_request($url,$postData);
                     $AccountDetailArray = json_decode($AccountDetail,true);
@@ -308,7 +308,7 @@ class Givewhen {
                 *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
                 *   It also reflactes in NVPCredentials string so we are also replcing it.
                 */
-                $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+                $PayPal->APIButtonSource = ITG_BUTTON_SOURCE;
                 $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
                
                 $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
@@ -392,7 +392,7 @@ class Givewhen {
                         $new_post_id = wp_insert_post( array(
                             'post_author' => $goal_user_id,
                             'post_status' => 'publish',
-                            'post_type' => 'give_when_sign_up',
+                            'post_type' => 'itg_sign_up',
                             'post_title' => ('User ID : '.$goal_user_id.'& Goal ID : '.$goal_post_id)
                         ) );
 

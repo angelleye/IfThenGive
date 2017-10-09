@@ -74,8 +74,8 @@ class Givewhen_Admin {
 		 */                 
                 $screen = get_current_screen();                
                 if($screen->post_type == 'ifthengive_goals' || $screen ->id == 'settings_page_ifthengive_option' || $screen ->id == 'dashboard_page_ifthengive_givers' ){
-                   wp_enqueue_style($this->plugin_name . 'eight', GW_PLUGIN_URL.'includes/css/bootstrap/css/bootstrap.css', array(), $this->version, 'all');
-                   wp_enqueue_style($this->plugin_name . 'nine',  GW_PLUGIN_URL.'includes/css/alertify/alertify.css', array(), $this->version, 'all');
+                   wp_enqueue_style($this->plugin_name . 'eight', ITG_PLUGIN_URL.'includes/css/bootstrap/css/bootstrap.css', array(), $this->version, 'all');
+                   wp_enqueue_style($this->plugin_name . 'nine',  ITG_PLUGIN_URL.'includes/css/alertify/alertify.css', array(), $this->version, 'all');
                 }
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/givewhen-admin.css', array(), $this->version, 'all' );
 
@@ -101,9 +101,9 @@ class Givewhen_Admin {
 		 */
                 $screen = get_current_screen();
                 if($screen->post_type == 'ifthengive_goals' || $screen ->id == 'settings_page_ifthengive_option' || $screen ->id == 'dashboard_page_ifthengive_givers' ){
-                     wp_enqueue_script($this->plugin_name . 'six', GW_PLUGIN_URL . 'includes/css/bootstrap/js/bootstrap.min.js', array('jquery'), $this->version, false);
-                     wp_enqueue_script($this->plugin_name . 'seven', GW_PLUGIN_URL . 'includes/css/clipboardjs/clipboard.min.js', array('jquery'), $this->version, false);
-                     wp_enqueue_script($this->plugin_name . 'ten', GW_PLUGIN_URL . 'includes/css/alertify/alertify.min.js', array('jquery'), $this->version, false);
+                     wp_enqueue_script($this->plugin_name . 'six', ITG_PLUGIN_URL . 'includes/css/bootstrap/js/bootstrap.min.js', array('jquery'), $this->version, false);
+                     wp_enqueue_script($this->plugin_name . 'seven', ITG_PLUGIN_URL . 'includes/css/clipboardjs/clipboard.min.js', array('jquery'), $this->version, false);
+                     wp_enqueue_script($this->plugin_name . 'ten', ITG_PLUGIN_URL . 'includes/css/alertify/alertify.min.js', array('jquery'), $this->version, false);
                 }
                 wp_enqueue_media();
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/givewhen-admin.js', array( 'jquery' ), $this->version, false );

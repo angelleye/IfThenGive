@@ -97,7 +97,7 @@ class AngellEYE_Give_When_Post_types {
                     'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
                     'rewrite' => array('slug' => 'ifthengive_goals'),
                     'query_var' => true,
-                    'menu_icon' => GW_PLUGIN_URL . '/admin/images/dashicon-gw.png',
+                    'menu_icon' => ITG_PLUGIN_URL . '/admin/images/dashicon-gw.png',
                     'supports' => array('title'),
                     'has_archive' => true,
                     'show_in_nav_menus' => true
@@ -231,8 +231,8 @@ class AngellEYE_Give_When_Post_types {
         //check for your post type
         if ($post->post_type == "ifthengive_goals") {           
             $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">'.__('View',ITG_TEXT_DOMAIN).'</a>';
-            $actions['givers'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=give_when_givers&post=' . $post->ID . '&view=givers">'.__('Givers',ITG_TEXT_DOMAIN).'</a>';
-            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=give_when_givers&post=' . $post->ID . '&view=ListTransactions">'.__('Transactions',ITG_TEXT_DOMAIN).'</a>';
+            $actions['givers'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $post->ID . '&view=givers">'.__('Givers',ITG_TEXT_DOMAIN).'</a>';
+            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $post->ID . '&view=ListTransactions">'.__('Transactions',ITG_TEXT_DOMAIN).'</a>';
         }
         return $actions;
     }    
@@ -243,8 +243,8 @@ class AngellEYE_Give_When_Post_types {
             __('ITG Givers Page', ITG_TEXT_DOMAIN),
             __('ITG Givers Page', ITG_TEXT_DOMAIN),
             apply_filters('itg_submenu_capability','manage_options'),
-            __('give_when_givers', ITG_TEXT_DOMAIN),
-            array(__CLASS__,'give_when_givers_page_callback')
+            __('ifthengive_givers', ITG_TEXT_DOMAIN),
+            array(__CLASS__,'ifthengive_givers_page_callback')
         );
         
         add_submenu_page(
@@ -257,7 +257,7 @@ class AngellEYE_Give_When_Post_types {
         );
     }
     
-    public static function give_when_givers_page_callback(){
+    public static function ifthengive_givers_page_callback(){
         
          ?>
         <script type="text/javascript">
@@ -272,22 +272,22 @@ class AngellEYE_Give_When_Post_types {
         <?php
         
         if(isset($_REQUEST['page']) && isset($_REQUEST['view'])){
-            if($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'givers'){
-                do_action('give_when_givers_interface');
+            if($_REQUEST['page'] === 'ifthengive_givers' && $_REQUEST['view'] === 'givers'){
+                do_action('ifthengive_givers_interface');
             }
-            elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'ListTransactions'){
+            elseif($_REQUEST['page'] === 'ifthengive_givers' && $_REQUEST['view'] === 'ListTransactions'){
                 do_action('give_when_list_transactions_interface');
             }
-            elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'DoTransactions'){                
+            elseif($_REQUEST['page'] === 'ifthengive_givers' && $_REQUEST['view'] === 'DoTransactions'){                
                 do_action('give_when_do_transactions_interface');
             }
-            elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'GetTransactionDetail'){
+            elseif($_REQUEST['page'] === 'ifthengive_givers' && $_REQUEST['view'] === 'GetTransactionDetail'){
                 do_action('give_when_get_transaction_detail');
             }
-            elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'RetryFailedTransactions'){
+            elseif($_REQUEST['page'] === 'ifthengive_givers' && $_REQUEST['view'] === 'RetryFailedTransactions'){
                 do_action('give_when_retry_failed_transactions_interface');
             }
-            elseif($_REQUEST['page'] === 'give_when_givers' && $_REQUEST['view'] === 'GetUsersTransactions'){
+            elseif($_REQUEST['page'] === 'ifthengive_givers' && $_REQUEST['view'] === 'GetUsersTransactions'){
                 do_action('give_when_get_users_transactions_interface');
             }
             else{

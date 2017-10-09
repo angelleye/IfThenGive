@@ -50,27 +50,27 @@ class Givewhen_Activator {
         $upload_dir = wp_upload_dir();
         $files = array(
             array(
-                'base' => GW_LOG_DIR,
+                'base' => ITG_LOG_DIR,
                 'file' => '.htaccess',
                 'content' => 'deny from all',
             ),
             array(
-                'base' => GW_LOG_DIR,
+                'base' => ITG_LOG_DIR,
                 'file' => 'index.html',
                 'content' => '',
             ),
             array(
-                'base' => GW_LOG_DIR . '/connect_to_PayPal',
+                'base' => ITG_LOG_DIR . '/connect_to_PayPal',
                 'file' => 'index.html',
                 'content' => '',
             ),
             array(
-                'base' => GW_LOG_DIR . '/transactions',
+                'base' => ITG_LOG_DIR . '/transactions',
                 'file' => 'index.html',
                 'content' => '',
             ),
             array(
-                'base' => GW_LOG_DIR . '/express_checkout',
+                'base' => ITG_LOG_DIR . '/express_checkout',
                 'file' => 'index.html',
                 'content' => '',
             ),

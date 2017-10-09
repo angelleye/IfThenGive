@@ -212,7 +212,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
             _e($item['PayPalPayerID'],ITG_TEXT_DOMAIN);
             break;
         case 'DisplayName' :
-            _e(apply_filters('itg_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),ITG_TEXT_DOMAIN);
+            _e(apply_filters('itg_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),ITG_TEXT_DOMAIN);
             break;
          case 'BADate' :
             _e(date('Y-m-d',  strtotime($item['BADate'])),ITG_TEXT_DOMAIN);
@@ -399,7 +399,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         if ($which == "top") {
             ?>
             <div class="alignleft actions bulkactions">                                
-                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>               
+                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals'; ?>">Back to Goals</a>               
             </div>
             <?php
         }

@@ -104,7 +104,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                         <div class="panel panel-default">
                             <div class="panel-heading gw-panel-heading">
                                 <h3 class="panel-title">
-                                    <img class="pull-right"  src="<?php echo GW_PLUGIN_URL.'admin/images/PayPal_GiveWhen.png' ?>" alt="PayPal Logo">
+                                    <img class="pull-right"  src="<?php echo ITG_PLUGIN_URL.'admin/images/PayPal_GiveWhen.png' ?>" alt="PayPal Logo">
                                     <div class="gw_div_log_settings">                                    
                                         <table class="form-table">
                                             <tbody>
@@ -191,7 +191,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             <?php                                           
                                             if ($sb_paypal_account_id == false && $gw_sb_add_manually !== 'Yes') {                                
                                                 $sandbox = 'true';
-                                                $url = GW_ISU_URL;
+                                                $url = ITG_ISU_URL;
                                                 $return_url = site_url('?action=permission_callback');
                                                 $postData = "sandbox={$sandbox}&api=connect_to_paypal&return_url={$return_url}";
                                                 $log_sandbox_connect = array(
@@ -308,7 +308,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             <?php                                            
                                             if ($live_paypal_account_id == false && $gw_lv_add_manually !== 'Yes') {
                                                 $sandbox = 'false';
-                                                $url = GW_ISU_URL;
+                                                $url = ITG_ISU_URL;
                                                 $return_url = site_url('?action=permission_callback');
                                                 $postData = "sandbox={$sandbox}&api=connect_to_paypal&return_url={$return_url}";                                                
                                                 $log_live_connect = array(
@@ -381,7 +381,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                     *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
                                                     *   It also reflactes in NVPCredentials string so we are also replcing it.
                                                     */
-                                                    $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
+                                                    $PayPal->APIButtonSource = ITG_BUTTON_SOURCE;
                                                     $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);
                                                     $ccode = get_option('itg_currency_code');
                                                 ?>

@@ -205,7 +205,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
     public function column_default($item, $column_name) {
         switch ($column_name) {
             case 'transactionId':
-                _e('<a href="' . site_url() . '/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id=' . $item['transactionId'] . '">' . $item['transactionId'] . '</a>',ITG_TEXT_DOMAIN);
+                _e('<a href="' . site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id=' . $item['transactionId'] . '">' . $item['transactionId'] . '</a>',ITG_TEXT_DOMAIN);
                 break;
             case 'user_display_name':
                 _e($item['user_display_name'],ITG_TEXT_DOMAIN);
@@ -384,7 +384,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
         if ($which == "top") {
             ?>
             <div class="alignleft actions bulkactions">
-                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=give_when_goals'; ?>">Back to Goals</a>
+                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals'; ?>">Back to Goals</a>
                 <select name="cat-filter" class="ewc-filter-cat">
                     <option value=""><?php _e('Filter by Payment Status',ITG_TEXT_DOMAIN); ?></option>
                     <option value="all"><?php _e('Show All',ITG_TEXT_DOMAIN); ?></option>
@@ -405,7 +405,7 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
                     <option value="50" <?php if($rs_filter === '50') { echo $selected; } ?>>50</option>
                     <option value="100" <?php if($rs_filter === '100') { echo $selected; } ?>>100</option>
                 </select>
-                <a class="btn btn-primary btn-sm" href="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=<?php echo $_REQUEST['post']; ?>&view=RetryFailedTransactions"><?php _e('Retry Failure Payments',ITG_TEXT_DOMAIN) ?></a>
+                <a class="btn btn-primary btn-sm" href="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=<?php echo $_REQUEST['post']; ?>&view=RetryFailedTransactions"><?php _e('Retry Failure Payments',ITG_TEXT_DOMAIN) ?></a>
                 
             </div>
             <?php
