@@ -177,7 +177,7 @@ class AngellEYE_Give_When_Post_types {
     public static function give_when_metabox() {      
         $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';        
         if ($action_request==='true') {
-            do_action('give_when_shortcode_interface');
+            do_action('ifthengive_shortcode_interface');
         }       
         else{
             do_action('give_when_interface');
@@ -252,8 +252,8 @@ class AngellEYE_Give_When_Post_types {
             __('IfThenGive disconnect Page', ITG_TEXT_DOMAIN),
             __('IfThenGive disconnect Page', ITG_TEXT_DOMAIN),
             apply_filters('itg_submenu_capability','manage_options'),
-            __('give_when_disconnect_paypal', ITG_TEXT_DOMAIN),
-            array(__CLASS__,'give_when_disconnect_paypal_page_callback')
+            __('ifthengive_disconnect_paypal', ITG_TEXT_DOMAIN),
+            array(__CLASS__,'ifthengive_disconnect_paypal_page_callback')
         );
     }
     
@@ -299,9 +299,9 @@ class AngellEYE_Give_When_Post_types {
         }        
     }
     
-    public static function give_when_disconnect_paypal_page_callback(){
+    public static function ifthengive_disconnect_paypal_page_callback(){
         if(isset($_REQUEST['page']) && isset($_REQUEST['action'])){
-            if($_REQUEST['page'] === 'give_when_disconnect_paypal' && $_REQUEST['action'] === 'true'){
+            if($_REQUEST['page'] === 'ifthengive_disconnect_paypal' && $_REQUEST['action'] === 'true'){
                 do_action('give_when_disconnect_interface');
             }
         }

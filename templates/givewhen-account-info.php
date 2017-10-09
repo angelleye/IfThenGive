@@ -15,9 +15,9 @@ if (!defined('ABSPATH'))
 if (!is_admin()) {    
     $userID = get_current_user_id();
     if(is_int($userID) && $userID > 0){
-        $BAID = get_user_meta($userID,'give_when_gec_billing_agreement_id',true);
-        $paypal_email = get_user_meta($userID,'give_when_gec_email',true);
-        $paypal_payer_id = get_user_meta($userID,'give_when_gec_payer_id',true);        
+        $BAID = get_user_meta($userID,'itg_gec_billing_agreement_id',true);
+        $paypal_email = get_user_meta($userID,'itg_gec_email',true);
+        $paypal_payer_id = get_user_meta($userID,'itg_gec_payer_id',true);        
 ?>
 <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Account Info', ITG_TEXT_DOMAIN) ?></abbr></div>
 <div class="gwcontainer">

@@ -66,7 +66,7 @@ class AngellEYE_Give_When_My_Goals_Table {
                 e.post_id AS e_postId,
                 t.post_id AS t_postId,
                 p.post_title as GoalName,
-                (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = '".$userID."' and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
+                (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = '".$userID."' and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
                 (SELECT us.meta_value from wp_usermeta us where us.user_id =  t.meta_value AND us.meta_key = CONCAT('itg_giver_',e.meta_value,'_status') ) AS giver_status,
                 (SELECT DATE_FORMAT(p2.post_date,'%Y-%m-%d') FROM {$wpdb->prefix}posts as p2 where p2.ID = e.post_id) as post_date,
                 pm.meta_value as amount
@@ -99,9 +99,9 @@ class AngellEYE_Give_When_My_Goals_Table {
                 FROM
                   wp_postmeta AS pm
                 LEFT JOIN
-                  wp_postmeta AS t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_signup_wp_user_id'
+                  wp_postmeta AS t ON t.post_id = pm.post_id AND t.meta_key = 'itg_signup_wp_user_id'
                 LEFT JOIN
-                  wp_postmeta AS e ON e.post_id = pm.post_id AND e.meta_key = 'give_when_signup_wp_goal_id'
+                  wp_postmeta AS e ON e.post_id = pm.post_id AND e.meta_key = 'itg_signup_wp_goal_id'
                 WHERE
                   t.meta_value IS NOT NULL AND t.meta_value = '".$user_id."'
                 GROUP BY
@@ -131,9 +131,9 @@ class AngellEYE_Give_When_My_Goals_Table {
                 FROM
                  {$wpdb->prefix}postmeta AS pm
                 LEFT JOIN
-                 {$wpdb->prefix}postmeta AS t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_signup_wp_user_id'
+                 {$wpdb->prefix}postmeta AS t ON t.post_id = pm.post_id AND t.meta_key = 'itg_signup_wp_user_id'
                 LEFT JOIN
-                 {$wpdb->prefix}postmeta AS e ON e.post_id = pm.post_id AND e.meta_key = 'give_when_signup_wp_goal_id'  
+                 {$wpdb->prefix}postmeta AS e ON e.post_id = pm.post_id AND e.meta_key = 'itg_signup_wp_goal_id'  
                 JOIN {$wpdb->prefix}posts as p on p.ID = e.meta_value  
                  WHERE
                   t.meta_value IS NOT NULL AND t.meta_value ='".$userID."'";                                  

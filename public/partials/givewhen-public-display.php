@@ -278,10 +278,10 @@ class AngellEYE_Give_When_Public_Display {
             // User login
             
             /*Check if user have already a Billing Agreement then add just signedup for that goal and get it back with info */
-            $isAvailableBAID = get_user_meta($user_id,'give_when_gec_billing_agreement_id',true);        
+            $isAvailableBAID = get_user_meta($user_id,'itg_gec_billing_agreement_id',true);        
             if(!empty($isAvailableBAID)){
                 /*Check if user is already signed up for this goal then get him back with info.*/
-                $signnedup_goals = get_user_meta($user_exist,'give_when_signedup_goals');        
+                $signnedup_goals = get_user_meta($user_exist,'itg_signedup_goals');        
                 $goalArray = explode('|', $signnedup_goals[0]);                
                 if(!empty($goalArray)){
                     if(in_array($post_id, $goalArray)){
@@ -297,9 +297,9 @@ class AngellEYE_Give_When_Public_Display {
                     'post_title' => ('User ID : '.$user_id.'& Goal ID : '.$post_id)
                 ) );
 
-                update_post_meta($new_post_id,'give_when_signup_amount',$amount);                    
-                update_post_meta($new_post_id,'give_when_signup_wp_user_id',$user_id);
-                update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$post_id);
+                update_post_meta($new_post_id,'itg_signup_amount',$amount);                    
+                update_post_meta($new_post_id,'itg_signup_wp_user_id',$user_id);
+                update_post_meta($new_post_id,'itg_signup_wp_goal_id',$post_id);
                 
                 $amount = base64_encode($amount);
                 $post = get_post($post_id); 
@@ -307,7 +307,7 @@ class AngellEYE_Give_When_Public_Display {
                 $urlusr = base64_encode($user_id);
                 $REDIRECTURL = site_url('give-when-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr);                
                 /* Add post id in the user's signedup goals */
-                $signedup_goals= get_user_meta($user_id,'give_when_signedup_goals',true);
+                $signedup_goals= get_user_meta($user_id,'itg_signedup_goals',true);
                 if($signedup_goals !=''){
                 $signedup_goals = $signedup_goals."|".$post_id;
                 }
@@ -315,7 +315,7 @@ class AngellEYE_Give_When_Public_Display {
                     $signedup_goals = $post_id;
                 }        
                 wp_set_auth_cookie( $user_id, true );
-                update_user_meta($user_id,'give_when_signedup_goals',$signedup_goals);
+                update_user_meta($user_id,'itg_signedup_goals',$signedup_goals);
                 echo json_encode(array('Ack'=>'Success','RedirectURL'=>$REDIRECTURL));
                 exit;
             }
@@ -417,7 +417,7 @@ class AngellEYE_Give_When_Public_Display {
     
     public static function cancel_my_account_ba(){        
         $user_id = $_POST['userid'];
-        $billing_agreement_id = get_user_meta( $user_id, 'give_when_gec_billing_agreement_id', true );
+        $billing_agreement_id = get_user_meta( $user_id, 'itg_gec_billing_agreement_id', true );
         $PayPal_config = new Give_When_PayPal_Helper();        
         $PayPal_config->set_api_cedentials();        
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());

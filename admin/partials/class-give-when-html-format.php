@@ -16,7 +16,7 @@ class AngellEYE_Give_When_interface {
      */
     public static function init() {
         add_action('give_when_interface', array(__CLASS__, 'give_when_interface_html'));
-        add_action('give_when_shortcode_interface', array(__CLASS__, 'give_when_shortcode_interface_html'));
+        add_action('ifthengive_shortcode_interface', array(__CLASS__, 'ifthengive_shortcode_interface_html'));
         add_action('ifthengive_givers_interface', array(__CLASS__, 'ifthengive_givers_interface_html'));
         add_action('give_when_do_transactions_interface', array(__CLASS__, 'give_when_do_transactions_interface_html'));
         add_action('give_when_list_transactions_interface', array(__CLASS__, 'give_when_list_transactions_interface_html'));
@@ -369,12 +369,12 @@ class AngellEYE_Give_When_interface {
     }
 
     /**
-     * give_when_shortcode_interface_html function is for
+     * ifthengive_shortcode_interface_html function is for
      * html of interface when action is View.
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_shortcode_interface_html() {
+    public static function ifthengive_shortcode_interface_html() {
         global $post, $post_ID;
         self::gw_admin_notice__success();
         $final='<div class="give_when_container">
@@ -592,7 +592,7 @@ class AngellEYE_Give_When_interface {
                 $log_write = new AngellEYE_Give_When_Logger();
                 $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
             }
-            $paypal_email = get_user_meta($value['user_id'], 'give_when_gec_email', true);
+            $paypal_email = get_user_meta($value['user_id'], 'itg_gec_email', true);
             if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {
 
                 $total_txn_success++;
@@ -1015,7 +1015,7 @@ class AngellEYE_Give_When_interface {
                                             $log_write = new AngellEYE_Give_When_Logger();
                                             $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
                                         }
-                                        $paypal_email = get_user_meta($value['user_id'], 'give_when_gec_email', true);
+                                        $paypal_email = get_user_meta($value['user_id'], 'itg_gec_email', true);
                                         if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {
                                             update_post_meta($value['post_id'], 'give_when_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
                                             $total_txn_success++;
