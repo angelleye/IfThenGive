@@ -31,39 +31,41 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- *  define GT_PLUGIN_DIR constant for global use
+ *  define GW_PLUGIN_URL constant for global use
  */
-if (!defined('GW_PLUGIN_DIR'))
-    define('GW_PLUGIN_DIR', dirname(__FILE__));
+if (!defined('ITG_PLUGIN_DIR'))
+    define('ITG_PLUGIN_DIR', dirname(__FILE__));
 
 /**
- * define GT_PLUGIN_URL constant for global use
+ * define ITG_PLUGIN_URL constant for global use
  */
-if (!defined('GW_PLUGIN_URL'))
-    define('GW_PLUGIN_URL', plugin_dir_url(__FILE__));
+if (!defined('ITG_PLUGIN_URL'))
+    define('ITG_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 /**
  *  define log file path
  */
-if (!defined('GW_LOG_DIR')) {
-    define('GW_LOG_DIR', ABSPATH . 'wp-content/uploads/give-when-logs/');
+if (!defined('ITG_LOG_DIR')) {
+    define('ITG_LOG_DIR', ABSPATH . 'wp-content/uploads/give-when-logs/');
 }
 
 /**
  * define plugin basename
  */
-if (!defined('GW_PLUGIN_BASENAME')) {
-    define('GW_PLUGIN_BASENAME', plugin_basename(__FILE__));
+if (!defined('ITG_PLUGIN_BASENAME')) {
+    define('ITG_PLUGIN_BASENAME', plugin_basename(__FILE__));
 }
 
-if (!defined('GW_BUTTON_SOURCE')) {
-    define('GW_BUTTON_SOURCE', 'AngellEYE_GiveWhen');
+if (!defined('ITG_BUTTON_SOURCE')) {
+    define('ITG_BUTTON_SOURCE', 'AngellEYE_GiveWhen');
 }
-// This is passed to set_time_limit() at various points, to try to maximise run-time.  The effect of this varies according to the hosting setup - it can't necessarily always be controlled.
-if (!defined('GW_PLUGIN_SET_TIME_LIMIT')) define('GW_PLUGIN_SET_TIME_LIMIT', 0);
+/* This is passed to set_time_limit() at various points, to try to maximise run-time.  The effect of this varies according to the hosting setup - it can't necessarily always be controlled. */
+if (!defined('ITG_PLUGIN_SET_TIME_LIMIT')) { 
+    define('ITG_PLUGIN_SET_TIME_LIMIT', 0);
+}
 
-if (!defined('GW_ISU_URL')) {
-    define('GW_ISU_URL', 'https://www.angelleye.com/web-services/givewhen/paypal-isu/');
+if (!defined('ITG_ISU_URL')) {
+    define('ITG_ISU_URL', 'https://www.angelleye.com/web-services/givewhen/paypal-isu/');
 }
 
 if (!defined('ITG_TEXT_DOMAIN')) {

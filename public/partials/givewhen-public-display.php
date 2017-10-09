@@ -445,10 +445,10 @@ class AngellEYE_Give_When_Public_Display {
         elseif($PayPal->APICallSuccessful($PayPalResult['ACK'])){
             $goals = AngellEYE_Give_When_My_Goals_Table::get_all_goal_ids($user_id);
             foreach ($goals as $goal){                        
-                update_user_meta( $user_id, 'givewhen_giver_'.$goal['goal_id'].'_status', 'suspended' );
+                update_user_meta( $user_id, 'itg_giver_'.$goal['goal_id'].'_status', 'suspended' );
             }
-            update_user_meta( $user_id, 'give_when_gec_billing_agreement_id','');
-            update_user_meta( $user_id, 'give_when_signedup_goals','');
+            update_user_meta( $user_id, 'itg_gec_billing_agreement_id','');
+            update_user_meta( $user_id, 'itg_signedup_goals','');
             echo __("Successfully Cancelled",ITG_TEXT_DOMAIN);
         }
         else{
@@ -461,7 +461,7 @@ class AngellEYE_Give_When_Public_Display {
         if(isset($_POST['changed_amount'])){
             $changed_amount = $_POST['changed_amount'];
             $postid = $_POST['postid'];
-            update_post_meta( $postid,'give_when_signup_amount',$changed_amount);
+            update_post_meta( $postid,'itg_signup_amount',$changed_amount);
         }        
         exit;
     }
@@ -469,15 +469,15 @@ class AngellEYE_Give_When_Public_Display {
     public static function change_giver_status(){       
         if(isset($_POST['userId'])){
             $user_id = $_POST['userId'];
-            $data = get_user_meta($user_id,'givewhen_giver_'.$_POST['goalId'].'_status',true);
+            $data = get_user_meta($user_id,'itg_giver_'.$_POST['goalId'].'_status',true);
             if(empty($data)){
-               update_user_meta( $user_id , 'givewhen_giver_'.$_POST['goalId'].'_status', 'suspended' );
+               update_user_meta( $user_id , 'itg_giver_'.$_POST['goalId'].'_status', 'suspended' );
             }
             elseif($data == 'suspended'){
-                update_user_meta( $user_id , 'givewhen_giver_'.$_POST['goalId'].'_status', 'active' );
+                update_user_meta( $user_id , 'itg_giver_'.$_POST['goalId'].'_status', 'active' );
             }
             else{
-                update_user_meta( $user_id , 'givewhen_giver_'.$_POST['goalId'].'_status', 'suspended' );
+                update_user_meta( $user_id , 'itg_giver_'.$_POST['goalId'].'_status', 'suspended' );
             }
         }
         exit;

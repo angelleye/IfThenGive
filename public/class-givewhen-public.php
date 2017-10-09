@@ -111,10 +111,10 @@ class Givewhen_Public {
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/givewhen-public-display.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_transactions.php';        
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_goals.php';
-        add_shortcode( 'givewhen_my_transaction', array(__CLASS__,'givewhen_my_transaction_shortcode'));
-        add_shortcode( 'givewhen_my_account', array(__CLASS__,'givewhen_my_account_shortcode'));
-        add_shortcode( 'givewhen_my_goals', array(__CLASS__,'givewhen_my_goals_shortcode'));
-        add_shortcode( 'givewhen_account_info', array(__CLASS__,'givewhen_account_info_shortcode'));
+        add_shortcode( 'ifthengive_transactions', array(__CLASS__,'itg_transactions_shortcode'));
+        add_shortcode( 'ifthengive_account', array(__CLASS__,'itg_account_shortcode'));
+        add_shortcode( 'ifthengive_goals', array(__CLASS__,'itg_goals_shortcode'));
+        add_shortcode( 'ifthengive_account_info', array(__CLASS__,'itg_account_info_shortcode'));
     }
 
     public static function give_when_locate_template($template_name, $template_path = '', $default_path = '') {
@@ -155,25 +155,25 @@ class Givewhen_Public {
          * 
          */
         public function rewrite() {		
-		add_rewrite_rule( '^give-when-thankyou$', 'index.php?gwthankyou=1', 'top' );
-                add_rewrite_rule( '^give-when-error$', 'index.php?gwerror=1', 'top' );
-                add_rewrite_rule( '^givewhen-my-account$', 'index.php?gwmyaccount=1', 'top' );
-		if(get_transient( 'gw_flush' )) {
-			delete_transient( 'gw_flush' );
+		add_rewrite_rule( '^itg-thankyou$', 'index.php?itgthankyou=1', 'top' );
+                add_rewrite_rule( '^itg-error$', 'index.php?itgerror=1', 'top' );
+                add_rewrite_rule( '^itg-account$', 'index.php?itgmyaccount=1', 'top' );
+		if(get_transient( 'itg_flush' )) {
+			delete_transient( 'itg_flush' );
 			flush_rewrite_rules();
 		}
 	}  
         
         public function query_vars($vars){
-            $vars[] = 'gwthankyou';
-            $vars[] = 'gwerror';
-            $vars[] = 'gwmyaccount';
+            $vars[] = 'itgthankyou';
+            $vars[] = 'itgerror';
+            $vars[] = 'itgmyaccount';
             return $vars;
         }
         
         public function change_template($template) {       
 
-        if (get_query_var('gwthankyou', false) !== false) {            
+        if (get_query_var('itgthankyou', false) !== false) {            
 
             $newTemplate = locate_template(array('goal-signup-complete.php'));            
             if ('' != $newTemplate)
@@ -185,7 +185,7 @@ class Givewhen_Public {
                 return $newTemplate;
         }
         
-        if (get_query_var('gwerror', false) !== false) {            
+        if (get_query_var('itgerror', false) !== false) {            
 
             $newTemplate = locate_template(array('gw-errors-display.php'));            
             if ('' != $newTemplate)
@@ -197,7 +197,7 @@ class Givewhen_Public {
                 return $newTemplate;
         }
         
-        if (get_query_var('gwmyaccount', false) !== false) {
+        if (get_query_var('itgmyaccount', false) !== false) {
 
             $newTemplate = locate_template(array('givewhen-my-account.php'));            
             if ('' != $newTemplate)
@@ -213,22 +213,22 @@ class Givewhen_Public {
         return $template;
     }
     
-    public static function givewhen_my_transaction_shortcode() {
+    public static function itg_transactions_shortcode() {
         $template = self::gw_get_template('givewhen-my-transactions.php');
         return $template; 
     }
     
-    public static function givewhen_my_account_shortcode(){
+    public static function itg_account_shortcode(){
         $template = self::gw_get_template('givewhen-my-account.php');
         return $template; 
     }
     
-    public static function givewhen_my_goals_shortcode(){
+    public static function itg_goals_shortcode(){
         $template = self::gw_get_template('givewhen-my-goals.php');
         return $template; 
     }
     
-    public static function givewhen_account_info_shortcode(){
+    public static function itg_account_info_shortcode(){
         $template = self::gw_get_template('givewhen-account-info.php');
         return $template; 
     }

@@ -380,7 +380,7 @@ class AngellEYE_Give_When_interface {
         $final='<div class="give_when_container">
             <div class="row">
                 <div class="col-md-12">
-                    <p>'. __("You can easily place this Goal in your pages and posts using this tool....", "givewhen").'</p>
+                    <p>'. __("You can easily place this Goal in your pages and posts using this tool....", ITG_TEXT_DOMAIN).'</p>
                     <img src="'.GW_PLUGIN_URL.'/admin/images/give_when_tool.png" class="img-responsive" style="margin: 0 auto;"/>
                 </div>
             </div>
@@ -420,7 +420,7 @@ class AngellEYE_Give_When_interface {
              console.log(e);
              });*/
         </script>';
-        echo apply_filters('givewhen_filter_goal_view',$final,$post_ID);
+        echo apply_filters('itg_filter_goal_view',$final,$post_ID);
     }
 
     public static function give_when_givers_interface_html() {                            
@@ -659,14 +659,14 @@ class AngellEYE_Give_When_interface {
                 </div>';
                         $EmailString.=$alert_info_email_string;
 
-                        $headers = "From: GiveWhen <info@givewhen.com> \r\n";
-                        $headers .= "Reply-To: noreply@givewhen.com \r\n";
-                        //$headers .= "CC: examplename@example.com\r\n";
+                        $headers = "From: GiveWhen <info@ifthengive.com> \r\n";
+                        $headers .= "Reply-To: noreply@ifthengive.com \r\n";
+                        //$headers .= "CC: ifthengive@ifthengive.com\r\n";
                         $headers .= "MIME-Version: 1.0\r\n";
                         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
                         $to = $admin_email = get_option('admin_email');
-                        $subject = __('GiveWhen Transaction Report For ' . $trigger_name,ITG_TEXT_DOMAIN);
+                        $subject = __('IfThenGive Transaction Report For ' . $trigger_name,ITG_TEXT_DOMAIN);
                         $message = $headerString.$EmailString;
                         wp_mail($to, $subject, $message, $headers);
                         ?>
@@ -1070,9 +1070,9 @@ class AngellEYE_Give_When_interface {
                 </div>';                        
                         $EmailString.=$alert_info_email_string;
 
-                        $headers = "From: info@givewhen.com \r\n";
-                        $headers .= "Reply-To: noreply@givewhen.com \r\n";
-                        //$headers .= "CC: susan@example.com\r\n";
+                        $headers = "From: info@ifthengive.com \r\n";
+                        $headers .= "Reply-To: noreply@ifthengive.com \r\n";
+                        //$headers .= "CC: ifthengive@ifthengive.com\r\n";
                         $headers .= "MIME-Version: 1.0\r\n";
                         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
@@ -1191,15 +1191,15 @@ class AngellEYE_Give_When_interface {
     public function cancel_billing_agreement_giver() {
         if (isset($_POST['userid'])) {
             $user_id = $_POST['userid'];
-            $data = get_user_meta($user_id,'givewhen_giver_'.$_POST['postid'].'_status',true);
+            $data = get_user_meta($user_id,'itg_giver_'.$_POST['postid'].'_status',true);
             if(empty($data)){
-               update_user_meta( $user_id , 'givewhen_giver_'.$_POST['postid'].'_status', 'suspended' );
+               update_user_meta( $user_id , 'itg_giver_'.$_POST['postid'].'_status', 'suspended' );
             }
             elseif($data == 'suspended'){
-                update_user_meta( $user_id , 'givewhen_giver_'.$_POST['postid'].'_status', 'active' );
+                update_user_meta( $user_id , 'itg_giver_'.$_POST['postid'].'_status', 'active' );
             }
             else{
-                update_user_meta( $user_id , 'givewhen_giver_'.$_POST['postid'].'_status', 'suspended' );
+                update_user_meta( $user_id , 'itg_giver_'.$_POST['postid'].'_status', 'suspended' );
             }
         }
         exit;

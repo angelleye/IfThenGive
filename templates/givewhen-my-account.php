@@ -24,7 +24,7 @@ if (!is_admin()) {
     <div class="gw_center_container">
         <div class="gwcontainer">
             <div class="gw_heading gw_heading-center">                        
-                <h3><?php _e("GiveWhen Account", "givewhen"); ?></h3>
+                <h3><?php _e("GiveWhen Account", ITG_TEXT_DOMAIN); ?></h3>
             </div>   
             <div id="gw-tabs" class="tabs border">                    
                 <ul class="tabs-navigation">
@@ -34,13 +34,13 @@ if (!is_admin()) {
                 </ul>
                 <div class="tabs-content">
                     <div class="tab-pane active" id="gw_account_txns">                        
-                        <?php echo do_shortcode('[givewhen_my_transaction]'); ?>
+                        <?php echo do_shortcode('[ifthengive_transactions]'); ?>
                     </div>
                     <div class="tab-pane " id="gw_account_goals">
-                        <?php echo do_shortcode('[givewhen_my_goals]'); ?>
+                        <?php echo do_shortcode('[ifthengive_goals]'); ?>
                     </div> 
                     <div class="tab-pane " id="gw_account_info">
-                        <?php echo do_shortcode('[givewhen_account_info]'); ?>
+                        <?php echo do_shortcode('[ifthengive_account_info]'); ?>
                     </div> 
                 </div>
             </div>            

@@ -90,7 +90,7 @@ class AngellEYE_Give_When_Post_types {
                     'description' => __('This is where you can create new Goal.', ITG_TEXT_DOMAIN),
                     'public' => false,
                     'show_ui' => true,
-                    'capability_type' => apply_filters('givewhen_capability_type',__('post',ITG_TEXT_DOMAIN)),
+                    'capability_type' => apply_filters('itg_capability_type','post'),
                     'map_meta_cap' => true,
                     'publicly_queryable' => false,
                     'exclude_from_search' => true,
@@ -240,9 +240,9 @@ class AngellEYE_Give_When_Post_types {
     public static function register_give_when_submenu_page() {
         add_submenu_page( 
             null,
-            __('GiveWhen Givers Page', ITG_TEXT_DOMAIN),
-            __('GiveWhen Givers Page', ITG_TEXT_DOMAIN),
-            apply_filters('givewhen_submenu_capability','manage_options'),
+            __('ITG Givers Page', ITG_TEXT_DOMAIN),
+            __('ITG Givers Page', ITG_TEXT_DOMAIN),
+            apply_filters('itg_submenu_capability','manage_options'),
             __('give_when_givers', ITG_TEXT_DOMAIN),
             array(__CLASS__,'give_when_givers_page_callback')
         );
@@ -251,7 +251,7 @@ class AngellEYE_Give_When_Post_types {
             null,
             __('GiveWhen disconnect Page', ITG_TEXT_DOMAIN),
             __('GiveWhen disconnect Page', ITG_TEXT_DOMAIN),
-            apply_filters('givewhen_submenu_capability','manage_options'),
+            apply_filters('itg_submenu_capability','manage_options'),
             __('give_when_disconnect_paypal', ITG_TEXT_DOMAIN),
             array(__CLASS__,'give_when_disconnect_paypal_page_callback')
         );

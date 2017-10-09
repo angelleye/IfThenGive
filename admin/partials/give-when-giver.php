@@ -52,19 +52,19 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         
         global $wpdb;        
         $sql = "SELECT
-             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
-             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'give_when_gec_email') AS PayPalEmail,
-             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'givewhen_giver_".$_REQUEST['post']."_status') AS GiverStatus,
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".$_REQUEST['post']."_status') AS GiverStatus,
              um.user_id,
              p.post_date as BADate,
              u.display_name as DisplayName,
              pm.meta_value as amount,
-             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID 
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID
              FROM `{$wpdb->prefix}posts` as p 
              join `{$wpdb->prefix}users` as u on p.post_author = u.ID 
              join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
              left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
-             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_signup_wp_goal_id') ";
+             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'itg_signup_wp_goal_id') ";
         
              
             $sql .= " group by u.ID";
@@ -96,19 +96,19 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
     public static function get_all_givers() {
         global $wpdb;        
         $sql = "SELECT
-             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
-             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'give_when_gec_email') AS PayPalEmail,
-             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'givewhen_giver_".$_REQUEST['post']."_status') AS GiverStatus,             
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".$_REQUEST['post']."_status') AS GiverStatus,             
              um.user_id,
              p.post_date as BADate,
              u.display_name as DisplayName,
              pm.meta_value as amount,
-             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID 
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID 
              FROM `{$wpdb->prefix}posts` as p 
              join `{$wpdb->prefix}users` as u on p.post_author = u.ID 
              join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
              left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
-             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_signup_wp_goal_id') 
+             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'itg_signup_wp_goal_id') 
              group by u.ID Having GiverStatus = 'active' OR GiverStatus IS NULL";
              
         $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );               
@@ -139,19 +139,19 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
       global $wpdb;
 
       $sql = "SELECT
-             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_billing_agreement_id') as BillingAgreement,
-             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'give_when_gec_email') AS PayPalEmail,
-             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'givewhen_giver_".$_REQUEST['post']."_status') AS GiverStatus,
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".$_REQUEST['post']."_status') AS GiverStatus,
              um.user_id,
              p.post_date as BADate,
              u.display_name as DisplayName,
              pm.meta_value as amount,
-             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'give_when_gec_payer_id') as PayPalPayerID 
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID 
              FROM `{$wpdb->prefix}posts` as p 
              join `{$wpdb->prefix}users` as u on p.post_author = u.ID 
              join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
              left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
-             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_signup_wp_goal_id') ";
+             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'itg_signup_wp_goal_id') ";
         $sql .= " group by u.ID";
         if(isset($_REQUEST['s'])){
            $sql .= "  Having (( BillingAgreement LIKE '%{$_REQUEST['s']}%' ) OR ( u.display_name LIKE '%{$_REQUEST['s']}%' ) OR ( PayPalEmail LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( PayPalPayerID LIKE '%{$_REQUEST['s']}%' )) ";               
@@ -212,7 +212,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
             _e($item['PayPalPayerID'],ITG_TEXT_DOMAIN);
             break;
         case 'DisplayName' :
-            _e(apply_filters('gw_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),ITG_TEXT_DOMAIN);
+            _e(apply_filters('itg_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),ITG_TEXT_DOMAIN);
             break;
          case 'BADate' :
             _e(date('Y-m-d',  strtotime($item['BADate'])),ITG_TEXT_DOMAIN);
@@ -238,7 +238,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
                     $label = __('Activate',ITG_TEXT_DOMAIN);
                     $class = "btn-defalt";
                 }            
-                echo apply_filters('gw_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-gwchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,ITG_TEXT_DOMAIN).'</button>',$_REQUEST['post']);
+                echo apply_filters('itg_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-gwchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,ITG_TEXT_DOMAIN).'</button>',$_REQUEST['post']);
             }
             break;
       }

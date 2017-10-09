@@ -71,24 +71,24 @@ class Give_When_PayPal_Helper {
         }
         
         public function set_api_subject($goal_id){
-            $this->api_subject = apply_filters('givewhen_api_subject_parameter','',$goal_id);
+            $this->api_subject = apply_filters('itg_api_subject_parameter','',$goal_id);
             return true;
         }
         
         public function set_api_cedentials(){
-            $sanbox_enable = get_option('sandbox_enable_give_when');            
+            $sanbox_enable = get_option('itg_sandbox_enable');
             if($sanbox_enable === 'yes'){
                  $this->sandbox=TRUE;                 
-                 $this->api_username=get_option('give_when_sandbox_api_credentials_api_user_name');
-                 $this->api_password=get_option('give_when_sandbox_api_credentials_api_password');
-                 $this->api_signature=get_option('give_when_sandbox_api_credentials_signature');
+                 $this->api_username=get_option('itg_sb_api_credentials_username');
+                 $this->api_password=get_option('itg_sb_api_credentials_password');
+                 $this->api_signature=get_option('itg_sb_api_credentials_signature');
                  $this->application_id='APP-80W284485P519543T';
               }
               else{
                  $this->sandbox='';
-                 $this->api_username=get_option('give_when_live_api_credentials_api_user_name');
-                 $this->api_password=get_option('give_when_live_api_credentials_api_password');
-                 $this->api_signature=get_option('give_when_live_api_credentials_signature');
+                 $this->api_username=get_option('itg_lv_api_credentials_username');
+                 $this->api_password=get_option('itg_lv_api_credentials_password');
+                 $this->api_signature=get_option('itg_lv_api_credentials_signature');
                  $this->application_id='';
              }
         }

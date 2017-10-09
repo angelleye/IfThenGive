@@ -33,7 +33,7 @@ if(isset($_SESSION['GW_Error']) && isset($_SESSION['GW_Error_Type'])){
     unset($_SESSION['GW_Error'],$_SESSION['GW_Error_Type'],$_SESSION['GW_Error_Array']);
 }
 else{
-    ?> <h3><?php _e("You are accessing this page without any process of GiveWhen Goals.","givewhen"); ?></h3>
+    ?> <h3><?php _e("You are accessing this page without any process of GiveWhen Goals.",ITG_TEXT_DOMAIN); ?></h3>
         <span><?php echo __("Try again Sigining in for GiveWhen Goals.",ITG_TEXT_DOMAIN); ?></span>
         <?php 
 }

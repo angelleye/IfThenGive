@@ -30,16 +30,16 @@ class Givewhen_Activator {
      * @since    1.0.0
      */
     public static function activate() {
-        if (!get_option('sandbox_enable_give_when')) {
-            add_option('sandbox_enable_give_when', 'no');
+        if (!get_option('itg_sandbox_enable')) {
+            add_option('itg_sandbox_enable', 'no');
         }
         self::create_files();        
         
-        if (!get_option('gw_currency_code')) {
-            add_option('gw_currency_code', 'USD');
+        if (!get_option('itg_currency_code ')) {
+            add_option('itg_currency_code ', 'USD');
         }
         /* set_transient added for endpoints. */
-        set_transient( 'gw_flush', 1, 60 );
+        set_transient( 'itg_flush', 1, 60 );
     } 
 
     /**
