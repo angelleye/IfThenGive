@@ -86,7 +86,7 @@ class Givewhen {
 	 *
 	 * - Givewhen_Loader. Orchestrates the hooks of the plugin.
 	 * - Givewhen_i18n. Defines internationalization functionality.
-	 * - Givewhen_Admin. Defines all hooks for the admin area.
+	 * - IfThenGive_Admin. Defines all hooks for the admin area.
 	 * - Givewhen_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
@@ -182,13 +182,13 @@ class Givewhen {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Givewhen_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new IfThenGive_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
                 $this->loader->add_action('admin_init', $plugin_admin, 'ifthengive_shortcode_button_init');
-                $this->loader->add_filter('post_updated_messages', $plugin_admin, 'give_when_messages');
-                $this->loader->add_filter('plugin_row_meta', $plugin_admin, 'give_when_plugin_action_links', 10, 2);
+                $this->loader->add_filter('post_updated_messages', $plugin_admin, 'ifthengive_messages');
+                $this->loader->add_filter('plugin_row_meta', $plugin_admin, 'ifthengive_plugin_action_links', 10, 2);
     }
 
 	/**

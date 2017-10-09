@@ -6,8 +6,8 @@
  * @link       http://www.angelleye.com/
  * @since      1.0.0
  *
- * @package    Givewhen
- * @subpackage Givewhen/admin
+ * @package    IfThenGive
+ * @subpackage IfThenGive/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Givewhen
- * @subpackage Givewhen/admin
+ * @package    IfThenGive
+ * @subpackage IfThenGive/admin
  * @author     Angell EYE <andrew@angelleye.com>
  */
-class Givewhen_Admin {
+class IfThenGive_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -77,7 +77,7 @@ class Givewhen_Admin {
                    wp_enqueue_style($this->plugin_name . 'eight', ITG_PLUGIN_URL.'includes/css/bootstrap/css/bootstrap.css', array(), $this->version, 'all');
                    wp_enqueue_style($this->plugin_name . 'nine',  ITG_PLUGIN_URL.'includes/css/alertify/alertify.css', array(), $this->version, 'all');
                 }
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/givewhen-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ifthengive-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -106,7 +106,7 @@ class Givewhen_Admin {
                      wp_enqueue_script($this->plugin_name . 'ten', ITG_PLUGIN_URL . 'includes/css/alertify/alertify.min.js', array('jquery'), $this->version, false);
                 }
                 wp_enqueue_media();
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/givewhen-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ifthengive-admin.js', array( 'jquery' ), $this->version, false );
                 
                 global $post;
                 $args = array(
@@ -186,7 +186,7 @@ class Givewhen_Admin {
     }
     
     public function ifthengive_register_tinymce_plugin($plugin_array) {
-        $plugin_array['ifthengive_shortcodes'] = plugin_dir_url(__FILE__) . 'js/givewhen-admin.js';
+        $plugin_array['ifthengive_shortcodes'] = plugin_dir_url(__FILE__) . 'js/ifthengive-admin.js';
 	return $plugin_array;                
     }
 
@@ -228,7 +228,7 @@ class Givewhen_Admin {
            {
                $new_links = array(
                    sprintf( '<a href="%s">%s</a>', admin_url('options-general.php?page=ifthengive_option'), __( 'Configure', ITG_TEXT_DOMAIN ) ),
-                   sprintf( '<a href="%s" target="_blank">%s</a>', 'https://www.angelleye.com/category/docs/givewhen-wordpress', __( 'Docs', ITG_TEXT_DOMAIN ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', 'https://www.angelleye.com/category/docs/wordpress', __( 'Docs', ITG_TEXT_DOMAIN ) ),
                    sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Support', ITG_TEXT_DOMAIN ) ),
                    sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Write a Review', ITG_TEXT_DOMAIN ) ),
                );
