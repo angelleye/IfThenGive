@@ -65,7 +65,7 @@
         });
                         
         if(typeof tinymce != 'undefined') {            
-            tinymce.PluginManager.add('give_when_shortcodes', function( editor )
+            tinymce.PluginManager.add('ifthengive_shortcodes', function( editor )
             {
                 var shortcodeValues = [];                
                 jQuery.each(gw_shortcodes_button_array.shortcodes_button, function( post_id, post_title )
@@ -76,25 +76,25 @@
                     });                  
                     
                 });
-                editor.addButton('give_when_shortcodes', {
-                    text: 'GiveWhen',
+                editor.addButton('itg_shortcodes', {
+                    text: 'IfThenGive',
                     type: 'listbox',
-                    title: 'GiveWhen',
-                    cmd: 'give_when_shortcodes',
+                    title: 'IfThenGive',
+                    cmd: 'itg_shortcodes',
                     icon: 'mce-ico mce-i-wp_more',
                     onselect: function() {                           
-                        if(this.text()=='GiveWhen Transaction'){
+                        if(this.text()=='Transaction'){
                             tinyMCE.activeEditor.selection.setContent( '[ifthengive_transactions]' );
                         }
-                        else if(this.text()=='GiveWhen Account'){
+                        else if(this.text()=='Account'){
                             tinyMCE.activeEditor.selection.setContent( '[ifthengive_account]' );
                         }
-                        else if (this.text() == 'My Signedup GiveWhen Goals'){
+                        else if (this.text() == 'My Signedup Goals'){
                             tinyMCE.activeEditor.selection.setContent( '[ifthengive_goals]' );
                         }
                         else{
                             tinyMCE.activeEditor.selection.setContent( '[ifthengive_goal id=' + this.value() + ']' );
-                        }                         
+                        }
                     },
                     values: shortcodeValues
                 });                                
@@ -118,7 +118,7 @@
                 });            
         });
         
-        $(document).on('click','#sandbox_enable_give_when',function(){
+        $(document).on('click','#itg_sandbox_enable',function(){
             var sandbox = '';            
             if ($(this).is(':checked')){
                 sandbox = true;         
@@ -218,27 +218,27 @@
         
         $(document).on('click','#gw_sandbox_add_manually', function(){
             if ($(this).is(':checked')){                
-                $("#give_when_sandbox_api_credentials_api_user_name").removeAttr('disabled');
-                $("#give_when_sandbox_api_credentials_api_password").removeAttr('disabled');
-                $("#give_when_sandbox_api_credentials_signature").removeAttr('disabled');
+                $("#itg_sb_api_credentials_username").removeAttr('disabled');
+                $("#itg_sb_api_credentials_password").removeAttr('disabled');
+                $("#itg_sb_api_credentials_signature").removeAttr('disabled');
             }
             else{
-                $('#give_when_sandbox_api_credentials_api_user_name').attr('disabled','disabled');
-                $('#give_when_sandbox_api_credentials_api_password').attr('disabled','disabled');
-                $('#give_when_sandbox_api_credentials_signature').attr('disabled','disabled');
+                $('#itg_sb_api_credentials_username').attr('disabled','disabled');
+                $('#itg_sb_api_credentials_password').attr('disabled','disabled');
+                $('#itg_sb_api_credentials_signature').attr('disabled','disabled');
             }
         });
         
         $(document).on('click','#gw_live_add_manually', function(){
             if ($(this).is(':checked')){                
-                $("#give_when_live_api_credentials_api_user_name").removeAttr('disabled');
-                $("#give_when_live_api_credentials_api_password").removeAttr('disabled');
-                $("#give_when_live_api_credentials_signature").removeAttr('disabled');
+                $("#itg_lv_api_credentials_username").removeAttr('disabled');
+                $("#itg_lv_api_credentials_password").removeAttr('disabled');
+                $("#itg_lv_api_credentials_signature").removeAttr('disabled');
             }
             else{
-                $('#give_when_live_api_credentials_api_user_name').attr('disabled','disabled');
-                $('#give_when_live_api_credentials_api_password').attr('disabled','disabled');
-                $('#give_when_live_api_credentials_signature').attr('disabled','disabled');
+                $('#itg_lv_api_credentials_username').attr('disabled','disabled');
+                $('#itg_lv_api_credentials_password').attr('disabled','disabled');
+                $('#itg_lv_api_credentials_signature').attr('disabled','disabled');
             }
         });
         

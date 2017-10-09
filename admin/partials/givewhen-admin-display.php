@@ -30,22 +30,22 @@ class AngellEYE_Give_When_Admin_Display {
      * @access   public
      */
     public static function add_settings_menu() {
-        add_options_page('GiveWhen', 'GiveWhen', 'manage_options', 'give_when_option', array(__CLASS__, 'give_when_options'));
+        add_options_page('IfThenGive', 'IfThenGive', 'manage_options', 'ifthengive_option', array(__CLASS__, 'ifthengive_option'));
     }
 
     /**
-     * paypal_wp_button_manager_options helper will trigger hook and handle all the settings section 
+     * ifthengive_option helper will trigger hook and handle all the settings section 
      * @since    0.1.0
      * @access   public
      */
-    public static function give_when_options() {
+    public static function ifthengive_option() {
         $setting_tabs = apply_filters('give_when_setting_tab', array('connect_to_paypal' => 'Connect To PayPal', 'logs' => 'Logs'));
         $current_tab = (isset($_GET['tab'])) ? $_GET['tab'] : 'connect_to_paypal';
         ?>
         <h2 class="nav-tab-wrapper">
             <?php
             foreach ($setting_tabs as $name => $label)
-                echo '<a href="' . admin_url('admin.php?page=give_when_option&tab=' . $name) . '" class="nav-tab ' . ( $current_tab == $name ? 'nav-tab-active' : '' ) . '">' . __($label,ITG_TEXT_DOMAIN) . '</a>';
+                echo '<a href="' . admin_url('admin.php?page=ifthengive_option&tab=' . $name) . '" class="nav-tab ' . ( $current_tab == $name ? 'nav-tab-active' : '' ) . '">' . __($label,ITG_TEXT_DOMAIN) . '</a>';
             ?>
         </h2>
         <?php

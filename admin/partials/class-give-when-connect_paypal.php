@@ -38,18 +38,18 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
      * @access   static
      */
     public static function init() {
-        add_action('give_when_connect_to_paypal_create_setting', array(__CLASS__, 'give_when_connect_to_paypal_create_setting'));
-        add_action('give_when_connect_to_paypal_setting_save_field', array(__CLASS__, 'give_when_connect_to_paypal_setting_save_field'));                       
+        add_action('ifthengive_connect_to_paypal_create_setting', array(__CLASS__, 'ifthengive_connect_to_paypal_create_setting'));
+        add_action('ifthengive_connect_to_paypal_setting_save_field', array(__CLASS__, 'ifthengive_connect_to_paypal_setting_save_field'));                       
         add_action('wp_ajax_sandbox_enabled', array(__CLASS__, 'sandbox_enabled'));
         add_action("wp_ajax_nopriv_sandbox_enabled", array(__CLASS__, 'sandbox_enabled'));
     }
 
-    public static function give_when_connect_to_paypal_setting_fields() {
+    public static function ifthengive_connect_to_paypal_setting_fields() {
         global $wpdb;
         $Logger = new AngellEYE_Give_When_Logger();       
         $fields[] = array(
             'title' => __('Sandbox', ITG_TEXT_DOMAIN),
-            'id' => 'sandbox_enable_give_when',
+            'id' => 'itg_sandbox_enable',
             'type' => 'checkbox',
             'label' => __('Enable logging', ITG_TEXT_DOMAIN),
             'default' => 'no',
@@ -60,15 +60,15 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         return $fields;
     }
 
-    public static function give_when_connect_to_paypal_create_setting() {
+    public static function ifthengive_connect_to_paypal_create_setting() {
                 
-        $connect_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
-        $connect_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');
+        $connect_to_sandbox_paypal_flag = get_option('itg_sb_connected_to_paypal');
+        $connect_to_live_paypal_flag = get_option('itg_live_connected_to_paypal');
         
-        $general_setting_fields = self::give_when_connect_to_paypal_setting_fields();
+        $general_setting_fields = self::ifthengive_connect_to_paypal_setting_fields();
         $Html_output = new AngellEYE_Give_When_Html_output();
         
-        $sanbox_enable = get_option('sandbox_enable_give_when');
+        $sanbox_enable = get_option('itg_sandbox_enable');
         if ($sanbox_enable === 'yes') {
             $sandbox_class = "";
             $live_class="gw_hide_live_class";
@@ -76,16 +76,16 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             $sandbox_class = "gw_hide_sandbox_class";
             $live_class="";
         }
-        $sandbox_api_user_name = get_option('give_when_sandbox_api_credentials_api_user_name');
-        $sandbox_api_password = get_option('give_when_sandbox_api_credentials_api_password');
-        $sandbox_signature = get_option('give_when_sandbox_api_credentials_signature');
+        $sandbox_api_user_name = get_option('itg_sb_api_credentials_username');
+        $sandbox_api_password = get_option('itg_sb_api_credentials_password');
+        $sandbox_signature = get_option('itg_sb_api_credentials_signature');
         
-        $live_api_user_name = get_option('give_when_live_api_credentials_api_user_name');
-        $live_api_password = get_option('give_when_live_api_credentials_api_password');
-        $live_signature = get_option('give_when_live_api_credentials_signature');
+        $live_api_user_name = get_option('itg_lv_api_credentials_username');
+        $live_api_password = get_option('itg_lv_api_credentials_password');
+        $live_signature = get_option('itg_lv_api_credentials_signature');
         
-        $gw_sb_add_manually = get_option('give_when_sandbox_api_credentials_addded_manually');
-        $gw_lv_add_manually = get_option('give_when_live_api_credentials_addded_manually');
+        $gw_sb_add_manually = get_option('itg_sb_api_credentials_addded_manually');
+        $gw_lv_add_manually = get_option('itg_lv_api_credentials_addded_manually');
         
         ?>                
         <div class="wrap">
@@ -116,26 +116,26 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                             </div>
                             <div class="panel-body">
                                 <?php 
-                                $success_notice = get_option('give_when_permission_connect_to_paypal_success_notice');
+                                $success_notice = get_option('itg_permission_connect_to_paypal_success_notice');
                                 if ($success_notice) {
                                     echo '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12"><div class="alert alert-success">';
                                     echo "<strong>" . __($success_notice, ITG_TEXT_DOMAIN) . "</strong>";
                                     echo '</div></div></div>';
-                                    delete_option('give_when_permission_connect_to_paypal_success_notice');
+                                    delete_option('itg_permission_connect_to_paypal_success_notice');
                                 }
 
-                                $failed_notice = get_option('give_when_permission_connect_to_paypal_failed_notice');
+                                $failed_notice = get_option('itg_permission_connect_to_paypal_failed_notice');
                                 if ($failed_notice) {
                                     echo '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12"><div class="alert alert-danger">';
                                     echo "<strong>" . __($failed_notice, ITG_TEXT_DOMAIN) . "</strong>";
                                     echo '</div></div></div>';
-                                    delete_option('give_when_permission_connect_to_paypal_failed_notice');
+                                    delete_option('itg_permission_connect_to_paypal_failed_notice');
                                 }
                                 ?>                                                                                                    
                                 
                                 <div id="give_when_sandbox_fields" class="<?php echo $sandbox_class; ?>">
                                 <?php
-                                    $sb_paypal_account_id = get_option('give_when_permission_sandbox_connected_person_merchant_id');                                    
+                                    $sb_paypal_account_id = get_option('itg_permission_sb_connected_person_merchant_id');                                    
                                     if ($connect_to_sandbox_paypal_flag == 'Yes') {
                                 ?>
                                     <div class="row">
@@ -154,7 +154,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         </div>
                                         <?php } ?>
                                         <div class="col-md-6 col-lg-6 col-sm-6">
-                                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/?page=give_when_disconnect_paypal&action=true&env=sandbox'; ?>">Disconnect</a>
+                                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/?page=ifthengive_disconnect_paypal&action=true&env=sandbox'; ?>"><?php _e('Disconnect',ITG_TEXT_DOMAIN); ?></a>
                                         </div>                                        
                                     </div>                                    
                                     <div class="clearfix"></div>
@@ -199,18 +199,18 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                     "postdata" => $postData,                                                    
                                                 );
                                                 //save log
-                                                $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                                                $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                                                 if ('yes' == $debug) {
                                                     $log_write = new AngellEYE_Give_When_Logger();
-                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With PayPal RequestData : ' . print_r($log_sandbox_connect, true), 'connect_to_paypal');
+                                                    $log_write->add('angelleye_itg_connect_to_paypal', 'Connect With PayPal RequestData : ' . print_r($log_sandbox_connect, true), 'connect_to_paypal');
                                                 }
                                                 $ConnectPayPalJson = self::curl_request($url, $postData);
                                                 $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
                                                 //save log
-                                                $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                                                $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                                                 if ('yes' == $debug) {
                                                     $log_write = new AngellEYE_Give_When_Logger();
-                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With PayPal ResponseData : ' . print_r($ConnectPayPalArray, true), 'connect_to_paypal');
+                                                    $log_write->add('angelleye_itg_connect_to_paypal', 'Connect With PayPal ResponseData : ' . print_r($ConnectPayPalArray, true), 'connect_to_paypal');
                                                 }
                                                 if ($ConnectPayPalArray['ACK'] == 'success') {
                                                     ?>                                                                          
@@ -237,22 +237,22 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             </div>
                                             <div class="form-group">
                                                 <label for="SandboxAPIUserName"><?php _e('Sandbox API User Name',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="text" class="form-control" id="give_when_sandbox_api_credentials_api_user_name" name="give_when_sandbox_api_credentials_api_user_name" value="<?php echo isset($sandbox_api_user_name) ? esc_attr($sandbox_api_user_name,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <input type="text" class="form-control" id="itg_sb_api_credentials_username" name="itg_sb_api_credentials_username" value="<?php echo isset($sandbox_api_user_name) ? esc_attr($sandbox_api_user_name,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>
                                             <div class="form-group">
                                                 <label for="SandboxAPIPassword"><?php _e('Sandbox API Password',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_api_password" name="give_when_sandbox_api_credentials_api_password" value="<?php echo isset($sandbox_api_password) ? esc_attr($sandbox_api_password,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <input type="password" class="form-control" id="itg_sb_api_credentials_password" name="itg_sb_api_credentials_password" value="<?php echo isset($sandbox_api_password) ? esc_attr($sandbox_api_password,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>
                                             <div class="form-group">
                                                 <label for="SandboxAPISignature"><?php _e('Sandbox API Signature',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="password" class="form-control" id="give_when_sandbox_api_credentials_signature" name="give_when_sandbox_api_credentials_signature" value="<?php echo isset($sandbox_signature) ? esc_attr($sandbox_signature,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <input type="password" class="form-control" id="itg_sb_api_credentials_signature" name="itg_sb_api_credentials_signature" value="<?php echo isset($sandbox_signature) ? esc_attr($sandbox_signature,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>                                                                                                                
                                         </div>
                                     </div>
                                 </div>
                                 <div id="give_when_live_fields"  class="<?php echo $live_class; ?>">
                                     <?php
-                                        $live_paypal_account_id = get_option('give_when_permission_live_connected_person_merchant_id');
+                                        $live_paypal_account_id = get_option('itg_permission_lv_connected_person_merchant_id');
                                         if ($connect_to_live_paypal_flag == 'Yes') {
                                     ?>
                                     <div class="row">
@@ -271,7 +271,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                         </div>
                                         <?php } ?>
                                         <div class="col-md-6 col-lg-6 col-sm-6">
-                                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/?page=give_when_disconnect_paypal&action=true&env=live'; ?>">Disconnect</a>
+                                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/?page=ifthengive_disconnect_paypal&action=true&env=live'; ?>">Disconnect</a>
                                         </div>
                                     </div>                                    
                                     <div class="clearfix"></div>
@@ -316,18 +316,18 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                     "postdata" => $postData,                                                    
                                                 );
                                                 //save log
-                                                $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                                                $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                                                 if ('yes' == $debug) {
                                                     $log_write = new AngellEYE_Give_When_Logger();
-                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With Facebook RequestData : ' . print_r($log_live_connect, true), 'connect_to_paypal');
+                                                    $log_write->add('angelleye_itg_connect_to_paypal', 'Connect With Facebook RequestData : ' . print_r($log_live_connect, true), 'connect_to_paypal');
                                                 }
                                                 $ConnectPayPalJson = self::curl_request($url, $postData);
                                                 $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
                                                 //save log
-                                                $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                                                $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                                                 if ('yes' == $debug) {
                                                     $log_write = new AngellEYE_Give_When_Logger();
-                                                    $log_write->add('angelleye_give_when_connect_to_paypal', 'Connect With Facebook ResponseData : ' . print_r($ConnectPayPalArray, true), 'connect_to_paypal');
+                                                    $log_write->add('angelleye_itg_connect_to_paypal', 'Connect With Facebook ResponseData : ' . print_r($ConnectPayPalArray, true), 'connect_to_paypal');
                                                 }
                                                 if ($ConnectPayPalArray['ACK'] == 'success') {
                                                     ?>                                                                          
@@ -355,15 +355,15 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             </div>
                                             <div class="form-group">
                                                 <label for="APIUserName"><?php _e('API User Name',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="text" class="form-control" id="give_when_live_api_credentials_api_user_name" name="give_when_live_api_credentials_api_user_name" value="<?php echo isset($live_api_user_name) ? esc_attr($live_api_user_name,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <input type="text" class="form-control" id="itg_lv_api_credentials_username" name="itg_lv_api_credentials_username" value="<?php echo isset($live_api_user_name) ? esc_attr($live_api_user_name,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                             <div class="form-group">
                                                 <label for="APIPassword"><?php _e('API Password',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="password" class="form-control" id="give_when_live_api_credentials_api_password" name="give_when_live_api_credentials_api_password" value="<?php echo isset($live_api_password) ? esc_attr($live_api_password,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <input type="password" class="form-control" id="itg_lv_api_credentials_password" name="itg_lv_api_credentials_password" value="<?php echo isset($live_api_password) ? esc_attr($live_api_password,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                             <div class="form-group">
                                                 <label for="APISignature"><?php _e('API Signature',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="password" class="form-control" id="give_when_live_api_credentials_signature" name="give_when_live_api_credentials_signature" value="<?php echo isset($live_signature) ? esc_attr($live_signature,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <input type="password" class="form-control" id="itg_lv_api_credentials_signature" name="itg_lv_api_credentials_signature" value="<?php echo isset($live_signature) ? esc_attr($live_signature,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                         </div>
                                     </div>
@@ -378,14 +378,14 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                                     $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
                                                     /*
                                                     *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
-                                                    *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+                                                    *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
                                                     *   It also reflactes in NVPCredentials string so we are also replcing it.
                                                     */
                                                     $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
-                                                    $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GW_BUTTON_SOURCE,$PayPal->NVPCredentials);
-                                                    $ccode = get_option('gw_currency_code');
+                                                    $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);
+                                                    $ccode = get_option('itg_currency_code');
                                                 ?>
-                                                <select class="form-control" name="gw_currency_code">
+                                                <select class="form-control" name="itg_currency_code">
                                                     <option value=""><?php _e('Select Currency',ITG_TEXT_DOMAIN); ?></option>
                                                    <?php
                                                         foreach ($PayPal->CurrencyCodes as $Key => $Value) {
@@ -403,7 +403,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                     </div>                                    
                                 <div class="checkbox">
                                     <?php
-                                        $checkbox = get_option('log_enable_give_when');
+                                        $checkbox = get_option('itg_log_enable');
                                         if($checkbox == 'yes'){
                                             $checkbox_checked = "checked";
                                         }
@@ -411,7 +411,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             $checkbox_checked = "";
                                         }
                                     ?>
-                                    <label><input type="checkbox" name="log_enable_give_when" id="log_enable_give_when" <?php echo $checkbox_checked; ?> ><?php _e('Save Logs for GiveWhen.',ITG_TEXT_DOMAIN); ?></label>
+                                    <label><input type="checkbox" name="log_enable_give_when" id="log_enable_give_when" <?php echo $checkbox_checked; ?> ><?php _e('Save Logs.',ITG_TEXT_DOMAIN); ?></label>
                                 </div>  
                                 <p class="submit">
                                     <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
@@ -457,9 +457,9 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         if (isset($_POST['sandbox'])) {
             $sandbox = $_POST['sandbox'];
             if ($sandbox == 'true') {
-                update_option('sandbox_enable_give_when', 'yes');
+                update_option('itg_sandbox_enable', 'yes');
             } else {
-                update_option('sandbox_enable_give_when', 'no');
+                update_option('itg_sandbox_enable', 'no');
             }
             echo json_encode(array('Ack' => 'success'));
         }
@@ -482,39 +482,39 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
     }
 
     /**
-     * give_when_general_setting_save_field function used for save general setting field value
+     * ifthengive_connect_to_paypal_setting_save_field function used for save general setting field value
      * @since 1.0.0
      * @access public static
      * 
      */
-    public static function give_when_connect_to_paypal_setting_save_field() {        
-        $givewhen_setting_fields = self::give_when_connect_to_paypal_setting_fields();
+    public static function ifthengive_connect_to_paypal_setting_save_field() {        
+        $givewhen_setting_fields = self::ifthengive_connect_to_paypal_setting_fields();
         $Html_output = new AngellEYE_Give_When_Html_output();
         $Html_output->save_fields($givewhen_setting_fields);        
         if (isset($_POST['give_when_intigration'])): 
-            if(isset($_POST['sandbox_enable_give_when']) && $_POST['sandbox_enable_give_when'] == '1'){
+            if(isset($_POST['itg_sandbox_enable']) && $_POST['itg_sandbox_enable'] == '1'){
                 if(isset($_POST['gw_sandbox_add_manually'])){
-                    update_option('give_when_sandbox_api_credentials_api_user_name',$_POST["give_when_sandbox_api_credentials_api_user_name"]);
-                    update_option('give_when_sandbox_api_credentials_api_password',$_POST["give_when_sandbox_api_credentials_api_password"]);
-                    update_option('give_when_sandbox_api_credentials_signature',$_POST["give_when_sandbox_api_credentials_signature"]);
+                    update_option('itg_sb_api_credentials_username',$_POST["itg_sb_api_credentials_username"]);
+                    update_option('itg_sb_api_credentials_password',$_POST["itg_sb_api_credentials_password"]);
+                    update_option('itg_sb_api_credentials_signature',$_POST["itg_sb_api_credentials_signature"]);
                     update_option('give_when_sandbox_connected_to_paypal', 'Yes');
                     update_option('give_when_sandbox_api_credentials_addded_manually','Yes');
                 }
             }
             else{
                 if(isset($_POST['gw_live_add_manually'])){                
-                    update_option('give_when_live_api_credentials_api_user_name',$_POST['give_when_live_api_credentials_api_user_name']);
-                    update_option('give_when_live_api_credentials_api_password',$_POST['give_when_live_api_credentials_api_password']);
-                    update_option('give_when_live_api_credentials_signature',$_POST['give_when_live_api_credentials_signature']);
+                    update_option('itg_lv_api_credentials_username',$_POST['itg_lv_api_credentials_username']);
+                    update_option('itg_lv_api_credentials_password',$_POST['itg_lv_api_credentials_password']);
+                    update_option('itg_lv_api_credentials_signature',$_POST['itg_lv_api_credentials_signature']);
                     update_option('give_when_live_connected_to_paypal', 'Yes');
                     update_option('give_when_live_api_credentials_addded_manually','Yes');
                 }
             }
-            if(isset($_POST['gw_currency_code'])){
-                update_option('gw_currency_code', $_POST['gw_currency_code']);
+            if(isset($_POST['itg_currency_code'])){
+                update_option('itg_currency_code', $_POST['itg_currency_code']);
             }
             else{
-                update_option('gw_currency_code', 'USD');
+                update_option('itg_currency_code', 'USD');
             }
             if(isset($_POST['log_enable_give_when'])){
                 update_option('log_enable_give_when', 'yes');

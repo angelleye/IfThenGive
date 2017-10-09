@@ -1,6 +1,6 @@
 <?php
 /**
- * GiveWhenTransaction template.
+ * IfThenGive Transaction template.
  *
  * This template can be overriden by copying this file to your-theme/GiveWhen/givewhen-my-goals.php
  *
@@ -19,7 +19,7 @@ if(! is_admin()){
     <div class="gw_loader"></div>
     <h1 style="font-weight: 600;">Processing...</h1>
 </div>
-<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Goals', ITG_TEXT_DOMAIN) ?></abbr></div>
+<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Goals', ITG_TEXT_DOMAIN) ?></abbr></div>
 <div class="gw_center_container">   
     <div class="gwcontainer">
         <div class="gw_table-responsive">
@@ -38,7 +38,7 @@ if(! is_admin()){
     </div>
 </div>
 <?php
-$ccode = get_option('gw_currency_code');
+$ccode = get_option('itg_currency_code');
 $paypal = new Give_When_PayPal_Helper();
 $symbol = $paypal->get_currency_symbol($ccode);
 ?>

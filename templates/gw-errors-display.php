@@ -1,6 +1,6 @@
 <?php
 /**
- * GiveWhen Error template.
+ * IfThenGive Error template.
  *
  * This template can be overriden by copying this file to your-theme/GiveWhen/gw-errors-display.php
  *
@@ -22,7 +22,7 @@ get_header();
 if(isset($_SESSION['GW_Error']) && isset($_SESSION['GW_Error_Type'])){
     ?>
 
-        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Errors', ITG_TEXT_DOMAIN) ?></abbr></div>
+        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Errors', ITG_TEXT_DOMAIN) ?></abbr></div>
     
         <h3> <?php _e('Error Type :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['GW_Error_Type']) ? __($_SESSION['GW_Error_Type'],ITG_TEXT_DOMAIN) : ''; ?> </h3>
         <span> <?php _e('Acknowledgement :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['GW_Error_Array']['ACK']) ? __($_SESSION['GW_Error_Array']['ACK'],ITG_TEXT_DOMAIN) : ''; ?></span>
@@ -33,8 +33,8 @@ if(isset($_SESSION['GW_Error']) && isset($_SESSION['GW_Error_Type'])){
     unset($_SESSION['GW_Error'],$_SESSION['GW_Error_Type'],$_SESSION['GW_Error_Array']);
 }
 else{
-    ?> <h3><?php _e("You are accessing this page without any process of GiveWhen Goals.",ITG_TEXT_DOMAIN); ?></h3>
-        <span><?php echo __("Try again Sigining in for GiveWhen Goals.",ITG_TEXT_DOMAIN); ?></span>
+    ?> <h3><?php _e("You are accessing this page without any process of Goals.",ITG_TEXT_DOMAIN); ?></h3>
+        <span><?php echo __("Try again Sigining in for Goals.",ITG_TEXT_DOMAIN); ?></span>
         <?php 
 }
 ?>

@@ -64,7 +64,7 @@ class AngellEYE_Give_When_Public_Display {
         extract(shortcode_atts(array(
                     'id' => ''), $atts));
         $html = '';
-        $ccode = get_option('gw_currency_code');
+        $ccode = get_option('itg_currency_code');
         $paypal = new Give_When_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
         if( !empty($id) ) {
@@ -285,7 +285,7 @@ class AngellEYE_Give_When_Public_Display {
                 $goalArray = explode('|', $signnedup_goals[0]);                
                 if(!empty($goalArray)){
                     if(in_array($post_id, $goalArray)){
-                        echo json_encode(array('Ack'=>__('Information',ITG_TEXT_DOMAIN),'ErrorCode'=>__('GiveWhenInfo',ITG_TEXT_DOMAIN),'ErrorShort'=>__('You are already signed up for this goal.',ITG_TEXT_DOMAIN),'ErrorLong'=>__('You are already signed up for this goal.',ITG_TEXT_DOMAIN)));
+                        echo json_encode(array('Ack'=>__('Information',ITG_TEXT_DOMAIN),'ErrorCode'=>__('IfThenGiveInfo',ITG_TEXT_DOMAIN),'ErrorShort'=>__('You are already signed up for this goal.',ITG_TEXT_DOMAIN),'ErrorLong'=>__('You are already signed up for this goal.',ITG_TEXT_DOMAIN)));
                         exit;
                     }
                 }
@@ -344,11 +344,11 @@ class AngellEYE_Give_When_Public_Display {
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
         /*
          *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
-         *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+         *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */
         $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
-        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GW_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
         $SECFields = array(
                 'maxamt' => round($amount * 2,2),
                 'returnurl' => site_url('?action=ec_return'),
@@ -423,11 +423,11 @@ class AngellEYE_Give_When_Public_Display {
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
         /*
          *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
-         *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+         *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */
         $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
-        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GW_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
 
         $BAUpdateFields = array(
             'REFERENCEID' => $billing_agreement_id,           

@@ -203,7 +203,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
             _e($item['PayPalEmail'],ITG_TEXT_DOMAIN);
             break;
         case 'amount' :
-            $ccode = get_option('gw_currency_code');
+            $ccode = get_option('itg_currency_code');
             $paypal = new Give_When_PayPal_Helper();
             $symbol = $paypal->get_currency_symbol($ccode);
             _e($symbol.number_format($item['amount'],2),ITG_TEXT_DOMAIN);

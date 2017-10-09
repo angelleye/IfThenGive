@@ -26,28 +26,25 @@ class AngellEYE_Give_When_Post_type_Sign_Up {
      */
     public static function give_when_register_post_type_sign_up() {
         global $wpdb;
-        if (post_type_exists('give_when_sign_up')) {
+        if (post_type_exists('itg_sign_up')) {
             return;
         }
-
-        do_action('give_when_register_post_type_sign_up');
-
-        register_post_type('give_when_sign_up', apply_filters('give_when_register_post_type_sign_up', array(
+        register_post_type('itg_sign_up', apply_filters('give_when_register_post_type_sign_up', array(
                     'labels' => array(
-                        'name' => __('GiveWhen Sign up', ITG_TEXT_DOMAIN),
-                        'singular_name' => __('GiveWhen Sign up', ITG_TEXT_DOMAIN),
-                        'menu_name' => _x('GiveWhen Sign up', 'Admin menu name', ITG_TEXT_DOMAIN),                        
+                        'name' => __('IfThenGive Sign up', ITG_TEXT_DOMAIN),
+                        'singular_name' => __('IfThenGive Sign up', ITG_TEXT_DOMAIN),
+                        'menu_name' => _x('IfThenGive Sign up', 'Admin menu name', ITG_TEXT_DOMAIN),                        
                         'edit' => __('Edit', ITG_TEXT_DOMAIN),
-                        'edit_item' => __('View GiveWhen Sign up', ITG_TEXT_DOMAIN),
-                        'new_item' => __('New GiveWhen Sign up', ITG_TEXT_DOMAIN),
-                        'view' => __('View GiveWhen Sign up', ITG_TEXT_DOMAIN),
-                        'view_item' => __('View GiveWhen Sign up', ITG_TEXT_DOMAIN),
-                        'search_items' => __('Search GiveWhen Sign up', ITG_TEXT_DOMAIN),
+                        'edit_item' => __('View IfThenGive Sign up', ITG_TEXT_DOMAIN),
+                        'new_item' => __('New IfThenGive Sign up', ITG_TEXT_DOMAIN),
+                        'view' => __('View IfThenGive Sign up', ITG_TEXT_DOMAIN),
+                        'view_item' => __('View IfThenGive Sign up', ITG_TEXT_DOMAIN),
+                        'search_items' => __('Search IfThenGive Sign up', ITG_TEXT_DOMAIN),
                         'not_found' => __('No users found', ITG_TEXT_DOMAIN),
                         'not_found_in_trash' => __('No users found in trash', ITG_TEXT_DOMAIN),
-                        'parent' => __('Parent GiveWhen Sign up', ITG_TEXT_DOMAIN)
+                        'parent' => __('Parent IfThenGive Sign up', ITG_TEXT_DOMAIN)
                     ),
-                    'description' => __('This is where you can create new GiveWhen Sign up.', ITG_TEXT_DOMAIN),
+                    'description' => __('This is where you can create new IfThenGive Sign up.', ITG_TEXT_DOMAIN),
                     'public' => false,
                     'show_ui' => false,
                     'capability_type' => 'post',                    
@@ -55,7 +52,7 @@ class AngellEYE_Give_When_Post_type_Sign_Up {
                     'publicly_queryable' => false,
                     'exclude_from_search' => true,
                     'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
-                    'rewrite' => array('slug' => 'give_when_sign_up'),
+                    'rewrite' => array('slug' => 'itg_sign_up'),
                     'query_var' => false,
                     'menu_icon' => 'dashicons-editor-table',
                     'supports' => array('title'),

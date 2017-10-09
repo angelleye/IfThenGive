@@ -73,7 +73,7 @@ class Givewhen_Admin {
 		 * class.
 		 */                 
                 $screen = get_current_screen();                
-                if($screen->post_type == 'give_when_goals' || $screen ->id == 'settings_page_give_when_option' || $screen ->id == 'dashboard_page_give_when_givers' ){
+                if($screen->post_type == 'ifthengive_goals' || $screen ->id == 'settings_page_ifthengive_option' || $screen ->id == 'dashboard_page_ifthengive_givers' ){
                    wp_enqueue_style($this->plugin_name . 'eight', GW_PLUGIN_URL.'includes/css/bootstrap/css/bootstrap.css', array(), $this->version, 'all');
                    wp_enqueue_style($this->plugin_name . 'nine',  GW_PLUGIN_URL.'includes/css/alertify/alertify.css', array(), $this->version, 'all');
                 }
@@ -100,7 +100,7 @@ class Givewhen_Admin {
 		 * class.
 		 */
                 $screen = get_current_screen();
-                if($screen->post_type == 'give_when_goals' || $screen ->id == 'settings_page_give_when_option' || $screen ->id == 'dashboard_page_give_when_givers'){
+                if($screen->post_type == 'ifthengive_goals' || $screen ->id == 'settings_page_ifthengive_option' || $screen ->id == 'dashboard_page_ifthengive_givers' ){
                      wp_enqueue_script($this->plugin_name . 'six', GW_PLUGIN_URL . 'includes/css/bootstrap/js/bootstrap.min.js', array('jquery'), $this->version, false);
                      wp_enqueue_script($this->plugin_name . 'seven', GW_PLUGIN_URL . 'includes/css/clipboardjs/clipboard.min.js', array('jquery'), $this->version, false);
                      wp_enqueue_script($this->plugin_name . 'ten', GW_PLUGIN_URL . 'includes/css/alertify/alertify.min.js', array('jquery'), $this->version, false);
@@ -110,20 +110,20 @@ class Givewhen_Admin {
                 
                 global $post;
                 $args = array(
-                    'post_type' => 'give_when_goals',
+                    'post_type' => 'ifthengive_goals',
                     'post_status' => 'publish',
                     'posts_per_page' => '100'                    
                 );
 
                 $posts = get_posts($args);
-		$give_when_posts = get_posts($args);                
+		$ifthengive_posts = get_posts($args);                
 		$shortcodes = array();
 		$shortcodes_values = array();
-                $shortcodes['[ifthengive_transactions]']='GiveWhen Transaction';
-                $shortcodes['[ifthengive_account]']='GiveWhen Account';
-                $shortcodes['[ifthengive_goals]'] = 'My Signedup GiveWhen Goals';
-                foreach ($give_when_posts as $key_post => $give_when_posts_value) {
-			$shortcodes[$give_when_posts_value->ID] = $give_when_posts_value->post_title;
+                $shortcodes['[ifthengive_transactions]']='Transaction';
+                $shortcodes['[ifthengive_account]']='Account';
+                $shortcodes['[ifthengive_goals]'] = 'My Signedup Goals';
+                foreach ($ifthengive_posts as $key_post => $ifthengive_posts_posts_value) {
+			$shortcodes[$ifthengive_posts_posts_value->ID] = $ifthengive_posts_posts_value->post_title;
 		}
 		if (empty($shortcodes)) {
 
@@ -131,76 +131,78 @@ class Givewhen_Admin {
 		} else {
 			$shortcodes_values = $shortcodes;
 		}
-		wp_localize_script($this->plugin_name, 'gw_shortcodes_button_array', apply_filters('give_when_shortcode', array(
+		wp_localize_script($this->plugin_name, 'gw_shortcodes_button_array', apply_filters('ifthengive_shortcode', array(
 		'shortcodes_button' => $shortcodes_values
 		)));
                 
-                $sanbox_enable = get_option('sandbox_enable_give_when', TRUE);                
-                wp_localize_script($this->plugin_name, 'give_when_sanbox_enable_js', $sanbox_enable);
+                $sanbox_enable = get_option('itg_sandbox_enable', TRUE);                
+                wp_localize_script($this->plugin_name, 'itg_sanbox_enable_js', $sanbox_enable);
                 
                 wp_localize_script($this->plugin_name, 'admin_ajax_url', admin_url('admin-ajax.php'));
                 
 	}
         
     private function load_dependencies() {
-        /*The class responsible for defining all actions that occur in the Dashboard for GiveWhen Goals. */
+        /*The class responsible for defining all actions that occur in the Admin side for Goals. */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types.php';
         
-        /* The class responsible for defining give_when_billing_agrremment custom post types. */
+        /* The class responsible for defining  "itg_sign_up" custom post type. */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types-sign-up.php';
         
-        /* The class responsible for defining give_when_billing_agrremment custom post types. */
+        /* The class responsible for defining  "itg_transactions" custom post type. */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types-transactions.php';
         
-        /* The class responsible for defining all actions that occur in the Dashboard */
+        /* The class responsible for defining all actions that occur in the display of admin side */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/givewhen-admin-display.php';
         
         /* The class responsible for defining function for display Html element */
 	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-html-output.php';
-        /* The class responsible for defining function for display company setting tab */
+        
+        /* The class responsible for defining function for display connetc to PayPal setting tab */
 	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-connect_paypal.php';
-        //require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-general-settings.php';
+                
         /*Custom class table */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-giver.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-list_transactions.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-list_users_transactions.php';
+        
         /* The class responsible for cancel billing agreement of givers */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-cancel-billing-agreement.php';
     }
     
     /**
-     *  give_when_shortcode_button_init function process for registering our button.
+     *  ifthengive_shortcode_button_init function process for registering our button.
      *
      */
-    public function give_when_shortcode_button_init() {
+    public function ifthengive_shortcode_button_init() {
         if (!current_user_can('edit_posts') && !current_user_can('edit_pages') && get_user_option('rich_editing') == 'true')
 		return;
 
-        //Add a callback to regiser our tinymce plugin
-        add_filter('mce_external_plugins', array($this, 'give_when_register_tinymce_plugin'));
+        /*Add a callback to regiser our tinymce plugin*/
+        add_filter('mce_external_plugins', array($this, 'ifthengive_register_tinymce_plugin'));
 
-        // Add a callback to add our button to the TinyMCE toolbar
-        add_filter('mce_buttons', array($this, 'give_when_add_tinymce_button'));
+        /* Add a callback to add our button to the TinyMCE toolbar */
+        add_filter('mce_buttons', array($this, 'ifthengive_add_tinymce_button'));
     }
     
-    public function give_when_register_tinymce_plugin($plugin_array) {
-        $plugin_array['give_when_shortcodes'] = plugin_dir_url(__FILE__) . 'js/givewhen-admin.js';
+    public function ifthengive_register_tinymce_plugin($plugin_array) {
+        $plugin_array['ifthengive_shortcodes'] = plugin_dir_url(__FILE__) . 'js/givewhen-admin.js';
 	return $plugin_array;                
     }
 
-    public function give_when_add_tinymce_button($buttons) {
-        array_push($buttons, 'give_when_shortcodes');
+    public function ifthengive_add_tinymce_button($buttons) {
+        array_push($buttons, 'ifthengive_shortcodes');
         return $buttons;
     }
       
-    public function give_when_messages(){
+    public function ifthengive_messages(){
         
         global $post, $post_ID;
         $post_ID = $post->ID;
         $post_type = get_post_type($post_ID);
         
         $custom_message = 'Goal Created Successfully';
-        $messages['give_when_goals'] = array(
+        $messages['ifthengive_goals'] = array(
 		0 => '', // Unused. Messages start at index 1.
 		1 => sprintf(__('Goal Updated Successfully',ITG_TEXT_DOMAIN)),
 		2 => __('Custom field updated.',ITG_TEXT_DOMAIN),
@@ -220,12 +222,12 @@ class Givewhen_Admin {
 
         return $messages;
     }
-    public function give_when_plugin_action_links( $links, $file ){
+    public function ifthengive_plugin_action_links( $links, $file ){
            $plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . 'givewhen.php' );
            if($file == $plugin_basename)
            {
                $new_links = array(
-                   sprintf( '<a href="%s">%s</a>', admin_url('options-general.php?page=give_when_option'), __( 'Configure', ITG_TEXT_DOMAIN ) ),
+                   sprintf( '<a href="%s">%s</a>', admin_url('options-general.php?page=ifthengive_option'), __( 'Configure', ITG_TEXT_DOMAIN ) ),
                    sprintf( '<a href="%s" target="_blank">%s</a>', 'https://www.angelleye.com/category/docs/givewhen-wordpress', __( 'Docs', ITG_TEXT_DOMAIN ) ),
                    sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Support', ITG_TEXT_DOMAIN ) ),
                    sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Write a Review', ITG_TEXT_DOMAIN ) ),

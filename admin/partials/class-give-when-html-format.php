@@ -193,7 +193,7 @@ class AngellEYE_Give_When_interface {
                     <div id="preview-goal" class="modal fade" role="dialog">
                       <div class="modal-dialog modal-lg">
                         <?php 
-                            $ccode = get_option('gw_currency_code');
+                            $ccode = get_option('itg_currency_code');
                             $paypal = new Give_When_PayPal_Helper();
                             $symbol = $paypal->get_currency_symbol($ccode);
                         ?>    
@@ -432,7 +432,7 @@ class AngellEYE_Give_When_interface {
                         <?php
                         $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
                         ?>
-                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
+                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                         <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php echo __('Givers For ', ITG_TEXT_DOMAIN); ?><?php echo $trigger_name; ?></abbr></div>
                     </div>
                     <?php
@@ -503,7 +503,7 @@ class AngellEYE_Give_When_interface {
         <div class="wrap">
             <div class="give_when_admin_container">
                 <div class="row">
-                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
+                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                     <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Transactions',ITG_TEXT_DOMAIN); ?></abbr></div>
                         
                     <div class="col-md-12">                        
@@ -518,12 +518,12 @@ class AngellEYE_Give_When_interface {
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());        
         /*
          *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
-         *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+         *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */
         $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
-        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GW_BUTTON_SOURCE,$PayPal->NVPCredentials);        
-        $ccode = get_option('gw_currency_code');        
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+        $ccode = get_option('itg_currency_code');        
         $symbol = $PayPal_config->get_currency_symbol($ccode);
         $total_txn = 0;
         $total_txn_success = 0;
@@ -535,7 +535,7 @@ class AngellEYE_Give_When_interface {
         
         $headerString = '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">
-                <div style="text-align: center;"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="GiveWhen"></div>
+                <div style="text-align: center;"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="IfThenGive"></div>
                 <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634;text-align: center;">
                     <strong style="background-color: #ffffff; font-weight: 300; font-size:20px; padding:2px 10px; border-radius: 2px; position:relative; top:-10px;  letter-spacing:.2em;  text-transform:uppercase; border:none;
                           ">'. __('Transactions Report For ', ITG_TEXT_DOMAIN).__($trigger_name,ITG_TEXT_DOMAIN).'</strong></div>
@@ -573,7 +573,7 @@ class AngellEYE_Give_When_interface {
 
             $PaymentDetails = array(
                 'amt' => number_format($value['amount'],2),
-                'currencycode' => get_option('gw_currency_code'),
+                'currencycode' => get_option('itg_currency_code'),
                 'desc' => $desc,
                 'custom' => 'user_id_' . $value['user_id'] . '|post_id_' . $_REQUEST['post'],
             );
@@ -659,7 +659,7 @@ class AngellEYE_Give_When_interface {
                 </div>';
                         $EmailString.=$alert_info_email_string;
 
-                        $headers = "From: GiveWhen <info@ifthengive.com> \r\n";
+                        $headers = "From: IfThenGive <info@ifthengive.com> \r\n";
                         $headers .= "Reply-To: noreply@ifthengive.com \r\n";
                         //$headers .= "CC: ifthengive@ifthengive.com\r\n";
                         $headers .= "MIME-Version: 1.0\r\n";
@@ -706,7 +706,7 @@ class AngellEYE_Give_When_interface {
                         <?php
                         $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
                         ?>
-                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
+                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                         <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transactions for ',ITG_TEXT_DOMAIN); ?> <?php echo __($trigger_name,ITG_TEXT_DOMAIN) ; ?></abbr></div>                        
                     </div>                    
                 </div>
@@ -752,11 +752,11 @@ class AngellEYE_Give_When_interface {
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
         /*
          *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
-         *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+         *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
          *   It also reflactes in NVPCredentials string so we are also replcing it.
          */  
         $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
-        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GW_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
         $trigger_name = get_post_meta($goal_id, 'trigger_name',true);
         $GTDFields = array(
             'transactionid' => $transaction_id
@@ -790,7 +790,7 @@ class AngellEYE_Give_When_interface {
               <div class="wrap">
                 <div class="give_when_admin_container">                                    
                     <div class="row">
-                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
+                        <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                         <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transaction Id ',ITG_TEXT_DOMAIN); ?> <?php echo '#' . $_REQUEST['txn_id']; ?></abbr></div>                            
                         <div class="col-md-10">
                                     <div class="col-md-2">
@@ -926,7 +926,7 @@ class AngellEYE_Give_When_interface {
         <div class="wrap">
             <div class="give_when_admin_container">
                 <div class="row">
-                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>    
+                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                     <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Failure Payments',ITG_TEXT_DOMAIN); ?></abbr></div>                    
                     <div class="col-md-12">                        
                                 <div class="table-responsive">
@@ -938,16 +938,16 @@ class AngellEYE_Give_When_interface {
                                     $PayPal_config = new Give_When_PayPal_Helper();                                    
                                     $PayPal_config->set_api_cedentials();                                     
                                     $PayPal_config->set_api_subject($goal_id);
-                                    $ccode = get_option('gw_currency_code');        
+                                    $ccode = get_option('itg_currency_code');        
                                     $symbol = $PayPal_config->get_currency_symbol($ccode);
                                     $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
                                     /*
                                     *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
-                                    *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+                                    *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
                                     *   It also reflactes in NVPCredentials string so we are also replcing it.
                                     */
                                     $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
-                                    $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GW_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+                                    $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
                                     $total_txn = 0;
                                     $total_txn_success = 0;
                                     $total_txn_failed = 0;
@@ -957,7 +957,7 @@ class AngellEYE_Give_When_interface {
 
                                     $headerString = '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">
-                <div style="text-align: center;"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="GiveWhen"></div>
+                <div style="text-align: center;"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="IfThenGive"></div>
                 <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634;text-align: center;">
                     <strong style="background-color: #ffffff; font-weight: 300; font-size:20px; padding:2px 10px; border-radius: 2px; position:relative; top:-10px;  letter-spacing:.2em;  text-transform:uppercase; border:none;
                           ">'. __('Retried Transactions Report For ', ITG_TEXT_DOMAIN).__($trigger_name,ITG_TEXT_DOMAIN).'</strong></div>
@@ -996,7 +996,7 @@ class AngellEYE_Give_When_interface {
 
                                         $PaymentDetails = array(
                                             'amt' => $value['amount'],
-                                            'currencycode' => get_option('gw_currency_code'),
+                                            'currencycode' => get_option('itg_currency_code'),
                                             'desc' => $desc,
                                             'custom' => 'user_id_' . $value['user_id'] . '|post_id_' . $_REQUEST['post'],
                                         );
@@ -1077,7 +1077,7 @@ class AngellEYE_Give_When_interface {
                         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
                         $to = $admin_email = get_option('admin_email');
-                        $subject = __('Retried GiveWhen Transaction Report For ' . $trigger_name,ITG_TEXT_DOMAIN);
+                        $subject = __('Retried Transaction Report For ' . $trigger_name,ITG_TEXT_DOMAIN);
                         $message = $headerString.$EmailString;
                         wp_mail($to, $subject, $message, $headers);
                         ?>
@@ -1098,17 +1098,17 @@ class AngellEYE_Give_When_interface {
         
         if($_GET['env']=='sandbox'){
             delete_option('give_when_permission_sandbox_connected_person_merchant_id');
-            delete_option('give_when_sandbox_api_credentials_api_user_name');
-            delete_option('give_when_sandbox_api_credentials_api_password');
-            delete_option('give_when_sandbox_api_credentials_signature');
+            delete_option('itg_sb_api_credentials_username');
+            delete_option('itg_sb_api_credentials_password');
+            delete_option('itg_sb_api_credentials_signature');
             update_option('give_when_sandbox_connected_to_paypal', 'no');
             delete_option('give_when_sandbox_api_credentials_addded_manually');
         }
         if($_GET['env']=='live'){
             delete_option('give_when_permission_live_connected_person_merchant_id');
-            delete_option('give_when_live_api_credentials_api_user_name');
-            delete_option('give_when_live_api_credentials_api_password');
-            delete_option('give_when_live_api_credentials_signature');
+            delete_option('itg_lv_api_credentials_username');
+            delete_option('itg_lv_api_credentials_password');
+            delete_option('itg_lv_api_credentials_signature');
             update_option('give_when_live_connected_to_paypal', 'no');
             delete_option('give_when_live_api_credentials_addded_manually');
         }        
@@ -1140,7 +1140,7 @@ class AngellEYE_Give_When_interface {
         <div class="wrap">
             <div class="give_when_admin_container">
                 <div class="row">
-                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="GiveWhen"></div>
+                    <div class="text-center"><img src="<?php echo GW_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>
                     <?php if(isset($_REQUEST['user_id'])){ 
                           $user_info = get_userdata($_REQUEST['user_id']);  
                     ?>

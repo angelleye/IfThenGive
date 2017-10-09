@@ -1,6 +1,6 @@
 <?php
 /**
- * GiveWhen My Account template.
+ * IfThenGive My Account template.
  *
  * This template can be overriden by copying this file to your-theme/GiveWhen/givewhen-account-info.php
  *
@@ -19,7 +19,7 @@ if (!is_admin()) {
         $paypal_email = get_user_meta($userID,'give_when_gec_email',true);
         $paypal_payer_id = get_user_meta($userID,'give_when_gec_payer_id',true);        
 ?>
-<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('GiveWhen Account Info', ITG_TEXT_DOMAIN) ?></abbr></div>
+<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Account Info', ITG_TEXT_DOMAIN) ?></abbr></div>
 <div class="gwcontainer">
     <div id="canceel_baid_overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
         <div class="gw_loader"></div>

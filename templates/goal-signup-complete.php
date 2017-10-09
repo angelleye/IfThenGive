@@ -1,6 +1,6 @@
 <?php
 /**
- * GiveWhen Thankyou template.
+ * IfThenGive Thankyou template.
  *
  * This template can be overriden by copying this file to your-theme/GiveWhen/goal-signup-complete.php
  *
@@ -38,7 +38,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $trigger_thing = $post_meta_array['trigger_thing'][0];
         $image_url= $post_meta_array['image_url'][0];
         $trigger_desc = $post_meta_array['trigger_desc'][0];
-        $ccode = get_option('gw_currency_code');
+        $ccode = get_option('itg_currency_code');
         $paypal = new Give_When_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
         echo "<h2>".__('Hi ',ITG_TEXT_DOMAIN). $user->display_name . __(', Thank You for signed up in ',ITG_TEXT_DOMAIN) . __($trigger_name,ITG_TEXT_DOMAIN). "</h2>";
@@ -73,7 +73,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
                                                                 <tbody>
                                                                     <tr>
                                                                         <td style="padding: 10px; display: block">
-                                                                          <h1 style="color: rgb(255, 255, 255); font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: center; text-shadow: 0 1px 0 rgb(119, 151, 180)"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="GiveWhen"></h1> </td>
+                                                                          <h1 style="color: rgb(255, 255, 255); font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: center; text-shadow: 0 1px 0 rgb(119, 151, 180)"><img src="'.GW_PLUGIN_URL.'/admin/images/givewhen.png" alt="IfThenGive"></h1> </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -93,7 +93,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
     </div>';
         
         
-        $headers = "From: GiveWhen <info@ifthengive.com> \r\n";
+        $headers = "From: IfThenGive <info@ifthengive.com> \r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
@@ -105,8 +105,8 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
 }
 else{
     ?>
-            <h3><?php echo __("You are accessing this page without signed up for GiveWhen Goal",ITG_TEXT_DOMAIN); ?></h3>
-            <span><?php echo __("Try again Sigining in for GiveWhen Goals.",ITG_TEXT_DOMAIN); ?></span>
+            <h3><?php echo __("You are accessing this page without signed up for Goal",ITG_TEXT_DOMAIN); ?></h3>
+            <span><?php echo __("Try again Sigining in for Goals.",ITG_TEXT_DOMAIN); ?></span>
 <?php
     }
 ?>

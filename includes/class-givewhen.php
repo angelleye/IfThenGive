@@ -261,7 +261,7 @@ class Givewhen {
             @session_start();
             global $wp;
             if (isset($_GET['action']) && $_GET['action'] == 'permission_callback') {
-                $sanbox_enable = get_option('sandbox_enable_give_when');
+                $sanbox_enable = get_option('itg_sandbox_enable');
                 if($sanbox_enable === 'yes'){
                     $sandbox = 'true';
                 }else{
@@ -275,16 +275,16 @@ class Givewhen {
                                         
                     if($sandbox=='true'){
                         update_option('give_when_permission_sandbox_connected_person_merchant_id',$AccountDetailArray['DATA']['merchant_id']);
-                        update_option('give_when_sandbox_api_credentials_api_user_name',$AccountDetailArray['DATA']['api_credentials']['signature']['api_user_name']);
-                        update_option('give_when_sandbox_api_credentials_api_password',$AccountDetailArray['DATA']['api_credentials']['signature']['api_password']);
-                        update_option('give_when_sandbox_api_credentials_signature',$AccountDetailArray['DATA']['api_credentials']['signature']['signature']);
+                        update_option('itg_sb_api_credentials_username',$AccountDetailArray['DATA']['api_credentials']['signature']['api_user_name']);
+                        update_option('itg_sb_api_credentials_password',$AccountDetailArray['DATA']['api_credentials']['signature']['api_password']);
+                        update_option('itg_sb_api_credentials_signature',$AccountDetailArray['DATA']['api_credentials']['signature']['signature']);
                         update_option('give_when_sandbox_connected_to_paypal', 'Yes');
                     }
                     else{
                         update_option('give_when_permission_live_connected_person_merchant_id',$AccountDetailArray['DATA']['merchant_id']);
-                        update_option('give_when_live_api_credentials_api_user_name',$AccountDetailArray['DATA']['api_credentials']['signature']['api_user_name']);
-                        update_option('give_when_live_api_credentials_api_password',$AccountDetailArray['DATA']['api_credentials']['signature']['api_password']);
-                        update_option('give_when_live_api_credentials_signature',$AccountDetailArray['DATA']['api_credentials']['signature']['signature']);
+                        update_option('itg_lv_api_credentials_username',$AccountDetailArray['DATA']['api_credentials']['signature']['api_user_name']);
+                        update_option('itg_lv_api_credentials_password',$AccountDetailArray['DATA']['api_credentials']['signature']['api_password']);
+                        update_option('itg_lv_api_credentials_signature',$AccountDetailArray['DATA']['api_credentials']['signature']['signature']);
                         update_option('give_when_live_connected_to_paypal', 'Yes');
                     }                    
                     update_option( 'give_when_permission_connect_to_paypal_success_notice', 'You are successfully connected with PayPal.');
@@ -305,11 +305,11 @@ class Givewhen {
                 $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
                 /*
                 *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
-                *   We are overwirting that variable with "AngellEYE_GiveWhen" value.
+                *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
                 *   It also reflactes in NVPCredentials string so we are also replcing it.
                 */
                 $PayPal->APIButtonSource = GW_BUTTON_SOURCE;
-                $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',GW_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+                $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
                
                 $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
                 if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){

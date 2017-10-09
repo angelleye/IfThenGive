@@ -4,7 +4,7 @@
  * This class defines all code necessary logs
  * @class       AngellEYE_Give_When_Log
  * @version	1.0.0
- * @package	GiveWhen/admin/partials
+ * @package	IfThenGive/admin/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */

@@ -19,8 +19,8 @@ class AngellEYE_Give_When_Post_types {
         add_action('init', array(__CLASS__, 'give_when_register_post_types'), 5);
         add_action('add_meta_boxes', array(__CLASS__, 'give_when_add_meta_boxes'), 10);
         add_action('save_post', array(__CLASS__, 'give_when_save_data'));
-        add_filter('manage_edit-give_when_goals_columns', array(__CLASS__, 'give_when_edit_give_when_columns'));
-        add_action('manage_give_when_goals_posts_custom_column', array(__CLASS__, 'give_when_buttons_columns'), 10, 2);
+        add_filter('manage_edit-ifthengive_goals_columns', array(__CLASS__, 'give_when_edit_give_when_columns'));
+        add_action('manage_ifthengive_goals_posts_custom_column', array(__CLASS__, 'give_when_buttons_columns'), 10, 2);
         /* custom **/
         add_filter('post_row_actions',array(__CLASS__, 'my_action_row'), 10, 2);        
         add_action( 'admin_head', array( __CLASS__, 'admin_header' ) );        
@@ -64,17 +64,17 @@ class AngellEYE_Give_When_Post_types {
      */
     public static function give_when_register_post_types() {
         global $wpdb;        
-        if (post_type_exists('give_when_goals')) {
+        if (post_type_exists('ifthengive_goals')) {
             return;
         }
         
         //do_action('give_when_register_post_types');
 
-        register_post_type('give_when_goals', apply_filters('give_when_register_post_types', array(
+        register_post_type('ifthengive_goals', apply_filters('give_when_register_post_types', array(
                     'labels' => array(
-                        'name' => __('GiveWhen Goals', ITG_TEXT_DOMAIN),
-                        'singular_name' => __('GiveWhen Goals', ITG_TEXT_DOMAIN),
-                        'menu_name' => _x('GiveWhen', 'Admin menu name', ITG_TEXT_DOMAIN),
+                        'name' => __('Goals', ITG_TEXT_DOMAIN),
+                        'singular_name' => __('Goals', ITG_TEXT_DOMAIN),
+                        'menu_name' => _x('IfThenGive', 'Admin menu name', ITG_TEXT_DOMAIN),
                         'add_new' => __('Add Goal', ITG_TEXT_DOMAIN),
                         'add_new_item' => __('Add New Goal', ITG_TEXT_DOMAIN),
                         'edit' => __('Edit', ITG_TEXT_DOMAIN),
@@ -95,7 +95,7 @@ class AngellEYE_Give_When_Post_types {
                     'publicly_queryable' => false,
                     'exclude_from_search' => true,
                     'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
-                    'rewrite' => array('slug' => 'give_when_goals'),
+                    'rewrite' => array('slug' => 'ifthengive_goals'),
                     'query_var' => true,
                     'menu_icon' => GW_PLUGIN_URL . '/admin/images/dashicon-gw.png',
                     'supports' => array('title'),
@@ -116,7 +116,7 @@ class AngellEYE_Give_When_Post_types {
 
         $columns = array(
             'cb' => '<input type="checkbox" />',
-            'title' => __('GiveWhen Goal Name',ITG_TEXT_DOMAIN),
+            'title' => __('Goal Name',ITG_TEXT_DOMAIN),
             'shortcodes' => __('Shortcodes',ITG_TEXT_DOMAIN),
             'createdby' => __('Created By',ITG_TEXT_DOMAIN),
             'date' => __('Date',ITG_TEXT_DOMAIN)
@@ -162,7 +162,7 @@ class AngellEYE_Give_When_Post_types {
      * @access public
      */
     public static function give_when_add_meta_boxes() {
-        add_meta_box('give-when-meta-id', __('GiveWhen Goal',ITG_TEXT_DOMAIN), array(__CLASS__, 'give_when_metabox'), 'give_when_goals', 'normal', 'high');
+        add_meta_box('give-when-meta-id', __('Goal',ITG_TEXT_DOMAIN), array(__CLASS__, 'give_when_metabox'), 'ifthengive_goals', 'normal', 'high');
     }
     
      /**
@@ -194,7 +194,7 @@ class AngellEYE_Give_When_Post_types {
     public static function give_when_save_data() {
 
         global $post, $post_ID, $wpdb;        
-        if (((isset($_POST['publish'])) || isset($_POST['save'])) && ($post->post_type == 'give_when_goals')) {                          
+        if (((isset($_POST['publish'])) || isset($_POST['save'])) && ($post->post_type == 'ifthengive_goals')) {                          
             update_post_meta($post_ID, 'trigger_name',$_REQUEST['post_title']);
             update_post_meta($post_ID, 'trigger_thing',$_POST['trigger_thing']);
             update_post_meta($post_ID, 'trigger_desc',$_POST['trigger_desc']);
@@ -216,11 +216,11 @@ class AngellEYE_Give_When_Post_types {
                 update_post_meta($post_ID, 'option_amount',$_POST['option_amount']);
             }
         }
-        if(isset($_POST['publish']) && $_POST['post_type']=='give_when_goals'){
+        if(isset($_POST['publish']) && $_POST['post_type']=='ifthengive_goals'){
             $url = admin_url()."post.php?post=".$post_ID."&action=edit&view=true&add_post_success=true";
             wp_redirect( $url );
             exit;
-        }elseif(isset($_POST['save'])  && $_POST['post_type']=='give_when_goals'){
+        }elseif(isset($_POST['save'])  && $_POST['post_type']=='ifthengive_goals'){
             $url = admin_url()."post.php?post=".$post_ID."&action=edit&view=true&update_post_success=true";
             wp_redirect( $url );
             exit;
@@ -229,10 +229,10 @@ class AngellEYE_Give_When_Post_types {
 
     public static function my_action_row($actions, $post){
         //check for your post type
-        if ($post->post_type == "give_when_goals") {           
+        if ($post->post_type == "ifthengive_goals") {           
             $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">'.__('View',ITG_TEXT_DOMAIN).'</a>';
-            $actions['givers'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $post->ID . '&view=givers">'.__('Givers',ITG_TEXT_DOMAIN).'</a>';
-            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=give_when_goals&page=give_when_givers&post=' . $post->ID . '&view=ListTransactions">'.__('Transactions',ITG_TEXT_DOMAIN).'</a>';
+            $actions['givers'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=give_when_givers&post=' . $post->ID . '&view=givers">'.__('Givers',ITG_TEXT_DOMAIN).'</a>';
+            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=give_when_givers&post=' . $post->ID . '&view=ListTransactions">'.__('Transactions',ITG_TEXT_DOMAIN).'</a>';
         }
         return $actions;
     }    
@@ -249,8 +249,8 @@ class AngellEYE_Give_When_Post_types {
         
         add_submenu_page(
             null,
-            __('GiveWhen disconnect Page', ITG_TEXT_DOMAIN),
-            __('GiveWhen disconnect Page', ITG_TEXT_DOMAIN),
+            __('IfThenGive disconnect Page', ITG_TEXT_DOMAIN),
+            __('IfThenGive disconnect Page', ITG_TEXT_DOMAIN),
             apply_filters('itg_submenu_capability','manage_options'),
             __('give_when_disconnect_paypal', ITG_TEXT_DOMAIN),
             array(__CLASS__,'give_when_disconnect_paypal_page_callback')
@@ -265,7 +265,7 @@ class AngellEYE_Give_When_Post_types {
             {
                     $('#adminmenu').find('li:first').removeClass('wp-has-current-submenu');
                     $('#adminmenu').find('li:first').removeClass('current');
-                    $('#menu-posts-give_when_goals').addClass('wp-has-current-submenu current');                    
+                    $('#menu-posts-ifthengive_goals').addClass('wp-has-current-submenu current');                    
                     
             });     
         </script>

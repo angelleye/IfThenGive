@@ -26,17 +26,15 @@ class AngellEYE_Give_When_Post_type_Transactions {
      */
     public static function give_when_register_post_type_transactions() {
         global $wpdb;
-        if (post_type_exists('gw_transactions')) {
+        if (post_type_exists('itg_transactions')) {
             return;
-        }
+        }        
 
-        do_action('give_when_register_post_type_transactions');
-
-        register_post_type('gw_transactions', apply_filters('give_when_register_post_type_transactions', array(
+        register_post_type('itg_transactions', apply_filters('give_when_register_post_type_transactions', array(
                     'labels' => array(
-                        'name' => __('GiveWhen Transactions', ITG_TEXT_DOMAIN),
-                        'singular_name' => __('GiveWhen Transactions', ITG_TEXT_DOMAIN),
-                        'menu_name' => _x('GiveWhen Transactions', 'Admin menu name', ITG_TEXT_DOMAIN),
+                        'name' => __('Transactions', ITG_TEXT_DOMAIN),
+                        'singular_name' => __('Transactions', ITG_TEXT_DOMAIN),
+                        'menu_name' => _x('Transactions', 'Admin menu name', ITG_TEXT_DOMAIN),
                         'add_new' => __('Add Transaction', ITG_TEXT_DOMAIN),
                         'add_new_item' => __('Add New Transactions', ITG_TEXT_DOMAIN),
                         'edit' => __('Edit', ITG_TEXT_DOMAIN),
@@ -57,7 +55,7 @@ class AngellEYE_Give_When_Post_type_Transactions {
                     'publicly_queryable' => false,
                     'exclude_from_search' => true,
                     'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
-                    'rewrite' => array('slug' => 'gw_transactions'),
+                    'rewrite' => array('slug' => 'itg_transactions'),
                     'query_var' => true,
                     'menu_icon' => 'dashicons-editor-table',
                     'supports' => array('title'),
