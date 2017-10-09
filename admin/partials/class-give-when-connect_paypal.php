@@ -411,7 +411,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                                             $checkbox_checked = "";
                                         }
                                     ?>
-                                    <label><input type="checkbox" name="log_enable_give_when" id="log_enable_give_when" <?php echo $checkbox_checked; ?> ><?php _e('Save Logs.',ITG_TEXT_DOMAIN); ?></label>
+                                    <label><input type="checkbox" name="itg_log_enable" id="itg_log_enable" <?php echo $checkbox_checked; ?> ><?php _e('Save Logs.',ITG_TEXT_DOMAIN); ?></label>
                                 </div>  
                                 <p class="submit">
                                     <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
@@ -497,8 +497,8 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                     update_option('itg_sb_api_credentials_username',$_POST["itg_sb_api_credentials_username"]);
                     update_option('itg_sb_api_credentials_password',$_POST["itg_sb_api_credentials_password"]);
                     update_option('itg_sb_api_credentials_signature',$_POST["itg_sb_api_credentials_signature"]);
-                    update_option('give_when_sandbox_connected_to_paypal', 'Yes');
-                    update_option('give_when_sandbox_api_credentials_addded_manually','Yes');
+                    update_option('itg_sb_connected_to_paypal', 'Yes');
+                    update_option('itg_sb_api_credentials_addded_manually','Yes');
                 }
             }
             else{
@@ -506,8 +506,8 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
                     update_option('itg_lv_api_credentials_username',$_POST['itg_lv_api_credentials_username']);
                     update_option('itg_lv_api_credentials_password',$_POST['itg_lv_api_credentials_password']);
                     update_option('itg_lv_api_credentials_signature',$_POST['itg_lv_api_credentials_signature']);
-                    update_option('give_when_live_connected_to_paypal', 'Yes');
-                    update_option('give_when_live_api_credentials_addded_manually','Yes');
+                    update_option('itg_live_connected_to_paypal', 'Yes');
+                    update_option('itg_lv_api_credentials_addded_manually','Yes');
                 }
             }
             if(isset($_POST['itg_currency_code'])){
@@ -516,11 +516,11 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
             else{
                 update_option('itg_currency_code', 'USD');
             }
-            if(isset($_POST['log_enable_give_when'])){
-                update_option('log_enable_give_when', 'yes');
+            if(isset($_POST['itg_log_enable'])){
+                update_option('itg_log_enable', 'yes');
             }
             else{
-                update_option('log_enable_give_when', 'no');
+                update_option('itg_log_enable', 'no');
             }
             ?>
             <br><div id="setting-error-settings_updated" class="alert alert-success"> 

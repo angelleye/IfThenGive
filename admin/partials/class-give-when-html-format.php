@@ -37,15 +37,15 @@ class AngellEYE_Give_When_interface {
      * @access public
      */
     public static function give_when_interface_html() {        
-        $connect_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
-        $connect_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');
+        $connect_to_sandbox_paypal_flag = get_option('itg_sb_connected_to_paypal');
+        $connect_to_live_paypal_flag = get_option('itg_live_connected_to_paypal');
         if ($connect_to_sandbox_paypal_flag != 'Yes' && $connect_to_live_paypal_flag != 'Yes') {
             ?>
             <div style="padding-top: 25px"></div>
             <div class="container" style="max-width: 100%">
                 <div class="bs-callout bs-callout-warning">
                     <h4><?php echo __('You are not Connected with PayPal.', ITG_TEXT_DOMAIN); ?></h4>
-                    <a href="<?php echo site_url(); ?>/wp-admin/options-general.php?page=give_when_option"><?php echo __('Click Here', ITG_TEXT_DOMAIN); ?></a><?php echo __(' for Setting page to Connect With PayPal.', ITG_TEXT_DOMAIN); ?>
+                    <a href="<?php echo site_url(); ?>/wp-admin/options-general.php?page=ifthengive_option"><?php echo __('Click Here', ITG_TEXT_DOMAIN); ?></a><?php echo __(' for Setting page to Connect With PayPal.', ITG_TEXT_DOMAIN); ?>
                 </div>               
             </div>
             <?php
@@ -237,7 +237,7 @@ class AngellEYE_Give_When_interface {
                                                         <h4 class="lead"> <?php _e('I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="give_when_fixed_price_span_select"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?><span class="trigger_name"></span></h4>
                                                         <div class="gw_form-group">
                                                             <label class="gw_upper">Select</label>
-                                                            <select class="gw_form-control" name="give_when_option_amount" id="give_when_option_amount"></select>
+                                                            <select class="gw_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount"></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -340,14 +340,14 @@ class AngellEYE_Give_When_interface {
                         
                         var i = 0;
                         var option_amounts = jQuery('input[name="option_amount[]"]').val();
-                        jQuery("#give_when_option_amount").html('');
+                        jQuery("#ifthengive_option_amount").html('');
                         jQuery('input[name="option_name[]"]').each(function() {
                             var option_name = jQuery(this).val();
                             var option_amount = parseFloat(jQuery('[id=option_amount]:eq('+i+')').val()).toFixed(2);
                             if(isNaN(option_amount)){
                                 option_amount = '0.00';
                             }
-                            jQuery("#give_when_option_amount").append(jQuery('<option>', { value: option_amount, text: option_name+'    '+option_amount }));
+                            jQuery("#ifthengive_option_amount").append(jQuery('<option>', { value: option_amount, text: option_name+'    '+option_amount }));
                             i++;
                         });
                    }
@@ -359,7 +359,7 @@ class AngellEYE_Give_When_interface {
                             jQuery('#give_when_manual_price_span').html('').html(amt);
                         }                
                     });
-                    jQuery(document).on('change','#give_when_option_amount', function (){
+                    jQuery(document).on('change','#ifthengive_option_amount', function (){
                         jQuery('#give_when_fixed_price_span_select').html('').html(jQuery(this).val());
                     });
                 });
@@ -587,7 +587,7 @@ class AngellEYE_Give_When_interface {
             $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultDRT['RAWREQUEST']);
             $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
             //save log
-            $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+            $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
             if ('yes' == $debug) {
                 $log_write = new AngellEYE_Give_When_Logger();
                 $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
@@ -615,7 +615,7 @@ class AngellEYE_Give_When_interface {
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],ITG_TEXT_DOMAIN)."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=give_when_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
                 </tr>";
                 $EmailString.= $trEmailString;
             }
@@ -1010,7 +1010,7 @@ class AngellEYE_Give_When_interface {
                                         $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultDRT['RAWREQUEST']);
                                         $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
                                         //save log
-                                        $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                                        $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                                         if ('yes' == $debug) {
                                             $log_write = new AngellEYE_Give_When_Logger();
                                             $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
@@ -1037,7 +1037,7 @@ class AngellEYE_Give_When_interface {
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],ITG_TEXT_DOMAIN)."</td>
-                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=give_when_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
+                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
                                             </tr>";
                                             $EmailString.= $trEmailString;
                                         }
@@ -1097,24 +1097,24 @@ class AngellEYE_Give_When_interface {
     public static function give_when_disconnect_interface_html() {
         
         if($_GET['env']=='sandbox'){
-            delete_option('give_when_permission_sandbox_connected_person_merchant_id');
+            delete_option('itg_permission_sb_connected_person_merchant_id');
             delete_option('itg_sb_api_credentials_username');
             delete_option('itg_sb_api_credentials_password');
             delete_option('itg_sb_api_credentials_signature');
-            update_option('give_when_sandbox_connected_to_paypal', 'no');
-            delete_option('give_when_sandbox_api_credentials_addded_manually');
+            update_option('itg_sb_connected_to_paypal', 'no');
+            delete_option('itg_sb_api_credentials_addded_manually');
         }
         if($_GET['env']=='live'){
-            delete_option('give_when_permission_live_connected_person_merchant_id');
+            delete_option('itg_permission_lv_connected_person_merchant_id');
             delete_option('itg_lv_api_credentials_username');
             delete_option('itg_lv_api_credentials_password');
             delete_option('itg_lv_api_credentials_signature');
-            update_option('give_when_live_connected_to_paypal', 'no');
-            delete_option('give_when_live_api_credentials_addded_manually');
+            update_option('itg_live_connected_to_paypal', 'no');
+            delete_option('itg_lv_api_credentials_addded_manually');
         }        
         
         
-        $url = admin_url('admin.php?page=give_when_option&tab=connect_to_paypal');
+        $url = admin_url('admin.php?page=ifthengive_option&tab=connect_to_paypal');
         echo "<script>";
         echo 'window.location.href = "' . $url . '";';
         echo "</script>";
@@ -1166,8 +1166,8 @@ class AngellEYE_Give_When_interface {
     public static function give_when_hide_publish_button_until() {
         if (isset($_REQUEST['post_type'])) {
             if ($_REQUEST['post_type'] == 'give_when_goals') {
-                $connect_to_sandbox_paypal_flag = get_option('give_when_sandbox_connected_to_paypal');
-                $connect_to_live_paypal_flag = get_option('give_when_live_connected_to_paypal');
+                $connect_to_sandbox_paypal_flag = get_option('itg_sb_connected_to_paypal');
+                $connect_to_live_paypal_flag = get_option('itg_live_connected_to_paypal');
                 if ($connect_to_sandbox_paypal_flag != 'Yes' && $connect_to_live_paypal_flag != 'Yes') {
                     ?>
                     <style>

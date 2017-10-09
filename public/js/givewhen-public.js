@@ -70,7 +70,7 @@
                     }
                 });
             });
-            $(document).on('change','#give_when_option_amount', function (){                
+            $(document).on('change','#ifthengive_option_amount', function (){                
                 jQuery('#give_when_fixed_price_span_select').html('').html($(this).val());
             });
             

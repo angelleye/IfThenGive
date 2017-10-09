@@ -116,7 +116,7 @@ class AngellEYE_Give_When_Public_Display {
                                         $html .= '<h4>'.esc_html('I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="give_when_fixed_price_span_select">'.number_format($option_amount[0],2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).'</h4>';
                                     $html .= '</div>';
                                     $html .= '<div class="gw_form-group">';
-                                        $html .= '<select class="gw_form-control" name="give_when_option_amount" id="give_when_option_amount">';
+                                        $html .= '<select class="gw_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount">';
                                 
                                         foreach ($option_name as $name) {
                                              $html .=  '<option value="'.number_format($option_amount[$i],2).'">'.$name." ".number_format($option_amount[$i],2).'</option>';                                        

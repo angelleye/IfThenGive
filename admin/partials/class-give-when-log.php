@@ -39,7 +39,7 @@ class AngellEYE_Give_When_Log {
                     <div class="clearfix"></div>
                     <div class="row">
                       <div class="col-md-12">                        
-                        <form action="<?php echo admin_url('admin.php?page=give_when_option&tab=logs'); ?>" method="post">
+                        <form action="<?php echo admin_url('admin.php?page=ifthengive_option&tab=logs'); ?>" method="post">
                             <select name="log_file">
                                 <?php
                                 foreach ($logs as $log_key => $log_file) :

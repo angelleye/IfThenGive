@@ -274,25 +274,25 @@ class Givewhen {
                     $AccountDetailArray = json_decode($AccountDetail,true);
                                         
                     if($sandbox=='true'){
-                        update_option('give_when_permission_sandbox_connected_person_merchant_id',$AccountDetailArray['DATA']['merchant_id']);
+                        update_option('itg_permission_sb_connected_person_merchant_id',$AccountDetailArray['DATA']['merchant_id']);
                         update_option('itg_sb_api_credentials_username',$AccountDetailArray['DATA']['api_credentials']['signature']['api_user_name']);
                         update_option('itg_sb_api_credentials_password',$AccountDetailArray['DATA']['api_credentials']['signature']['api_password']);
                         update_option('itg_sb_api_credentials_signature',$AccountDetailArray['DATA']['api_credentials']['signature']['signature']);
-                        update_option('give_when_sandbox_connected_to_paypal', 'Yes');
+                        update_option('itg_sb_connected_to_paypal', 'Yes');
                     }
                     else{
-                        update_option('give_when_permission_live_connected_person_merchant_id',$AccountDetailArray['DATA']['merchant_id']);
+                        update_option('itg_permission_lv_connected_person_merchant_id',$AccountDetailArray['DATA']['merchant_id']);
                         update_option('itg_lv_api_credentials_username',$AccountDetailArray['DATA']['api_credentials']['signature']['api_user_name']);
                         update_option('itg_lv_api_credentials_password',$AccountDetailArray['DATA']['api_credentials']['signature']['api_password']);
                         update_option('itg_lv_api_credentials_signature',$AccountDetailArray['DATA']['api_credentials']['signature']['signature']);
-                        update_option('give_when_live_connected_to_paypal', 'Yes');
+                        update_option('itg_live_connected_to_paypal', 'Yes');
                     }                    
-                    update_option( 'give_when_permission_connect_to_paypal_success_notice', 'You are successfully connected with PayPal.');
+                    update_option( 'itg_permission_connect_to_paypal_success_notice', 'You are successfully connected with PayPal.');
                 }
                 else{
-                    update_option( 'give_when_permission_connect_to_paypal_failed_notice', 'Callback from PayPal : Something went wrong. Please try again.');                       
+                    update_option( 'itg_permission_connect_to_paypal_failed_notice', 'Callback from PayPal : Something went wrong. Please try again.');                       
                 }
-                wp_redirect(admin_url('admin.php?page=give_when_option&tab=connect_to_paypal'));
+                wp_redirect(admin_url('admin.php?page=ifthengive_option&tab=connect_to_paypal'));
                 die();
             }
             if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {
@@ -330,7 +330,7 @@ class Givewhen {
                     $_SESSION['GW_Error_Type'] = __('PayPal Error',ITG_TEXT_DOMAIN);
                     $_SESSION['GW_Error_Array'] = $PayPalResultGEC['ERRORS'];                    
                     /* save log */
-                    $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                    $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                     if ('yes' == $debug) {
                         $logArray = '';
                         $logArray = $PayPalResultGEC;
@@ -400,7 +400,7 @@ class Givewhen {
                         update_post_meta($new_post_id,'give_when_signup_wp_user_id',$goal_user_id);
                         update_post_meta($new_post_id,'give_when_signup_wp_goal_id',$goal_post_id);    
                         /*save log*/
-                        $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                        $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                         if ('yes' == $debug) {
                                 $logArray = '';
                                 $logArray = $PayPalResultCBA;
@@ -421,7 +421,7 @@ class Givewhen {
                         $_SESSION['GW_Error_Type'] = 'PayPalError';
                         $_SESSION['GW_Error_Array'] = $PayPalResultCBA;
                         /*save log*/
-                        $debug = (get_option('log_enable_give_when') == 'yes') ? 'yes' : 'no';
+                        $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                         if ('yes' == $debug) {
                                 $logArray = '';
                                 $logArray = $PayPalResultCBA;
