@@ -160,11 +160,11 @@ class AngellEYE_IfThenGive_Post_types {
      * @access public
      */
     public static function ifthengive_add_meta_boxes() {
-        add_meta_box('give-when-meta-id', __('Goal',ITG_TEXT_DOMAIN), array(__CLASS__, 'give_when_metabox'), 'ifthengive_goals', 'normal', 'high');
+        add_meta_box('ifthengive-meta-id', __('Goal',ITG_TEXT_DOMAIN), array(__CLASS__, 'ifthengive_metabox'), 'ifthengive_goals', 'normal', 'high');
     }
     
      /**
-     * give_when_metabox function is use for write data
+     * ifthengive_metabox function is use for write data
      * in metabox.
      * @global type $post returns the post variable values.
      * @global type $post_ID returns the post id of a post.
@@ -172,7 +172,7 @@ class AngellEYE_IfThenGive_Post_types {
      * @access public
      */
     
-    public static function give_when_metabox() {      
+    public static function ifthengive_metabox() {
         $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';        
         if ($action_request==='true') {
             do_action('ifthengive_shortcode_interface');
