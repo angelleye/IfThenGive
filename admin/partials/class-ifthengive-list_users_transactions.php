@@ -312,10 +312,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
         <?php
     }
 
-    public function process_bulk_action() {
-        //echo "<pre>";
-       // print_r($_REQUEST);
-       // exit;
+    public function process_bulk_action() {        
         //Detect when a bulk action is being triggered...
         if ('delete' === $this->current_action()) {
 

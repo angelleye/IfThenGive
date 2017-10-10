@@ -7,13 +7,13 @@
  *
  * @link       http://www.angelleye.com/
  * @since      1.0.0
- * @class      AngellEYE_Give_When_Cancel_Billing_Agreement
+ * @class      AngellEYE_IfThenGive_Cancel_Billing_Agreement
  * @package    Givewhen
  * @subpackage Givewhen/admin/partials
  * @category    Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_Cancel_Billing_Agreement {
+class AngellEYE_IfThenGive_Cancel_Billing_Agreement {
     /**
      * Hook in methods
      * @since    0.1.0
@@ -67,4 +67,4 @@ class AngellEYE_Give_When_Cancel_Billing_Agreement {
 
 }
 
-AngellEYE_Give_When_Cancel_Billing_Agreement::init();
+AngellEYE_IfThenGive_Cancel_Billing_Agreement::init();
