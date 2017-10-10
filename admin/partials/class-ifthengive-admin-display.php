@@ -5,15 +5,15 @@
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       http://www.angelleye.com/
- * @since      1.0.0
- * @class      AngellEYE_Give_When_Admin_Display
- * @package    Givewhen
- * @subpackage Givewhen/admin/partials
+ * @link        http://www.angelleye.com/
+ * @since       1.0.0
+ * @class       AngellEYE_IfThenGive_Admin_Display
+ * @package     IfThenGive
+ * @subpackage  IfThenGive/admin/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_Admin_Display {
+class AngellEYE_IfThenGive_Admin_Display {
 
     /**
      * Hook in methods
@@ -39,7 +39,7 @@ class AngellEYE_Give_When_Admin_Display {
      * @access   public
      */
     public static function ifthengive_option() {
-        $setting_tabs = apply_filters('give_when_setting_tab', array('connect_to_paypal' => 'Connect To PayPal', 'logs' => 'Logs'));
+        $setting_tabs = apply_filters('ifthengive_setting_tab', array('connect_to_paypal' => 'Connect To PayPal', 'logs' => 'Logs'));
         $current_tab = (isset($_GET['tab'])) ? $_GET['tab'] : 'connect_to_paypal';
         ?>
         <h2 class="nav-tab-wrapper">
@@ -52,9 +52,9 @@ class AngellEYE_Give_When_Admin_Display {
         foreach ($setting_tabs as $setting_tabkey => $setting_tabvalue) {
             switch ($setting_tabkey) {
                 case $current_tab:
-                    do_action('give_when_' . $setting_tabkey . '_setting_save_field');
-                    do_action('give_when_' . $setting_tabkey . '_setting');
-                    do_action('give_when_' . $setting_tabkey . '_create_setting');
+                    do_action('ifthengive_' . $setting_tabkey . '_setting_save_field');
+                    do_action('ifthengive_' . $setting_tabkey . '_setting');
+                    do_action('ifthengive_' . $setting_tabkey . '_create_setting');
                     break;
             }
         }
@@ -62,4 +62,4 @@ class AngellEYE_Give_When_Admin_Display {
 
 }
 
-AngellEYE_Give_When_Admin_Display::init();
+AngellEYE_IfThenGive_Admin_Display::init();

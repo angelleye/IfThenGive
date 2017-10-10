@@ -153,7 +153,7 @@ class IfThenGive_Admin {
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-post-types-transactions.php';
         
         /* The class responsible for defining all actions that occur in the display of admin side */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/givewhen-admin-display.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-admin-display.php';
         
         /* The class responsible for defining function for display Html element */
 	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-html-output.php';
