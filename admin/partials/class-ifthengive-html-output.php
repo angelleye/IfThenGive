@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @class       AngellEYE_Give_When_Html_output
+ * @class       AngellEYE_IfThenGive_Html_output
  * @version	1.0.0
  * @package     Givewhen
  * @subpackage  Givewhen/admin/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_Html_output {
+class AngellEYE_IfThenGive_Html_output {
 
     /**
      * Output admin fields.
@@ -464,4 +464,4 @@ class AngellEYE_Give_When_Html_output {
 
 }
 
-AngellEYE_Give_When_Html_output::init();
+AngellEYE_IfThenGive_Html_output::init();

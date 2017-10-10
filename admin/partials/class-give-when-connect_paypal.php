@@ -66,7 +66,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
         $connect_to_live_paypal_flag = get_option('itg_live_connected_to_paypal');
         
         $general_setting_fields = self::ifthengive_connect_to_paypal_setting_fields();
-        $Html_output = new AngellEYE_Give_When_Html_output();
+        $Html_output = new AngellEYE_IfThenGive_Html_output();
         
         $sanbox_enable = get_option('itg_sandbox_enable');
         if ($sanbox_enable === 'yes') {
@@ -489,7 +489,7 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
      */
     public static function ifthengive_connect_to_paypal_setting_save_field() {        
         $givewhen_setting_fields = self::ifthengive_connect_to_paypal_setting_fields();
-        $Html_output = new AngellEYE_Give_When_Html_output();
+        $Html_output = new AngellEYE_IfThenGive_Html_output();
         $Html_output->save_fields($givewhen_setting_fields);        
         if (isset($_POST['give_when_intigration'])): 
             if(isset($_POST['itg_sandbox_enable']) && $_POST['itg_sandbox_enable'] == '1'){
