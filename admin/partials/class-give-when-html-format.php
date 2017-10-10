@@ -624,11 +624,11 @@ class AngellEYE_Give_When_interface {
                 'post_type' => 'itg_transactions',
                 'post_title' => ('UserID:' . $value['user_id'] . '|GoalID:' . $goal_id . '|TxnID :' . $PayPalResultDRT['TRANSACTIONID'])
                     ));
-            update_post_meta($new_post_id, 'give_when_transactions_amount', number_format($value['amount'],2));
-            update_post_meta($new_post_id, 'give_when_transactions_wp_user_id', $value['user_id']);
-            update_post_meta($new_post_id, 'give_when_transactions_wp_goal_id', $goal_id);
-            update_post_meta($new_post_id, 'give_when_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
-            update_post_meta($new_post_id, 'give_when_transactions_ack', $PayPalResultDRT['ACK']);
+            update_post_meta($new_post_id, 'itg_transactions_amount', number_format($value['amount'],2));
+            update_post_meta($new_post_id, 'itg_transactions_wp_user_id', $value['user_id']);
+            update_post_meta($new_post_id, 'itg_transactions_wp_goal_id', $goal_id);
+            update_post_meta($new_post_id, 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
+            update_post_meta($new_post_id, 'itg_transactions_ack', $PayPalResultDRT['ACK']);
             ?>
                                         <?php
                                         $total_txn++;
@@ -1017,7 +1017,7 @@ class AngellEYE_Give_When_interface {
                                         }
                                         $paypal_email = get_user_meta($value['user_id'], 'itg_gec_email', true);
                                         if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {
-                                            update_post_meta($value['post_id'], 'give_when_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
+                                            update_post_meta($value['post_id'], 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
                                             $total_txn_success++;
                                             $total_amount_success += $value['amount'];
                                             echo $trEmailString = "<tr style='".$css."'>
@@ -1041,7 +1041,7 @@ class AngellEYE_Give_When_interface {
                                             </tr>";
                                             $EmailString.= $trEmailString;
                                         }
-                                        update_post_meta($value['post_id'], 'give_when_transactions_ack', $PayPalResultDRT['ACK']);
+                                        update_post_meta($value['post_id'], 'itg_transactions_ack', $PayPalResultDRT['ACK']);
                                         ?>
                                         <?php
                                         $total_txn++;

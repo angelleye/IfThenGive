@@ -4,13 +4,13 @@
  *
  * Display Transactions's Data
  *
- * @class       AngellEYE_Give_When_Transactions_Table
+ * @class       AngellEYE_IfThenGive_Transactions_Table
  * @version	1.0.0
  * @package	give-when
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
+class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
     /**
      * Class Constructor
      * @since    1.0.0     
@@ -60,11 +60,11 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
               t.meta_value as ppack,
               p.post_date as Txn_date
               FROM `{$wpdb->prefix}postmeta` as pm 
-              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
-              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
-              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_transactions_ack'
+              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'itg_transactions_wp_user_id'
+              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
+              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'
               JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$_REQUEST['post']}%'     
-              WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_transactions_wp_goal_id')  ";
+              WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'itg_transactions_wp_goal_id')  ";
 
         $sql .= ' group by  p.ID';
         if (isset($_REQUEST['s'])) {
@@ -110,11 +110,11 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
               t.meta_value as ppack,
               p.post_date as Txn_date
               FROM `{$wpdb->prefix}postmeta` as pm 
-              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
-              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
-              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_transactions_ack'
+              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'itg_transactions_wp_user_id'
+              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
+              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'
               JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$post_id}%'     
-              WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$post_id}' AND `meta_key` = 'give_when_transactions_wp_goal_id')  ";
+              WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$post_id}' AND `meta_key` = 'itg_transactions_wp_goal_id')  ";
         $sql .= ' group by  p.ID';                
         $sql .= "  Having (( ppack LIKE 'Failure' ) ) ";
         $result_array = $wpdb->get_results($sql, 'ARRAY_A');
@@ -152,11 +152,11 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
               t.meta_value as ppack,
               p.post_date as Txn_date
               FROM `{$wpdb->prefix}postmeta` as pm 
-              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
-              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
-              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_transactions_ack'    
+              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'itg_transactions_wp_user_id'
+              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
+              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'    
               JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$_REQUEST['post']}%'     
-              WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'give_when_transactions_wp_goal_id') ";
+              WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'itg_transactions_wp_goal_id') ";
         $sql .= ' group by  p.ID';
         if (isset($_REQUEST['s'])) {
             $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
@@ -417,4 +417,4 @@ class AngellEYE_Give_When_Transactions_Table extends WP_List_Table {
 
 }
 
-AngellEYE_Give_When_Transactions_Table::init();
+AngellEYE_IfThenGive_Transactions_Table::init();

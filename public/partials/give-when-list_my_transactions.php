@@ -81,10 +81,10 @@ class AngellEYE_Give_When_My_Transactions_Table {
               t.meta_value as ppack,
               DATE_FORMAT(p.post_date,'%Y-%m-%d') as Txn_date
               FROM `{$wpdb->prefix}postmeta` as pm 
-              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
-              LEFT JOIN {$wpdb->prefix}postmeta g ON g.post_id = pm.post_id AND g.meta_key = 'give_when_transactions_wp_goal_id'  
-              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
-              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_transactions_ack'
+              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'itg_transactions_wp_user_id'
+              LEFT JOIN {$wpdb->prefix}postmeta g ON g.post_id = pm.post_id AND g.meta_key = 'itg_transactions_wp_goal_id'  
+              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
+              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'
               JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id 
               WHERE  b.meta_value =".$userID;
         $sql .= ' group by  p.ID';
@@ -124,9 +124,9 @@ class AngellEYE_Give_When_My_Transactions_Table {
               t.meta_value as ppack,
               DATE_FORMAT(p.post_date,'%Y-%m-%d') as Txn_date
               FROM `{$wpdb->prefix}postmeta` as pm 
-              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'give_when_transactions_wp_user_id'
-              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'give_when_transactions_transaction_id'
-              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'give_when_transactions_ack'    
+              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'itg_transactions_wp_user_id'
+              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
+              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'    
               JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id
               WHERE  b.meta_value =".$userID;
         $sql .= ' group by  p.ID';
