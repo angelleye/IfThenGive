@@ -3,28 +3,28 @@
  *
  * Registers post types and taxonomies
  *
- * @class       AngellEYE_Give_When_Post_types
+ * @class       AngellEYE_IfThenGive_Post_types
  * @version		1.0.0
  * @package		give-when
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_Post_types {
+class AngellEYE_IfThenGive_Post_types {
     /**
      * Hook in methods
      * @since    1.0.0
      * @access   static
      */
     public static function init() {      
-        add_action('init', array(__CLASS__, 'give_when_register_post_types'), 5);
-        add_action('add_meta_boxes', array(__CLASS__, 'give_when_add_meta_boxes'), 10);
-        add_action('save_post', array(__CLASS__, 'give_when_save_data'));
-        add_filter('manage_edit-ifthengive_goals_columns', array(__CLASS__, 'give_when_edit_give_when_columns'));
-        add_action('manage_ifthengive_goals_posts_custom_column', array(__CLASS__, 'give_when_buttons_columns'), 10, 2);
+        add_action('init', array(__CLASS__, 'ifthengive_register_post_types'), 5);
+        add_action('add_meta_boxes', array(__CLASS__, 'ifthengive_add_meta_boxes'), 10);
+        add_action('save_post', array(__CLASS__, 'ifthengive_save_data'));
+        add_filter('manage_edit-ifthengive_goals_columns', array(__CLASS__, 'ifthengive_edit_give_when_columns'));
+        add_action('manage_ifthengive_goals_posts_custom_column', array(__CLASS__, 'ifthengive_buttons_columns'), 10, 2);
         /* custom **/
         add_filter('post_row_actions',array(__CLASS__, 'my_action_row'), 10, 2);        
         add_action( 'admin_head', array( __CLASS__, 'admin_header' ) );        
-        add_action( 'admin_menu', array(__CLASS__,'register_give_when_submenu_page' ));        
+        add_action( 'admin_menu', array(__CLASS__,'register_ifthengive_submenu_page' ));        
     }
 
 
@@ -58,19 +58,17 @@ class AngellEYE_Give_When_Post_types {
     }
     
     /**
-     * give_when_register_post_types function is user for register custom post type
+     * ifthengive_register_post_types function is user for register custom post type
      * @since    0.1.0
      * @access   public
      */
-    public static function give_when_register_post_types() {
+    public static function ifthengive_register_post_types() {
         global $wpdb;        
         if (post_type_exists('ifthengive_goals')) {
             return;
-        }
-        
-        //do_action('give_when_register_post_types');
+        }                
 
-        register_post_type('ifthengive_goals', apply_filters('give_when_register_post_types', array(
+        register_post_type('ifthengive_goals', apply_filters('ifthengive_register_post_types', array(
                     'labels' => array(
                         'name' => __('Goals', ITG_TEXT_DOMAIN),
                         'singular_name' => __('Goals', ITG_TEXT_DOMAIN),
@@ -106,13 +104,13 @@ class AngellEYE_Give_When_Post_types {
         );
     }    
     /**
-     * give_when_edit_give_when_columns function
+     * ifthengive_edit_give_when_columns function
      * is use for register button shortcode column.
      * @param type $columns returns attribute for custom column.
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_edit_give_when_columns($columns) {
+    public static function ifthengive_edit_give_when_columns($columns) {
 
         $columns = array(
             'cb' => '<input type="checkbox" />',
@@ -126,7 +124,7 @@ class AngellEYE_Give_When_Post_types {
     }
 
     /**
-     * give_when_buttons_columns function is use
+     * ifthengive_buttons_columns function is use
      * for write content in custom registered column.
      * @global type $post returns the post variable values.
      * @param type $column Column name in which we want to write content.
@@ -135,7 +133,7 @@ class AngellEYE_Give_When_Post_types {
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_buttons_columns($column, $post_id) {
+    public static function ifthengive_buttons_columns($column, $post_id) {
         global $post;
         switch ($column) {
             case 'shortcodes' :
@@ -156,12 +154,12 @@ class AngellEYE_Give_When_Post_types {
     }
     
     /**
-     * give_trigger_add_meta_boxes function is use for
+     * ifthengive_add_meta_boxes function is use for
      * register metabox for give_when custom post type.
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_add_meta_boxes() {
+    public static function ifthengive_add_meta_boxes() {
         add_meta_box('give-when-meta-id', __('Goal',ITG_TEXT_DOMAIN), array(__CLASS__, 'give_when_metabox'), 'ifthengive_goals', 'normal', 'high');
     }
     
@@ -185,13 +183,13 @@ class AngellEYE_Give_When_Post_types {
     }
     
     /**
-     * give_when_save_data is use for display    
+     * ifthengive_save_data is use for display    
      * @global type $post returns the post variable values.
      * @global type $post_ID returns the post id of a post.
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_save_data() {
+    public static function ifthengive_save_data() {
 
         global $post, $post_ID, $wpdb;        
         if (((isset($_POST['publish'])) || isset($_POST['save'])) && ($post->post_type == 'ifthengive_goals')) {                          
@@ -237,7 +235,7 @@ class AngellEYE_Give_When_Post_types {
         return $actions;
     }    
     
-    public static function register_give_when_submenu_page() {
+    public static function register_ifthengive_submenu_page() {
         add_submenu_page( 
             null,
             __('ITG Givers Page', ITG_TEXT_DOMAIN),
@@ -308,4 +306,4 @@ class AngellEYE_Give_When_Post_types {
     }    
 }
 
-AngellEYE_Give_When_Post_types::init();
+AngellEYE_IfThenGive_Post_types::init();

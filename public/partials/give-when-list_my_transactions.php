@@ -3,7 +3,7 @@
  *
  * Display Transactions's Data
  *
- * @class       AngellEYE_Give_When_Post_types
+ * @class       AngellEYE_Give_When_My_Transactions_Table
  * @version	1.0.0
  * @package	give-when
  * @category	Class

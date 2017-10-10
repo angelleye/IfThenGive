@@ -131,7 +131,7 @@ class IfThenGive_Admin {
 		} else {
 			$shortcodes_values = $shortcodes;
 		}
-		wp_localize_script($this->plugin_name, 'gw_shortcodes_button_array', apply_filters('ifthengive_shortcode', array(
+		wp_localize_script($this->plugin_name, 'itg_shortcodes_button_array', apply_filters('ifthengive_shortcode', array(
 		'shortcodes_button' => $shortcodes_values
 		)));
                 
@@ -144,7 +144,7 @@ class IfThenGive_Admin {
         
     private function load_dependencies() {
         /*The class responsible for defining all actions that occur in the Admin side for Goals. */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-post-types.php';
         
         /* The class responsible for defining  "itg_sign_up" custom post type. */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types-sign-up.php';
@@ -223,7 +223,7 @@ class IfThenGive_Admin {
         return $messages;
     }
     public function ifthengive_plugin_action_links( $links, $file ){
-           $plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . 'givewhen.php' );
+           $plugin_basename = ITG_PLUGIN_BASENAME;
            if($file == $plugin_basename)
            {
                $new_links = array(

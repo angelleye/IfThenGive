@@ -3,7 +3,7 @@
  *
  * Registers post types and taxonomies
  *
- * @class       AngellEYE_Give_When_Post_types
+ * @class       AngellEYE_Give_When_Post_type_Transactions
  * @version		1.0.0
  * @package		give-when
  * @category	Class

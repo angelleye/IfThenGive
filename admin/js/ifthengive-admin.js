@@ -68,7 +68,7 @@
             tinymce.PluginManager.add('ifthengive_shortcodes', function( editor )
             {
                 var shortcodeValues = [];                
-                jQuery.each(gw_shortcodes_button_array.shortcodes_button, function( post_id, post_title )
+                jQuery.each(itg_shortcodes_button_array.shortcodes_button, function( post_id, post_title )
                 {                    
                     shortcodeValues.push({
                         text: post_title, 
