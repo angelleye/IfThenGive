@@ -164,7 +164,7 @@ class IfThenGive_Admin {
         /*Custom class table */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-giver.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-list_transactions.php';
-        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-list_users_transactions.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-list_users_transactions.php';
         
         /* The class responsible for cancel billing agreement of givers */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-cancel-billing-agreement.php';
