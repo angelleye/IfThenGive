@@ -3,34 +3,34 @@
  *
  * Registers post types and taxonomies
  *
- * @class       AngellEYE_Give_When_Post_type_Transactions
+ * @class       AngellEYE_IfThenGive_Post_type_Transactions
  * @version		1.0.0
  * @package		give-when
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_Post_type_Transactions {
+class AngellEYE_IfThenGive_Post_type_Transactions {
     /**
      * Hook in methods
      * @since    0.1.0
      * @access   static
      */
     public static function init() {      
-        add_action('init', array(__CLASS__, 'give_when_register_post_type_transactions'), 5);                          
+        add_action('init', array(__CLASS__, 'ifthengive_register_post_type_transactions'), 5);                          
     }
 
     /**
-     * give_when_register_post_type_transactions function is user for register custom post type
+     * ifthengive_register_post_type_transactions function is user for register custom post type
      * @since    0.1.0
      * @access   public
      */
-    public static function give_when_register_post_type_transactions() {
+    public static function ifthengive_register_post_type_transactions() {
         global $wpdb;
         if (post_type_exists('itg_transactions')) {
             return;
         }        
 
-        register_post_type('itg_transactions', apply_filters('give_when_register_post_type_transactions', array(
+        register_post_type('itg_transactions', apply_filters('ifthengive_register_post_type_transactions', array(
                     'labels' => array(
                         'name' => __('Transactions', ITG_TEXT_DOMAIN),
                         'singular_name' => __('Transactions', ITG_TEXT_DOMAIN),
@@ -67,4 +67,4 @@ class AngellEYE_Give_When_Post_type_Transactions {
     }    
 }
 
-AngellEYE_Give_When_Post_type_Transactions::init();
+AngellEYE_IfThenGive_Post_type_Transactions::init();

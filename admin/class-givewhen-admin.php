@@ -150,7 +150,7 @@ class IfThenGive_Admin {
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-post-types-sign-up.php';
         
         /* The class responsible for defining  "itg_transactions" custom post type. */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-post-types-transactions.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-post-types-transactions.php';
         
         /* The class responsible for defining all actions that occur in the display of admin side */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/givewhen-admin-display.php';
