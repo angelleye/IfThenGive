@@ -2,14 +2,14 @@
 
 /**
  * This class defines all code necessary to Companies Setting from admin side
- * @class       AngellEYE_Give_When_PayPal_Connect_Setting
+ * @class       AngellEYE_IfThenGive_PayPal_Connect_Setting
  * @version	1.0.0
  * @package     Givewhen
  * @subpackage  Givewhen/admin/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_PayPal_Connect_Setting {
+class AngellEYE_IfThenGive_PayPal_Connect_Setting {
 
     var $data = array();
 
@@ -532,4 +532,4 @@ class AngellEYE_Give_When_PayPal_Connect_Setting {
 
 }
 
-AngellEYE_Give_When_PayPal_Connect_Setting::init();
+AngellEYE_IfThenGive_PayPal_Connect_Setting::init();

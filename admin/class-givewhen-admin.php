@@ -159,7 +159,7 @@ class IfThenGive_Admin {
 	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-html-output.php';
         
         /* The class responsible for defining function for display connetc to PayPal setting tab */
-	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-connect_paypal.php';
+	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-connect_paypal.php';
                 
         /*Custom class table */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-giver.php';
