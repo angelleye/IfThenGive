@@ -162,7 +162,7 @@ class IfThenGive_Admin {
 	require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-connect_paypal.php';
                 
         /*Custom class table */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-giver.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-giver.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-list_transactions.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-list_users_transactions.php';
         

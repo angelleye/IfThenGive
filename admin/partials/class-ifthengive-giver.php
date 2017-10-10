@@ -3,13 +3,13 @@
  *
  * Display Giver's Data
  *
- * @class       AngellEYE_Give_When_Givers_Table
+ * @class       AngellEYE_IfThenGive_Givers_Table
  * @version		1.0.0
  * @package		give-when
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
+class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     
     /**
      * Class Constructor
@@ -217,7 +217,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
          case 'BADate' :
             _e(date('Y-m-d',  strtotime($item['BADate'])),ITG_TEXT_DOMAIN);
              break;
-        case 'GWAction' :
+        case 'ITGAction' :
             if($item['BillingAgreement']==''){
                 echo "-";
             }
@@ -291,7 +291,7 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
         'amount'       => __( 'Amount', ITG_TEXT_DOMAIN ),
         'PayPalPayerID' => __('PayPal Payer ID',ITG_TEXT_DOMAIN),
         'BADate'       => __('Agreement Date',ITG_TEXT_DOMAIN),
-        'GWAction' => __('Action',ITG_TEXT_DOMAIN)
+        'ITGAction' => __('Action',ITG_TEXT_DOMAIN)
       ];
 
       return $columns;
@@ -410,4 +410,4 @@ class AngellEYE_Give_When_Givers_Table extends WP_List_Table {
 
 }
 
-AngellEYE_Give_When_Givers_Table::init();
+AngellEYE_IfThenGive_Givers_Table::init();
