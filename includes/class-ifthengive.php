@@ -337,7 +337,7 @@ class Ifthengive {
                         $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultGEC['RAWREQUEST']);
                         $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
                         $log_write = new AngellEYE_IfThenGive_Logger();
-                        $log_write->add('angelleye_give_when_express_checkout', 'GetExpressCheckout Failed : ' . print_r($logArray, true), 'express_checkout');
+                        $log_write->add('angelleye_ifthengive_express_checkout', 'GetExpressCheckout Failed : ' . print_r($logArray, true), 'express_checkout');
                     }
                     wp_redirect(site_url('give-when-error'));
                     exit;
@@ -407,7 +407,7 @@ class Ifthengive {
                                 $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultCBA['RAWREQUEST']);
                                 $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
                                 $log_write = new AngellEYE_IfThenGive_Logger();
-                                $log_write->add('angelleye_give_when_express_checkout', 'CreateBillingAgreement Success : ' . print_r($logArray, true), 'express_checkout');
+                                $log_write->add('angelleye_ifthengive_express_checkout', 'CreateBillingAgreement Success : ' . print_r($logArray, true), 'express_checkout');
                         }
                         $amount = base64_encode($amount);
                         $urlusr = base64_encode($goal_user_id);
@@ -428,7 +428,7 @@ class Ifthengive {
                                 $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultCBA['RAWREQUEST']);
                                 $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
                                 $log_write = new AngellEYE_IfThenGive_Logger();
-                                $log_write->add('angelleye_give_when_express_checkout', 'CreateBillingAgreement Failed : ' . print_r($logArray, true), 'express_checkout');
+                                $log_write->add('angelleye_ifthengive_express_checkout', 'CreateBillingAgreement Failed : ' . print_r($logArray, true), 'express_checkout');
                         }
                         wp_redirect(site_url('give-when-error'));
                         exit;

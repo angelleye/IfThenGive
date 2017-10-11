@@ -19,7 +19,7 @@ class AngellEYE_IfThenGive_Post_types {
         add_action('init', array(__CLASS__, 'ifthengive_register_post_types'), 5);
         add_action('add_meta_boxes', array(__CLASS__, 'ifthengive_add_meta_boxes'), 10);
         add_action('save_post', array(__CLASS__, 'ifthengive_save_data'));
-        add_filter('manage_edit-ifthengive_goals_columns', array(__CLASS__, 'ifthengive_edit_give_when_columns'));
+        add_filter('manage_edit-ifthengive_goals_columns', array(__CLASS__, 'ifthengive_edit_ifthengive_columns'));
         add_action('manage_ifthengive_goals_posts_custom_column', array(__CLASS__, 'ifthengive_buttons_columns'), 10, 2);
         /* custom **/
         add_filter('post_row_actions',array(__CLASS__, 'my_action_row'), 10, 2);        
@@ -104,13 +104,13 @@ class AngellEYE_IfThenGive_Post_types {
         );
     }    
     /**
-     * ifthengive_edit_give_when_columns function
+     * ifthengive_edit_ifthengive_columns function
      * is use for register button shortcode column.
      * @param type $columns returns attribute for custom column.
      * @since 1.0.0
      * @access public
      */
-    public static function ifthengive_edit_give_when_columns($columns) {
+    public static function ifthengive_edit_ifthengive_columns($columns) {
 
         $columns = array(
             'cb' => '<input type="checkbox" />',
@@ -155,7 +155,7 @@ class AngellEYE_IfThenGive_Post_types {
     
     /**
      * ifthengive_add_meta_boxes function is use for
-     * register metabox for give_when custom post type.
+     * register metabox for ifthengive custom post type.
      * @since 1.0.0
      * @access public
      */

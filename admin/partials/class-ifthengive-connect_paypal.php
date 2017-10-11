@@ -100,7 +100,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <form id="give_when_integration_form_general" enctype="multipart/form-data" action="" method="post">
+                        <form id="ifthengive_integration_form_general" enctype="multipart/form-data" action="" method="post">
                         <div class="panel panel-default">
                             <div class="panel-heading gw-panel-heading">
                                 <h3 class="panel-title">
@@ -133,7 +133,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                 }
                                 ?>                                                                                                    
                                 
-                                <div id="give_when_sandbox_fields" class="<?php echo $sandbox_class; ?>">
+                                <div id="ifthengive_sandbox_fields" class="<?php echo $sandbox_class; ?>">
                                 <?php
                                     $sb_paypal_account_id = get_option('itg_permission_sb_connected_person_merchant_id');                                    
                                     if ($connect_to_sandbox_paypal_flag == 'Yes') {
@@ -250,7 +250,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="give_when_live_fields"  class="<?php echo $live_class; ?>">
+                                <div id="ifthengive_live_fields"  class="<?php echo $live_class; ?>">
                                     <?php
                                         $live_paypal_account_id = get_option('itg_permission_lv_connected_person_merchant_id');
                                         if ($connect_to_live_paypal_flag == 'Yes') {
@@ -414,7 +414,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                     <label><input type="checkbox" name="itg_log_enable" id="itg_log_enable" <?php echo $checkbox_checked; ?> ><?php _e('Save Logs.',ITG_TEXT_DOMAIN); ?></label>
                                 </div>  
                                 <p class="submit">
-                                    <input type="submit" name="give_when_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
+                                    <input type="submit" name="ifthengive_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
                                 </p>                                
                             </div>
                         </div>
@@ -491,7 +491,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         $ifthengive_setting_fields = self::ifthengive_connect_to_paypal_setting_fields();
         $Html_output = new AngellEYE_IfThenGive_Html_output();
         $Html_output->save_fields($ifthengive_setting_fields);        
-        if (isset($_POST['give_when_intigration'])): 
+        if (isset($_POST['ifthengive_intigration'])): 
             if(isset($_POST['itg_sandbox_enable']) && $_POST['itg_sandbox_enable'] == '1'){
                 if(isset($_POST['gw_sandbox_add_manually'])){
                     update_option('itg_sb_api_credentials_username',$_POST["itg_sb_api_credentials_username"]);

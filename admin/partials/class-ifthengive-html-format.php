@@ -123,7 +123,7 @@ class AngellEYE_IfThenGive_interface {
                         <input type="text" name="fixed_amount_input" value="<?php echo esc_attr($fixed_amount_input_value, ITG_TEXT_DOMAIN); ?>" class="form-control" autocomplete="off" id="fixed_amount_input" placeholder="Enter Amount"/>
                     </div>
                     <div class="form-group <?php echo $manual_amount_class; ?>" id="manual_amount_input_div">
-                        <label for="manualamount" class="control-label"><?php echo __('Set Default Amount', 'angelleye_give_when'); ?></label>
+                        <label for="manualamount" class="control-label"><?php echo __('Set Default Amount', ITG_TEXT_DOMAIN); ?></label>
                         <input type="text" name="manual_amount_input" value="<?php echo esc_attr($manual_amount_input_value, ITG_TEXT_DOMAIN); ?>" class="form-control" autocomplete="off" id="manual_amount_input" placeholder="Enter Amount"/>
                     </div>
                     <div id="dynamic_options" class="<?php echo $dynamic_options_class; ?>">                        
@@ -206,7 +206,7 @@ class AngellEYE_IfThenGive_interface {
                           <div class="modal-body">
                               <div class="row">
                                   <div class="modal_gw_container">
-                                      <div class="give_when_container">
+                                      <div class="ifthengive_container">
                                         <div class="gw_post-item">                                               
                                             <div class="gw_post-title"><h3 class="trigger_name"></h3></div>
                                             <div class="gw_post-image">
@@ -219,13 +219,13 @@ class AngellEYE_IfThenGive_interface {
                                                 <div class="gw_post-title">
                                                     <div class="fixed_amount" style="display: none">
                                                         <h4 class="lead fixed_amount">
-                                                        <?php _e('I will Give ',ITG_TEXT_DOMAIN); ?> <?php echo $symbol; ?><span id="give_when_fixed_price_span"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?> <span class="trigger_thing"> </span>
+                                                        <?php _e('I will Give ',ITG_TEXT_DOMAIN); ?> <?php echo $symbol; ?><span id="ifthengive_fixed_price_span"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?> <span class="trigger_thing"> </span>
                                                          </h4>
                                                     </div>
                                                 </div>
                                                 <div class="gw_post-title">
                                                     <div class="manual_amount" style="display: none">
-                                                        <h4 class="lead manual_amount"><?php _e('I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="give_when_manual_price_span"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?><span class="trigger_thing"></span></h4>
+                                                        <h4 class="lead manual_amount"><?php _e('I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="ifthengive_manual_price_span"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?><span class="trigger_thing"></span></h4>
                                                         <div class="gw_form-group">
                                                             <label for="manualamout" class="control-label"><?php _e('Enter Amount',ITG_TEXT_DOMAIN); ?></label>
                                                             <input type="text" name="gw_manual_amount_input" value="50" class="gw_form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
@@ -234,7 +234,7 @@ class AngellEYE_IfThenGive_interface {
                                                 </div>
                                                 <div class="gw_post-title">
                                                     <div class="select_amount" style="display: none">
-                                                        <h4 class="lead"> <?php _e('I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="give_when_fixed_price_span_select"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?><span class="trigger_name"></span></h4>
+                                                        <h4 class="lead"> <?php _e('I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="ifthengive_fixed_price_span_select"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?><span class="trigger_name"></span></h4>
                                                         <div class="gw_form-group">
                                                             <label class="gw_upper">Select</label>
                                                             <select class="gw_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount"></select>
@@ -244,7 +244,7 @@ class AngellEYE_IfThenGive_interface {
                                             </div>                                                            
                                         </div>
                                                            
-                                        <div class="gwcontainer" id="give_when_signup_form">
+                                        <div class="gwcontainer" id="ifthengive_signup_form">
                                             <div class="gw_hr-title gw_center">
                                                 <abbr><?php _e('Sign up for',ITG_TEXT_DOMAIN); ?> <span class="trigger_name"></span></abbr>
                                             </div>
@@ -254,26 +254,26 @@ class AngellEYE_IfThenGive_interface {
                                                 <li><?php _e('Consectetur adipiscing elit',ITG_TEXT_DOMAIN); ?></li>
                                                 <li><?php _e('Integer molestie lorem at massa',ITG_TEXT_DOMAIN); ?></li>
                                             </ol>
-                                            <form method="post" name="signup" id="give_when_signup">
+                                            <form method="post" name="signup" id="ifthengive_signup">
                                                 <div class="gw_form-group">
                                                     <label class="gw_upper"><?php _e('Frist Name',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="text" class="gw_form-control" name="give_when_firstname" id="give_when_firstname" required="required" value="" autocomplete="off">
+                                                    <input type="text" class="gw_form-control" name="ifthengive_firstname" id="ifthengive_firstname" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="gw_form-group">
                                                      <label for="gw_upper"><?php _e('Last Name',ITG_TEXT_DOMAIN); ?></label>
-                                                      <input type="text" class="gw_form-control" name="give_when_lastname" id="give_when_lastname" required="required" value="" autocomplete="off">
+                                                      <input type="text" class="gw_form-control" name="ifthengive_lastname" id="ifthengive_lastname" required="required" value="" autocomplete="off">
                                                 </div>
                                                  <div class="gw_form-group">
                                                     <label for="gw_upper"><?php _e('Email address',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="email" class="gw_form-control" name="give_when_email" id="give_when_email" required="required" value="" autocomplete="off">
+                                                    <input type="email" class="gw_form-control" name="ifthengive_email" id="ifthengive_email" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="gw_form-group">
                                                     <label for="gw_upper"><?php _e('Password',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="password" class="gw_form-control" name="give_when_password" id="give_when_password" required="required" autocomplete="off">
+                                                    <input type="password" class="gw_form-control" name="ifthengive_password" id="ifthengive_password" required="required" autocomplete="off">
                                                 </div>
                                                 <div class="gw_form-group">
                                                     <label for="gw_upper"><?php _e('Re-type Password',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="password" class="gw_form-control" name="give_when_retype_password" id="give_when_retype_password" required="required" autocomplete="off">
+                                                    <input type="password" class="gw_form-control" name="ifthengive_retype_password" id="ifthengive_retype_password" required="required" autocomplete="off">
                                                 </div>
                                                 <div class="gw_form-inline gw_form-group">
                                                     <button type="button" class="gw_btn gw_btn-primary" ><?php _e('Sign Up For',ITG_TEXT_DOMAIN); ?> <span class="trigger_name"></span></button>
@@ -312,20 +312,20 @@ class AngellEYE_IfThenGive_interface {
                         jQuery('#preview-goal .fixed_amount').css('display','block');
                         famt = parseFloat(jQuery('input[name="fixed_amount_input"]').val()).toFixed(2);
                         if(isNaN(famt)){
-                            jQuery('#give_when_fixed_price_span').text('0.00');
+                            jQuery('#ifthengive_fixed_price_span').text('0.00');
                         }
                         else{
-                            jQuery('#give_when_fixed_price_span').text(famt);
+                            jQuery('#ifthengive_fixed_price_span').text(famt);
                         }                        
                    }else if(fixed_radio == 'manual'){
                         jQuery('#preview-goal .manual_amount').css('display','block');
                         mamt = parseFloat(jQuery('input[name="manual_amount_input"]').val()).toFixed(2);
                         if(isNaN(mamt)){
-                            jQuery('#give_when_manual_price_span').text('0.00');
+                            jQuery('#ifthengive_manual_price_span').text('0.00');
                             jQuery('#gw_manual_amount_input').val('0.00');
                         }
                         else{
-                            jQuery('#give_when_manual_price_span').text(mamt);
+                            jQuery('#ifthengive_manual_price_span').text(mamt);
                             jQuery('#gw_manual_amount_input').val(mamt);
                         }
                         
@@ -333,9 +333,9 @@ class AngellEYE_IfThenGive_interface {
                         jQuery('#preview-goal .select_amount').css('display','block');
                         var selectamt = parseFloat(jQuery('input[name="option_amount[]"]').val()).toFixed(2);
                         if(isNaN(selectamt)){
-                            jQuery('#give_when_fixed_price_span_select').html('').html('50.00');
+                            jQuery('#ifthengive_fixed_price_span_select').html('').html('50.00');
                         }else{
-                            jQuery('#give_when_fixed_price_span_select').text(selectamt);
+                            jQuery('#ifthengive_fixed_price_span_select').text(selectamt);
                         }                        
                         
                         var i = 0;
@@ -354,13 +354,13 @@ class AngellEYE_IfThenGive_interface {
                    jQuery(document).on('keyup','#gw_manual_amount_input', function (){
                         var amt = parseFloat(jQuery(this).val()).toFixed(2);                        
                         if(isNaN(amt)){
-                            jQuery('#give_when_manual_price_span').html('').html(mamt);
+                            jQuery('#ifthengive_manual_price_span').html('').html(mamt);
                         }else{
-                            jQuery('#give_when_manual_price_span').html('').html(amt);
+                            jQuery('#ifthengive_manual_price_span').html('').html(amt);
                         }                
                     });
                     jQuery(document).on('change','#ifthengive_option_amount', function (){
-                        jQuery('#give_when_fixed_price_span_select').html('').html(jQuery(this).val());
+                        jQuery('#ifthengive_fixed_price_span_select').html('').html(jQuery(this).val());
                     });
                 });
             </script>
@@ -377,11 +377,11 @@ class AngellEYE_IfThenGive_interface {
     public static function ifthengive_shortcode_interface_html() {
         global $post, $post_ID;
         self::itg_admin_notice__success();
-        $final='<div class="give_when_container">
+        $final='<div class="ifthengive_container">
             <div class="row">
                 <div class="col-md-12">
                     <p>'. __("You can easily place this Goal in your pages and posts using this tool....", ITG_TEXT_DOMAIN).'</p>
-                    <img src="'.ITG_PLUGIN_URL.'/admin/images/give_when_tool.png" class="img-responsive" style="margin: 0 auto;"/>
+                    <img src="'.ITG_PLUGIN_URL.'/admin/images/ifthengive_tool.png" class="img-responsive" style="margin: 0 auto;"/>
                 </div>
             </div>
             <div class="row">
@@ -390,7 +390,7 @@ class AngellEYE_IfThenGive_interface {
             <div class="row">
                 <div class="col-md-12">
                     <p>'. __('You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.', ITG_TEXT_DOMAIN).'</p>                    
-                    <div class="give_when_highlight">
+                    <div class="ifthengive_highlight">
                         <h4 id="h4_clipboard">[ifthengive_goal id=' . $post_ID . ']</h4>
                         <span class="btn-clipboard" data-toggle="tooltip" data-placement="right" title="Copy To Clipboard">'. __('Copy', ITG_TEXT_DOMAIN).'</span>
                     </div>                    
@@ -407,7 +407,7 @@ class AngellEYE_IfThenGive_interface {
 
             var clipboard = new Clipboard(\'#h4_clipboard,.btn-clipboard\', {
                 target: function () {
-                    return document.querySelector(\'.give_when_highlight h4\');
+                    return document.querySelector(\'.ifthengive_highlight h4\');
                 }
             });
             / Below code will use whenever we want further clipboard work /
@@ -426,7 +426,7 @@ class AngellEYE_IfThenGive_interface {
     public static function ifthengive_givers_interface_html() {                            
         ?>
         <div class="wrap">            
-            <div class="give_when_admin_container">
+            <div class="ifthengive_admin_container">
                 <div class="row">
                     <div class="col-md-12">
                         <?php
@@ -440,7 +440,7 @@ class AngellEYE_IfThenGive_interface {
                     ?>    
                         <div class="col-md-12 text-center">
                             <span class="gw_text-info"><?php echo __('Click ', ITG_TEXT_DOMAIN); ?><strong><?php _e('"Process Donation"',ITG_TEXT_DOMAIN); ?></strong><?php echo __(' Button to Capture your Transactions.', ITG_TEXT_DOMAIN); ?></span><br/>
-                            <a class="btn gw_btn-primary btn-lg" id="give_when_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation',ITG_TEXT_DOMAIN); ?></a>
+                            <a class="btn gw_btn-primary btn-lg" id="ifthengive_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation',ITG_TEXT_DOMAIN); ?></a>
                         </div>
                     <?php                    
                     }
@@ -483,7 +483,7 @@ class AngellEYE_IfThenGive_interface {
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
-                <div class="give_when_admin_container">
+                <div class="ifthengive_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
                          <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
@@ -501,7 +501,7 @@ class AngellEYE_IfThenGive_interface {
             ob_start();
         ?>
         <div class="wrap">
-            <div class="give_when_admin_container">
+            <div class="ifthengive_admin_container">
                 <div class="row">
                     <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                     <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Transactions',ITG_TEXT_DOMAIN); ?></abbr></div>
@@ -590,7 +590,7 @@ class AngellEYE_IfThenGive_interface {
             $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
             if ('yes' == $debug) {
                 $log_write = new AngellEYE_IfThenGive_Logger();
-                $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
+                $log_write->add('angelleye_ifthengive_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
             }
             $paypal_email = get_user_meta($value['user_id'], 'itg_gec_email', true);
             if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {
@@ -687,7 +687,7 @@ class AngellEYE_IfThenGive_interface {
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
-                <div class="give_when_admin_container">
+                <div class="ifthengive_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
                          <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
@@ -700,7 +700,7 @@ class AngellEYE_IfThenGive_interface {
         else{
         ?>
         <div class="wrap">
-            <div class="give_when_admin_container">
+            <div class="ifthengive_admin_container">
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <?php
@@ -732,7 +732,7 @@ class AngellEYE_IfThenGive_interface {
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
-                <div class="give_when_admin_container">
+                <div class="ifthengive_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
                          <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
@@ -766,7 +766,7 @@ class AngellEYE_IfThenGive_interface {
         if($PayPalResultTransactionDetail['RAWRESPONSE'] == false){
             ?>
                 <div class="wrap">
-                    <div class="give_when_admin_container">
+                    <div class="ifthengive_admin_container">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-info" role="alert">
@@ -788,7 +788,7 @@ class AngellEYE_IfThenGive_interface {
         if ($PayPal->APICallSuccessful($PayPalResultTransactionDetail['ACK'])) {
             ?>
               <div class="wrap">
-                <div class="give_when_admin_container">                                    
+                <div class="ifthengive_admin_container">                                    
                     <div class="row">
                         <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                         <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transaction Id ',ITG_TEXT_DOMAIN); ?> <?php echo '#' . $_REQUEST['txn_id']; ?></abbr></div>                            
@@ -886,7 +886,7 @@ class AngellEYE_IfThenGive_interface {
         else {
             ?>
                 <div class="wrap">
-                    <div class="give_when_admin_container">
+                    <div class="ifthengive_admin_container">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-info" role="alert">
@@ -906,7 +906,7 @@ class AngellEYE_IfThenGive_interface {
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
-                <div class="give_when_admin_container">
+                <div class="ifthengive_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
                          <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
@@ -924,7 +924,7 @@ class AngellEYE_IfThenGive_interface {
             ob_start();
         ?>
         <div class="wrap">
-            <div class="give_when_admin_container">
+            <div class="ifthengive_admin_container">
                 <div class="row">
                     <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                     <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Failure Payments',ITG_TEXT_DOMAIN); ?></abbr></div>                    
@@ -1013,7 +1013,7 @@ class AngellEYE_IfThenGive_interface {
                                         $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                                         if ('yes' == $debug) {
                                             $log_write = new AngellEYE_IfThenGive_Logger();
-                                            $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
+                                            $log_write->add('angelleye_ifthengive_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
                                         }
                                         $paypal_email = get_user_meta($value['user_id'], 'itg_gec_email', true);
                                         if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {
@@ -1125,7 +1125,7 @@ class AngellEYE_IfThenGive_interface {
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
-                <div class="give_when_admin_container">
+                <div class="ifthengive_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
                          <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
@@ -1138,7 +1138,7 @@ class AngellEYE_IfThenGive_interface {
         else{  
         ?>
         <div class="wrap">
-            <div class="give_when_admin_container">
+            <div class="ifthengive_admin_container">
                 <div class="row">
                     <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>
                     <?php if(isset($_REQUEST['user_id'])){ 

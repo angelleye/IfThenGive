@@ -11,10 +11,10 @@
 class AngellEYE_IfThenGive_Log {
 
     public static function init() {
-        add_action('give_when_logs_setting', array(__CLASS__, 'give_when_logs_setting'));
+        add_action('ifthengive_logs_setting', array(__CLASS__, 'ifthengive_logs_setting'));
     }
 
-    public static function give_when_logs_setting() {
+    public static function ifthengive_logs_setting() {
 
         $logs = self::scan_log_files(ITG_LOG_DIR);        
         $directory_name = 'transactions';
