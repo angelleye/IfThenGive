@@ -74,30 +74,30 @@ if (!defined('ITG_TEXT_DOMAIN')) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-givewhen-activator.php
+ * This action is documented in includes/class-ifthengive-activator.php
  */
-function activate_givewhen() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-givewhen-activator.php';
-	Givewhen_Activator::activate();
+function activate_ifthengive() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-ifthengive-activator.php';
+	IfThenGive_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-givewhen-deactivator.php
+ * This action is documented in includes/class-ifthengive-deactivator.php
  */
-function deactivate_givewhen() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-givewhen-deactivator.php';
-	Givewhen_Deactivator::deactivate();
+function deactivate_ifthengive() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-ifthengive-deactivator.php';
+	IfThenGive_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_givewhen' );
-register_deactivation_hook( __FILE__, 'deactivate_givewhen' );
+register_activation_hook( __FILE__, 'activate_ifthengive' );
+register_deactivation_hook( __FILE__, 'deactivate_ifthengive' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-givewhen.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-ifthengive.php';
 
 /**
  * Begins execution of the plugin.
@@ -108,10 +108,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-givewhen.php';
  *
  * @since    1.0.0
  */
-function run_givewhen() {
+function run_ifthengive() {
 
-	$plugin = new Givewhen();
+	$plugin = new Ifthengive();
 	$plugin->run();
 
 }
-run_givewhen();
+run_ifthengive();

@@ -488,9 +488,9 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
      * 
      */
     public static function ifthengive_connect_to_paypal_setting_save_field() {        
-        $givewhen_setting_fields = self::ifthengive_connect_to_paypal_setting_fields();
+        $ifthengive_setting_fields = self::ifthengive_connect_to_paypal_setting_fields();
         $Html_output = new AngellEYE_IfThenGive_Html_output();
-        $Html_output->save_fields($givewhen_setting_fields);        
+        $Html_output->save_fields($ifthengive_setting_fields);        
         if (isset($_POST['give_when_intigration'])): 
             if(isset($_POST['itg_sandbox_enable']) && $_POST['itg_sandbox_enable'] == '1'){
                 if(isset($_POST['gw_sandbox_add_manually'])){

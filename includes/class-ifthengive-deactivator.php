@@ -20,7 +20,7 @@
  * @subpackage Givewhen/includes
  * @author     Angell EYE <andrew@angelleye.com>
  */
-class Givewhen_Deactivator {
+class IfThenGive_Deactivator {
 
 	/**
 	 * Short Description. (use period)
