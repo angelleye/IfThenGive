@@ -20,7 +20,7 @@
  * @subpackage Givewhen/public
  * @author     Angell EYE <andrew@angelleye.com>
  */
-class Givewhen_Public {
+class Ifthengive_Public {
 
     /**
      * The ID of this plugin.
@@ -75,7 +75,7 @@ class Givewhen_Public {
         wp_enqueue_style($this->plugin_name . 'publicDataTablecss', plugin_dir_url(__FILE__).'css/datatables/jquery.dataTables.css', array(), $this->version, 'all');
         wp_enqueue_style($this->plugin_name . 'publicDataTable', plugin_dir_url(__FILE__).'css/datatables/dataTables.responsive.css', array(), $this->version, 'all');
         wp_enqueue_style($this->plugin_name . 'public_alertify_css',  ITG_PLUGIN_URL.'includes/css/alertify/alertify.css', array(), $this->version, 'all');
-        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/givewhen-public.css', array(), $this->version, 'all');
+        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/ifthengive-public.css', array(), $this->version, 'all');
     }
 
     /**
@@ -117,7 +117,7 @@ class Givewhen_Public {
         add_shortcode( 'ifthengive_account_info', array(__CLASS__,'itg_account_info_shortcode'));
     }
 
-    public static function give_when_locate_template($template_name, $template_path = '', $default_path = '') {
+    public static function ifthengive_locate_template($template_name, $template_path = '', $default_path = '') {
         // Set variable to search in the templates folder of theme.
         if (!$template_path) :
             $template_path = 'templates/';
@@ -135,14 +135,14 @@ class Givewhen_Public {
         if (!$template) :
             $template = $default_path . $template_name;
         endif;
-        return apply_filters('give_when_locate_template', $template, $template_name, $template_path, $default_path);
+        return apply_filters('ifthengive_locate_template', $template, $template_name, $template_path, $default_path);
     }
     
     public static function gw_get_template( $template_name, $args = array(), $tempate_path = '', $default_path = '' ) {
 	if ( is_array( $args ) && isset( $args ) ) :
 		extract( $args );
 	endif;
-	$template_file = self::give_when_locate_template( $template_name, $tempate_path, $default_path );
+	$template_file = self::ifthengive_locate_template( $template_name, $tempate_path, $default_path );
 	if ( ! file_exists( $template_file ) ) :
 		_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_file ), '1.0.0' );
 		return;
