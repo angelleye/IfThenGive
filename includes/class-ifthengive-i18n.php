@@ -9,8 +9,8 @@
  * @link       http://www.angelleye.com/
  * @since      1.0.0
  *
- * @package    Givewhen
- * @subpackage Givewhen/includes
+ * @package    IfThenGive
+ * @subpackage IfThenGive/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Givewhen
- * @subpackage Givewhen/includes
+ * @package    IfThenGive
+ * @subpackage IfThenGive/includes
  * @author     Angell EYE <andrew@angelleye.com>
  */
-class Givewhen_i18n {
+class Ifthengive_i18n {
 
 
 	/**
@@ -35,7 +35,7 @@ class Givewhen_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'ifthengive',
+			ITG_TEXT_DOMAIN,
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
