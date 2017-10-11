@@ -2,41 +2,41 @@
 
 /**
  * This class defines all code necessary to generate interface
- * @class       AngellEYE_Give_When_interface
+ * @class       AngellEYE_IfThenGive_interface
  * @version	1.0.0
  * @package	give-when/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_interface {
+class AngellEYE_IfThenGive_interface {
     /**
      * Hook in methods
      * @since    0.1.0
      * @access   static
      */
     public static function init() {
-        add_action('give_when_interface', array(__CLASS__, 'give_when_interface_html'));
+        add_action('ifthengive_interface', array(__CLASS__, 'ifthengive_interface_html'));
         add_action('ifthengive_shortcode_interface', array(__CLASS__, 'ifthengive_shortcode_interface_html'));
         add_action('ifthengive_givers_interface', array(__CLASS__, 'ifthengive_givers_interface_html'));
-        add_action('give_when_do_transactions_interface', array(__CLASS__, 'give_when_do_transactions_interface_html'));
-        add_action('give_when_list_transactions_interface', array(__CLASS__, 'give_when_list_transactions_interface_html'));
-        add_action('give_when_get_transaction_detail', array(__CLASS__, 'give_when_get_transaction_detail_html'));
-        add_action('give_when_retry_failed_transactions_interface', array(__CLASS__, 'give_when_retry_failed_transactions_interface_html'));
-        add_action('give_when_disconnect_interface',array(__CLASS__,'give_when_disconnect_interface_html'));
-        add_action('give_when_get_users_transactions_interface',array(__CLASS__,'give_when_get_users_transactions_interface_html'));
-        add_action('admin_head', array(__CLASS__, 'give_when_hide_publish_button_until'));
+        add_action('ifthengive_do_transactions_interface', array(__CLASS__, 'ifthengive_do_transactions_interface_html'));
+        add_action('ifthengive_list_transactions_interface', array(__CLASS__, 'ifthengive_list_transactions_interface_html'));
+        add_action('ifthengive_get_transaction_detail', array(__CLASS__, 'ifthengive_get_transaction_detail_html'));
+        add_action('ifthengive_retry_failed_transactions_interface', array(__CLASS__, 'ifthengive_retry_failed_transactions_interface_html'));
+        add_action('ifthengive_disconnect_interface',array(__CLASS__,'ifthengive_disconnect_interface_html'));
+        add_action('ifthengive_get_users_transactions_interface',array(__CLASS__,'ifthengive_get_users_transactions_interface_html'));
+        add_action('admin_head', array(__CLASS__, 'ifthengive_hide_publish_button_until'));
         add_action('wp_ajax_cancel_billing_agreement_giver', array(__CLASS__, 'cancel_billing_agreement_giver'));
         add_action("wp_ajax_nopriv_cancel_billing_agreement_giver", array(__CLASS__, 'cancel_billing_agreement_giver'));
     }
 
     /**
-     * give_when_interface_html function is for
+     * ifthengive_interface_html function is for
      * HTML interface when action is Edit.
      * This method also allow you to preview the Goal details
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_interface_html() {        
+    public static function ifthengive_interface_html() {        
         $connect_to_sandbox_paypal_flag = get_option('itg_sb_connected_to_paypal');
         $connect_to_live_paypal_flag = get_option('itg_live_connected_to_paypal');
         if ($connect_to_sandbox_paypal_flag != 'Yes' && $connect_to_live_paypal_flag != 'Yes') {
@@ -376,7 +376,7 @@ class AngellEYE_Give_When_interface {
      */
     public static function ifthengive_shortcode_interface_html() {
         global $post, $post_ID;
-        self::gw_admin_notice__success();
+        self::itg_admin_notice__success();
         $final='<div class="give_when_container">
             <div class="row">
                 <div class="col-md-12">
@@ -449,7 +449,7 @@ class AngellEYE_Give_When_interface {
                 <div class="row">
                     <div class="col-md-12">                                     
         <?php
-        $table = new AngellEYE_Give_When_Givers_Table();
+        $table = new AngellEYE_IfThenGive_Givers_Table();
         $table->prepare_items();
         echo '<form method="post" action="">';
         $table->search_box('Search', 'givers_search_id');
@@ -463,7 +463,7 @@ class AngellEYE_Give_When_interface {
         <?php        
     }
     
-    public static function gw_admin_notice__success() {
+    public static function itg_admin_notice__success() {
         if(isset($_REQUEST['update_post_success']) && $_REQUEST['update_post_success'] == true){
     ?>
             <div class="notice notice-success is-dismissible">
@@ -479,7 +479,7 @@ class AngellEYE_Give_When_interface {
         }
     }
     
-    public static function give_when_do_transactions_interface_html() {
+    public static function ifthengive_do_transactions_interface_html() {
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
@@ -511,7 +511,7 @@ class AngellEYE_Give_When_interface {
         <?php                
         $goal_id = $_REQUEST['post'];               
         $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
-        $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
+        $givers = AngellEYE_IfThenGive_Givers_Table::get_all_givers();
         $PayPal_config = new Give_When_PayPal_Helper();        
         $PayPal_config->set_api_cedentials();                
         $PayPal_config->set_api_subject($goal_id);
@@ -683,7 +683,7 @@ class AngellEYE_Give_When_interface {
        }
     }
 
-    public static function give_when_list_transactions_interface_html() {        
+    public static function ifthengive_list_transactions_interface_html() {        
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
@@ -728,7 +728,7 @@ class AngellEYE_Give_When_interface {
         }
     }
 
-    public static function give_when_get_transaction_detail_html() {
+    public static function ifthengive_get_transaction_detail_html() {
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
@@ -745,7 +745,7 @@ class AngellEYE_Give_When_interface {
         else{        
         $transaction_id = $_REQUEST['txn_id'];        
         $goal_id = $_REQUEST['post'];
-        $givers = AngellEYE_Give_When_Givers_Table::get_all_givers();
+        $givers = AngellEYE_IfThenGive_Givers_Table::get_all_givers();
         $PayPal_config = new Give_When_PayPal_Helper();
         $PayPal_config->set_api_cedentials();        
         $PayPal_config->set_api_subject($goal_id);
@@ -902,7 +902,7 @@ class AngellEYE_Give_When_interface {
       }
     }
 
-    public static function give_when_retry_failed_transactions_interface_html() {
+    public static function ifthengive_retry_failed_transactions_interface_html() {
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
@@ -1094,7 +1094,7 @@ class AngellEYE_Give_When_interface {
         }
     }
     
-    public static function give_when_disconnect_interface_html() {
+    public static function ifthengive_disconnect_interface_html() {
         
         if($_GET['env']=='sandbox'){
             delete_option('itg_permission_sb_connected_person_merchant_id');
@@ -1121,7 +1121,7 @@ class AngellEYE_Give_When_interface {
         die();
     }
 
-    public static function give_when_get_users_transactions_interface_html(){
+    public static function ifthengive_get_users_transactions_interface_html(){
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
@@ -1163,7 +1163,7 @@ class AngellEYE_Give_When_interface {
         }
     }
     
-    public static function give_when_hide_publish_button_until() {
+    public static function ifthengive_hide_publish_button_until() {
         if (isset($_REQUEST['post_type'])) {
             if ($_REQUEST['post_type'] == 'ifthengive_goals') {
                 $connect_to_sandbox_paypal_flag = get_option('itg_sb_connected_to_paypal');
@@ -1219,4 +1219,4 @@ class AngellEYE_Give_When_interface {
     }
 }
 
-AngellEYE_Give_When_interface::init();
+AngellEYE_IfThenGive_interface::init();

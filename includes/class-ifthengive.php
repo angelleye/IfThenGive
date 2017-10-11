@@ -118,12 +118,12 @@ class Ifthengive {
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-givewhen-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-ifthengive-admin.php';
                 
                 /**
                 * Givewhen create/edit interface code written
                 */
-                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-html-format.php';
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-html-format.php';
                 
                 /**
                 * Autoload file included for paypal intigrate paypal library.

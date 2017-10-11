@@ -178,7 +178,7 @@ class AngellEYE_IfThenGive_Post_types {
             do_action('ifthengive_shortcode_interface');
         }       
         else{
-            do_action('give_when_interface');
+            do_action('ifthengive_interface');
         }        
     }
     
@@ -274,19 +274,19 @@ class AngellEYE_IfThenGive_Post_types {
                 do_action('ifthengive_givers_interface');
             }
             elseif($_REQUEST['page'] === 'ifthengive_givers' && $_REQUEST['view'] === 'ListTransactions'){
-                do_action('give_when_list_transactions_interface');
+                do_action('ifthengive_list_transactions_interface');
             }
             elseif($_REQUEST['page'] === 'ifthengive_givers' && $_REQUEST['view'] === 'DoTransactions'){                
-                do_action('give_when_do_transactions_interface');
+                do_action('ifthengive_do_transactions_interface');
             }
             elseif($_REQUEST['page'] === 'ifthengive_givers' && $_REQUEST['view'] === 'GetTransactionDetail'){
-                do_action('give_when_get_transaction_detail');
+                do_action('ifthengive_get_transaction_detail');
             }
             elseif($_REQUEST['page'] === 'ifthengive_givers' && $_REQUEST['view'] === 'RetryFailedTransactions'){
-                do_action('give_when_retry_failed_transactions_interface');
+                do_action('ifthengive_retry_failed_transactions_interface');
             }
             elseif($_REQUEST['page'] === 'ifthengive_givers' && $_REQUEST['view'] === 'GetUsersTransactions'){
-                do_action('give_when_get_users_transactions_interface');
+                do_action('ifthengive_get_users_transactions_interface');
             }
             else{
                 return '';    
@@ -300,7 +300,7 @@ class AngellEYE_IfThenGive_Post_types {
     public static function ifthengive_disconnect_paypal_page_callback(){
         if(isset($_REQUEST['page']) && isset($_REQUEST['action'])){
             if($_REQUEST['page'] === 'ifthengive_disconnect_paypal' && $_REQUEST['action'] === 'true'){
-                do_action('give_when_disconnect_interface');
+                do_action('ifthengive_disconnect_interface');
             }
         }
     }    
