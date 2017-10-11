@@ -373,7 +373,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                             <div class="form-group">
                                                 <label for="selectCurrency"><?php _e('Select Currency',ITG_TEXT_DOMAIN); ?></label>;
                                                 <?php                                       
-                                                    $PayPal_config = new Give_When_PayPal_Helper();        
+                                                    $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();        
                                                     $PayPal_config->set_api_cedentials();        
                                                     $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
                                                     /*

@@ -39,7 +39,7 @@ if(! is_admin()){
 </div>
 <?php
 $ccode = get_option('itg_currency_code');
-$paypal = new Give_When_PayPal_Helper();
+$paypal = new AngellEYE_IfThenGive_PayPal_Helper();
 $symbol = $paypal->get_currency_symbol($ccode);
 ?>
 <script>

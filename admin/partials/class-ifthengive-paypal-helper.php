@@ -2,13 +2,13 @@
 
 /**
  * This class defines all paypal custom functions
- * @class       Give_When_PayPal_Helper
+ * @class       AngellEYE_IfThenGive_PayPal_Helper
  * @version	1.0.0
  * @package	GiveWhen/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class Give_When_PayPal_Helper {
+class AngellEYE_IfThenGive_PayPal_Helper {
        
         var $sandbox='';
         var $developer_account_email = '';

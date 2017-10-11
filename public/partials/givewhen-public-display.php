@@ -65,7 +65,7 @@ class AngellEYE_Give_When_Public_Display {
                     'id' => ''), $atts));
         $html = '';
         $ccode = get_option('itg_currency_code');
-        $paypal = new Give_When_PayPal_Helper();
+        $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
         if( !empty($id) ) {
             $post = get_post($id);
@@ -339,7 +339,7 @@ class AngellEYE_Give_When_Public_Display {
         $_SESSION['gw_user_data'] = $userdata;
         
         /*PayPal setup */                
-        $PayPal_config = new Give_When_PayPal_Helper();
+        $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();
         $PayPal_config->set_api_cedentials();
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
         /*
@@ -418,7 +418,7 @@ class AngellEYE_Give_When_Public_Display {
     public static function cancel_my_account_ba(){        
         $user_id = $_POST['userid'];
         $billing_agreement_id = get_user_meta( $user_id, 'itg_gec_billing_agreement_id', true );
-        $PayPal_config = new Give_When_PayPal_Helper();        
+        $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();        
         $PayPal_config->set_api_cedentials();        
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
         /*

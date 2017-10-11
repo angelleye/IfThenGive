@@ -39,7 +39,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $image_url= $post_meta_array['image_url'][0];
         $trigger_desc = $post_meta_array['trigger_desc'][0];
         $ccode = get_option('itg_currency_code');
-        $paypal = new Give_When_PayPal_Helper();
+        $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
         echo "<h2>".__('Hi ',ITG_TEXT_DOMAIN). $user->display_name . __(', Thank You for signed up in ',ITG_TEXT_DOMAIN) . __($trigger_name,ITG_TEXT_DOMAIN). "</h2>";
         echo "<span>" . __('Each time you will give ',ITG_TEXT_DOMAIN).$symbol.$amount.' '. __('when',ITG_TEXT_DOMAIN).' '.__($trigger_thing,ITG_TEXT_DOMAIN). "</span>";

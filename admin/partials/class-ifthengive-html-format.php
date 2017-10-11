@@ -194,7 +194,7 @@ class AngellEYE_IfThenGive_interface {
                       <div class="modal-dialog modal-lg">
                         <?php 
                             $ccode = get_option('itg_currency_code');
-                            $paypal = new Give_When_PayPal_Helper();
+                            $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
                             $symbol = $paypal->get_currency_symbol($ccode);
                         ?>    
                         <!-- Modal content-->
@@ -512,7 +512,7 @@ class AngellEYE_IfThenGive_interface {
         $goal_id = $_REQUEST['post'];               
         $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
         $givers = AngellEYE_IfThenGive_Givers_Table::get_all_givers();
-        $PayPal_config = new Give_When_PayPal_Helper();        
+        $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();        
         $PayPal_config->set_api_cedentials();                
         $PayPal_config->set_api_subject($goal_id);
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());        
@@ -746,7 +746,7 @@ class AngellEYE_IfThenGive_interface {
         $transaction_id = $_REQUEST['txn_id'];        
         $goal_id = $_REQUEST['post'];
         $givers = AngellEYE_IfThenGive_Givers_Table::get_all_givers();
-        $PayPal_config = new Give_When_PayPal_Helper();
+        $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();
         $PayPal_config->set_api_cedentials();        
         $PayPal_config->set_api_subject($goal_id);
         $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
@@ -935,7 +935,7 @@ class AngellEYE_IfThenGive_interface {
                                     $goal_id = $_REQUEST['post'];
                                     $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
                                     $givers = AngellEYE_Give_When_Transactions_Table::get_all_failed_givers($goal_id);
-                                    $PayPal_config = new Give_When_PayPal_Helper();                                    
+                                    $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();                                    
                                     $PayPal_config->set_api_cedentials();                                     
                                     $PayPal_config->set_api_subject($goal_id);
                                     $ccode = get_option('itg_currency_code');        

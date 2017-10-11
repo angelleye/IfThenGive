@@ -132,7 +132,7 @@ class Ifthengive {
                 /**
                  * PayPal php class file included.
                  */                
-                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/give-when-paypal-helper.php';
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-paypal-helper.php';
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -300,7 +300,7 @@ class Ifthengive {
                     session_start();
                 }                
                 $token = $_GET['token'];                
-                $PayPal_config = new Give_When_PayPal_Helper();                
+                $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();                
                 $PayPal_config->set_api_cedentials();                
                 $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
                 /*
