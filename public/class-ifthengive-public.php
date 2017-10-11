@@ -109,8 +109,8 @@ class Ifthengive_Public {
          * The class responsible for defining all actions that occur in the Frontend
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/class-ifthengive-public-display.php';
-        require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_transactions.php';        
-        require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_goals.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/class-ifthengive-list_my_transactions.php';        
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/class-ifthengive-list_my_goals.php';
         add_shortcode( 'ifthengive_transactions', array(__CLASS__,'itg_transactions_shortcode'));
         add_shortcode( 'ifthengive_account', array(__CLASS__,'itg_account_shortcode'));
         add_shortcode( 'ifthengive_goals', array(__CLASS__,'itg_goals_shortcode'));
@@ -138,7 +138,7 @@ class Ifthengive_Public {
         return apply_filters('ifthengive_locate_template', $template, $template_name, $template_path, $default_path);
     }
     
-    public static function gw_get_template( $template_name, $args = array(), $tempate_path = '', $default_path = '' ) {
+    public static function itg_get_template( $template_name, $args = array(), $tempate_path = '', $default_path = '' ) {
 	if ( is_array( $args ) && isset( $args ) ) :
 		extract( $args );
 	endif;
@@ -214,22 +214,22 @@ class Ifthengive_Public {
     }
     
     public static function itg_transactions_shortcode() {
-        $template = self::gw_get_template('givewhen-my-transactions.php');
+        $template = self::itg_get_template('givewhen-my-transactions.php');
         return $template; 
     }
     
     public static function itg_account_shortcode(){
-        $template = self::gw_get_template('givewhen-my-account.php');
+        $template = self::itg_get_template('givewhen-my-account.php');
         return $template; 
     }
     
     public static function itg_goals_shortcode(){
-        $template = self::gw_get_template('givewhen-my-goals.php');
+        $template = self::itg_get_template('givewhen-my-goals.php');
         return $template; 
     }
     
     public static function itg_account_info_shortcode(){
-        $template = self::gw_get_template('givewhen-account-info.php');
+        $template = self::itg_get_template('givewhen-account-info.php');
         return $template; 
     }
 }
