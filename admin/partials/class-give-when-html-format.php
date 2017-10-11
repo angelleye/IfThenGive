@@ -589,7 +589,7 @@ class AngellEYE_Give_When_interface {
             //save log
             $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
             if ('yes' == $debug) {
-                $log_write = new AngellEYE_Give_When_Logger();
+                $log_write = new AngellEYE_IfThenGive_Logger();
                 $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
             }
             $paypal_email = get_user_meta($value['user_id'], 'itg_gec_email', true);
@@ -1012,7 +1012,7 @@ class AngellEYE_Give_When_interface {
                                         //save log
                                         $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                                         if ('yes' == $debug) {
-                                            $log_write = new AngellEYE_Give_When_Logger();
+                                            $log_write = new AngellEYE_IfThenGive_Logger();
                                             $log_write->add('angelleye_give_when_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
                                         }
                                         $paypal_email = get_user_meta($value['user_id'], 'itg_gec_email', true);

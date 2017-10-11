@@ -107,7 +107,7 @@ class Ifthengive {
                 * The class responsible for writing log in log file.
                 * core plugin.
                 */
-                require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-give-when-logger.php';
+                require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ifthengive-logger.php';
                 
 		/**
 		 * The class responsible for defining internationalization functionality
@@ -336,7 +336,7 @@ class Ifthengive {
                         $logArray = $PayPalResultGEC;
                         $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultGEC['RAWREQUEST']);
                         $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
-                        $log_write = new AngellEYE_Give_When_Logger();
+                        $log_write = new AngellEYE_IfThenGive_Logger();
                         $log_write->add('angelleye_give_when_express_checkout', 'GetExpressCheckout Failed : ' . print_r($logArray, true), 'express_checkout');
                     }
                     wp_redirect(site_url('give-when-error'));
@@ -406,7 +406,7 @@ class Ifthengive {
                                 $logArray = $PayPalResultCBA;
                                 $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultCBA['RAWREQUEST']);
                                 $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
-                                $log_write = new AngellEYE_Give_When_Logger();
+                                $log_write = new AngellEYE_IfThenGive_Logger();
                                 $log_write->add('angelleye_give_when_express_checkout', 'CreateBillingAgreement Success : ' . print_r($logArray, true), 'express_checkout');
                         }
                         $amount = base64_encode($amount);
@@ -427,7 +427,7 @@ class Ifthengive {
                                 $logArray = $PayPalResultCBA;
                                 $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultCBA['RAWREQUEST']);
                                 $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
-                                $log_write = new AngellEYE_Give_When_Logger();
+                                $log_write = new AngellEYE_IfThenGive_Logger();
                                 $log_write->add('angelleye_give_when_express_checkout', 'CreateBillingAgreement Failed : ' . print_r($logArray, true), 'express_checkout');
                         }
                         wp_redirect(site_url('give-when-error'));
