@@ -6,8 +6,8 @@
  * @link       http://www.angelleye.com/
  * @since      1.0.0
  *
- * @package    Givewhen
- * @subpackage Givewhen/includes
+ * @package    IfThenGive
+ * @subpackage IfThenGive/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Givewhen
- * @subpackage Givewhen/includes
+ * @package    IfThenGive
+ * @subpackage IfThenGive/includes
  * @author     Angell EYE <andrew@angelleye.com>
  */
-class Givewhen_Loader {
+class Ifthengive_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

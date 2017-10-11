@@ -9,8 +9,8 @@
  * @link       http://www.angelleye.com/
  * @since      1.0.0
  *
- * @package    Givewhen
- * @subpackage Givewhen/includes
+ * @package    IfThenGive
+ * @subpackage IfThenGive/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Givewhen
- * @subpackage Givewhen/includes
+ * @package    IfThenGive
+ * @subpackage IfThenGive/includes
  * @author     Angell EYE <andrew@angelleye.com>
  */
-class Givewhen {
+class Ifthengive {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Givewhen {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Givewhen_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Ifthengive_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -84,10 +84,10 @@ class Givewhen {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Givewhen_Loader. Orchestrates the hooks of the plugin.
-	 * - Givewhen_i18n. Defines internationalization functionality.
+	 * - Ifthengive_Loader. Orchestrates the hooks of the plugin.
+	 * - Ifthengive_i18n. Defines internationalization functionality.
 	 * - IfThenGive_Admin. Defines all hooks for the admin area.
-	 * - Givewhen_Public. Defines all hooks for the public side of the site.
+	 * - Ifthengive_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -101,7 +101,7 @@ class Givewhen {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-givewhen-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ifthengive-loader.php';
 
                 /**
                 * The class responsible for writing log in log file.
@@ -152,7 +152,7 @@ class Givewhen {
                 }
                 
                 
-		$this->loader = new Givewhen_Loader();
+		$this->loader = new Ifthengive_Loader();
 
 	}
 
@@ -234,7 +234,7 @@ class Givewhen {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Givewhen_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Ifthengive_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;
