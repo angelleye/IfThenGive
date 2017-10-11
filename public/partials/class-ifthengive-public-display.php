@@ -10,24 +10,24 @@
  * @package    Givewhen
  * @subpackage Givewhen/public/partials
  */
-class AngellEYE_Give_When_Public_Display {
+class AngellEYE_IfThenGive_Public_Display {
 
     public static function init() {
-        add_shortcode('give_when_goal', array(__CLASS__, 'give_when_create_shortcode'));
-        //add_action( 'wp_enqueue_scripts', array(__CLASS__,'give_when_detect_shortcode'));
+        add_shortcode('ifthengive_goal', array(__CLASS__, 'ifthengive_create_shortcode'));
+        /*add_action( 'wp_enqueue_scripts', array(__CLASS__,'give_when_detect_shortcode'));*/
         add_action( 'wp_ajax_start_express_checkout', array(__CLASS__,'start_express_checkout'));
         add_action("wp_ajax_nopriv_start_express_checkout",  array(__CLASS__,'start_express_checkout'));
-        add_action( 'wp_ajax_givewhen_my_transactions', array(__CLASS__,'givewhen_my_transactions'));
-        add_action("wp_ajax_nopriv_givewhen_my_transactions",  array(__CLASS__,'givewhen_my_transactions'));
+        add_action( 'wp_ajax_ifthengive_my_transactions', array(__CLASS__,'ifthengive_my_transactions'));
+        add_action("wp_ajax_nopriv_ifthengive_my_transactions",  array(__CLASS__,'ifthengive_my_transactions'));
         
-        add_action( 'wp_ajax_givewhen_my_goals', array(__CLASS__,'givewhen_my_goals'));
-        add_action("wp_ajax_nopriv_givewhen_my_goals",  array(__CLASS__,'givewhen_my_goals'));   
+        add_action( 'wp_ajax_ifthengive_my_goals', array(__CLASS__,'ifthengive_my_goals'));
+        add_action("wp_ajax_nopriv_ifthengive_my_goals",  array(__CLASS__,'ifthengive_my_goals'));   
         
         add_action( 'wp_ajax_cancel_my_account_ba', array(__CLASS__,'cancel_my_account_ba'));
         add_action("wp_ajax_nopriv_cancel_my_account_ba",  array(__CLASS__,'cancel_my_account_ba'));
         
-        add_action( 'wp_ajax_gw_adjust_amount', array(__CLASS__,'gw_adjust_amount'));
-        add_action("wp_ajax_nopriv_gw_adjust_amount",  array(__CLASS__,'gw_adjust_amount'));  
+        add_action( 'wp_ajax_itg_adjust_amount', array(__CLASS__,'itg_adjust_amount'));
+        add_action("wp_ajax_nopriv_itg_adjust_amount",  array(__CLASS__,'itg_adjust_amount'));  
         
         add_action( 'wp_ajax_change_giver_status', array(__CLASS__,'change_giver_status'));
         add_action("wp_ajax_nopriv_change_giver_status",  array(__CLASS__,'change_giver_status'));          
@@ -46,18 +46,18 @@ class AngellEYE_Give_When_Public_Display {
 
         if (   preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches )
             && array_key_exists( 2, $matches )
-            && in_array( 'give_when_goal', $matches[2] ) )
+            && in_array( 'ifthengive_goal', $matches[2] ) )
         {            
             //wp_enqueue_style( 'givewhen-one', ITG_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
         }
     }*/
           
     /**
-     * give_when_create_shortcode function is for generate
+     * ifthengive_create_shortcode function is for generate
      * @since 1.0.0
      * @access public
      */
-    public static function give_when_create_shortcode($atts, $content = null) {
+    public static function ifthengive_create_shortcode($atts, $content = null) {
         global $post, $post_ID , $wp;        
         $current_url =  home_url( $wp->request ); 
         $give_when_page_id = $current_url;
@@ -391,8 +391,8 @@ class AngellEYE_Give_When_Public_Display {
         exit;
     }    
     
-    public static function givewhen_my_transactions(){
-        $table = new AngellEYE_Give_When_My_Transactions_Table();
+    public static function ifthengive_my_transactions(){
+        $table = new AngellEYE_IfThenGive_My_Transactions_Table();
         $my_transactions_data = $table->get_transactions();        
         $recordsTotal = $table->record_count();
         if(!empty($my_transactions_data))
@@ -403,8 +403,8 @@ class AngellEYE_Give_When_Public_Display {
         exit;
     }
     
-    public static function givewhen_my_goals(){
-        $table = new AngellEYE_Give_When_My_Goals_Table();
+    public static function ifthengive_my_goals(){
+        $table = new AngellEYE_IfThenGive_My_Goals_Table();
         $my_goals_data = $table->get_goals();        
         $recordsTotal = $table->record_count();
         if(!empty($my_goals_data))
@@ -457,7 +457,7 @@ class AngellEYE_Give_When_Public_Display {
         exit;
     }
     
-    public static function gw_adjust_amount(){
+    public static function itg_adjust_amount(){
         if(isset($_POST['changed_amount'])){
             $changed_amount = $_POST['changed_amount'];
             $postid = $_POST['postid'];
@@ -485,4 +485,4 @@ class AngellEYE_Give_When_Public_Display {
     
 }
 
-AngellEYE_Give_When_Public_Display::init();
+AngellEYE_IfThenGive_Public_Display::init();

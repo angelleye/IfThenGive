@@ -108,7 +108,7 @@ class Ifthengive_Public {
         /**
          * The class responsible for defining all actions that occur in the Frontend
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/givewhen-public-display.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/class-ifthengive-public-display.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_transactions.php';        
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/give-when-list_my_goals.php';
         add_shortcode( 'ifthengive_transactions', array(__CLASS__,'itg_transactions_shortcode'));

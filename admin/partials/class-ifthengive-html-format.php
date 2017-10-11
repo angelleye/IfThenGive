@@ -391,7 +391,7 @@ class AngellEYE_IfThenGive_interface {
                 <div class="col-md-12">
                     <p>'. __('You may copy and paste this shortcode into any Page or Post to place the "Goal" where you would like it to be displayed.', ITG_TEXT_DOMAIN).'</p>                    
                     <div class="give_when_highlight">
-                        <h4 id="h4_clipboard">[give_when_goal id=' . $post_ID . ']</h4>
+                        <h4 id="h4_clipboard">[ifthengive_goal id=' . $post_ID . ']</h4>
                         <span class="btn-clipboard" data-toggle="tooltip" data-placement="right" title="Copy To Clipboard">'. __('Copy', ITG_TEXT_DOMAIN).'</span>
                     </div>                    
                 </div>

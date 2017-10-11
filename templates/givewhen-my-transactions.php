@@ -51,7 +51,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
             "processing": true,
             "oLanguage": {"sEmptyTable": 'No Transactions Found', "sZeroRecords": 'No records Found'},
             "ajax": {
-                url: "<?php echo admin_url('admin-ajax.php'); ?>?action=givewhen_my_transactions",
+                url: "<?php echo admin_url('admin-ajax.php'); ?>?action=ifthengive_my_transactions",
                 type: "POST"
             },
             "columnDefs": [

@@ -52,7 +52,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
             "processing": true,
             "oLanguage": {"sEmptyTable": 'No Goals Found', "sZeroRecords": 'No records Found'},
             "ajax": {
-                url: "<?php echo admin_url('admin-ajax.php'); ?>?action=givewhen_my_goals",
+                url: "<?php echo admin_url('admin-ajax.php'); ?>?action=ifthengive_my_goals",
                 type: "POST"
             },
             "columnDefs": [
@@ -124,7 +124,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
                             type: 'POST',
                             url: admin_ajax_url,
                              data: { 
-                                action  : 'gw_adjust_amount',
+                                action  : 'itg_adjust_amount',
                                 userid  : goalUserId,
                                 postid  : goalPostId,
                                 goalid  : goalId,

@@ -139,7 +139,7 @@ class AngellEYE_IfThenGive_Post_types {
             case 'shortcodes' :
                 $shortcode_avalabilty = get_post_meta($post_id, 'trigger_name', true);
                 if (isset($shortcode_avalabilty) && !empty($shortcode_avalabilty)) {
-                    echo '[give_when_goal id=' . $post_id . ']';
+                    echo '[ifthengive_goal id=' . $post_id . ']';
                 } else {
                     echo __('Not Available');
                 }

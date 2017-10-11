@@ -3,13 +3,13 @@
  *
  * Display Transactions's Data
  *
- * @class       AngellEYE_Give_When_My_Transactions_Table
+ * @class       AngellEYE_IfThenGive_My_Transactions_Table
  * @version	1.0.0
  * @package	give-when
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_My_Transactions_Table {
+class AngellEYE_IfThenGive_My_Transactions_Table {
     /**
      * Class Constructor
      * @since    1.0.0     
@@ -142,4 +142,4 @@ class AngellEYE_Give_When_My_Transactions_Table {
 
 }
 
-AngellEYE_Give_When_My_Transactions_Table::init();
+AngellEYE_IfThenGive_My_Transactions_Table::init();
