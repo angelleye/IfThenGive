@@ -2,7 +2,7 @@
 /**
  * IfThenGive My Account template.
  *
- * This template can be overriden by copying this file to your-theme/GiveWhen/givewhen-my-account.php
+ * This template can be overriden by copying this file to your-theme/GiveWhen/template-ifthengive-my-account.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	Givewhen

@@ -175,36 +175,36 @@ class Ifthengive_Public {
 
         if (get_query_var('itgthankyou', false) !== false) {            
 
-            $newTemplate = locate_template(array('goal-signup-complete.php'));            
+            $newTemplate = locate_template(array('template-ifthengive-thankyou.php'));            
             if ('' != $newTemplate)
                 return $newTemplate;
 
             //Check plugin directory next
-            $newTemplate = ITG_PLUGIN_DIR . '/templates/goal-signup-complete.php';
+            $newTemplate = ITG_PLUGIN_DIR . '/templates/template-ifthengive-thankyou.php';
             if (file_exists($newTemplate))
                 return $newTemplate;
         }
         
         if (get_query_var('itgerror', false) !== false) {            
 
-            $newTemplate = locate_template(array('gw-errors-display.php'));            
+            $newTemplate = locate_template(array('template-ifthengive-errors.php'));            
             if ('' != $newTemplate)
                 return $newTemplate;
 
             //Check plugin directory next
-            $newTemplate = ITG_PLUGIN_DIR . '/templates/gw-errors-display.php';
+            $newTemplate = ITG_PLUGIN_DIR . '/templates/template-ifthengive-errors.php';
             if (file_exists($newTemplate))
                 return $newTemplate;
         }
         
         if (get_query_var('itgmyaccount', false) !== false) {
 
-            $newTemplate = locate_template(array('givewhen-my-account.php'));            
+            $newTemplate = locate_template(array('template-ifthengive-my-account.php'));            
             if ('' != $newTemplate)
                 return $newTemplate;
 
             //Check plugin directory next
-            $newTemplate = ITG_PLUGIN_DIR . '/templates/givewhen-my-account.php';
+            $newTemplate = ITG_PLUGIN_DIR . '/templates/template-ifthengive-my-account.php';
             if (file_exists($newTemplate))
                 return $newTemplate;
         }
@@ -214,22 +214,22 @@ class Ifthengive_Public {
     }
     
     public static function itg_transactions_shortcode() {
-        $template = self::itg_get_template('givewhen-my-transactions.php');
+        $template = self::itg_get_template('template-ifthengive-my-transactions.php');
         return $template; 
     }
     
     public static function itg_account_shortcode(){
-        $template = self::itg_get_template('givewhen-my-account.php');
+        $template = self::itg_get_template('template-ifthengive-my-account.php');
         return $template; 
     }
     
     public static function itg_goals_shortcode(){
-        $template = self::itg_get_template('givewhen-my-goals.php');
+        $template = self::itg_get_template('template-ifthengive-my-goals.php');
         return $template; 
     }
     
     public static function itg_account_info_shortcode(){
-        $template = self::itg_get_template('givewhen-account-info.php');
+        $template = self::itg_get_template('template-ifthengive-account-info.php');
         return $template; 
     }
 }

@@ -137,7 +137,7 @@ class Ifthengive {
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-givewhen-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-ifthengive-public.php';
                 /**
                  * Included for inherit wordpress table style.
                 **/
@@ -145,7 +145,7 @@ class Ifthengive {
                 /**
                 * PayPal Debug Log
                 */
-                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-give-when-log.php';
+                require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-log.php';
 
                 if ( !class_exists( 'WP_List_Table' ) ){
                 require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );

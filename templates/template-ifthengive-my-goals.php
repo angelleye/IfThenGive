@@ -2,7 +2,7 @@
 /**
  * IfThenGive Transaction template.
  *
- * This template can be overriden by copying this file to your-theme/GiveWhen/givewhen-my-goals.php
+ * This template can be overriden by copying this file to your-theme/GiveWhen/template-ifthengive-my-goals.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	Givewhen

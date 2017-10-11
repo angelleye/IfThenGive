@@ -14,7 +14,7 @@ class AngellEYE_IfThenGive_Public_Display {
 
     public static function init() {
         add_shortcode('ifthengive_goal', array(__CLASS__, 'ifthengive_create_shortcode'));
-        /*add_action( 'wp_enqueue_scripts', array(__CLASS__,'give_when_detect_shortcode'));*/
+        /*add_action( 'wp_enqueue_scripts', array(__CLASS__,'ifthengive_detect_shortcode'));*/
         add_action( 'wp_ajax_start_express_checkout', array(__CLASS__,'start_express_checkout'));
         add_action("wp_ajax_nopriv_start_express_checkout",  array(__CLASS__,'start_express_checkout'));
         add_action( 'wp_ajax_ifthengive_my_transactions', array(__CLASS__,'ifthengive_my_transactions'));
@@ -34,12 +34,12 @@ class AngellEYE_IfThenGive_Public_Display {
     }
    
     /*
-     * give_when_detect_shortcode function is added only to detect the givewhen shortcode in the page content.
+     * ifthengive_detect_shortcode function is added only to detect the ifthengive shortcode in the page content.
      * It was neccesory when you have to load particular CSS or JS only when shotcode detect.
      * we have Bootstrap design before, but now we have our own cutom class so it will not affect/conflict with
      * other css class.
      *  
-    public static function give_when_detect_shortcode()
+    public static function ifthengive_detect_shortcode()
     {
         global $post;
         $pattern = get_shortcode_regex();
@@ -48,7 +48,7 @@ class AngellEYE_IfThenGive_Public_Display {
             && array_key_exists( 2, $matches )
             && in_array( 'ifthengive_goal', $matches[2] ) )
         {            
-            //wp_enqueue_style( 'givewhen-one', ITG_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
+            //wp_enqueue_style( 'ifthengive-one', ITG_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
         }
     }*/
           

@@ -73,7 +73,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
                                                                 <tbody>
                                                                     <tr>
                                                                         <td style="padding: 10px; display: block">
-                                                                          <h1 style="color: rgb(255, 255, 255); font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: center; text-shadow: 0 1px 0 rgb(119, 151, 180)"><img src="'.ITG_PLUGIN_URL.'/admin/images/givewhen.png" alt="IfThenGive"></h1> </td>
+                                                                          <h1 style="color: rgb(255, 255, 255); font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: center; text-shadow: 0 1px 0 rgb(119, 151, 180)"><img src="'.ITG_PLUGIN_URL.'/admin/images/ifthengive.png" alt="IfThenGive"></h1> </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

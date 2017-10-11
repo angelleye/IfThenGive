@@ -2,13 +2,13 @@
 
 /**
  * This class defines all code necessary logs
- * @class       AngellEYE_Give_When_Log
+ * @class       AngellEYE_IfThenGive_Log
  * @version	1.0.0
  * @package	IfThenGive/admin/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
-class AngellEYE_Give_When_Log {
+class AngellEYE_IfThenGive_Log {
 
     public static function init() {
         add_action('give_when_logs_setting', array(__CLASS__, 'give_when_logs_setting'));
@@ -123,4 +123,4 @@ class AngellEYE_Give_When_Log {
 
 }
 
-AngellEYE_Give_When_Log::init();
+AngellEYE_IfThenGive_Log::init();
