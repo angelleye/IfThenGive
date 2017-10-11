@@ -101,7 +101,7 @@
             });
         }
         
-        $(document).on('click','#give_when_fun',function(){
+        $(document).on('click','#ifthengive_fun',function(){
             alertify.defaults.transition = "slide";
             alertify.defaults.theme.ok = "btn btn-primary";
             alertify.defaults.theme.cancel = "btn btn-danger";
@@ -110,7 +110,7 @@
                 function ()
                 {                                        
                     alertify.success('Process Doantion is Starting.'); 
-                    window.location.href = $('#give_when_fun').attr('data-redirectUrl');
+                    window.location.href = $('#ifthengive_fun').attr('data-redirectUrl');
                 },
                 function ()
                 {
@@ -122,12 +122,12 @@
             var sandbox = '';            
             if ($(this).is(':checked')){
                 sandbox = true;         
-                $('#give_when_sandbox_fields').show();
-                $('#give_when_live_fields').hide();
+                $('#ifthengive_sandbox_fields').show();
+                $('#ifthengive_live_fields').hide();
             } else { 
                 sandbox = false;
-                $('#give_when_sandbox_fields').hide();
-                $('#give_when_live_fields').show();
+                $('#ifthengive_sandbox_fields').hide();
+                $('#ifthengive_live_fields').show();
             }
              $.ajax({
                 type: 'POST',
@@ -141,18 +141,18 @@
                 }
             });
         });
-        $("#gwsandboxClass").on('show.bs.collapse', function(){
-            $("#gwsandbox_details").text('').text('Hide Advanced Details');
+        $("#itgsandboxClass").on('show.bs.collapse', function(){
+            $("#itgsandbox_details").text('').text('Hide Advanced Details');
         });
-        $("#gwsandboxClass").on('hide.bs.collapse', function(){
-            $("#gwsandbox_details").text('').text('Show Advanced Details');
+        $("#itgsandboxClass").on('hide.bs.collapse', function(){
+            $("#itgsandbox_details").text('').text('Show Advanced Details');
         });
         
-        $("#gwliveClass").on('show.bs.collapse', function(){
-            $("#gwlive_details").text('').text('Hide Advanced Details');
+        $("#itgliveClass").on('show.bs.collapse', function(){
+            $("#itglive_details").text('').text('Hide Advanced Details');
         });
-        $("#gwliveClass").on('hide.bs.collapse', function(){
-            $("#gwlive_details").text('').text('Show Advanced Details');
+        $("#itgliveClass").on('hide.bs.collapse', function(){
+            $("#itglive_details").text('').text('Show Advanced Details');
         });
         $('#fixed_amount_input').on('input', function() {
             this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
@@ -160,7 +160,7 @@
         $(document).on('input','input[name="option_amount[]"]', function() {
            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); 
         });
-        $('#gw_manual_amount_input').on('input', function() {
+        $('#itg_manual_amount_input').on('input', function() {
             this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
         });
         
@@ -173,7 +173,7 @@
         
         $(document).on('click','.btn-cbaid',function(){
             var userid = $(this).data('userid');
-            var status = $(this).data('gwchangestatus');
+            var status = $(this).data('itgchangestatus');
             var post_id = $(this).data('postid');
             var btn = $(this);
             alertify.defaults.transition = "slide";
@@ -197,14 +197,14 @@
                                btn.removeClass('btn-warning');
                                btn.addClass('btn-defalt');
                                btn.text('Activate');
-                               btn.closest('tr').addClass('gw_suspended_row');
+                               btn.closest('tr').addClass('itg_suspended_row');
                                alertify.error('Giver Suspended');
                            }
                            else{
                                btn.removeClass('btn-defalt');
                                btn.addClass('btn-warning');
                                btn.text('Suspend');
-                               btn.closest('tr').removeClass('gw_suspended_row');
+                               btn.closest('tr').removeClass('itg_suspended_row');
                                alertify.success('Giver Activated');
                            }
                        }
@@ -216,7 +216,7 @@
                 });               
         });
         
-        $(document).on('click','#gw_sandbox_add_manually', function(){
+        $(document).on('click','#itg_sandbox_add_manually', function(){
             if ($(this).is(':checked')){                
                 $("#itg_sb_api_credentials_username").removeAttr('disabled');
                 $("#itg_sb_api_credentials_password").removeAttr('disabled');
@@ -229,7 +229,7 @@
             }
         });
         
-        $(document).on('click','#gw_live_add_manually', function(){
+        $(document).on('click','#itg_live_add_manually', function(){
             if ($(this).is(':checked')){                
                 $("#itg_lv_api_credentials_username").removeAttr('disabled');
                 $("#itg_lv_api_credentials_password").removeAttr('disabled');
