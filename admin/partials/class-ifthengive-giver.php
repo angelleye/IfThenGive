@@ -5,7 +5,7 @@
  *
  * @class       AngellEYE_IfThenGive_Givers_Table
  * @version		1.0.0
- * @package		give-when
+ * @package		ifthengive
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
@@ -238,7 +238,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
                     $label = __('Activate',ITG_TEXT_DOMAIN);
                     $class = "btn-defalt";
                 }            
-                echo apply_filters('itg_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-gwchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,ITG_TEXT_DOMAIN).'</button>',$_REQUEST['post']);
+                echo apply_filters('itg_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-itgchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,ITG_TEXT_DOMAIN).'</button>',$_REQUEST['post']);
             }
             break;
       }
@@ -255,7 +255,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         }
         /* else status is always suspended so make it active */
         else{
-            $class = "gw_suspended_row";
+            $class = "itg_suspended_row";
         }
         echo '<tr class="'.$class.'">';
         echo $this->single_row_columns( $item );

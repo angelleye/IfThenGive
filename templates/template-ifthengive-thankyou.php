@@ -2,7 +2,7 @@
 /**
  * IfThenGive Thankyou template.
  *
- * This template can be overriden by copying this file to your-theme/GiveWhen/goal-signup-complete.php
+ * This template can be overriden by copying this file to your-theme/IfThenGive/goal-signup-complete.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	Givewhen
@@ -15,9 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Don't allow direct access
 get_header();
 ?>
 
-<div class="gw_center_container">
-    <div class="gwcontainer">
-        <div class="gw_heading gw_heading-center">            
+<div class="itg_center_container">
+    <div class="itgcontainer">
+        <div class="itg_heading itg_heading-center">            
 <?php
 if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
     $the_slug = $_REQUEST['goal'];
@@ -43,10 +43,10 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $symbol = $paypal->get_currency_symbol($ccode);
         echo "<h2>".__('Hi ',ITG_TEXT_DOMAIN). $user->display_name . __(', Thank You for signed up in ',ITG_TEXT_DOMAIN) . __($trigger_name,ITG_TEXT_DOMAIN). "</h2>";
         echo "<span>" . __('Each time you will give ',ITG_TEXT_DOMAIN).$symbol.$amount.' '. __('when',ITG_TEXT_DOMAIN).' '.__($trigger_thing,ITG_TEXT_DOMAIN). "</span>";
-        echo '<div class="gw_post-image" style="margin-top: 30px;margin-top: 30px;max-width: 600px;margin-left: auto;margin-right: auto;">
+        echo '<div class="itg_post-image" style="margin-top: 30px;margin-top: 30px;max-width: 600px;margin-left: auto;margin-right: auto;">
                 <img src="'.$image_url.'" alt="Goal Image">
               </div>
-              <div class="gw_post-description" style="    max-width: 600px;margin-left: auto;margin-right: auto;">
+              <div class="itg_post-description" style="    max-width: 600px;margin-left: auto;margin-right: auto;">
                 <p>'.__($trigger_desc,ITG_TEXT_DOMAIN).'</p>
               </div>';
         $EmailString='';

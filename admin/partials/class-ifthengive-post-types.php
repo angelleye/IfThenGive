@@ -5,7 +5,7 @@
  *
  * @class       AngellEYE_IfThenGive_Post_types
  * @version		1.0.0
- * @package		give-when
+ * @package		ifthengive
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
@@ -38,7 +38,7 @@ class AngellEYE_IfThenGive_Post_types {
             echo '.wp-list-table .column-amount { width: 7%; }';
             echo '.wp-list-table .column-PayPalPayerID { width: 11%; }';
             echo '.wp-list-table .column-BADate { width: 10%; }';
-            echo '.wp-list-table .column-GWAction { width: 7%; }';        
+            echo '.wp-list-table .column-ITGAction { width: 7%; }';        
             echo '</style>';
         }
         elseif( 'ListTransactions' == $page || 'GetUsersTransactions' == $page){
@@ -95,7 +95,7 @@ class AngellEYE_IfThenGive_Post_types {
                     'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
                     'rewrite' => array('slug' => 'ifthengive_goals'),
                     'query_var' => true,
-                    'menu_icon' => ITG_PLUGIN_URL . '/admin/images/dashicon-gw.png',
+                    'menu_icon' => ITG_PLUGIN_URL . '/admin/images/dashicon-itg.png',
                     'supports' => array('title'),
                     'has_archive' => true,
                     'show_in_nav_menus' => true

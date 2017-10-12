@@ -71,9 +71,9 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         $sanbox_enable = get_option('itg_sandbox_enable');
         if ($sanbox_enable === 'yes') {
             $sandbox_class = "";
-            $live_class="gw_hide_live_class";
+            $live_class="itg_hide_live_class";
         } else {
-            $sandbox_class = "gw_hide_sandbox_class";
+            $sandbox_class = "itg_hide_sandbox_class";
             $live_class="";
         }
         $sandbox_api_user_name = get_option('itg_sb_api_credentials_username');
@@ -84,8 +84,8 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         $live_api_password = get_option('itg_lv_api_credentials_password');
         $live_signature = get_option('itg_lv_api_credentials_signature');
         
-        $gw_sb_add_manually = get_option('itg_sb_api_credentials_addded_manually');
-        $gw_lv_add_manually = get_option('itg_lv_api_credentials_addded_manually');
+        $itg_sb_add_manually = get_option('itg_sb_api_credentials_addded_manually');
+        $itg_lv_add_manually = get_option('itg_lv_api_credentials_addded_manually');
         
         ?>                
         <div class="wrap">
@@ -94,7 +94,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                     <p id="connect_paypal_error_p"></p>
                 </div>                  
                     <div id="overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
-                        <div class="gw_loader"></div>
+                        <div class="itg_loader"></div>
                         <h1 style="font-weight: 600;"><?php _e('Processing...',ITG_TEXT_DOMAIN); ?></h1>                    
                     </div>
                 </div>
@@ -102,10 +102,10 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <form id="ifthengive_integration_form_general" enctype="multipart/form-data" action="" method="post">
                         <div class="panel panel-default">
-                            <div class="panel-heading gw-panel-heading">
+                            <div class="panel-heading itg-panel-heading">
                                 <h3 class="panel-title">
-                                    <img class="pull-right"  src="<?php echo ITG_PLUGIN_URL.'admin/images/PayPal_GiveWhen.png' ?>" alt="PayPal Logo">
-                                    <div class="gw_div_log_settings">                                    
+                                    <img class="pull-right"  src="<?php echo ITG_PLUGIN_URL.'admin/images/PayPal_IfThenGive.png' ?>" alt="PayPal Logo">
+                                    <div class="itg_div_log_settings">                                    
                                         <table class="form-table">
                                             <tbody>
                                                 <?php $Html_output->init($general_setting_fields); ?>                                                
@@ -171,15 +171,15 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                             else{
                                                 echo '<span class="label label-danger">'.__('You are not Connected with SandBox PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';
                                             }
-                                            if($gw_sb_add_manually !== false  && $gw_sb_add_manually ==='Yes' && $sb_paypal_account_id === false){
+                                            if($itg_sb_add_manually !== false  && $itg_sb_add_manually ==='Yes' && $sb_paypal_account_id === false){
                                                 $collpase_class = 'in';
-                                                $gw_sb_button_text = __('Hide Advanced Details',ITG_TEXT_DOMAIN);
+                                                $itg_sb_button_text = __('Hide Advanced Details',ITG_TEXT_DOMAIN);
                                                 $checkbox_sb_manually = 'checked';
                                                 $sb_disabled = '';
                                             }
                                             else{
                                                 $collpase_class = '';
-                                                $gw_sb_button_text = __('Show Advanced Details',ITG_TEXT_DOMAIN);
+                                                $itg_sb_button_text = __('Show Advanced Details',ITG_TEXT_DOMAIN);
                                                 $checkbox_sb_manually = '';
                                                 $sb_disabled = 'disabled';
                                             }
@@ -189,7 +189,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <?php                                           
-                                            if ($sb_paypal_account_id == false && $gw_sb_add_manually !== 'Yes') {                                
+                                            if ($sb_paypal_account_id == false && $itg_sb_add_manually !== 'Yes') {                                
                                                 $sandbox = 'true';
                                                 $url = ITG_ISU_URL;
                                                 $return_url = site_url('?action=permission_callback');
@@ -215,7 +215,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                 if ($ConnectPayPalArray['ACK'] == 'success') {
                                                     ?>                                                                          
                                                     <div class="form-group">
-                                                        <a id="gw_connect_with_paypal_sb" data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
+                                                        <a id="itg_connect_with_paypal_sb" data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
                                                     </div>
                                                     <?php
                                                 } else {
@@ -227,12 +227,12 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                 <?php }
                                             }
                                             ?>
-                                            <a class="btn btn-sm btn-default" data-toggle="collapse" href="#gwsandboxClass" aria-expanded="false" aria-controls="gwsandboxClass" id="gwsandbox_details"><?php echo $gw_sb_button_text; ?></a><br><br>
+                                            <a class="btn btn-sm btn-default" data-toggle="collapse" href="#itgsandboxClass" aria-expanded="false" aria-controls="itgsandboxClass" id="itgsandbox_details"><?php echo $itg_sb_button_text; ?></a><br><br>
                                         </div>                                                                                                                        
-                                        <div class="col-lg-12 col-md-12 col-sm-12 collapse <?php echo $collpase_class; ?>" id="gwsandboxClass">                                            
+                                        <div class="col-lg-12 col-md-12 col-sm-12 collapse <?php echo $collpase_class; ?>" id="itgsandboxClass">                                            
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="gw_sandbox_add_manually" id="gw_sandbox_add_manually" <?php echo $checkbox_sb_manually; ?> ><?php _e('Add Sandbox Credentials Manually.',ITG_TEXT_DOMAIN); ?>
+                                                    <input type="checkbox" name="itg_sandbox_add_manually" id="itg_sandbox_add_manually" <?php echo $checkbox_sb_manually; ?> ><?php _e('Add Sandbox Credentials Manually.',ITG_TEXT_DOMAIN); ?>
                                                 </label>
                                             </div>
                                             <div class="form-group">
@@ -288,15 +288,15 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                             else{
                                                 echo '<span class="label label-danger">'.__('You are not Connected with Live PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';
                                             }
-                                            if($gw_lv_add_manually !== false  && $gw_lv_add_manually ==='Yes' && $live_paypal_account_id === false){
+                                            if($itg_lv_add_manually !== false  && $itg_lv_add_manually ==='Yes' && $live_paypal_account_id === false){
                                                 $lv_collpase_class = 'in';
-                                                $gw_lv_button_text = __('Hide Advanced Details',ITG_TEXT_DOMAIN);
+                                                $itg_lv_button_text = __('Hide Advanced Details',ITG_TEXT_DOMAIN);
                                                 $checkbox_lv_manually = 'checked';
                                                  $lv_disabled = '';
                                             }
                                             else{
                                                 $lv_collpase_class = '';
-                                                $gw_lv_button_text = __('Show Advanced Details',ITG_TEXT_DOMAIN);
+                                                $itg_lv_button_text = __('Show Advanced Details',ITG_TEXT_DOMAIN);
                                                 $checkbox_lv_manually = '';
                                                 $lv_disabled = 'disabled';
                                             }
@@ -306,7 +306,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                     <div class="row">                                        
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <?php                                            
-                                            if ($live_paypal_account_id == false && $gw_lv_add_manually !== 'Yes') {
+                                            if ($live_paypal_account_id == false && $itg_lv_add_manually !== 'Yes') {
                                                 $sandbox = 'false';
                                                 $url = ITG_ISU_URL;
                                                 $return_url = site_url('?action=permission_callback');
@@ -332,7 +332,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                 if ($ConnectPayPalArray['ACK'] == 'success') {
                                                     ?>                                                                          
                                                     <div class="form-group">
-                                                        <a id="gw_connect_with_paypal_live" data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
+                                                        <a id="itg_connect_with_paypal_live" data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
                                                     </div>
                                                     <?php
                                                 } else {
@@ -345,12 +345,12 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                 <?php }
                                             }
                                             ?>
-                                            <a class="btn btn-sm btn-default" data-toggle="collapse" href="#gwliveClass" aria-expanded="false" aria-controls="gwliveClass" id="gwlive_details"><?php echo $gw_lv_button_text; ?></a><br><br>
+                                            <a class="btn btn-sm btn-default" data-toggle="collapse" href="#itgliveClass" aria-expanded="false" aria-controls="itgliveClass" id="itglive_details"><?php echo $itg_lv_button_text; ?></a><br><br>
                                         </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 collapse <?php echo $lv_collpase_class; ?>" id="gwliveClass">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 collapse <?php echo $lv_collpase_class; ?>" id="itgliveClass">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="gw_live_add_manually" id="gw_live_add_manually" <?php echo $checkbox_lv_manually; ?> ><?php _e('Add Live Credentials Manually.',ITG_TEXT_DOMAIN); ?>
+                                                    <input type="checkbox" name="itg_live_add_manually" id="itg_live_add_manually" <?php echo $checkbox_lv_manually; ?> ><?php _e('Add Live Credentials Manually.',ITG_TEXT_DOMAIN); ?>
                                                 </label>
                                             </div>
                                             <div class="form-group">
@@ -493,7 +493,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         $Html_output->save_fields($ifthengive_setting_fields);        
         if (isset($_POST['ifthengive_intigration'])): 
             if(isset($_POST['itg_sandbox_enable']) && $_POST['itg_sandbox_enable'] == '1'){
-                if(isset($_POST['gw_sandbox_add_manually'])){
+                if(isset($_POST['itg_sandbox_add_manually'])){
                     update_option('itg_sb_api_credentials_username',$_POST["itg_sb_api_credentials_username"]);
                     update_option('itg_sb_api_credentials_password',$_POST["itg_sb_api_credentials_password"]);
                     update_option('itg_sb_api_credentials_signature',$_POST["itg_sb_api_credentials_signature"]);
@@ -502,7 +502,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                 }
             }
             else{
-                if(isset($_POST['gw_live_add_manually'])){                
+                if(isset($_POST['itg_live_add_manually'])){                
                     update_option('itg_lv_api_credentials_username',$_POST['itg_lv_api_credentials_username']);
                     update_option('itg_lv_api_credentials_password',$_POST['itg_lv_api_credentials_password']);
                     update_option('itg_lv_api_credentials_signature',$_POST['itg_lv_api_credentials_signature']);

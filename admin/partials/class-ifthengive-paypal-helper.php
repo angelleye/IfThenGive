@@ -4,7 +4,7 @@
  * This class defines all paypal custom functions
  * @class       AngellEYE_IfThenGive_PayPal_Helper
  * @version	1.0.0
- * @package	GiveWhen/partials
+ * @package	IfThenGive/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */

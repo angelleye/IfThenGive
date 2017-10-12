@@ -2,7 +2,7 @@
 /**
  * IfThenGive Transaction template.
  *
- * This template can be overriden by copying this file to your-theme/GiveWhen/template-ifthengive-my-goals.php
+ * This template can be overriden by copying this file to your-theme/IfThenGive/template-ifthengive-my-goals.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	Givewhen
@@ -16,14 +16,14 @@ if (!defined('ABSPATH'))
 if(! is_admin()){
 ?>
 <div id="adjust_amount_overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
-    <div class="gw_loader"></div>
+    <div class="itg_loader"></div>
     <h1 style="font-weight: 600;">Processing...</h1>
 </div>
-<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Goals', ITG_TEXT_DOMAIN) ?></abbr></div>
-<div class="gw_center_container">   
-    <div class="gwcontainer">
-        <div class="gw_table-responsive">
-            <table class="gw_table" id="GiveWhen_Goals_Table" width="100%">
+<div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Goals', ITG_TEXT_DOMAIN) ?></abbr></div>
+<div class="itg_center_container">   
+    <div class="itgcontainer">
+        <div class="itg_table-responsive">
+            <table class="itg_table" id="IfThenGive_Goals_Table" width="100%">
                 <thead>
                     <tr>
                         <th><?php _e('Goal Name', ITG_TEXT_DOMAIN); ?></th>                        
@@ -44,7 +44,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
 ?>
 <script>
     jQuery(document).ready(function ($) {        
-        var GiveWhen_Goals_Table = $('#GiveWhen_Goals_Table').dataTable({
+        var IfThenGive_Goals_Table = $('#IfThenGive_Goals_Table').dataTable({
             "serverSide": true,
             "responsive": true,
             "colReorder": true,
@@ -77,7 +77,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
                             return '-';
                         }
                         else{
-                            return '<button class="gw_btn gw_btn-primary gw_btn-sm gw_adjust_amount" data-goalamount="'+parseFloat(row.amount).toFixed(2)+'"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Adjust',ITG_TEXT_DOMAIN); ?></button>';
+                            return '<button class="itg_btn itg_btn-primary itg_btn-sm itg_adjust_amount" data-goalamount="'+parseFloat(row.amount).toFixed(2)+'"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Adjust',ITG_TEXT_DOMAIN); ?></button>';
                         }
                     }
                 },
@@ -89,10 +89,10 @@ $symbol = $paypal->get_currency_symbol($ccode);
                         }
                         else{
                             if(row.giver_status =='suspended'){
-                                return '<button class="gw_btn gw_btn-sm gw_giver_status" data-changestatus="Active" data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Activate',ITG_TEXT_DOMAIN); ?></button>';
+                                return '<button class="itg_btn itg_btn-sm itg_giver_status" data-changestatus="Active" data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Activate',ITG_TEXT_DOMAIN); ?></button>';
                             }
                             else{
-                                return '<button class="gw_btn gw_btn-warning gw_btn-sm gw_giver_status" data-changestatus="Suspend"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Suspend',ITG_TEXT_DOMAIN); ?></button>';
+                                return '<button class="itg_btn itg_btn-warning itg_btn-sm itg_giver_status" data-changestatus="Suspend"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Suspend',ITG_TEXT_DOMAIN); ?></button>';
                             }
                         }
                     }
@@ -105,7 +105,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
                 }                
             ]
         });  
-            $(document).on('click','.gw_adjust_amount',function(e){
+            $(document).on('click','.itg_adjust_amount',function(e){
                 var btn = $(this);
                 var goalName = btn.attr('data-goalname');
                 var goalId = btn.attr('data-goalid');
@@ -139,7 +139,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
                             },
                             success: function (result) {
                                 alertify.success('Amount changed for ' + goalName); 
-                                GiveWhen_Goals_Table.api().ajax.reload();
+                                IfThenGive_Goals_Table.api().ajax.reload();
                             }
                         });                        
                     }, 
@@ -149,7 +149,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
                 );
             });
             
-            $(document).on('click','.gw_giver_status',function(e){
+            $(document).on('click','.itg_giver_status',function(e){
                 var btn = $(this);
                 var chnageStatus = btn.attr('data-changestatus'); 
                 var goalName = btn.attr('data-goalname');
@@ -171,7 +171,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
                        dataType: "json",
                        success: function (result) {
                            alertify.success('Status changed for ' + goalName); 
-                           GiveWhen_Goals_Table.api().ajax.reload();
+                           IfThenGive_Goals_Table.api().ajax.reload();
                        }
                    });
                 },

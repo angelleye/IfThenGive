@@ -104,7 +104,7 @@
                 $(document).on("click", '.tabs-navigation span',function (e) {                    
                     $(this).tab("show"), e.preventDefault();
                     if($(this).attr('href') == '#itg_account_goals'){                        
-                        $('#GiveWhen_Goals_Table').DataTable().columns.adjust().responsive.recalc();
+                        $('#IfThenGive_Goals_Table').DataTable().columns.adjust().responsive.recalc();
                     }
                     return false;
                 });

@@ -4,7 +4,7 @@
  * This class defines all code necessary to generate interface
  * @class       AngellEYE_IfThenGive_interface
  * @version	1.0.0
- * @package	give-when/partials
+ * @package	ifthengive/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */
@@ -56,8 +56,8 @@ class AngellEYE_IfThenGive_interface {
             $trigger_thing = get_post_meta($post->ID, 'trigger_thing', true);
             $trigger_desc = get_post_meta($post->ID, 'trigger_desc', true);
             $image_url = get_post_meta($post->ID, 'image_url', true);
-            $gw_amount = get_post_meta($post->ID, 'amount', true);
-            if ($gw_amount == 'fixed') {
+            $itg_amount = get_post_meta($post->ID, 'amount', true);
+            if ($itg_amount == 'fixed') {
                 $fixed_amount_check = 'checked';
                 $fixed_amount_input_class = "";
                 $fixed_amount_input_value = get_post_meta($post->ID, 'fixed_amount_input', true);
@@ -67,7 +67,7 @@ class AngellEYE_IfThenGive_interface {
                 $fixed_amount_input_value = '';
             }
 
-            if ($gw_amount == 'select') {
+            if ($itg_amount == 'select') {
                 $dynamic_options_check = 'checked';
                 $dynamic_options_class = '';
                 $dynamic_options_name = get_post_meta($post->ID, 'option_name', true);
@@ -77,7 +77,7 @@ class AngellEYE_IfThenGive_interface {
                 $dynamic_options_class = 'hidden';
             }
             
-            if ($gw_amount == 'manual') {
+            if ($itg_amount == 'manual') {
                 $manual_options_check = 'checked';
                 $manual_amount_class = "";
                 $manual_amount_input_value = get_post_meta($post->ID, 'manual_amount_input', true);
@@ -205,47 +205,47 @@ class AngellEYE_IfThenGive_interface {
                           </div>
                           <div class="modal-body">
                               <div class="row">
-                                  <div class="modal_gw_container">
+                                  <div class="modal_itg_container">
                                       <div class="ifthengive_container">
-                                        <div class="gw_post-item">                                               
-                                            <div class="gw_post-title"><h3 class="trigger_name"></h3></div>
-                                            <div class="gw_post-image">
+                                        <div class="itg_post-item">                                               
+                                            <div class="itg_post-title"><h3 class="trigger_name"></h3></div>
+                                            <div class="itg_post-image">
                                                 <img src="" class="image_url" width="100%">                                                
                                             </div>
-                                            <div class="gw_post-content-details">
-                                                <div class="gw_post-description">
+                                            <div class="itg_post-content-details">
+                                                <div class="itg_post-description">
                                                     <p class="trigger_desc"></p>
                                                 </div>
-                                                <div class="gw_post-title">
+                                                <div class="itg_post-title">
                                                     <div class="fixed_amount" style="display: none">
                                                         <h4 class="lead fixed_amount">
                                                         <?php _e('I will Give ',ITG_TEXT_DOMAIN); ?> <?php echo $symbol; ?><span id="ifthengive_fixed_price_span"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?> <span class="trigger_thing"> </span>
                                                          </h4>
                                                     </div>
                                                 </div>
-                                                <div class="gw_post-title">
+                                                <div class="itg_post-title">
                                                     <div class="manual_amount" style="display: none">
                                                         <h4 class="lead manual_amount"><?php _e('I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="ifthengive_manual_price_span"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?><span class="trigger_thing"></span></h4>
-                                                        <div class="gw_form-group">
+                                                        <div class="itg_form-group">
                                                             <label for="manualamout" class="control-label"><?php _e('Enter Amount',ITG_TEXT_DOMAIN); ?></label>
-                                                            <input type="text" name="gw_manual_amount_input" value="50" class="gw_form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>
+                                                            <input type="text" name="itg_manual_amount_input" value="50" class="itg_form-control" autocomplete="off" id="itg_manual_amount_input" placeholder="Enter Amount"/>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="gw_post-title">
+                                                <div class="itg_post-title">
                                                     <div class="select_amount" style="display: none">
                                                         <h4 class="lead"> <?php _e('I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="ifthengive_fixed_price_span_select"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?><span class="trigger_name"></span></h4>
-                                                        <div class="gw_form-group">
-                                                            <label class="gw_upper">Select</label>
-                                                            <select class="gw_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount"></select>
+                                                        <div class="itg_form-group">
+                                                            <label class="itg_upper">Select</label>
+                                                            <select class="itg_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount"></select>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>                                                            
                                         </div>
                                                            
-                                        <div class="gwcontainer" id="ifthengive_signup_form">
-                                            <div class="gw_hr-title gw_center">
+                                        <div class="itgcontainer" id="ifthengive_signup_form">
+                                            <div class="itg_hr-title itg_center">
                                                 <abbr><?php _e('Sign up for',ITG_TEXT_DOMAIN); ?> <span class="trigger_name"></span></abbr>
                                             </div>
                                             <p class="text-info"><?php _e('Instruction',ITG_TEXT_DOMAIN); ?></p>
@@ -255,28 +255,28 @@ class AngellEYE_IfThenGive_interface {
                                                 <li><?php _e('Integer molestie lorem at massa',ITG_TEXT_DOMAIN); ?></li>
                                             </ol>
                                             <form method="post" name="signup" id="ifthengive_signup">
-                                                <div class="gw_form-group">
-                                                    <label class="gw_upper"><?php _e('Frist Name',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="text" class="gw_form-control" name="ifthengive_firstname" id="ifthengive_firstname" required="required" value="" autocomplete="off">
+                                                <div class="itg_form-group">
+                                                    <label class="itg_upper"><?php _e('Frist Name',ITG_TEXT_DOMAIN); ?></label>
+                                                    <input type="text" class="itg_form-control" name="ifthengive_firstname" id="ifthengive_firstname" required="required" value="" autocomplete="off">
                                                 </div>
-                                                <div class="gw_form-group">
-                                                     <label for="gw_upper"><?php _e('Last Name',ITG_TEXT_DOMAIN); ?></label>
-                                                      <input type="text" class="gw_form-control" name="ifthengive_lastname" id="ifthengive_lastname" required="required" value="" autocomplete="off">
+                                                <div class="itg_form-group">
+                                                     <label for="itg_upper"><?php _e('Last Name',ITG_TEXT_DOMAIN); ?></label>
+                                                      <input type="text" class="itg_form-control" name="ifthengive_lastname" id="ifthengive_lastname" required="required" value="" autocomplete="off">
                                                 </div>
-                                                 <div class="gw_form-group">
-                                                    <label for="gw_upper"><?php _e('Email address',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="email" class="gw_form-control" name="ifthengive_email" id="ifthengive_email" required="required" value="" autocomplete="off">
+                                                 <div class="itg_form-group">
+                                                    <label for="itg_upper"><?php _e('Email address',ITG_TEXT_DOMAIN); ?></label>
+                                                    <input type="email" class="itg_form-control" name="ifthengive_email" id="ifthengive_email" required="required" value="" autocomplete="off">
                                                 </div>
-                                                <div class="gw_form-group">
-                                                    <label for="gw_upper"><?php _e('Password',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="password" class="gw_form-control" name="ifthengive_password" id="ifthengive_password" required="required" autocomplete="off">
+                                                <div class="itg_form-group">
+                                                    <label for="itg_upper"><?php _e('Password',ITG_TEXT_DOMAIN); ?></label>
+                                                    <input type="password" class="itg_form-control" name="ifthengive_password" id="ifthengive_password" required="required" autocomplete="off">
                                                 </div>
-                                                <div class="gw_form-group">
-                                                    <label for="gw_upper"><?php _e('Re-type Password',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="password" class="gw_form-control" name="ifthengive_retype_password" id="ifthengive_retype_password" required="required" autocomplete="off">
+                                                <div class="itg_form-group">
+                                                    <label for="itg_upper"><?php _e('Re-type Password',ITG_TEXT_DOMAIN); ?></label>
+                                                    <input type="password" class="itg_form-control" name="ifthengive_retype_password" id="ifthengive_retype_password" required="required" autocomplete="off">
                                                 </div>
-                                                <div class="gw_form-inline gw_form-group">
-                                                    <button type="button" class="gw_btn gw_btn-primary" ><?php _e('Sign Up For',ITG_TEXT_DOMAIN); ?> <span class="trigger_name"></span></button>
+                                                <div class="itg_form-inline itg_form-group">
+                                                    <button type="button" class="itg_btn itg_btn-primary" ><?php _e('Sign Up For',ITG_TEXT_DOMAIN); ?> <span class="trigger_name"></span></button>
                                                 </div>  
                                                  
                                             </form>
@@ -322,11 +322,11 @@ class AngellEYE_IfThenGive_interface {
                         mamt = parseFloat(jQuery('input[name="manual_amount_input"]').val()).toFixed(2);
                         if(isNaN(mamt)){
                             jQuery('#ifthengive_manual_price_span').text('0.00');
-                            jQuery('#gw_manual_amount_input').val('0.00');
+                            jQuery('#itg_manual_amount_input').val('0.00');
                         }
                         else{
                             jQuery('#ifthengive_manual_price_span').text(mamt);
-                            jQuery('#gw_manual_amount_input').val(mamt);
+                            jQuery('#itg_manual_amount_input').val(mamt);
                         }
                         
                    }else{
@@ -351,7 +351,7 @@ class AngellEYE_IfThenGive_interface {
                             i++;
                         });
                    }
-                   jQuery(document).on('keyup','#gw_manual_amount_input', function (){
+                   jQuery(document).on('keyup','#itg_manual_amount_input', function (){
                         var amt = parseFloat(jQuery(this).val()).toFixed(2);                        
                         if(isNaN(amt)){
                             jQuery('#ifthengive_manual_price_span').html('').html(mamt);
@@ -433,14 +433,14 @@ class AngellEYE_IfThenGive_interface {
                         $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
                         ?>
                         <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
-                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php echo __('Givers For ', ITG_TEXT_DOMAIN); ?><?php echo $trigger_name; ?></abbr></div>
+                        <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php echo __('Givers For ', ITG_TEXT_DOMAIN); ?><?php echo $trigger_name; ?></abbr></div>
                     </div>
                     <?php
                     if(self::is_My_Goal($_REQUEST['post'])){
                     ?>    
                         <div class="col-md-12 text-center">
-                            <span class="gw_text-info"><?php echo __('Click ', ITG_TEXT_DOMAIN); ?><strong><?php _e('"Process Donation"',ITG_TEXT_DOMAIN); ?></strong><?php echo __(' Button to Capture your Transactions.', ITG_TEXT_DOMAIN); ?></span><br/>
-                            <a class="btn gw_btn-primary btn-lg" id="ifthengive_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation',ITG_TEXT_DOMAIN); ?></a>
+                            <span class="itg_text-info"><?php echo __('Click ', ITG_TEXT_DOMAIN); ?><strong><?php _e('"Process Donation"',ITG_TEXT_DOMAIN); ?></strong><?php echo __(' Button to Capture your Transactions.', ITG_TEXT_DOMAIN); ?></span><br/>
+                            <a class="btn itg_btn-primary btn-lg" id="ifthengive_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation',ITG_TEXT_DOMAIN); ?></a>
                         </div>
                     <?php                    
                     }
@@ -504,7 +504,7 @@ class AngellEYE_IfThenGive_interface {
             <div class="ifthengive_admin_container">
                 <div class="row">
                     <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
-                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Transactions',ITG_TEXT_DOMAIN); ?></abbr></div>
+                    <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Capturing Transactions',ITG_TEXT_DOMAIN); ?></abbr></div>
                         
                     <div class="col-md-12">                        
                                 <div class="table-responsive">
@@ -707,14 +707,14 @@ class AngellEYE_IfThenGive_interface {
                         $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
                         ?>
                         <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
-                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transactions for ',ITG_TEXT_DOMAIN); ?> <?php echo __($trigger_name,ITG_TEXT_DOMAIN) ; ?></abbr></div>                        
+                        <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Transactions for ',ITG_TEXT_DOMAIN); ?> <?php echo __($trigger_name,ITG_TEXT_DOMAIN) ; ?></abbr></div>                        
                     </div>                    
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <form method="post">
                             <?php
-                            $table = new AngellEYE_Give_When_Transactions_Table();
+                            $table = new AngellEYE_IfThenGive_Transactions_Table();
                             $table->prepare_items();
                             $table->search_box('Search', 'givers_transaction_search_id');
                             $table->display();
@@ -791,7 +791,7 @@ class AngellEYE_IfThenGive_interface {
                 <div class="ifthengive_admin_container">                                    
                     <div class="row">
                         <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
-                        <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transaction Id ',ITG_TEXT_DOMAIN); ?> <?php echo '#' . $_REQUEST['txn_id']; ?></abbr></div>                            
+                        <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Transaction Id ',ITG_TEXT_DOMAIN); ?> <?php echo '#' . $_REQUEST['txn_id']; ?></abbr></div>                            
                         <div class="col-md-10">
                                     <div class="col-md-2">
                                         <label class="text-primary"><?php _e('Payer Email :',ITG_TEXT_DOMAIN); ?></label>
@@ -927,14 +927,14 @@ class AngellEYE_IfThenGive_interface {
             <div class="ifthengive_admin_container">
                 <div class="row">
                     <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
-                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Capturing Failure Payments',ITG_TEXT_DOMAIN); ?></abbr></div>                    
+                    <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Capturing Failure Payments',ITG_TEXT_DOMAIN); ?></abbr></div>                    
                     <div class="col-md-12">                        
                                 <div class="table-responsive">
                                     <?php                                    
                                     global $post, $post_ID;
                                     $goal_id = $_REQUEST['post'];
                                     $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
-                                    $givers = AngellEYE_Give_When_Transactions_Table::get_all_failed_givers($goal_id);
+                                    $givers = AngellEYE_IfThenGive_Transactions_Table::get_all_failed_givers($goal_id);
                                     $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();                                    
                                     $PayPal_config->set_api_cedentials();                                     
                                     $PayPal_config->set_api_subject($goal_id);
@@ -1144,11 +1144,11 @@ class AngellEYE_IfThenGive_interface {
                     <?php if(isset($_REQUEST['user_id'])){ 
                           $user_info = get_userdata($_REQUEST['user_id']);  
                     ?>
-                    <div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transactions Of '.$user_info->display_name,ITG_TEXT_DOMAIN); ?></abbr></div>
+                    <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Transactions Of '.$user_info->display_name,ITG_TEXT_DOMAIN); ?></abbr></div>
                     <div class="col-md-12">
                         <form method="post">
                             <?php
-                            $table = new AngellEYE_Give_When_users_Transactions_Table();
+                            $table = new AngellEYE_IfThenGive_Transactions_Table();
                             $table->prepare_items();
                             $table->search_box('Search', 'givers_users_transaction_search_id');
                             $table->display();

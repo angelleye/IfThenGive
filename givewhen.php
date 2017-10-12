@@ -10,11 +10,11 @@
  *
  * @link              http://www.angelleye.com/
  * @since             1.0.0
- * @package           GiveWhen
+ * @package           IfThenGive
  *
  * @wordpress-plugin
- * Plugin Name:       GiveWhen
- * Plugin URI:        http://www.angelleye.com/product/give-when-wordpress-donation-plugin/
+ * Plugin Name:       IfThenGive
+ * Plugin URI:        http://www.angelleye.com/product/ifthengive-wordpress-donation-plugin/
  * Description:       Allow donors to create a billing agreement to automatically Give a specified donation amount When a particular event or goal is achieved.
  * Version:           1.0.0
  * Author:            Angell EYE
@@ -46,7 +46,7 @@ if (!defined('ITG_PLUGIN_URL'))
  *  define log file path
  */
 if (!defined('ITG_LOG_DIR')) {
-    define('ITG_LOG_DIR', ABSPATH . 'wp-content/uploads/give-when-logs/');
+    define('ITG_LOG_DIR', ABSPATH . 'wp-content/uploads/ifthengive-logs/');
 }
 
 /**

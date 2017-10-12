@@ -270,7 +270,7 @@ class Ifthengive {
                 if(isset($_GET['merchantIdInPayPal'])){
                     $url = ITG_ISU_URL;
                     $postData = "sandbox={$sandbox}&api=account_detail&merchantIdInPayPal={$_GET['merchantIdInPayPal']}";
-                    $AccountDetail = AngellEYE_Give_When_PayPal_Connect_Setting::curl_request($url,$postData);
+                    $AccountDetail = AngellEYE_IfThenGive_PayPal_Connect_Setting::curl_request($url,$postData);
                     $AccountDetailArray = json_decode($AccountDetail,true);
                                         
                     if($sandbox=='true'){
@@ -326,9 +326,9 @@ class Ifthengive {
                     $goal_user_id = $user_array[2];
                 }
                 else{
-                    $_SESSION['GW_Error'] = true;
-                    $_SESSION['GW_Error_Type'] = __('PayPal Error',ITG_TEXT_DOMAIN);
-                    $_SESSION['GW_Error_Array'] = $PayPalResultGEC['ERRORS'];                    
+                    $_SESSION['ITG_Error'] = true;
+                    $_SESSION['ITG_Error_Type'] = __('PayPal Error',ITG_TEXT_DOMAIN);
+                    $_SESSION['ITG_Error_Array'] = $PayPalResultGEC['ERRORS'];                    
                     /* save log */
                     $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                     if ('yes' == $debug) {
@@ -339,27 +339,27 @@ class Ifthengive {
                         $log_write = new AngellEYE_IfThenGive_Logger();
                         $log_write->add('angelleye_ifthengive_express_checkout', 'GetExpressCheckout Failed : ' . print_r($logArray, true), 'express_checkout');
                     }
-                    wp_redirect(site_url('give-when-error'));
+                    wp_redirect(site_url('itg-error'));
                     exit;
                 }
                     $PayPalResultCBA = $PayPal->CreateBillingAgreement($token);
                     if($PayPal->APICallSuccessful($PayPalResultCBA['ACK'])){
                         
                         /*inserting new user and if user_id is available then update user.*/
-                        $goal_user_id = wp_insert_user($_SESSION['gw_user_data']);
+                        $goal_user_id = wp_insert_user($_SESSION['itg_user_data']);
                         if( is_wp_error( $goal_user_id ) ) {
                             $error = __('Error on user creation.',ITG_TEXT_DOMAIN);
-                            $_SESSION['GW_Error'] = true;
-                            $_SESSION['GW_Error_Type'] = 'WP Error.';
-                            $_SESSION['GW_Error_Array']['ACK'] = 'Failed';
-                            $_SESSION['GW_Error_Array']['L_SHORTMESSAGE0'] = 'Error on user creation:';
-                            $_SESSION['GW_Error_Array']['L_LONGMESSAGE0'] = 'You are facing problem while creating user for site. Please Contact Administrator for this error.';
-                            wp_redirect(site_url('give-when-error'));
+                            $_SESSION['ITG_Error'] = true;
+                            $_SESSION['ITG_Error_Type'] = 'WP Error.';
+                            $_SESSION['ITG_Error_Array']['ACK'] = 'Failed';
+                            $_SESSION['ITG_Error_Array']['L_SHORTMESSAGE0'] = 'Error on user creation:';
+                            $_SESSION['ITG_Error_Array']['L_LONGMESSAGE0'] = 'You are facing problem while creating user for site. Please Contact Administrator for this error.';
+                            wp_redirect(site_url('itg-error'));
                             exit;
                         }
                         else{                
                             /*it makes user a normal login*/
-                            if($_SESSION['gw_guest_user'] == 'no'){
+                            if($_SESSION['itg_guest_user'] == 'no'){
                                 wp_new_user_notification($goal_user_id,null,'user');
                                 wp_set_auth_cookie( $goal_user_id, true );
                             }                            
@@ -372,7 +372,7 @@ class Ifthengive {
                         update_user_meta($goal_user_id,'itg_gec_last_name',$PayPalResultGEC['LASTNAME']);
                         update_user_meta($goal_user_id,'itg_gec_country_code',$PayPalResultGEC['COUNTRYCODE']);
                         update_user_meta($goal_user_id,'itg_gec_currency_code',$PayPalResultGEC['CURRENCYCODE']);
-                        update_user_meta($goal_user_id,'itg_guest_user',$_SESSION['gw_guest_user']);
+                        update_user_meta($goal_user_id,'itg_guest_user',$_SESSION['itg_guest_user']);
                         $signedup_goals= get_user_meta($goal_user_id,'itg_signedup_goals',true);
                         if($signedup_goals !=''){
                         $signedup_goals = $signedup_goals."|".$goal_post_id;
@@ -383,8 +383,8 @@ class Ifthengive {
                         update_user_meta($goal_user_id,'itg_signedup_goals',$signedup_goals);
                         
                         /*unset session variable*/
-                        unset($_SESSION['gw_user_data']);
-                        unset($_SESSION['gw_guest_user']);
+                        unset($_SESSION['itg_user_data']);
+                        unset($_SESSION['itg_guest_user']);
                         /* Save BILLING AGREEMENT ID in the UserMeta */
                         update_user_meta($goal_user_id,'itg_gec_billing_agreement_id',$PayPalResultCBA['BILLINGAGREEMENTID']);
 
@@ -413,13 +413,13 @@ class Ifthengive {
                         $urlusr = base64_encode($goal_user_id);
                         $post = get_post($goal_post_id); 
                         $slug = $post->post_name;
-                        wp_redirect(site_url('give-when-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr));
+                        wp_redirect(site_url('itg-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr));
                         exit;
                     }
                     else{
-                        $_SESSION['GW_Error'] = true;
-                        $_SESSION['GW_Error_Type'] = 'PayPalError';
-                        $_SESSION['GW_Error_Array'] = $PayPalResultCBA;
+                        $_SESSION['ITG_Error'] = true;
+                        $_SESSION['ITG_Error_Type'] = 'PayPalError';
+                        $_SESSION['ITG_Error_Array'] = $PayPalResultCBA;
                         /*save log*/
                         $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                         if ('yes' == $debug) {
@@ -430,7 +430,7 @@ class Ifthengive {
                                 $log_write = new AngellEYE_IfThenGive_Logger();
                                 $log_write->add('angelleye_ifthengive_express_checkout', 'CreateBillingAgreement Failed : ' . print_r($logArray, true), 'express_checkout');
                         }
-                        wp_redirect(site_url('give-when-error'));
+                        wp_redirect(site_url('itg-error'));
                         exit;
                     }
             }                        

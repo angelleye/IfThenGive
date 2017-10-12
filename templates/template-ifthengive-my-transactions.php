@@ -2,7 +2,7 @@
 /**
  * IfThenGive Transaction template.
  *
- * This template can be overriden by copying this file to your-theme/GiveWhen/template-ifthengive-my-transactions.php
+ * This template can be overriden by copying this file to your-theme/IfThenGive/template-ifthengive-my-transactions.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	Givewhen
@@ -15,11 +15,11 @@ if (!defined('ABSPATH'))
 <?php
 if(! is_admin()){
 ?>
-<div class="gw_hr-title gw_hr-long gw_center"><abbr><?php _e('Transactions', ITG_TEXT_DOMAIN) ?></abbr></div>
-<div class="gw_center_container">   
-    <div class="gwcontainer">
-        <div class="gw_table-responsive">
-            <table class="gw_table" id="GiveWhen_Transaction_Table" width="100%">
+<div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Transactions', ITG_TEXT_DOMAIN) ?></abbr></div>
+<div class="itg_center_container">   
+    <div class="itgcontainer">
+        <div class="itg_table-responsive">
+            <table class="itg_table" id="IfThenGive_Transaction_Table" width="100%">
                 <thead>
                     <tr>
                         <th><?php _e('Transaction ID', ITG_TEXT_DOMAIN); ?></th>
@@ -43,7 +43,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
 ?>
 <script>
     jQuery(document).ready(function ($) {
-        var GiveWhen_Transaction_Table = $('#GiveWhen_Transaction_Table').dataTable({
+        var IfThenGive_Transaction_Table = $('#IfThenGive_Transaction_Table').dataTable({
             "serverSide": true,
             "responsive": true,
             "colReorder": true,

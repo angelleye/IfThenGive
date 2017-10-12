@@ -5,7 +5,7 @@
  *
  * @class       AngellEYE_IfThenGive_Post_type_Transactions
  * @version		1.0.0
- * @package		give-when
+ * @package		ifthengive
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */

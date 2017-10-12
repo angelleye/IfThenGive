@@ -72,51 +72,51 @@ class AngellEYE_IfThenGive_Public_Display {
             if(!empty($post->post_type) && $post->post_type == 'ifthengive_goals' && $post->post_status == 'publish') {
         
                 $html .= '<div id="overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">';
-                $html .=  '<div class="gw_loader"></div>
+                $html .=  '<div class="itg_loader"></div>
                            <h1 style="font-weight: 600;">'.esc_html('Processing...',ITG_TEXT_DOMAIN).'</h1></div>';                
-                $html .= '<div class="gw_container">';
-                    $html .= '<div class="gw_post-item">';                           
+                $html .= '<div class="itg_container">';
+                    $html .= '<div class="itg_post-item">';                           
                             
-                            $html .= '<div class="gw_post-title">
+                            $html .= '<div class="itg_post-title">
                                         <h3>'.get_post_meta( $post->ID, 'trigger_name', true ).'</h3>
                                       </div>';
                             
-                            $html .= '<div class="gw_post-image">';
+                            $html .= '<div class="itg_post-image">';
                             $html .= '<img src="'.get_post_meta( $post->ID, 'image_url', true ).'">';
                             $html .= '</div>';
 
-                            $html .= '<div class="gw_post-content-details">'; 
-                                $html .= '<div class="gw_post-description" id="scrolltopid">
+                            $html .= '<div class="itg_post-content-details">'; 
+                                $html .= '<div class="itg_post-description" id="scrolltopid">
                                             <p>'.get_post_meta( $post->ID, 'trigger_desc', true ).'</p>
                                           </div>';
                                 $html .= $post->post_content;                                                                                
                                 $amount = get_post_meta($post->ID,'amount',true);
 
                                 if($amount == 'fixed'){
-                                    $html .= '<div class="gw_post-title">';
+                                    $html .= '<div class="itg_post-title">';
                                     $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);                                
                                     $html .= '<h4>'. esc_html('I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span">'.number_format($fixed_amount,2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</h4>';
                                     $html .= '</div>';                                    
                                 }                                
                                 elseif($amount == 'manual'){
                                     $manual_amount_input_value = get_post_meta($post->ID, 'manual_amount_input', true);
-                                    $html .= '<div class="gw_post-title">';
+                                    $html .= '<div class="itg_post-title">';
                                         $html .= '<h4>'.esc_html('I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_manual_price_span">'.$manual_amount_input_value.'</span> '.esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</h4>';
                                     $html .= '</div>';
-                                    $html .= '<div class="gw_form-group">';
-                                        $html .= '<label for="manualamout" class="gw_upper">'. esc_html('Enter Amount','').'</label>';
-                                        $html .= '<input type="text" name="gw_manual_amount_input" value="'.$manual_amount_input_value.'" class="gw_form-control" autocomplete="off" id="gw_manual_amount_input" placeholder="Enter Amount"/>';
+                                    $html .= '<div class="itg_form-group">';
+                                        $html .= '<label for="manualamout" class="itg_upper">'. esc_html('Enter Amount','').'</label>';
+                                        $html .= '<input type="text" name="itg_manual_amount_input" value="'.$manual_amount_input_value.'" class="itg_form-control" autocomplete="off" id="itg_manual_amount_input" placeholder="Enter Amount"/>';
                                     $html .= '</div>';
                                 }
                                 else{
                                     $option_name = get_post_meta($post->ID,'option_name',true);
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);
                                     $i=0;
-                                    $html .= '<div class="gw_post-title">';
+                                    $html .= '<div class="itg_post-title">';
                                         $html .= '<h4>'.esc_html('I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span_select">'.number_format($option_amount[0],2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).'</h4>';
                                     $html .= '</div>';
-                                    $html .= '<div class="gw_form-group">';
-                                        $html .= '<select class="gw_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount">';
+                                    $html .= '<div class="itg_form-group">';
+                                        $html .= '<select class="itg_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount">';
                                 
                                         foreach ($option_name as $name) {
                                              $html .=  '<option value="'.number_format($option_amount[$i],2).'">'.$name." ".number_format($option_amount[$i],2).'</option>';                                        
@@ -125,15 +125,15 @@ class AngellEYE_IfThenGive_Public_Display {
                                         $html .= '</select>';
                                     $html .= '</div>';
                                 }
-                        $html .= '</div>'; // gw_post-content-details
-                    $html .= '</div>'; // gw_post-item 
+                        $html .= '</div>'; // itg_post-content-details
+                    $html .= '</div>'; // itg_post-item 
                                        
-                    $html .= '<div class="gwcontainer" id="ifthengive_signup_form">';                 
-                        $html .= '<div class="gw_hr-title gw_center">';
+                    $html .= '<div class="itgcontainer" id="ifthengive_signup_form">';                 
+                        $html .= '<div class="itg_hr-title itg_center">';
                         $html .= '<abbr>'.esc_html('Sign up for ',''). get_post_meta( $post->ID, 'trigger_name', true ).'</abbr>';
                         $html .= '</div>';
                                                              
-                        $html .= '<div class="gw_alert gw_alert-warning" id="connect_paypal_error_public" style="display: none">';
+                        $html .= '<div class="itg_alert itg_alert-warning" id="connect_paypal_error_public" style="display: none">';
                         $html .= '<span id="connect_paypal_error_p"></span>';
                         $html .= '</div>';
                         
@@ -159,38 +159,38 @@ class AngellEYE_IfThenGive_Public_Display {
                                      }
                                     
                                     $html .= '<form method="post" name="signup" id="ifthengive_signup">';
-                                        $html .= '<div class="gw_form-group">';                                        
-                                          $html .= '<label class="gw_upper" for="name">'.esc_html('First Name',ITG_TEXT_DOMAIN).'</label>';
-                                          $html .= '<input type="text" class="gw_form-control" name="ifthengive_firstname" id="ifthengive_firstname" autocomplete="off" required="required" value="'.$User_first_name.'">';
+                                        $html .= '<div class="itg_form-group">';                                        
+                                          $html .= '<label class="itg_upper" for="name">'.esc_html('First Name',ITG_TEXT_DOMAIN).'</label>';
+                                          $html .= '<input type="text" class="itg_form-control" name="ifthengive_firstname" id="ifthengive_firstname" autocomplete="off" required="required" value="'.$User_first_name.'">';
                                         $html .= '</div>';
-                                        $html .= '<div class="gw_form-group">';
-                                          $html .= '<label class="gw_upper" for="name">'.esc_html('Last Name',ITG_TEXT_DOMAIN).'</label>';
-                                          $html .= '<input type="text" class="gw_form-control" name="ifthengive_lastname" id="ifthengive_lastname" autocomplete="off" required="required" value="'. $User_last_name.'">';
+                                        $html .= '<div class="itg_form-group">';
+                                          $html .= '<label class="itg_upper" for="name">'.esc_html('Last Name',ITG_TEXT_DOMAIN).'</label>';
+                                          $html .= '<input type="text" class="itg_form-control" name="ifthengive_lastname" id="ifthengive_lastname" autocomplete="off" required="required" value="'. $User_last_name.'">';
                                         $html .= '</div>';
-                                        $html .= '<div class="gw_form-group">';
-                                          $html .= '<label class="gw_upper" for="email">'. esc_html('Email address',ITG_TEXT_DOMAIN).'</label>';
-                                          $html .= '<input type="email" class="gw_form-control" name="ifthengive_email" id="ifthengive_email" autocomplete="off" required="required" value="'.$User_email.'">';
+                                        $html .= '<div class="itg_form-group">';
+                                          $html .= '<label class="itg_upper" for="email">'. esc_html('Email address',ITG_TEXT_DOMAIN).'</label>';
+                                          $html .= '<input type="email" class="itg_form-control" name="ifthengive_email" id="ifthengive_email" autocomplete="off" required="required" value="'.$User_email.'">';
                                         $html .= '</div>';                                                                            
                                         $html .=  '<div class="checkbox">';
-                                        $html .=    '<label class="gw_upper">';
-                                        $html .=      '<input type="checkbox" name="gw_signup_as_guest" id="gw_signup_as_guest" checked>'.esc_html('Create a account',ITG_TEXT_DOMAIN);
+                                        $html .=    '<label class="itg_upper">';
+                                        $html .=      '<input type="checkbox" name="itg_signup_as_guest" id="itg_signup_as_guest" checked>'.esc_html('Create a account',ITG_TEXT_DOMAIN);
                                         $html .=    '</label>';
                                         $html .=  '</div><br>';
                                          if ( ! is_user_logged_in() ) {                                    
-                                        $html .= '<div class="gw_form-group gw-password">';
-                                          $html .= '<label class="gw_upper" for="password">'.esc_html('Password',ITG_TEXT_DOMAIN).'</label>';
-                                          $html .= '<input type="password" class="gw_form-control" name="ifthengive_password" id="ifthengive_password" required="required">';
+                                        $html .= '<div class="itg_form-group itg-password">';
+                                          $html .= '<label class="itg_upper" for="password">'.esc_html('Password',ITG_TEXT_DOMAIN).'</label>';
+                                          $html .= '<input type="password" class="itg_form-control" name="ifthengive_password" id="ifthengive_password" required="required">';
                                         $html .= '</div>';
-                                        $html .= '<div class="gw_form-group gw-password">';
-                                          $html .= '<label class="gw_upper" for="password">'.esc_html('Re-type Password',ITG_TEXT_DOMAIN).'</label>';
-                                          $html .= '<input type="password" class="gw_form-control" name="ifthengive_retype_password" id="ifthengive_retype_password" required="required">';
+                                        $html .= '<div class="itg_form-group itg-password">';
+                                          $html .= '<label class="itg_upper" for="password">'.esc_html('Re-type Password',ITG_TEXT_DOMAIN).'</label>';
+                                          $html .= '<input type="password" class="itg_form-control" name="ifthengive_retype_password" id="ifthengive_retype_password" required="required">';
                                         $html .= '</div>';
                                          }                                        
                                         $html .= '<input type="hidden" name="ifthengive_page_id" id="ifthengive_page_id" value="'.$ifthengive_page_id.'">';
-                                        $html .= '<button type="button" class="gw_btn gw_btn-primary" id="ifthengive_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="'.$user_id.'">'.esc_html('Sign Up For ',ITG_TEXT_DOMAIN) . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
+                                        $html .= '<button type="button" class="itg_btn itg_btn-primary" id="ifthengive_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="'.$user_id.'">'.esc_html('Sign Up For ',ITG_TEXT_DOMAIN) . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
                                     $html .= '</form>';
-                                $html .= '</div>'; // gwcontainer
-                            $html .= '</div>'; // gw_container                        
+                                $html .= '</div>'; // itgcontainer
+                            $html .= '</div>'; // itg_container                        
             }
         }
         return $html;        
@@ -202,26 +202,26 @@ class AngellEYE_IfThenGive_Public_Display {
         $amount = number_format($_POST['amount'],2);        
         
         /* Get user information  from Form Data. */
-        $gwuser = array();
-        parse_str($_POST['formData'], $gwuser);
+        $itguser = array();
+        parse_str($_POST['formData'], $itguser);
         
         /*valodation starts */
         $ValidationErrors = array();
-        $fname = sanitize_text_field( $gwuser['ifthengive_firstname']);
+        $fname = sanitize_text_field( $itguser['ifthengive_firstname']);
         if (!preg_match("/^[a-zA-Z]+$/",$fname)) {
           $ValidationErrors['FirstName'] = __("Invalid Input : Only letters allowed in First Name",ITG_TEXT_DOMAIN);
         }
-        $lname = sanitize_text_field($gwuser['ifthengive_lastname']);
+        $lname = sanitize_text_field($itguser['ifthengive_lastname']);
         if (!preg_match("/^[a-zA-Z]+$/",$lname)) {
           $ValidationErrors['LastName'] = __("Invalid Input : Only letters allowed in Last Name",ITG_TEXT_DOMAIN);
         }
 
-        $email = $gwuser['ifthengive_email'];
+        $email = $itguser['ifthengive_email'];
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $ValidationErrors['Email'] = __("Invalid email format",ITG_TEXT_DOMAIN);
         }
-        if(isset($gwuser['ifthengive_password'])){
-            if ($gwuser['ifthengive_password'] !== $gwuser['ifthengive_retype_password']) {
+        if(isset($itguser['ifthengive_password'])){
+            if ($itguser['ifthengive_password'] !== $itguser['ifthengive_retype_password']) {
                 $ValidationErrors['Password'] = __("Mismatch Input : Password Fields are not matched",ITG_TEXT_DOMAIN);
             }
         }                                
@@ -235,7 +235,7 @@ class AngellEYE_IfThenGive_Public_Display {
         $trigger_name = get_post_meta( $post_id, 'trigger_name', true );       
         
         /*Create cancel page url like return to the cancel page from where it goes.*/        
-        $cancel_page = $gwuser['ifthengive_page_id'];
+        $cancel_page = $itguser['ifthengive_page_id'];
             
         /*if no role defined in the code then it adds new role as giver */
         $role = get_role( 'giver' );
@@ -244,15 +244,15 @@ class AngellEYE_IfThenGive_Public_Display {
         }
         /*Create array of user data */
         $userdata=array(
-                'user_pass' => $gwuser['ifthengive_password'],
-                'user_login' => $gwuser['ifthengive_email'],
-                'user_email' => $gwuser['ifthengive_email'],
-                'display_name' => $gwuser['ifthengive_firstname'].' '.$gwuser['ifthengive_lastname'],
-                'first_name' => $gwuser['ifthengive_firstname'],
-                'last_name' => $gwuser['ifthengive_lastname'],
+                'user_pass' => $itguser['ifthengive_password'],
+                'user_login' => $itguser['ifthengive_email'],
+                'user_email' => $itguser['ifthengive_email'],
+                'display_name' => $itguser['ifthengive_firstname'].' '.$itguser['ifthengive_lastname'],
+                'first_name' => $itguser['ifthengive_firstname'],
+                'last_name' => $itguser['ifthengive_lastname'],
                 'role' => 'giver'
         );                
-        $user_exist = email_exists($gwuser['ifthengive_email']);
+        $user_exist = email_exists($itguser['ifthengive_email']);
         /*If user exist then just add capabilities of giver with current capabilities. */
         if($user_exist){
             unset($userdata['user_pass']);
@@ -305,7 +305,7 @@ class AngellEYE_IfThenGive_Public_Display {
                 $post = get_post($post_id); 
                 $slug = $post->post_name;
                 $urlusr = base64_encode($user_id);
-                $REDIRECTURL = site_url('give-when-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr);                
+                $REDIRECTURL = site_url('itg-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr);                
                 /* Add post id in the user's signedup goals */
                 $signedup_goals= get_user_meta($user_id,'itg_signedup_goals',true);
                 if($signedup_goals !=''){
@@ -329,14 +329,14 @@ class AngellEYE_IfThenGive_Public_Display {
                 session_start();
             }            
         
-        if(isset($gwuser['gw_signup_as_guest']) && $gwuser['gw_signup_as_guest']=='on' ){
-            $_SESSION['gw_guest_user'] = 'no';            
+        if(isset($itguser['itg_signup_as_guest']) && $itguser['itg_signup_as_guest']=='on' ){
+            $_SESSION['itg_guest_user'] = 'no';            
         }
         else{
-            $_SESSION['gw_guest_user'] = 'yes';
-            $userdata['user_pass'] = 'GWPassword';
+            $_SESSION['itg_guest_user'] = 'yes';
+            $userdata['user_pass'] = 'ITGPassword';
         }
-        $_SESSION['gw_user_data'] = $userdata;
+        $_SESSION['itg_user_data'] = $userdata;
         
         /*PayPal setup */                
         $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();
@@ -367,7 +367,7 @@ class AngellEYE_IfThenGive_Public_Display {
         
         $BillingAgreements = array();
         $Item = array(
-                'l_billingtype' => apply_filters('gw_ec_billingtype','MerchantInitiatedBilling'),
+                'l_billingtype' => apply_filters('itg_ec_billingtype','MerchantInitiatedBilling'),
                 'l_billingagreementdescription' => $trigger_name,
                 'l_paymenttype' => '',
                 'l_billingagreementcustom' => 'ifthengive_'.$post_id
@@ -443,7 +443,7 @@ class AngellEYE_IfThenGive_Public_Display {
             echo $PayPal->DisplayErrors($PayPalResult['ERRORS']);            
         }
         elseif($PayPal->APICallSuccessful($PayPalResult['ACK'])){
-            $goals = AngellEYE_Give_When_My_Goals_Table::get_all_goal_ids($user_id);
+            $goals = AngellEYE_IfThenGive_My_Goals_Table::get_all_goal_ids($user_id);
             foreach ($goals as $goal){                        
                 update_user_meta( $user_id, 'itg_giver_'.$goal['goal_id'].'_status', 'suspended' );
             }
