@@ -76,7 +76,7 @@
                     });                  
                     
                 });
-                editor.addButton('itg_shortcodes', {
+                editor.addButton('ifthengive_shortcodes', {
                     text: 'IfThenGive',
                     type: 'listbox',
                     title: 'IfThenGive',
