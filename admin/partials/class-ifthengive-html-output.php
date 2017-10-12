@@ -3,8 +3,8 @@
 /**
  * @class       AngellEYE_IfThenGive_Html_output
  * @version	1.0.0
- * @package     Givewhen
- * @subpackage  Givewhen/admin/partials
+ * @package     IfThenGive
+ * @subpackage  IfThenGive/admin/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */

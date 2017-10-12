@@ -4,8 +4,8 @@
  * This class defines all code necessary to Companies Setting from admin side
  * @class       AngellEYE_IfThenGive_PayPal_Connect_Setting
  * @version	1.0.0
- * @package     Givewhen
- * @subpackage  Givewhen/admin/partials
+ * @package     IfThenGive
+ * @subpackage  IfThenGive/admin/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
  */

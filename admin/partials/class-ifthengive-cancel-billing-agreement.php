@@ -8,8 +8,8 @@
  * @link       http://www.angelleye.com/
  * @since      1.0.0
  * @class      AngellEYE_IfThenGive_Cancel_Billing_Agreement
- * @package    Givewhen
- * @subpackage Givewhen/admin/partials
+ * @package    IfThenGive
+ * @subpackage IfThenGive/admin/partials
  * @category    Class
  * @author      Angell EYE <service@angelleye.com>
  */
@@ -39,7 +39,7 @@ class AngellEYE_IfThenGive_Cancel_Billing_Agreement {
         $BAUpdateFields = array(
             'REFERENCEID' => $billing_agreement_id,           
             'BILLINGAGREEMENTSTATUS' => 'Canceled',
-            'BILLINGAGREEMENTDESCRIPTION' => 'Givewhen Giver Role deleted.'
+            'BILLINGAGREEMENTDESCRIPTION' => 'IfThenGive Giver Role deleted.'
         );        
         $PayPalRequestData = array('BAUFields' => $BAUpdateFields);        
         $PayPalResult = $PayPal->BillAgreementUpdate($PayPalRequestData);        

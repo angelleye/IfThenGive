@@ -7,8 +7,8 @@
  * @link       http://www.angelleye.com/
  * @since      1.0.0
  *
- * @package    Givewhen
- * @subpackage Givewhen/public/partials
+ * @package    IfThenGive
+ * @subpackage IfThenGive/public/partials
  */
 class AngellEYE_IfThenGive_Public_Display {
 

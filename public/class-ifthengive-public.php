@@ -6,8 +6,8 @@
  * @link       http://www.angelleye.com/
  * @since      1.0.0
  *
- * @package    Givewhen
- * @subpackage Givewhen/public
+ * @package    IfThenGive
+ * @subpackage IfThenGive/public
  */
 
 /**
@@ -16,8 +16,8 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Givewhen
- * @subpackage Givewhen/public
+ * @package    IfThenGive
+ * @subpackage IfThenGive/public
  * @author     Angell EYE <andrew@angelleye.com>
  */
 class Ifthengive_Public {

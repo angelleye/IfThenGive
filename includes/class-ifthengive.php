@@ -121,7 +121,7 @@ class Ifthengive {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-ifthengive-admin.php';
                 
                 /**
-                * Givewhen create/edit interface code written
+                * IfThenGive create/edit interface code written
                 */
                 require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-html-format.php';
                 

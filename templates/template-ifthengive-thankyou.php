@@ -5,7 +5,7 @@
  * This template can be overriden by copying this file to your-theme/IfThenGive/goal-signup-complete.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
- * @package 	Givewhen
+ * @package 	IfThenGive
  * @version     1.0.0
  */
 if ( ! defined( 'ABSPATH' ) ) exit; // Don't allow direct access

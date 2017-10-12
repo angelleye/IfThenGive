@@ -22,7 +22,7 @@
  * @link       http://www.angelleye.com/
  * @since      1.0.0
  *
- * @package    Givewhen
+ * @package    IfThenGive
  */
 
 // If uninstall not called from WordPress, then exit.
