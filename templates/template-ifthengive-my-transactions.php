@@ -22,12 +22,9 @@ if(! is_admin()){
             <table class="itg_table" id="IfThenGive_Transaction_Table" width="100%">
                 <thead>
                     <tr>
-                        <th><?php _e('Transaction ID', ITG_TEXT_DOMAIN); ?></th>
-                        <th><?php _e('Name', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('Transaction ID', ITG_TEXT_DOMAIN); ?></th>                        
                         <th><?php _e('Amount', ITG_TEXT_DOMAIN); ?></th>
-                        <th><?php _e('Goal Name', ITG_TEXT_DOMAIN); ?></th>
-                        <th><?php _e('PayPal Email ID', ITG_TEXT_DOMAIN); ?></th>
-                        <th><?php _e('PayPal Payer ID', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('Goal Name', ITG_TEXT_DOMAIN); ?></th>                                                
                         <th><?php _e('Payment Status', ITG_TEXT_DOMAIN); ?></th>
                         <th><?php _e('Payment Date', ITG_TEXT_DOMAIN); ?></th>
                     </tr>
@@ -60,15 +57,9 @@ $symbol = $paypal->get_currency_symbol($ccode);
                     "render": function (data, type, row) {
                         return row.transactionId;
                     }
-                },
+                },                
                 {
                     "targets": [1],
-                    "render": function (data, type, row) {
-                        return row.user_display_name;
-                    }
-                },
-                {
-                    "targets": [2],
                     "render": function (data, type, row) {
                         var str = '<?php echo $symbol; ?>';
                         var amount = parseFloat(row.amount).toFixed(2);
@@ -76,31 +67,19 @@ $symbol = $paypal->get_currency_symbol($ccode);
                     }
                 },                    
                 {
-                    "targets": [3],
+                    "targets": [2],
                     "render": function (data, type, row) {
                         return row.goal_name;
                     }
-                },    
-                {
-                    "targets": [4],
-                    "render": function (data, type, row) {
-                        return row.user_paypal_email;
-                    }
                 },
                 {
-                    "targets": [5], 'searchable': false, 'orderable': false,
-                    "render": function (data, type, row) {
-                        return row.PayPalPayerID;
-                    }
-                },
-                {
-                    "targets": [6],
+                    "targets": [3],
                     "render": function (data, type, row) {
                         return row.ppack;
                     }
                 },
                 {
-                    "targets": [7],
+                    "targets": [4],
                     "render": function (data, type, row) {
                         return row.Txn_date;
                     }
