@@ -12,7 +12,7 @@ A creative fundraising tool allowing your donors to Give a donation When an even
 
 == Description ==
 
-IfThenGive is a tool that provides a unique ability to raise funds in a creative way.  Allow your donors to Give a specified donation When a specified event takes place.
+Allow donors to create a billing agreement for automatic donations based on events / goals.  For example, If {event occurs} Then Give $x.xx.
 
 Examples:
 
