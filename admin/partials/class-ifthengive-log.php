@@ -17,16 +17,16 @@ class AngellEYE_IfThenGive_Log {
     public static function ifthengive_logs_setting() {
 
         $logs = self::scan_log_files(ITG_LOG_DIR);        
-        $directory_name = 'transactions';
+        $directory_name = 'connect_to_PayPal';
         if (!empty($_REQUEST['log_file'])) {
             $directory = explode('|',$_REQUEST['log_file']);
             $directory_name = $directory[1];
-            $viewed_log = current($logs[$directory_name]);
-        } elseif( !empty($logs['connect_to_paypal'])  || !empty ($logs['express_checkout']) || !empty ($logs['transactions'])) {
+            $viewed_log = current($logs[$directory_name]);            
+        } elseif( !empty($logs['connect_to_PayPal'])  || !empty ($logs['express_checkout']) || !empty ($logs['transactions'])) {
             $viewed_log = current($logs[$directory_name]);
         }
         
-        if (!empty($logs['connect_to_paypal'])  || !empty ($logs['express_checkout']) || !empty ($logs['transactions'])  ) :
+        if (!empty($logs['connect_to_PayPal'])  || !empty ($logs['express_checkout']) || !empty ($logs['transactions'])  ) :
             ?>
            <div class="wrap">
             <div id="log-viewer-select">
@@ -80,31 +80,6 @@ class AngellEYE_IfThenGive_Log {
         <?php
         endif;
     }
-
-    /**
-     * Scan the log files.
-     * @return array
-     */
-//    public static function scan_log_files() {
-//        $files = @scandir(ITG_LOG_DIR);
-//        $result = array();
-//        echo "<pre>";
-//        var_dump($files);
-//        exit;
-//        if (!empty($files)) {
-//
-//            foreach ($files as $key => $value) {
-//
-//                if (!in_array($value, array('.', '..'))) {
-//                    if (!is_dir($value) && strstr($value, '.log')) {
-//                        $result[sanitize_title($value)] = $value;
-//                    }
-//                }
-//            }
-//        }
-//
-//        return $result;
-//    }
 
     public static function scan_log_files($dir) {
         $result = array();
