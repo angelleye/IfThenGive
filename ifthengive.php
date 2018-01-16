@@ -65,7 +65,7 @@ if (!defined('ITG_PLUGIN_SET_TIME_LIMIT')) {
 }
 
 if (!defined('ITG_ISU_URL')) {
-    define('ITG_ISU_URL', 'https://www.angelleye.com/web-services/givewhen/paypal-isu/');
+    define('ITG_ISU_URL', 'https://www.angelleye.com/web-services/ifthengive/paypal-isu/');
 }
 
 if (!defined('ITG_TEXT_DOMAIN')) {
