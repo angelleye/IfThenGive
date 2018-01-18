@@ -1148,7 +1148,7 @@ class AngellEYE_IfThenGive_interface {
                     <div class="col-md-12">
                         <form method="post">
                             <?php
-                            $table = new AngellEYE_IfThenGive_Transactions_Table();
+                            $table = new AngellEYE_IfThenGive_users_Transactions_Table();
                             $table->prepare_items();
                             $table->search_box('Search', 'givers_users_transaction_search_id');
                             $table->display();

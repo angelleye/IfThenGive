@@ -170,13 +170,13 @@ class AngellEYE_IfThenGive_Public_Display {
                                         $html .= '<div class="itg_form-group">';
                                           $html .= '<label class="itg_upper" for="email">'. esc_html('Email address',ITG_TEXT_DOMAIN).'</label>';
                                           $html .= '<input type="email" class="itg_form-control" name="ifthengive_email" id="ifthengive_email" autocomplete="off" required="required" value="'.$User_email.'">';
-                                        $html .= '</div>';                                                                            
+                                        $html .= '</div>';                                                                                                                    
+                                         if ( ! is_user_logged_in() ) {
                                         $html .=  '<div class="checkbox">';
                                         $html .=    '<label class="itg_upper">';
-                                        $html .=      '<input type="checkbox" name="itg_signup_as_guest" id="itg_signup_as_guest" checked>'.esc_html('Create a account',ITG_TEXT_DOMAIN);
+                                        $html .=      '<input type="checkbox" name="itg_signup_as_guest" id="itg_signup_as_guest" checked>'.esc_html('Create an account',ITG_TEXT_DOMAIN);
                                         $html .=    '</label>';
                                         $html .=  '</div><br>';
-                                         if ( ! is_user_logged_in() ) {                                    
                                         $html .= '<div class="itg_form-group itg-password">';
                                           $html .= '<label class="itg_upper" for="password">'.esc_html('Password',ITG_TEXT_DOMAIN).'</label>';
                                           $html .= '<input type="password" class="itg_form-control" name="ifthengive_password" id="ifthengive_password" required="required">';
@@ -197,6 +197,7 @@ class AngellEYE_IfThenGive_Public_Display {
     }
          
     public function start_express_checkout(){        
+        global $wpdb;
         /*Getting data from ajax */        
         $post_id = $_POST['post_id'];
         $amount = number_format($_POST['amount'],2);        
@@ -251,7 +252,22 @@ class AngellEYE_IfThenGive_Public_Display {
                 'first_name' => $itguser['ifthengive_firstname'],
                 'last_name' => $itguser['ifthengive_lastname'],
                 'role' => 'giver'
-        );                
+        );
+        /*
+         * Below code for situations like
+         * 1). If user is login and inserts diffrent email then he has on WP user list we will remain login user id.
+         * 2). user is not login and directly enter email that we stored in usermeta.                    
+         */
+        $external_email_userid='';
+        $records = $wpdb->get_row( "SELECT user_id FROM ".$wpdb->prefix."usermeta WHERE `meta_key` IN ('itg_gec_email','itg_external_email') AND `meta_value`='".$itguser['ifthengive_email']."' LIMIT 1", ARRAY_A );
+        if($records){
+           $external_email_userid=$records['user_id'];
+        }
+        else{
+            /*Nothing match in database*/
+            //echo 'here';
+        }
+        
         $user_exist = email_exists($itguser['ifthengive_email']);
         /*If user exist then just add capabilities of giver with current capabilities. */
         if($user_exist){
@@ -270,8 +286,48 @@ class AngellEYE_IfThenGive_Public_Display {
             $user_id =$user_exist;
         }
         else{            
-            // user not exist. i.e. Always new user
-            $user_id = $_POST['login_user_id'];
+            /* 1) email not exist. i.e. user is login but enterd new email. 
+             * 2) email not exist and user is not login but Email is already in metakey
+             * first of condition checks if user login then get user id from post
+             * if not login then check for external user id
+             * if both empty then it will go further
+             */
+            if(is_user_logged_in()){
+                $user_id = $_POST['login_user_id'];
+            }
+            else{
+                $user_id = $external_email_userid;
+            }
+            if(!empty($user_id)){
+                $userdata['ID'] = $user_id;            
+                unset($userdata['user_pass']);
+                unset($userdata['user_login']);
+                unset($userdata['user_email']);
+                unset($userdata['display_name']);
+                unset($userdata['first_name']);
+                unset($userdata['last_name']);
+
+                $theUser = new WP_User($user_id);            
+                $userdata['user_email'] = $theUser->data->user_email;
+                $userdata['user_nicename'] = $theUser->data->user_nicename;
+                $userdata['user_login'] = $theUser->data->user_login;
+                $userdata['display_name'] = $theUser->data->display_name;
+                $userdata['first_name'] = $theUser->data->first_name;
+                $userdata['last_name'] = $theUser->data->last_name;
+
+                /*if user is admin then no change in the role*/
+                $is_admin = user_can($user_id, 'manage_options' );            
+                if($is_admin){
+                    unset($userdata['role']);
+                }else{
+                    /* if user is not admin then add additional role to the current user */                
+                    $theUser->add_role( 'giver' );                
+                    unset($userdata['role']);
+                } 
+                $itguser['itg_signup_as_guest']='on';
+                //echo "<br>user not exist. i.e. Always new user to signup in goal but user is login<br>";
+                update_user_meta($user_id,'itg_external_email', $itguser['ifthengive_email']);
+            }            
         }        
         
         if(!empty($user_id)){
@@ -322,8 +378,8 @@ class AngellEYE_IfThenGive_Public_Display {
         }
         else{            
             // User not login I.e. Always new user            
-        }
-
+            //echo "<br>i am here User not login I.e. Always new user";
+        }       
         /*Save user data in Session. */
         if(!session_id()) {
                 session_start();
@@ -335,7 +391,7 @@ class AngellEYE_IfThenGive_Public_Display {
         else{
             $_SESSION['itg_guest_user'] = 'yes';
             $userdata['user_pass'] = 'ITGPassword';
-        }
+        }        
         $_SESSION['itg_user_data'] = $userdata;
         
         /*PayPal setup */                

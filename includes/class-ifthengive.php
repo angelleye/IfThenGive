@@ -346,7 +346,7 @@ class Ifthengive {
                     if($PayPal->APICallSuccessful($PayPalResultCBA['ACK'])){
                         
                         /*inserting new user and if user_id is available then update user.*/
-                        $goal_user_id = wp_insert_user($_SESSION['itg_user_data']);
+                        $goal_user_id = wp_insert_user($_SESSION['itg_user_data']);                        
                         if( is_wp_error( $goal_user_id ) ) {
                             $error = __('Error on user creation.',ITG_TEXT_DOMAIN);
                             $_SESSION['ITG_Error'] = true;
