@@ -58,6 +58,9 @@ class AngellEYE_IfThenGive_Public_Display {
      * @access public
      */
     public static function ifthengive_create_shortcode($atts, $content = null) {
+        if (  is_admin() ) {
+            return '';
+        }
         global $post, $post_ID , $wp;        
         $current_url =  home_url( $wp->request ); 
         $ifthengive_page_id = $current_url;
@@ -188,9 +191,11 @@ class AngellEYE_IfThenGive_Public_Display {
                                          }                                        
                                         $html .= '<input type="hidden" name="ifthengive_page_id" id="ifthengive_page_id" value="'.$ifthengive_page_id.'">';
                                         $html .= '<button type="button" class="itg_btn itg_btn-primary" id="ifthengive_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="'.$user_id.'">'.esc_html('Sign Up For ',ITG_TEXT_DOMAIN) . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
-                                    $html .= '</form>';
+                                    $html .= '</form>';                       
+                                    $html .= '<div id="paypal-button-container" style="padding-top: 50px;"></div>';        
                                 $html .= '</div>'; // itgcontainer
-                            $html .= '</div>'; // itg_container                        
+                            $html .= '</div>'; // itg_container                                            
+                            $html.='<script src="https://www.paypalobjects.com/api/checkout.js"></script>';
             }
         }
         return $html;        
@@ -435,10 +440,10 @@ class AngellEYE_IfThenGive_Public_Display {
             'Payments' => $Payments,
             'BillingAgreements' => $BillingAgreements,
         );
-        $PayPalResult = $PayPal->SetExpressCheckout($PayPalRequestData);        
+        $PayPalResult = $PayPal->SetExpressCheckout($PayPalRequestData);           
         if($PayPal->APICallSuccessful($PayPalResult['ACK']))
         {            
-            echo json_encode(array('Ack'=>'Success','RedirectURL'=>$PayPalResult['REDIRECTURL']));
+            echo json_encode(array('Ack'=>'Success','paymentID'=>$PayPalResult['TOKEN']));
         }
         else
         {
