@@ -77,7 +77,7 @@ class AngellEYE_IfThenGive_Public_Display {
                 $html .= '<div id="overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">';
                 $html .=  '<div class="itg_loader"></div>
                            <h1 style="font-weight: 600;">'.esc_html('Processing...',ITG_TEXT_DOMAIN).'</h1></div>';                
-                $html .= '<div class="itg_container">';
+                $html .= '<div class="itg_container itg-paypal-form" data-id ="'.$post->ID.'">';
                     $html .= '<div class="itg_post-item">';                           
                             
                             $html .= '<div class="itg_post-title">
@@ -161,41 +161,43 @@ class AngellEYE_IfThenGive_Public_Display {
                                         $user_id = '';
                                      }
                                     
-                                    $html .= '<form method="post" name="signup" id="ifthengive_signup">';
+                                    $html .= '<form method="post" name="signup" id="ifthengive_signup_'.$post->ID.'">';
                                         $html .= '<div class="itg_form-group">';                                        
                                           $html .= '<label class="itg_upper" for="name">'.esc_html('First Name',ITG_TEXT_DOMAIN).'</label>';
-                                          $html .= '<input type="text" class="itg_form-control" name="ifthengive_firstname" id="ifthengive_firstname" autocomplete="off" required="required" value="'.$User_first_name.'">';
+                                          $html .= '<input type="text" class="itg_form-control" name="ifthengive_firstname" autocomplete="off" required="required" value="'.$User_first_name.'">';
                                         $html .= '</div>';
                                         $html .= '<div class="itg_form-group">';
                                           $html .= '<label class="itg_upper" for="name">'.esc_html('Last Name',ITG_TEXT_DOMAIN).'</label>';
-                                          $html .= '<input type="text" class="itg_form-control" name="ifthengive_lastname" id="ifthengive_lastname" autocomplete="off" required="required" value="'. $User_last_name.'">';
+                                          $html .= '<input type="text" class="itg_form-control" name="ifthengive_lastname"  autocomplete="off" required="required" value="'. $User_last_name.'">';
                                         $html .= '</div>';
                                         $html .= '<div class="itg_form-group">';
                                           $html .= '<label class="itg_upper" for="email">'. esc_html('Email address',ITG_TEXT_DOMAIN).'</label>';
-                                          $html .= '<input type="email" class="itg_form-control" name="ifthengive_email" id="ifthengive_email" autocomplete="off" required="required" value="'.$User_email.'">';
+                                          $html .= '<input type="email" class="itg_form-control" name="ifthengive_email"  autocomplete="off" required="required" value="'.$User_email.'">';
                                         $html .= '</div>';                                                                                                                    
                                          if ( ! is_user_logged_in() ) {
                                         $html .=  '<div class="checkbox">';
                                         $html .=    '<label class="itg_upper">';
-                                        $html .=      '<input type="checkbox" name="itg_signup_as_guest" id="itg_signup_as_guest" checked>'.esc_html('Create an account',ITG_TEXT_DOMAIN);
+                                        $html .=      '<input type="checkbox" class="itg_signup_as_guest" name="itg_signup_as_guest" checked>'.esc_html('Create an account',ITG_TEXT_DOMAIN);
                                         $html .=    '</label>';
                                         $html .=  '</div><br>';
                                         $html .= '<div class="itg_form-group itg-password">';
                                           $html .= '<label class="itg_upper" for="password">'.esc_html('Password',ITG_TEXT_DOMAIN).'</label>';
-                                          $html .= '<input type="password" class="itg_form-control" name="ifthengive_password" id="ifthengive_password" required="required">';
+                                          $html .= '<input type="password" class="itg_form-control" name="ifthengive_password"  required="required">';
                                         $html .= '</div>';
                                         $html .= '<div class="itg_form-group itg-password">';
                                           $html .= '<label class="itg_upper" for="password">'.esc_html('Re-type Password',ITG_TEXT_DOMAIN).'</label>';
-                                          $html .= '<input type="password" class="itg_form-control" name="ifthengive_retype_password" id="ifthengive_retype_password" required="required">';
+                                          $html .= '<input type="password" class="itg_form-control" name="ifthengive_retype_password"  required="required">';
                                         $html .= '</div>';
-                                         }                                        
-                                        $html .= '<input type="hidden" name="ifthengive_page_id" id="ifthengive_page_id" value="'.$ifthengive_page_id.'">';
-                                        $html .= '<button type="button" class="itg_btn itg_btn-primary" id="ifthengive_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="'.$user_id.'">'.esc_html('Sign Up For ',ITG_TEXT_DOMAIN) . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
-                                    $html .= '</form>';                       
-                                    $html .= '<div id="paypal-button-container" style="padding-top: 50px;"></div>';        
+                                         }
+                                        $html .= '<div class="itg_form-group itg-pp">';
+                                            $html .= '<label class="itg_upper" for="paypal">'.esc_html('Sign Up With ',ITG_TEXT_DOMAIN).'</label>';
+                                            $html .= '<div id="paypal-button-container-'.$post->ID.'"></div>';
+                                        $html .= '</div>';                                                                                   
+                                        $html .= '<input type="hidden" name="ifthengive_page_id" value="'.$ifthengive_page_id.'">';
+                                        $html .= '<button type="button" style="display:none" class="itg_btn itg_btn-primary" id="ifthengive_angelleye_checkout'.$post->ID.'" data-postid="'.$post->ID.'" data-userid="'.$user_id.'">'.esc_html('Sign Up For ',ITG_TEXT_DOMAIN) . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
+                                    $html .= '</form>';                                                           
                                 $html .= '</div>'; // itgcontainer
-                            $html .= '</div>'; // itg_container                                            
-                            $html.='<script src="https://www.paypalobjects.com/api/checkout.js"></script>';
+                            $html .= '</div>'; // itg_container
             }
         }
         return $html;        

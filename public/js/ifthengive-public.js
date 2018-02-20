@@ -1,9 +1,9 @@
 (function ($) {
     'use strict';
     jQuery(document).ready(function ($) {
-        $(document).on('click', '#ifthengive_angelleye_checkout', function () {
-           
-        });
+        //$(document).on('click', '#ifthengive_angelleye_checkout', function () {
+                        
+        //});
         $(document).on('change', '#ifthengive_option_amount', function () {
             jQuery('#ifthengive_fixed_price_span_select').html('').html($(this).val());
         });
@@ -21,11 +21,11 @@
             this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
         });
 
-        $(document).on('click', '#itg_signup_as_guest', function () {
+        $(document).on('click', '.itg_signup_as_guest', function () {
             if ($(this).is(":checked")) {
-                $(".itg-password").show(300);
+                $(this).parents('form').find(".itg-password").show(300);
             } else {
-                $(".itg-password").hide(200);
+                $(this).parents('form').find(".itg-password").hide(200);
             }
         });
 
@@ -73,90 +73,105 @@
                         alertify.error('You Pressed Cancel');
                     });
         });
+        if($('.itg-paypal-form').length > 0){
+            $('.itg-paypal-form').each(function(){
+                var itgPaypalForm = $(this);
+                var pid=$(this).data('id');
+                var ppcontainer = 'paypal-button-container-'+$(this).data('id');
+                paypal.Button.render({
+                env: 'sandbox', // sandbox | production
+                // Show the buyer a 'Pay Now' button in the checkout flow
+                style: {
+                    label: 'generic',
+                    size:  'medium',    // small | medium | large | responsive
+                    shape: 'rect',     // pill | rect
+                    color: 'gold',     // gold | blue | silver | black
+                    tagline: false,
+                    branding : true,
+                    maxbuttons : 4
+                },
+                // payment() is called when the button is clicked
+                payment: function () {
+                    var amount = '';
+                    var formData = '';
+                    var user_id = '';
+                    if ($(this).find('#ifthengive_fixed_price_span').length) {
+                        amount = itgPaypalForm.find('#ifthengive_fixed_price_span').html();
+                    }
+                    if ($(this).find('#ifthengive_fixed_price_span_select').length) {
+                        amount = itgPaypalForm.find('#ifthengive_fixed_price_span_select').html();
+                    }
+                    if ($(this).find('#ifthengive_manual_price_span').length) {
+                        amount = itgPaypalForm.find('#ifthengive_manual_price_span').html();
+                    }
+                    formData = itgPaypalForm.find("#ifthengive_signup_"+pid).serialize();
+                    user_id = itgPaypalForm.find('#ifthengive_angelleye_checkout'+pid).attr('data-userid');
 
-        paypal.Button.render({
-            env: 'sandbox', // sandbox | production
-            // Show the buyer a 'Pay Now' button in the checkout flow
-            commit: true,
-            // payment() is called when the button is clicked
-            payment: function () {
-                var amount = '';
-                var formData = '';
-                var user_id = '';
-                if ($('#ifthengive_fixed_price_span').length) {
-                    amount = $('#ifthengive_fixed_price_span').html();
-                }
-                if ($('#ifthengive_fixed_price_span_select').length) {
-                    amount = $('#ifthengive_fixed_price_span_select').html();
-                }
-                if ($('#ifthengive_manual_price_span').length) {
-                    amount = $('#ifthengive_manual_price_span').html();
-                }
-                formData = $("#ifthengive_signup").serialize();
-                user_id = $('#ifthengive_angelleye_checkout').attr('data-userid');
-                                
-                var CREATE_URL = admin_ajax_url;
-                var data = {
-                    action: 'start_express_checkout',
-                    post_id: $('#ifthengive_angelleye_checkout').attr('data-postid'),
-                    amount: amount,
-                    formData: formData,
-                    login_user_id: user_id
-                };
-                // Make a call to your server to set up the payment
-                return paypal.request.post(CREATE_URL,data)
-                        .then(function (result) {
-                            console.log(result);
-                            if (result.Ack == 'Success') {
-                                $('#ifthengive_signup')[0].reset();
-                                return result.paymentID;                                
-                            } else {
-                                if (result.Ack == 'ValidationError') {
-                                    $('#overlay').hide();
-                                    $('#connect_paypal_error_public').show();
-                                    $('#connect_paypal_error_p').html('').html('<strong>Acknowledgement :</strong> ' + result.Ack);
-                                    $('#connect_paypal_error_p').append('<br><strong>Error Code :</strong> ' + result.ErrorCode);
-                                    $('#connect_paypal_error_p').append('<br><strong>Long Message :</strong> ' + result.ErrorLong);
-                                    $('#connect_paypal_error_p').append('<br><strong>Errors :</strong>');
-                                    $('#connect_paypal_error_p').append('<ul>');
-                                    jQuery.each(result.Errors, function (i, val) {
-                                        $('#connect_paypal_error_p').append('<li>' + val + '</li>');
-                                    });
-                                    $('#connect_paypal_error_p').append('</ul>');
-                                    $('html, body').animate({
-                                        scrollTop: $("#scrolltopid").offset().top
-                                    }, 2000);
+                    var CREATE_URL = admin_ajax_url;
+                    var data = {
+                        action: 'start_express_checkout',
+                        post_id: itgPaypalForm.data('id'),
+                        amount: amount,
+                        formData: formData,
+                        login_user_id: user_id
+                    };
+                    // Make a call to your server to set up the payment
+                    return paypal.request.post(CREATE_URL, data)
+                            .then(function (result) {
+                                //console.log(result);
+                                if (result.Ack == 'Success') {
+                                    $('#ifthengive_signup_'+pid)[0].reset();
+                                    return result.paymentID;
                                 } else {
-                                    $('#overlay').hide();
-                                    $('#connect_paypal_error_public').show();
-                                    $('#connect_paypal_error_p').html('').html('<strong>Acknowledgement :</strong> ' + result.Ack);
-                                    $('#connect_paypal_error_p').append('<br><strong>Error Code :</strong> ' + result.ErrorCode);
-                                    $('#connect_paypal_error_p').append('<br><strong>Short Message :</strong> ' + result.ErrorShort);
-                                    $('#connect_paypal_error_p').append('<br><strong>Long Message :</strong> ' + result.ErrorLong);
-                                    $('#ifthengive_signup')[0].reset();
-                                    $('html, body').animate({
-                                        scrollTop: $("#scrolltopid").offset().top
-                                    }, 2000);
-                                }
-                                return false;
-                            }                            
-                            //return res.paymentID;
-                        }).catch(function(err) { reject(err); });
-            },
-            // onAuthorize() is called when the buyer approves the payment
-            onAuthorize: function (data, actions) {
-                //console.log(data);
-                //console.log(actions);
-                actions.redirect();                
-            },
-            onError: function (err) {
-                console.log(err);
-                // Show an error page here, when an error occurs
-            },
-            onCancel: function(data, actions) {
-                alert('The payment was cancelled!');
-                actions.redirect();
-            }
-        }, '#paypal-button-container');
+                                    console.log(result.Ack)
+                                    if (result.Ack == 'ValidationError') {
+                                        itgPaypalForm.find('#overlay').hide();
+                                        itgPaypalForm.find('#connect_paypal_error_public').show();
+                                        itgPaypalForm.find('#connect_paypal_error_p').html('').html('<strong>Acknowledgement :</strong> ' + result.Ack);
+                                        itgPaypalForm.find('#connect_paypal_error_p').append('<br><strong>Error Code :</strong> ' + result.ErrorCode);
+                                        itgPaypalForm.find('#connect_paypal_error_p').append('<br><strong>Long Message :</strong> ' + result.ErrorLong);
+                                        itgPaypalForm.find('#connect_paypal_error_p').append('<br><strong>Errors :</strong>');
+                                        itgPaypalForm.find('#connect_paypal_error_p').append('<ul>');
+                                        jQuery.each(result.Errors, function (i, val) {
+                                           itgPaypalForm.find('#connect_paypal_error_p').append('<li>' + val + '</li>');
+                                        });
+                                        itgPaypalForm.find('#connect_paypal_error_p').append('</ul>');
+                                        $('html, body').animate({
+                                            scrollTop: $("#scrolltopid").offset().top
+                                        }, 2000);
+                                    } else {
+                                        itgPaypalForm.find('#overlay').hide();
+                                        itgPaypalForm.find('#connect_paypal_error_public').show();
+                                        itgPaypalForm.find('#connect_paypal_error_p').html('').html('<strong>Acknowledgement :</strong> ' + result.Ack);
+                                        itgPaypalForm.find('#connect_paypal_error_p').append('<br><strong>Error Code :</strong> ' + result.ErrorCode);
+                                        itgPaypalForm.find('#connect_paypal_error_p').append('<br><strong>Short Message :</strong> ' + result.ErrorShort);
+                                        itgPaypalForm.find('#connect_paypal_error_p').append('<br><strong>Long Message :</strong> ' + result.ErrorLong);
+                                        itgPaypalForm.find('#ifthengive_signup_'+pid)[0].reset();
+                                        $('html, body').animate({
+                                            scrollTop: $("#scrolltopid").offset().top
+                                        }, 2000);
+                                    }
+                                    //return false;
+                                }                                
+                            });
+                },
+                // onAuthorize() is called when the buyer approves the payment
+                onAuthorize: function (data, actions) {
+                    //console.log(data);
+                    //console.log(actions);
+                    actions.redirect();
+                },
+                onError: function (err) {
+                    console.log(err);
+                    // Show an error page here, when an error occurs
+                },
+                onCancel: function (data, actions) {
+                    alert('The payment was cancelled!');
+                    actions.redirect();
+                }
+            }, '#'+ppcontainer);
+            })
+            
+        }
     });
 })(jQuery);
