@@ -87,8 +87,7 @@
                     shape: 'rect',     // pill | rect
                     color: 'gold',     // gold | blue | silver | black
                     tagline: false,
-                    branding : true,
-                    maxbuttons : 4
+                    branding : true                    
                 },
                 // payment() is called when the button is clicked
                 payment: function () {
