@@ -95,16 +95,16 @@ class AngellEYE_IfThenGive_Public_Display {
                                 if($amount == 'fixed'){
                                     $html .= '<div class="itg_post-title">';
                                     $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);                                
-                                    $html .= '<h4>'. esc_html('I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span">'.number_format($fixed_amount,2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</h4>';
+                                    $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ). esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span">'.number_format($fixed_amount,2).'</span></h4>';
                                     $html .= '</div>';                                    
                                 }                                
                                 elseif($amount == 'manual'){
                                     $manual_amount_input_value = get_post_meta($post->ID, 'manual_amount_input', true);
                                     $html .= '<div class="itg_post-title">';
-                                        $html .= '<h4>'.esc_html('I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_manual_price_span">'.$manual_amount_input_value.'</span> '.esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).'</h4>';
+                                        $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_manual_price_span">'.$manual_amount_input_value.'</span></h4>';
                                     $html .= '</div>';
                                     $html .= '<div class="itg_form-group">';
-                                        $html .= '<label for="manualamout" class="itg_upper">'. esc_html('Enter Amount','').'</label>';
+                                        $html .= '<label for="manualamout" class="itg_upper">'. esc_html('Enter Amount',ITG_TEXT_DOMAIN).'</label>';
                                         $html .= '<input type="text" name="itg_manual_amount_input" value="'.$manual_amount_input_value.'" class="itg_form-control" autocomplete="off" id="itg_manual_amount_input" placeholder="Enter Amount"/>';
                                     $html .= '</div>';
                                 }
@@ -113,7 +113,7 @@ class AngellEYE_IfThenGive_Public_Display {
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);
                                     $i=0;
                                     $html .= '<div class="itg_post-title">';
-                                        $html .= '<h4>'.esc_html('I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span_select">'.number_format($option_amount[0],2).'</span> '. esc_html('When','').'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).'</h4>';
+                                        $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span_select">'.number_format($option_amount[0],2).'</span></h4>';
                                     $html .= '</div>';
                                     $html .= '<div class="itg_form-group">';
                                         $html .= '<select class="itg_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount">';
@@ -130,7 +130,7 @@ class AngellEYE_IfThenGive_Public_Display {
                                        
                     $html .= '<div class="itgcontainer" id="ifthengive_signup_form">';                 
                         $html .= '<div class="itg_hr-title itg_center">';
-                        $html .= '<abbr>'.esc_html('Sign up for ',''). get_post_meta( $post->ID, 'trigger_name', true ).'</abbr>';
+                        $html .= '<abbr>'.esc_html('Sign up for ',ITG_TEXT_DOMAIN). get_post_meta( $post->ID, 'trigger_name', true ).'</abbr>';
                         $html .= '</div>';
                                                              
                         $html .= '<div class="itg_alert itg_alert-warning" id="connect_paypal_error_public" style="display: none">';

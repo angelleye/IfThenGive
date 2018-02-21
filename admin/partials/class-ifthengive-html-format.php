@@ -219,13 +219,13 @@ class AngellEYE_IfThenGive_interface {
                                                 <div class="itg_post-title">
                                                     <div class="fixed_amount" style="display: none">
                                                         <h4 class="lead fixed_amount">
-                                                        <?php _e('I will Give ',ITG_TEXT_DOMAIN); ?> <?php echo $symbol; ?><span id="ifthengive_fixed_price_span"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?> <span class="trigger_thing"> </span>
+                                                        <?php _e('If ',ITG_TEXT_DOMAIN); ?> <span class="trigger_thing"> </span><?php _e(' Then I will Give ',ITG_TEXT_DOMAIN); ?> <?php echo $symbol; ?><span id="ifthengive_fixed_price_span"></span> 
                                                          </h4>
                                                     </div>
                                                 </div>
                                                 <div class="itg_post-title">
                                                     <div class="manual_amount" style="display: none">
-                                                        <h4 class="lead manual_amount"><?php _e('I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="ifthengive_manual_price_span"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?><span class="trigger_thing"></span></h4>
+                                                        <h4 class="lead manual_amount"><?php _e('If ',ITG_TEXT_DOMAIN); ?><span class="trigger_thing"></span><?php _e(' Then I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="ifthengive_manual_price_span"></span></h4>
                                                         <div class="itg_form-group">
                                                             <label for="manualamout" class="control-label"><?php _e('Enter Amount',ITG_TEXT_DOMAIN); ?></label>
                                                             <input type="text" name="itg_manual_amount_input" value="50" class="itg_form-control" autocomplete="off" id="itg_manual_amount_input" placeholder="Enter Amount"/>
@@ -234,7 +234,7 @@ class AngellEYE_IfThenGive_interface {
                                                 </div>
                                                 <div class="itg_post-title">
                                                     <div class="select_amount" style="display: none">
-                                                        <h4 class="lead"> <?php _e('I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="ifthengive_fixed_price_span_select"></span> <?php _e('When ',ITG_TEXT_DOMAIN); ?><span class="trigger_name"></span></h4>
+                                                        <h4 class="lead"><?php _e('If ',ITG_TEXT_DOMAIN); ?><span class="trigger_name"></span><?php _e(' Then I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="ifthengive_fixed_price_span_select"></span></h4>
                                                         <div class="itg_form-group">
                                                             <label class="itg_upper">Select</label>
                                                             <select class="itg_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount"></select>
