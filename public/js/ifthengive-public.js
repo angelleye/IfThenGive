@@ -78,6 +78,18 @@
                 var itgPaypalForm = $(this);
                 var pid=$(this).data('id');
                 var ppcontainer = 'paypal-button-container-'+$(this).data('id');
+                var amount = '';
+                var formData = '';
+                var user_id = '';
+                if ($(this).find('#ifthengive_fixed_price_span').length) {
+                    amount = itgPaypalForm.find('#ifthengive_fixed_price_span').html();
+                }
+                if ($(this).find('#ifthengive_fixed_price_span_select').length) {
+                    amount = itgPaypalForm.find('#ifthengive_fixed_price_span_select').html();
+                }
+                if ($(this).find('#ifthengive_manual_price_span').length) {
+                    amount = itgPaypalForm.find('#ifthengive_manual_price_span').html();
+                }                
                 paypal.Button.render({
                 env: 'sandbox', // sandbox | production
                 // Show the buyer a 'Pay Now' button in the checkout flow
@@ -90,19 +102,7 @@
                     branding : true                    
                 },
                 // payment() is called when the button is clicked
-                payment: function () {
-                    var amount = '';
-                    var formData = '';
-                    var user_id = '';
-                    if ($(this).find('#ifthengive_fixed_price_span').length) {
-                        amount = itgPaypalForm.find('#ifthengive_fixed_price_span').html();
-                    }
-                    if ($(this).find('#ifthengive_fixed_price_span_select').length) {
-                        amount = itgPaypalForm.find('#ifthengive_fixed_price_span_select').html();
-                    }
-                    if ($(this).find('#ifthengive_manual_price_span').length) {
-                        amount = itgPaypalForm.find('#ifthengive_manual_price_span').html();
-                    }
+                payment: function () {                    
                     formData = itgPaypalForm.find("#ifthengive_signup_"+pid).serialize();
                     user_id = itgPaypalForm.find('#ifthengive_angelleye_checkout'+pid).attr('data-userid');
 
@@ -121,8 +121,12 @@
                                 if (result.Ack == 'Success') {
                                     $('#ifthengive_signup_'+pid)[0].reset();
                                     return result.paymentID;
-                                } else {
-                                    console.log(result.Ack)
+                                }
+                                else if(result.Ack == 'SuccessWithRedirect'){
+                                    window.top.location.href = result.RedirectURL;
+                                    return false;
+                                }
+                                else {                                    
                                     if (result.Ack == 'ValidationError') {
                                         itgPaypalForm.find('#overlay').hide();
                                         itgPaypalForm.find('#connect_paypal_error_public').show();
@@ -169,7 +173,7 @@
                     actions.redirect();
                 }
             }, '#'+ppcontainer);
-            })
+            });
             
         }
     });

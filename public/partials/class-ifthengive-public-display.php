@@ -275,7 +275,7 @@ class AngellEYE_IfThenGive_Public_Display {
             //echo 'here';
         }
         
-        $user_exist = email_exists($itguser['ifthengive_email']);
+        $user_exist = email_exists($itguser['ifthengive_email']);       
         /*If user exist then just add capabilities of giver with current capabilities. */
         if($user_exist){
             unset($userdata['user_pass']);
@@ -379,7 +379,7 @@ class AngellEYE_IfThenGive_Public_Display {
                 }        
                 wp_set_auth_cookie( $user_id, true );
                 update_user_meta($user_id,'itg_signedup_goals',$signedup_goals);
-                echo json_encode(array('Ack'=>'Success','RedirectURL'=>$REDIRECTURL));
+                echo json_encode(array('Ack'=>'SuccessWithRedirect','RedirectURL'=>$REDIRECTURL));
                 exit;
             }
         }
