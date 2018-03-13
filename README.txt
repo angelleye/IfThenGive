@@ -3,8 +3,8 @@ Contributors: angelleye
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HCRT25BHSMRAA
 Tags: paypal, donation, donations, giving, charity, goals, fundraising, fundraiser, funds
 Requires at least: 3.0.1
-Tested up to: 4.8
-Stable tag: 1.0.0
+Tested up to: 4.9.4
+Stable tag: 0.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,8 +16,8 @@ Allow donors to create a billing agreement for automatic donations based on even
 
 Examples:
 
-* [Home Run Challenge](http://rizzo44.com/product/2017-home-run-challenge/) - Give $5.00 When Anthony Rizzo hits a home run during a baseball game.
-* [HALO](http://www.haloworldwide.org) - Helping Art Liberate Orphans - Give $10.00 When a child graduates high school.
+* [Home Run Challenge](http://rizzo44.com/product/2017-home-run-challenge/) - If Anthony Rizzo hits a home run during a baseball game, Then Give $5.00 towards the cause.
+* [HALO](http://www.haloworldwide.org) - Helping Art Liberate Orphans - If a child graduates high school Then Give a $10.00 donation.
 
 == Installation ==
 
@@ -57,5 +57,5 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Upgrade Notice ==
 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
+= 0.1.0 =
+This is a beta release.
