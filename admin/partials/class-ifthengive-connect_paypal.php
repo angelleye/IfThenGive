@@ -423,13 +423,15 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="panel-title"><h4 class="text-info"><?php _e('Instruction for Connect with PayPal',ITG_TEXT_DOMAIN); ?></h4></div>
+                                <div class="panel-title"><h4 class="text-info"><?php _e('How to Connect PayPal Account',ITG_TEXT_DOMAIN); ?></h4></div>
                             </div>
                             <div class="panel-body">
                                 <ol>
-                                    <li><?php _e('Lorem ipsum dolor sit amet',ITG_TEXT_DOMAIN); ?></li>
-                                    <li><?php _e('Consectetur adipiscing elit',ITG_TEXT_DOMAIN); ?></li>
-                                    <li><?php _e('Integer molestie lorem at massa',ITG_TEXT_DOMAIN); ?></li>
+                                    <li><?php _e('Click the Connect with PayPal button to begin the process.',ITG_TEXT_DOMAIN); ?></li>
+                                    <li><?php _e('Login to your PayPal account, or create an account if necessary.',ITG_TEXT_DOMAIN); ?></li>
+                                    <li><?php _e('Review the authorization details and click the "Yes I Authorize It" button.',ITG_TEXT_DOMAIN); ?></li>
+                                    <li><?php _e('Click the button to "Go back to {My Website Name}".',ITG_TEXT_DOMAIN); ?></li>
+                                    <li><?php _e('Verify that your PayPal Account ID is listed and click to Save Settings.',ITG_TEXT_DOMAIN); ?></li>
                                 </ol>
                             </div>
                         </div>
