@@ -390,9 +390,11 @@ class AngellEYE_IfThenGive_Public_Display {
         }
         else{
             $_SESSION['itg_guest_user'] = 'yes';
-            $userdata['user_pass'] = 'ITGPassword';
+            if(empty($user_id)){
+                $userdata['user_pass'] = 'ITGPassword';
+            }
         }        
-        $_SESSION['itg_user_data'] = $userdata;
+        $_SESSION['itg_user_data'] = $userdata;       
         
         /*PayPal setup */                
         $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();
