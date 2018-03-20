@@ -106,15 +106,15 @@
             alertify.defaults.theme.ok = "btn btn-primary";
             alertify.defaults.theme.cancel = "btn btn-danger";
             alertify.defaults.theme.input = "form-control";
-            alertify.confirm('Process Donation', 'Are you sure you want to Process Donation..?',
+            alertify.confirm('Process Donation', 'Are you ready to process donations for all Givers on this goal?',
                 function ()
                 {                                        
-                    alertify.success('Process Doantion is Starting.'); 
+                    alertify.success('Processing Donations...');
                     window.location.href = $('#ifthengive_fun').attr('data-redirectUrl');
                 },
                 function ()
                 {
-                    alertify.error('You Pressed Cancel');
+                    alertify.error('The donation process has been canceled.');
                 });            
         });
         
