@@ -98,7 +98,7 @@ class AngellEYE_IfThenGive_interface {
             <div class="container" style="max-width: 100%">   
                 <form>                    
                     <div class="form-group">
-                        <label for="triggerName" class="control-label"><?php echo __('Thing', ITG_TEXT_DOMAIN); ?></label>
+                        <label for="triggerName" class="control-label"><?php echo __('Goal Label', ITG_TEXT_DOMAIN); ?></label>
                         <input type="text" name="trigger_thing" value="<?php echo esc_attr( $trigger_thing , ITG_TEXT_DOMAIN); ?>" class="form-control" autocomplete="off" id="trigger_thing" placeholder="Enter event Here"/>
                     </div>
                     <div class="form-group">
