@@ -41,8 +41,8 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $ccode = get_option('itg_currency_code');
         $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
-        echo "<h2>".__('Hi ',ITG_TEXT_DOMAIN). $user->display_name . __(', Thank You for signed up in ',ITG_TEXT_DOMAIN) . __($trigger_name,ITG_TEXT_DOMAIN). "</h2>";
-        echo "<span>" . __('Each time you will give ',ITG_TEXT_DOMAIN).$symbol.$amount.' '. __('when',ITG_TEXT_DOMAIN).' '.__($trigger_thing,ITG_TEXT_DOMAIN). "</span>";
+        echo "<h2>".__('Hi ',ITG_TEXT_DOMAIN). $user->display_name . __(', Thank you for giving to ',ITG_TEXT_DOMAIN) . __($trigger_name,ITG_TEXT_DOMAIN). "</h2>";
+        echo "<h3>" . __('If', ITG_TEXT_DOMAIN) . ' ' . __($trigger_thing, ITG_TEXT_DOMAIN) . ' ' . __('Then Give', ITG_TEXT_DOMAIN) . ' ' . $symbol.$amount . "</h3>";
         echo '<div class="itg_post-image" style="margin-top: 30px;margin-top: 30px;max-width: 600px;margin-left: auto;margin-right: auto;">
                 <img src="'.$image_url.'" alt="Goal Image">
               </div>
