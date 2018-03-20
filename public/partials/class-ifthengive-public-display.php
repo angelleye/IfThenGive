@@ -341,7 +341,7 @@ class AngellEYE_IfThenGive_Public_Display {
                 $goalArray = explode('|', $signnedup_goals[0]);                
                 if(!empty($goalArray)){
                     if(in_array($post_id, $goalArray)){
-                        echo json_encode(array('Ack'=>__('Information',ITG_TEXT_DOMAIN),'ErrorCode'=>__('IfThenGiveInfo',ITG_TEXT_DOMAIN),'ErrorShort'=>__('You are already signed up for this goal.',ITG_TEXT_DOMAIN),'ErrorLong'=>__('You are already signed up for this goal.',ITG_TEXT_DOMAIN)));
+                        echo json_encode(array('Ack'=>__('Information',ITG_TEXT_DOMAIN),'ErrorCode'=>__('001',ITG_TEXT_DOMAIN),'ErrorShort'=>__('You are already signed up for this goal.',ITG_TEXT_DOMAIN),'ErrorLong'=>__('We already have a record of this email address signed up for this goal.',ITG_TEXT_DOMAIN)));
                         exit;
                     }
                 }
