@@ -137,12 +137,12 @@ class AngellEYE_IfThenGive_Public_Display {
                         $html .= '<span id="connect_paypal_error_p"></span>';
                         $html .= '</div>';
                         
-                        $html .= '<p class="text-info">'.__('Instructions',ITG_TEXT_DOMAIN).'</p>';
+/*                        $html .= '<p class="text-info">'.__('Instructions',ITG_TEXT_DOMAIN).'</p>';
                         $html .='<ol>
                                     <li>'.__('Lorem ipsum dolor sit amet.',ITG_TEXT_DOMAIN).'</li>
                                     <li>'.__('Consectetur adipiscing elit.',ITG_TEXT_DOMAIN).'</li>
                                     <li>'.__('Integer molestie lorem at massa.',ITG_TEXT_DOMAIN).'</li>
-                                </ol>';
+                                </ol>';*/
                                     
                                      if ( is_user_logged_in() ) {
                                         $current_user    = wp_get_current_user();
