@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: paypal, donation, donations, giving, charity, goals, fundraising, fundraiser, funds
 Requires at least: 3.0.1
 Tested up to: 4.9.4
-Stable tag: 1.0.0
+Stable tag: 0.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -52,5 +52,5 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
-= 1.0.0 =
-* Initial Release
+= 0.1.0 =
+* Initial BETA Release
