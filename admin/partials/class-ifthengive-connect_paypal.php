@@ -218,13 +218,25 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                         <a id="itg_connect_with_paypal_sb" data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
                                                     </div>
                                                     <?php
-                                                } else {
+                                                } else {                                                    
+                                                    $error = json_decode($ConnectPayPalArray['DATA'], true);
+                                                    if(isset($error['error']) || isset($error['error_description'])){                                                                                                            
                                                     ?>
                                                     <div class="alert alert-warning" id="connect_with_paypal_error">
-                                                        <p id="connect_with_paypal_error_p">Error : <?php echo $ConnectPayPalArray['DATA']['error']; ?></p>
-                                                        <p id="connect_with_paypal_error_desc">Error : <?php echo $ConnectPayPalArray['DATA']['error_description']; ?></p>
+                                                        <p><?php _e('PayPal Error',ITG_TEXT_DOMAIN); ?></p>
+                                                        <p id="connect_with_paypal_error_p"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo isset($error['error']) ? $error['error'] : ''; ?></p>
+                                                        <p id="connect_with_paypal_error_desc"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo isset($error['error_description']) ? $error['error_description'] : '' ; ?></p>
                                                     </div>
-                                                <?php }
+                                                    <?php }
+                                                    if(isset($ConnectPayPalArray['DATA']['RAWRESPONSE']['name']) || isset($ConnectPayPalArray['DATA']['RAWRESPONSE']['message'])){ ?>
+                                                        <div class="alert alert-warning" id="connect_with_paypal_error">
+                                                            <p><?php _e('PayPal Error',ITG_TEXT_DOMAIN); ?></p>
+                                                            <p id="connect_with_paypal_error_p"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['name']; ?></p>
+                                                            <p id="connect_with_paypal_error_desc"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['message']; ?></p>
+                                                        </div>
+                                                    <?php                                                    
+                                                    }
+                                                }
                                             }
                                             ?>
                                             <a class="btn btn-sm btn-default" data-toggle="collapse" href="#itgsandboxClass" aria-expanded="false" aria-controls="itgsandboxClass" id="itgsandbox_details"><?php echo $itg_sb_button_text; ?></a><br><br>
@@ -335,14 +347,25 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                         <a id="itg_connect_with_paypal_live" data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
                                                     </div>
                                                     <?php
-                                                } else {
+                                                } else {                                                    
                                                     $error = json_decode($ConnectPayPalArray['DATA'], true);
+                                                    if(isset($error['error']) || isset($error['error_description'])){                                                                                                            
                                                     ?>
                                                     <div class="alert alert-warning" id="connect_with_paypal_error">
-                                                        <p id="connect_with_paypal_error_p">Error : <?php echo $error['error']; ?></p>
-                                                        <p id="connect_with_paypal_error_desc">Error : <?php echo $error['error_description']; ?></p>
+                                                        <p><?php _e('PayPal Error',ITG_TEXT_DOMAIN); ?></p>
+                                                        <p id="connect_with_paypal_error_p"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo isset($error['error']) ? $error['error'] : ''; ?></p>
+                                                        <p id="connect_with_paypal_error_desc"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo isset($error['error_description']) ? $error['error_description'] : '' ; ?></p>
                                                     </div>
-                                                <?php }
+                                                    <?php }
+                                                    if(isset($ConnectPayPalArray['DATA']['RAWRESPONSE']['name']) || isset($ConnectPayPalArray['DATA']['RAWRESPONSE']['message'])){ ?>
+                                                        <div class="alert alert-warning" id="connect_with_paypal_error">
+                                                            <p><?php _e('PayPal Error',ITG_TEXT_DOMAIN); ?></p>
+                                                            <p id="connect_with_paypal_error_p"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['name']; ?></p>
+                                                            <p id="connect_with_paypal_error_desc"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['message']; ?></p>
+                                                        </div>
+                                                    <?php                                                    
+                                                    }
+                                                }
                                             }
                                             ?>
                                             <a class="btn btn-sm btn-default" data-toggle="collapse" href="#itgliveClass" aria-expanded="false" aria-controls="itgliveClass" id="itglive_details"><?php echo $itg_lv_button_text; ?></a><br><br>
