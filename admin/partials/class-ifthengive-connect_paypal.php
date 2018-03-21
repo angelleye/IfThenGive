@@ -218,8 +218,13 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                         <a id="itg_connect_with_paypal_sb" data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
                                                     </div>
                                                     <?php
-                                                } else {                                                    
-                                                    $error = json_decode($ConnectPayPalArray['DATA'], true);
+                                                } else {
+                                                    if(is_string($ConnectPayPalArray['DATA'])){
+                                                        $error = json_decode($ConnectPayPalArray['DATA'], true);
+                                                    }
+                                                    else{
+                                                        $error = array();
+                                                    }
                                                     if(isset($error['error']) || isset($error['error_description'])){                                                                                                            
                                                     ?>
                                                     <div class="alert alert-warning" id="connect_with_paypal_error">
@@ -347,8 +352,13 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                         <a id="itg_connect_with_paypal_live" data-toggle="tooltip" data-original-title="Connect with PayPal" data-paypal-button="true" href="<?php echo $ConnectPayPalArray['action_url']; ?>&displayMode=minibrowser" target="PPFrame" class="btn btn-primary">Connect with PayPal</a>
                                                     </div>
                                                     <?php
-                                                } else {                                                    
-                                                    $error = json_decode($ConnectPayPalArray['DATA'], true);
+                                                } else {                   
+                                                    if(is_string($ConnectPayPalArray['DATA'])){
+                                                        $error = json_decode($ConnectPayPalArray['DATA'], true);
+                                                    }
+                                                    else{
+                                                        $error = array();
+                                                    }                                                    
                                                     if(isset($error['error']) || isset($error['error_description'])){                                                                                                            
                                                     ?>
                                                     <div class="alert alert-warning" id="connect_with_paypal_error">
