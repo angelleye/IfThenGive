@@ -421,9 +421,24 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                         }
                                                    ?>
                                                 </select>
-                                            </div>
+                                            </div>                                            
                                         </div>
-                                    </div>                                    
+                                    </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="brandname"><?php _e('Brand Name',ITG_TEXT_DOMAIN);?></label>
+                                            <input type="text" class="form-control" id="brandname" name="brandname" value="">
+                                            <p class="help-block"><?php _e('This Brand Name will be displayed on the PayPal as sitename during checkout.',ITG_TEXT_DOMAIN);?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="itg_brandlogo"><?php _e('Upload Brand Logo',ITG_TEXT_DOMAIN); ?></label>
+                                            <?php echo self::misha_image_uploader_field('itg_brandlogo',get_option( 'itg_brandlogo' )) ?>
+                                            <p class="help-block"><?php _e('Logo will be on the PayPal during checkout.',ITG_TEXT_DOMAIN); ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="checkbox">
                                     <?php
                                         $checkbox = get_option('itg_log_enable');
@@ -476,6 +491,30 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                 </script>
             </div>        
         <?php
+    }
+    
+    public static function misha_image_uploader_field( $name, $value = '') {
+	$image = ' button">Upload image';
+	$image_size = 'full'; // it would be better to use thumbnail size here (150x150 or so)
+	$display = 'none'; // display state ot the "Remove image" button
+ 
+	if( $image_attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
+ 
+		// $image_attributes[0] - image URL
+		// $image_attributes[1] - image width
+		// $image_attributes[2] - image height
+ 
+		$image = '"><img src="' . $image_attributes[0] . '" style="max-width:95%;display:block;" />';
+		$display = 'inline-block';
+ 
+	} 
+ 
+	return '
+	<div>
+		<a href="#" class="misha_upload_image_button' . $image . '</a>
+		<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '" />
+		<a href="#" class="misha_remove_image_button" style="display:inline-block;display:' . $display . '">Remove image</a>
+	</div>';
     }
 
     public function sandbox_enabled() {

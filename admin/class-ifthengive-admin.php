@@ -105,7 +105,9 @@ class IfThenGive_Admin {
                      wp_enqueue_script($this->plugin_name . 'seven', ITG_PLUGIN_URL . 'includes/css/clipboardjs/clipboard.min.js', array('jquery'), $this->version, false);
                      wp_enqueue_script($this->plugin_name . 'ten', ITG_PLUGIN_URL . 'includes/css/alertify/alertify.min.js', array('jquery'), $this->version, false);
                 }
-                wp_enqueue_media();
+                if ( ! did_action( 'wp_enqueue_media' ) ) {
+                    wp_enqueue_media();
+                }                
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ifthengive-admin.js', array( 'jquery' ), $this->version, false );
                 
                 global $post;
