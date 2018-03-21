@@ -411,10 +411,10 @@ class AngellEYE_IfThenGive_Public_Display {
                 'maxamt' => round($amount * 2,2),
                 'returnurl' => site_url('?action=ec_return'),
                 'cancelurl' => $cancel_page,
-                'hdrimg' => 'https://www.angelleye.com/images/angelleye-paypal-header-750x90.jpg',
-                'logoimg' => 'https://www.angelleye.com/images/angelleye-logo-190x60.jpg',
-                'brandname' => 'Angell EYE',
-                'customerservicenumber' => '816-555-5555',
+                'hdrimg' => '',
+                'logoimg' => '',
+                'brandname' => '',
+                'customerservicenumber' => '',
         );
         $Payments = array();
         $Payment = array(
