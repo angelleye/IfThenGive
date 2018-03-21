@@ -197,22 +197,24 @@
                                btn.removeClass('btn-warning');
                                btn.addClass('btn-defalt');
                                btn.text('Activate');
-                               btn.closest('tr').addClass('itg_suspended_row');
-                               alertify.error('Giver Suspended');
+                               btn.closest('tr').addClass('itg_suspended_row');                                                      
+                               btn.data('itgchangestatus','Activate');
+                               alertify.error('Giver Suspended');                               
                            }
                            else{
                                btn.removeClass('btn-defalt');
                                btn.addClass('btn-warning');
                                btn.text('Suspend');
                                btn.closest('tr').removeClass('itg_suspended_row');
-                               alertify.success('Giver Activated');
+                               btn.data('itgchangestatus','Suspend');
+                               alertify.success('Giver Activated');                               
                            }
                        }
                    });
                 },
                 function ()
                 {
-                    alertify.error('You Pressed Cancel');
+                    //alertify.error('You Pressed Cancel');
                 });               
         });
         
