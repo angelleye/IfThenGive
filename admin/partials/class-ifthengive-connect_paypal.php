@@ -87,6 +87,8 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         $itg_sb_add_manually = get_option('itg_sb_api_credentials_addded_manually');
         $itg_lv_add_manually = get_option('itg_lv_api_credentials_addded_manually');
         
+        $brandName = get_option('itg_brandname');
+        $itg_cs_number = get_option('itg_cs_number');
         ?>                
         <div class="wrap">
             <div class="container-fluid">
@@ -431,9 +433,29 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                         }
                                                    ?>
                                                 </select>
-                                            </div>
+                                            </div>                                            
                                         </div>
-                                    </div>                                    
+                                    </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="itg_brandname"><?php _e('Brand Name',ITG_TEXT_DOMAIN);?></label>
+                                            <input type="text" class="form-control" id="itg_brandname" name="itg_brandname" value="<?php echo (isset($brandName) && !empty($brandName)) ? esc_attr($brandName,ITG_TEXT_DOMAIN) : get_bloginfo('name'); ?>" autocomplete="off">
+                                            <p class="help-block"><?php _e('Business name in the PayPal account on the PayPal hosted checkout pages',ITG_TEXT_DOMAIN);?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="itg_brandlogo"><?php _e('Upload Brand Logo',ITG_TEXT_DOMAIN); ?></label>
+                                            <?php echo self::image_uploader_field('itg_brandlogo',get_option( 'itg_brandlogo' )) ?>
+                                            <p class="help-block"><?php _e('PayPal places your logo image at the top of the cart review area.',ITG_TEXT_DOMAIN); ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="itg_cs_number"><?php _e('Customer Service Number',ITG_TEXT_DOMAIN);?></label>
+                                            <input type="text" class="form-control" id="itg_cs_number" name="itg_cs_number" value="<?php echo isset($itg_cs_number) ? esc_attr($itg_cs_number,ITG_TEXT_DOMAIN) : ''; ?>" autocomplete="off">
+                                            <p class="help-block"><?php _e(' Merchant Customer Service number displayed on the PayPal Review page.',ITG_TEXT_DOMAIN);?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="checkbox">
                                     <?php
                                         $checkbox = get_option('itg_log_enable');
@@ -486,6 +508,30 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                 </script>
             </div>        
         <?php
+    }
+    
+    public static function image_uploader_field( $name, $value = '') {
+	$image = ' button">Upload image';
+	$image_size = 'thumbnail'; // it would be better to use thumbnail size here (150x150 or so)
+	$display = 'none'; // display state ot the "Remove image" button
+ 
+	if( $image_attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
+ 
+		// $image_attributes[0] - image URL
+		// $image_attributes[1] - image width
+		// $image_attributes[2] - image height
+ 
+		$image = '"><img src="' . $image_attributes[0] . '" />';
+		$display = 'inline-block';
+ 
+	} 
+ 
+	return '
+	<div>
+		<a href="#" class="upload_image_button' . $image . '</a>
+		<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '" />
+		<a href="#" class="remove_image_button" style="display:inline-block;display:' . $display . '">Remove image</a>
+	</div>';
     }
 
     public function sandbox_enabled() {
@@ -557,6 +603,16 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
             else{
                 update_option('itg_log_enable', 'no');
             }
+            if(isset($_POST['itg_brandlogo'])){
+                 update_option('itg_brandlogo', $_POST['itg_brandlogo']);
+            }
+            if(isset($_POST['itg_brandname'])){
+                 update_option('itg_brandname', $_POST['itg_brandname']);
+            }
+            if(isset($_POST['itg_cs_number'])){
+                 update_option('itg_cs_number', $_POST['itg_cs_number']);
+            }
+            
             ?>
             <br><div id="setting-error-settings_updated" class="alert alert-success"> 
                 <p><?php echo '<strong>' . __('Settings were saved successfully.', ITG_TEXT_DOMAIN) . '</strong>'; ?></p></div>
