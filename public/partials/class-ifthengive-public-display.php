@@ -426,7 +426,7 @@ class AngellEYE_IfThenGive_Public_Display {
                 'cancelurl' => $cancel_page,
                 'hdrimg' => '',
                 'logoimg' => isset($logoimg) ? $logoimg : '',
-                'brandname' => isset($brandname) ? $brandname : '',
+                'brandname' => (isset($brandname) && !empty($brandname)) ? $brandname : get_bloginfo('name'),
                 'customerservicenumber' => isset($customerservicenumber) ? $customerservicenumber : '',
         );
         $Payments = array();

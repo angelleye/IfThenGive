@@ -430,7 +430,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="itg_brandname"><?php _e('Brand Name',ITG_TEXT_DOMAIN);?></label>
-                                            <input type="text" class="form-control" id="itg_brandname" name="itg_brandname" value="<?php echo isset($brandName) ? esc_attr($brandName,ITG_TEXT_DOMAIN) : ''; ?>" autocomplete="off">
+                                            <input type="text" class="form-control" id="itg_brandname" name="itg_brandname" value="<?php echo (isset($brandName) && !empty($brandName)) ? esc_attr($brandName,ITG_TEXT_DOMAIN) : get_bloginfo('name'); ?>" autocomplete="off">
                                             <p class="help-block"><?php _e('Business name in the PayPal account on the PayPal hosted checkout pages',ITG_TEXT_DOMAIN);?></p>
                                         </div>
                                         <div class="form-group">
