@@ -561,7 +561,6 @@ class AngellEYE_IfThenGive_interface {
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Transaction ID',ITG_TEXT_DOMAIN).'</th>
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Amount',ITG_TEXT_DOMAIN).'</th>
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payer Email',ITG_TEXT_DOMAIN).'</th>
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('PayPal ACK',ITG_TEXT_DOMAIN).'</th>
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payment Status',ITG_TEXT_DOMAIN).'</th>
                                             </tr>';       
         foreach ($givers as $value) {    
@@ -608,8 +607,7 @@ class AngellEYE_IfThenGive_interface {
                 echo $trEmailString = "<tr style='".$css."'>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],ITG_TEXT_DOMAIN)."</td>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),ITG_TEXT_DOMAIN)."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],ITG_TEXT_DOMAIN)."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                    
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],ITG_TEXT_DOMAIN)."</td>
                 </tr>";
                 $EmailString.= $trEmailString;
@@ -621,8 +619,7 @@ class AngellEYE_IfThenGive_interface {
                 echo $trEmailString = "<tr style='".$css."'>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],ITG_TEXT_DOMAIN)."</td>
+                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                    
                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
                 </tr>";
                 $EmailString.= $trEmailString;
@@ -643,7 +640,8 @@ class AngellEYE_IfThenGive_interface {
                                         $total_amount += $value['amount'];
                                         ob_flush();
                                         flush();
-                                        sleep(2);
+                                        //sleep(2);
+                                        /* we can uncomment above line if necesory because sleep will wait for 2 seconds on every iteration */
                                     }
                                     ?>              <?php echo $endtabeEmailString = "</table>";
                             $EmailString.=$endtabeEmailString; ?>
@@ -983,8 +981,7 @@ class AngellEYE_IfThenGive_interface {
                                             <tr style="background-color: #f9f9f9;">
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Transaction ID',ITG_TEXT_DOMAIN).'</th>
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Amount',ITG_TEXT_DOMAIN).'</th>
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payer Email',ITG_TEXT_DOMAIN).'</th>
-                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('PayPal ACK',ITG_TEXT_DOMAIN).'</th>
+                                                <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payer Email',ITG_TEXT_DOMAIN).'</th>                                                
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payment Status',ITG_TEXT_DOMAIN).'</th>
                                             </tr>';
                                     
@@ -1032,7 +1029,6 @@ class AngellEYE_IfThenGive_interface {
                                                                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],ITG_TEXT_DOMAIN)."</td>
                                                                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),ITG_TEXT_DOMAIN)."</td>
                                                                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
-                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],ITG_TEXT_DOMAIN)."</td>
                                                                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],ITG_TEXT_DOMAIN)."</td>
                                                                 </tr>";                                            
                                             $EmailString.= $trEmailString;
@@ -1043,8 +1039,7 @@ class AngellEYE_IfThenGive_interface {
                                              echo $trEmailString = "<tr style='".$css."'>
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
-                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
-                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['ACK'],ITG_TEXT_DOMAIN)."</td>
+                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                                                
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
                                             </tr>";
                                             $EmailString.= $trEmailString;
@@ -1056,7 +1051,8 @@ class AngellEYE_IfThenGive_interface {
                                         $total_amount += $value['amount'];
                                         ob_flush();
                                         flush();
-                                        sleep(2);
+                                        //sleep(2);
+                                        /* we can uncomment above line if necesory because sleep will wait for 2 seconds on every iteration */
                                     }
                                     ?>              <?php echo $endtabeEmailString = "</table>";
                             $EmailString.=$endtabeEmailString; ?>
