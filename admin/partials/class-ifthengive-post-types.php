@@ -212,9 +212,18 @@ class AngellEYE_IfThenGive_Post_types {
                 update_post_meta($post_ID, 'manual_amount_input',  number_format($_POST['manual_amount_input'],2));
             }
             else{
+                $amountArray = array();
+                foreach ($_POST['option_amount'] as $amount) {
+                    if(!empty($amount)){
+                        $amountArray[] = number_format($amount,2);
+                    }
+                    else{
+                        $amountArray[] = number_format('1',2);
+                    }
+                }
                 update_post_meta($post_ID, 'amount','select');
                 update_post_meta($post_ID, 'option_name',$_POST['option_name']);
-                update_post_meta($post_ID, 'option_amount',$_POST['option_amount']);
+                update_post_meta($post_ID, 'option_amount',$amountArray);
             }
         }
         if(isset($_POST['publish']) && $_POST['post_type']=='ifthengive_goals'){
