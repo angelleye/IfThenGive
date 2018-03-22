@@ -33,8 +33,7 @@
                         $('#overlay').show();
                     },                
                     success: function (result) {                      
-                       if(result.Ack == 'Success'){
-                            $('#ifthengive_signup')[0].reset();
+                       if(result.Ack == 'Success'){                            
                            window.location.href = result.RedirectURL;
                        }
                        else{
@@ -60,8 +59,7 @@
                             $('#connect_paypal_error_p').html('').html('<strong>Acknowledgement :</strong> ' + result.Ack);                           
                             $('#connect_paypal_error_p').append('<br><strong>Error Code :</strong> ' + result.ErrorCode);
                             $('#connect_paypal_error_p').append('<br><strong>Short Message :</strong> ' + result.ErrorShort);
-                            $('#connect_paypal_error_p').append('<br><strong>Long Message :</strong> ' + result.ErrorLong);
-                            $('#ifthengive_signup')[0].reset(); 
+                            $('#connect_paypal_error_p').append('<br><strong>Long Message :</strong> ' + result.ErrorLong);                            
                             $('html, body').animate({
                                 scrollTop: $("#scrolltopid").offset().top
                             }, 2000);
