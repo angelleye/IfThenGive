@@ -199,12 +199,15 @@ class AngellEYE_IfThenGive_Post_types {
             update_post_meta($post_ID, 'image_url',$_POST['image_url']);            
             if($_POST['fixed_radio']=='fixed'){
                 update_post_meta($post_ID, 'amount','fixed');
-                update_post_meta($post_ID, 'fixed_amount_input',$_POST['fixed_amount_input']);
+                if(empty(trim($_POST['manual_amount_input']))){
+                    $_POST['fixed_amount_input']=1.00;
+                }
+                update_post_meta($post_ID, 'fixed_amount_input',number_format($_POST['fixed_amount_input'],2));
             }
             elseif($_POST['fixed_radio']=='manual'){
                 update_post_meta($post_ID, 'amount','manual');
                 if(empty(trim($_POST['manual_amount_input']))){
-                    $_POST['manual_amount_input']=50.00;
+                    $_POST['manual_amount_input']=1.00;
                 }
                 update_post_meta($post_ID, 'manual_amount_input',  number_format($_POST['manual_amount_input'],2));
             }
