@@ -23,20 +23,20 @@ if (!is_admin()) {
 <div class="itgcontainer">
     <div id="canceel_baid_overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
         <div class="itg_loader"></div>
-        <h1 style="font-weight: 600;">Processing...</h1>
+        <h1 style="font-weight: 600;"><?php _e('Processing',ITG_TEXT_DOMAIN); ?>...</h1>
     </div>
     <ul class="itg-list-group">
         <li class="itg-list-group-item">
             <span class="itg_span itg_span_1"><?php _e('Billing Agreement ID : ',ITG_TEXT_DOMAIN);?></span>
-            <span class="itg_span itg_span_2"><?php ($BAID!=='') ? _e($BAID,ITG_TEXT_DOMAIN) : _e('-',ITG_TEXT_DOMAIN);?></span>
+            <span class="itg_span itg_span_2"><?php echo ($BAID!=='') ? $BAID : '-';?></span>
         </li>
         <li class="itg-list-group-item">
             <span class="itg_span itg_span_1"><?php _e('PayPal Email ID : ',ITG_TEXT_DOMAIN);?></span>
-            <span class="itg_span itg_span_2"><?php  ($paypal_email !== '') ? _e($paypal_email,ITG_TEXT_DOMAIN) : _e('-',ITG_TEXT_DOMAIN);?></span>
+            <span class="itg_span itg_span_2"><?php echo ($paypal_email !== '') ? $paypal_email : '-'; ?></span>
         </li>        
         <li class="itg-list-group-item">
             <span class="itg_span itg_span_1"><?php _e('PayPal Payer ID : ',ITG_TEXT_DOMAIN);?></span>
-            <span class="itg_span itg_span_2"><?php ($paypal_payer_id !=='') ? _e($paypal_payer_id,ITG_TEXT_DOMAIN) : _e('-',ITG_TEXT_DOMAIN); ?></span>
+            <span class="itg_span itg_span_2"><?php echo ($paypal_payer_id !=='') ? $paypal_payer_id : '-'; ?></span>
         </li>
         <?php
         if($BAID!=='') {
