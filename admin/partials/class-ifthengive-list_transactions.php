@@ -324,14 +324,28 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
         <script type="text/javascript">
           jQuery('.ewc-filter-cat').live('change', function(){
               var catFilter = jQuery(this).val();
-              if( catFilter != '' ){                  
-                  document.location.href = '<?php echo admin_url('?'.$_SERVER['QUERY_STRING']); ?>&payment_status-filter='+catFilter;
+              if( catFilter != '' ){    
+                  <?php
+                  if (isset($_REQUEST['payment_status-filter'])) {
+                      $payment_status_url = remove_query_arg('payment_status-filter', admin_url('?' . $_SERVER['QUERY_STRING']));                      
+                  } else {
+                      $payment_status_url = admin_url('?' . $_SERVER['QUERY_STRING']);                      
+                  }
+                  ?>                              
+                  document.location.href = '<?php echo $payment_status_url; ?>&payment_status-filter='+catFilter;
               }
           });
           jQuery('.ewc-filter-num').live('change', function(){
               var rsFilter = jQuery(this).val();
-              if( rsFilter != '' ){                  
-                  document.location.href = '<?php echo admin_url('?'.$_SERVER['QUERY_STRING']); ?>&records_show-filter='+rsFilter;
+              if( rsFilter != '' ){
+                  <?php
+                  if (isset($_REQUEST['records_show-filter'])) {
+                      $new_url = remove_query_arg('records_show-filter', admin_url('?' . $_SERVER['QUERY_STRING']));
+                  } else {
+                      $new_url = admin_url('?' . $_SERVER['QUERY_STRING']);
+                  }
+                  ?>
+                  document.location.href = '<?php echo $new_url; ?>&records_show-filter='+rsFilter;
               }
           });
         </script>
@@ -373,8 +387,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
     }
 
     public function extra_tablenav($which) {
-        global $wpdb, $testiURL, $tablename, $tablet;
-        $move_on_url = '&post=' . $_REQUEST['post'] . '&view=ListTransactions&payment_status-filter=';
+        global $wpdb, $testiURL, $tablename, $tablet;        
         $selected = "selected='selected'";
         $status_filter = !empty($_REQUEST['payment_status-filter']) ? $_REQUEST['payment_status-filter'] : '';
         $rs_filter = !empty($_REQUEST['records_show-filter']) ? $_REQUEST['records_show-filter'] : '';
@@ -385,13 +398,13 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
                 <select name="cat-filter" class="ewc-filter-cat">
                     <option value=""><?php _e('Filter by Payment Status',ITG_TEXT_DOMAIN); ?></option>
                     <option value="all"><?php _e('Show All',ITG_TEXT_DOMAIN); ?></option>
-                    <option value="<?php echo $move_on_url; ?>Success" <?php if ($status_filter == "Success") {
+                    <option value="Success" <?php if ($status_filter == "Success") {
                 echo $selected;
             } ?>><?php _e('Success',ITG_TEXT_DOMAIN); ?></option>
-                    <option value="<?php echo $move_on_url; ?>Failure" <?php if ($status_filter == "Failure") {
+                    <option value="Failure" <?php if ($status_filter == "Failure") {
                 echo $selected;
             } ?>><?php _e('Failure',ITG_TEXT_DOMAIN); ?></option>
-                    <option value="<?php echo $move_on_url; ?>pending" <?php if ($status_filter == "pending") {
+                    <option value="pending" <?php if ($status_filter == "pending") {
                 echo $selected;
             } ?>><?php _e('Pending',ITG_TEXT_DOMAIN); ?></option>
                 </select>                            

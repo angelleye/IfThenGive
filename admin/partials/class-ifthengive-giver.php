@@ -361,8 +361,15 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         <script type="text/javascript">          
           jQuery('.ewc-filter-num').live('change', function(){
               var rsFilter = jQuery(this).val();
-              if( rsFilter != '' ){                  
-                  document.location.href = '<?php echo admin_url('?'.$_SERVER['QUERY_STRING']); ?>&records_show-filter='+rsFilter;
+              if( rsFilter != '' ){   
+                  <?php
+                  if (isset($_REQUEST['records_show-filter'])) {
+                      $new_url = remove_query_arg('records_show-filter', admin_url('?' . $_SERVER['QUERY_STRING']));
+                  } else {
+                      $new_url = admin_url('?' . $_SERVER['QUERY_STRING']);
+                  }
+                  ?>
+                  document.location.href = '<?php echo $new_url; ?>&records_show-filter='+rsFilter;
               }
           });
         </script>
