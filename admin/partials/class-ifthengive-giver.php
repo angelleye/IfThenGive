@@ -48,7 +48,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
      *
      * @return mixed
      */
-    public static function get_givers( $per_page = 5, $page_number = 1 ) {       
+    public static function get_givers( $per_page = 10, $page_number = 1 ) {       
         
         global $wpdb;        
         $sql = "SELECT
@@ -85,7 +85,10 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
                 /* by default we will add post time/post type time order by  */
                 $sql .= ' ORDER BY BADate ';
                 $sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' DESC';
-            }                    
+            }
+        if(isset($_REQUEST['records_show-filter'])){
+            $per_page = $_REQUEST['records_show-filter'];
+        }
         $sql .= " LIMIT $per_page";
         $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;    
         
@@ -121,13 +124,13 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     * @param int $id customer ID
     */
     public static function delete_customer( $id ) {
-      global $wpdb;
-
-      $wpdb->delete(
-        "{$wpdb->prefix}customers",
-        [ 'ID' => $id ],
-        [ '%d' ]
-      );
+//      global $wpdb;
+//
+//      $wpdb->delete(
+//        "{$wpdb->prefix}customers",
+//        [ 'ID' => $id ],
+//        [ '%d' ]
+//      );
     }
     
     /**
@@ -340,9 +343,11 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
      /** Process bulk action */
      $this->process_bulk_action();
 
-     $per_page     = $this->get_items_per_page( 'givers_per_page', 5 );     
+     $per_page     = $this->get_items_per_page( 'givers_per_page', 10 );     
      $current_page = $this->get_pagenum();
-     
+     if(isset($_REQUEST['records_show-filter'])){
+            $per_page = $_REQUEST['records_show-filter'];
+     }
      $total_items  = self::record_count();       
      $this->set_pagination_args( [
        'total_items' => $total_items, //WE have to calculate the total number of items
@@ -351,7 +356,17 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
 
 
      $this->items = self::get_givers( $per_page, $current_page );
-     
+     ?>
+        <!-- for transection filter -->
+        <script type="text/javascript">          
+          jQuery('.ewc-filter-num').live('change', function(){
+              var rsFilter = jQuery(this).val();
+              if( rsFilter != '' ){                  
+                  document.location.href = '<?php echo admin_url('?'.$_SERVER['QUERY_STRING']); ?>&records_show-filter='+rsFilter;
+              }
+          });
+        </script>
+    <?php
     }
     
     public function process_bulk_action() {
@@ -401,6 +416,13 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
             <div class="alignleft actions bulkactions">                                
                 <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals'; ?>">Back to Goals</a>               
             </div>
+            <select name="number_of_givers" class="ewc-filter-num">
+                <option value=""><?php _e('Show Number of Records',ITG_TEXT_DOMAIN); ?></option>
+                <option value="10" <?php if($rs_filter === '10') { echo $selected; } ?>>10</option>
+                <option value="25" <?php if($rs_filter === '25') { echo $selected; } ?>>25</option>
+                <option value="50" <?php if($rs_filter === '50') { echo $selected; } ?>>50</option>
+                <option value="100" <?php if($rs_filter === '100') { echo $selected; } ?>>100</option>
+            </select>
             <?php
         }
         if ($which == "bottom") {

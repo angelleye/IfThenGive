@@ -127,11 +127,11 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
      * @param int $id transaction ID
      */
     public static function delete_txn($id) {
-        global $wpdb;
-
-        $wpdb->delete(
-                "{$wpdb->prefix}customers", [ 'ID' => $id], [ '%d']
-        );
+//        global $wpdb;
+//
+//        $wpdb->delete(
+//                "{$wpdb->prefix}customers", [ 'ID' => $id], [ '%d']
+//        );
     }
 
     /**
@@ -340,9 +340,6 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
     }
 
     public function process_bulk_action() {
-        //echo "<pre>";
-       // print_r($_REQUEST);
-       // exit;
         //Detect when a bulk action is being triggered...
         if ('delete' === $this->current_action()) {
 
