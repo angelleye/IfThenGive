@@ -170,6 +170,7 @@ class IfThenGive_Admin {
         
         /* The class responsible for cancel billing agreement of givers */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/class-ifthengive-cancel-billing-agreement.php';
+        require_once ITG_PLUGIN_DIR.'/library/dompdf/autoload.inc.php';
     }
     
     /**

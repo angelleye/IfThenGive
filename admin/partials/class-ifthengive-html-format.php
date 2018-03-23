@@ -1,5 +1,6 @@
 <?php
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
 /**
  * This class defines all code necessary to generate interface
  * @class       AngellEYE_IfThenGive_interface
@@ -501,10 +502,13 @@ class AngellEYE_IfThenGive_interface {
             </div>        
         <?php
         }
-        else{ 
+        else{                            
         @set_time_limit(ITG_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
-        $EmailString = '';
+        $EmailString = '';       
+        $options = new Options();
+        $options->setIsRemoteEnabled(true);
+        $dompdf = new Dompdf($options);        
         if (ob_get_level() == 0)
             ob_start();
         ?>
@@ -663,8 +667,8 @@ class AngellEYE_IfThenGive_interface {
                     <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_success,2) . '</strong></p> 
                     <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
                 </div>';
-                        $EmailString.=$alert_info_email_string;
-
+                        $EmailString.=$alert_info_email_string;       
+                                               
                         $headers = "From: IfThenGive <info@ifthengive.com> \r\n";
                         $headers .= "Reply-To: noreply@ifthengive.com \r\n";
                         //$headers .= "CC: ifthengive@ifthengive.com\r\n";
@@ -674,7 +678,15 @@ class AngellEYE_IfThenGive_interface {
                         $to = $admin_email = get_option('admin_email');
                         $subject = __('IfThenGive Transaction Report For ' . $trigger_name,ITG_TEXT_DOMAIN);
                         $message = $headerString.$EmailString;
-                        wp_mail($to, $subject, $message, $headers);
+                        
+                        $dompdf->load_html($message);
+                        $dompdf->set_paper("A4", "portrait");
+                        $dompdf->render();
+                        $output  = $dompdf->output(); // to Download PDF
+                        $filename = sanitize_file_name($trigger_name.'_transaction_report_'.time().'.pdf');
+                        file_put_contents(ITG_LOG_DIR.'/'.$filename, $output);  
+                        $attachments = array( ITG_LOG_DIR . '/'.$filename );
+                        wp_mail($to, $subject, $headerString.$alert_info_email_string, $headers,$attachments);
                         ?>
                     </div>
                     <div class="clearfix"></div>
