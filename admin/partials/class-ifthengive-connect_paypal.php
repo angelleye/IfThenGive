@@ -441,17 +441,17 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                         <div class="form-group">
                                             <label for="itg_brandname"><?php _e('Brand Name',ITG_TEXT_DOMAIN);?></label>
                                             <input type="text" class="form-control" id="itg_brandname" name="itg_brandname" value="<?php echo (isset($brandName) && !empty($brandName)) ? esc_attr($brandName,ITG_TEXT_DOMAIN) : get_bloginfo('name'); ?>" autocomplete="off">
-                                            <p class="help-block"><?php _e('Business name in the PayPal account on the PayPal hosted checkout pages',ITG_TEXT_DOMAIN);?></p>
+                                            <p class="help-block"><?php _e('This is the business name that will be displayed on PayPal hosted checkout pages.',ITG_TEXT_DOMAIN);?></p>
                                         </div>
                                         <div class="form-group">
                                             <label for="itg_brandlogo"><?php _e('Upload Brand Logo',ITG_TEXT_DOMAIN); ?></label>
                                             <?php echo self::image_uploader_field('itg_brandlogo',get_option( 'itg_brandlogo' )) ?>
-                                            <p class="help-block"><?php _e('PayPal places your logo image at the top of the cart review area.',ITG_TEXT_DOMAIN); ?></p>
+                                            <p class="help-block"><?php _e('This logo will be used on PayPal hosted checkout pages.',ITG_TEXT_DOMAIN); ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label for="itg_cs_number"><?php _e('Customer Service Number',ITG_TEXT_DOMAIN);?></label>
                                             <input type="text" class="form-control" id="itg_cs_number" name="itg_cs_number" value="<?php echo isset($itg_cs_number) ? esc_attr($itg_cs_number,ITG_TEXT_DOMAIN) : ''; ?>" autocomplete="off">
-                                            <p class="help-block"><?php _e(' Merchant Customer Service number displayed on the PayPal Review page.',ITG_TEXT_DOMAIN);?></p>
+                                            <p class="help-block"><?php _e(' Customer service phone number displayed on PayPal hosted checkout pages.',ITG_TEXT_DOMAIN);?></p>
                                         </div>
                                     </div>
                                 </div>
