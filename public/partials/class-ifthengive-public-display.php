@@ -412,6 +412,7 @@ class AngellEYE_IfThenGive_Public_Display {
                 
         $brandname = get_option('itg_brandname');
         $logoimg = get_option('itg_brandlogo');
+        $hdlogoimg = get_option('itg_hd_brandlogo');
         $customerservicenumber = get_option('itg_cs_number');
         /*PayPal setup */                
         $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();
@@ -428,7 +429,7 @@ class AngellEYE_IfThenGive_Public_Display {
                 'maxamt' => round($amount * 2,2),
                 'returnurl' => site_url('?action=ec_return'),
                 'cancelurl' => $cancel_page,
-                'hdrimg' => '',
+                'hdrimg' => isset($hdlogoimg) ? $hdlogoimg : '',
                 'logoimg' => isset($logoimg) ? $logoimg : '',
                 'brandname' => (isset($brandname) && !empty($brandname)) ? $brandname : get_bloginfo('name'),
                 'customerservicenumber' => isset($customerservicenumber) ? $customerservicenumber : '',

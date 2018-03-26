@@ -89,6 +89,9 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         
         $brandName = get_option('itg_brandname');
         $itg_cs_number = get_option('itg_cs_number');
+        
+        $itg_brandlogo = get_option('itg_brandlogo');
+        $itg_hd_brandlogo = get_option('itg_hd_brandlogo');        
         ?>                
         <div class="wrap">
             <div class="container-fluid">
@@ -444,8 +447,17 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                             <p class="help-block"><?php _e('This is the business name that will be displayed on PayPal hosted checkout pages.',ITG_TEXT_DOMAIN);?></p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="itg_brandlogo"><?php _e('Upload Brand Logo',ITG_TEXT_DOMAIN); ?></label>
-                                            <?php echo self::image_uploader_field('itg_brandlogo',get_option( 'itg_brandlogo' )) ?>
+                                            <label for="itg_brandlogo"><?php _e('Upload Brand Logo (190x60px)',ITG_TEXT_DOMAIN); ?>&nbsp;&nbsp;<a data-toggle="tooltip" data-placement="top" title="This controls what users see as the logo on PayPal review pages. This image requires an SSL host.  Please upload your image to www.sslpic.com and enter the image URL here."><span class="glyphicon glyphicon-info-sign text-info"></span></a></label>
+                                            <input type="text" class="form-control" id="itg_brandlogo" name="itg_brandlogo" value="<?php echo isset($itg_brandlogo) ? esc_attr($itg_brandlogo,ITG_TEXT_DOMAIN) : ''; ?>" autocomplete="off">
+                                            <br>
+                                            <a href="#" class="upload_image_button button">Upload image</a>                                            
+                                            <p class="help-block"><?php _e('This logo will be used on PayPal hosted checkout pages.',ITG_TEXT_DOMAIN); ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="itg_hd_brandlogo"><?php _e('Upload Header Logo (750x90px)',ITG_TEXT_DOMAIN); ?>&nbsp;&nbsp;<a data-toggle="tooltip" data-placement="top" title="This controls what users see as the logo on PayPal review pages. This image requires an SSL host.  Please upload your image to www.sslpic.com and enter the image URL here."><span class="glyphicon glyphicon-info-sign text-info"></span></a></label>
+                                            <input type="text" class="form-control" id="itg_hd_brandlogo" name="itg_hd_brandlogo" value="<?php echo isset($itg_hd_brandlogo) ? esc_attr($itg_hd_brandlogo,ITG_TEXT_DOMAIN) : ''; ?>" autocomplete="off">
+                                            <br>
+                                            <a href="#" class="upload_hd_image_button button">Upload image</a>                                            
                                             <p class="help-block"><?php _e('This logo will be used on PayPal hosted checkout pages.',ITG_TEXT_DOMAIN); ?></p>
                                         </div>
                                         <div class="form-group">
@@ -508,32 +520,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                 </script>
             </div>        
         <?php
-    }
-    
-    public static function image_uploader_field( $name, $value = '') {
-	$image = ' button">Upload image';
-	$image_size = 'thumbnail'; // it would be better to use thumbnail size here (150x150 or so)
-	$display = 'none'; // display state ot the "Remove image" button
- 
-	if( $image_attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
- 
-		// $image_attributes[0] - image URL
-		// $image_attributes[1] - image width
-		// $image_attributes[2] - image height
- 
-		$image = '"><img src="' . $image_attributes[0] . '" />';
-		$display = 'inline-block';
- 
-	} 
- 
-	return '
-	<div>
-		<a href="#" class="upload_image_button' . $image . '</a>
-		<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '" />
-		<a href="#" class="remove_image_button" style="display:inline-block;display:' . $display . '">Remove image</a>
-	</div>';
-    }
-
+    }    
     public function sandbox_enabled() {
         if (isset($_POST['sandbox'])) {
             $sandbox = $_POST['sandbox'];
@@ -605,6 +592,9 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
             }
             if(isset($_POST['itg_brandlogo'])){
                  update_option('itg_brandlogo', $_POST['itg_brandlogo']);
+            }
+            if(isset($_POST['itg_hd_brandlogo'])){
+                 update_option('itg_hd_brandlogo', $_POST['itg_hd_brandlogo']);
             }
             if(isset($_POST['itg_brandname'])){
                  update_option('itg_brandname', $_POST['itg_brandname']);
