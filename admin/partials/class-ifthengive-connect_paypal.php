@@ -466,7 +466,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                             $checkbox_checked = "";
                                         }
                                     ?>
-                                    <label><input type="checkbox" name="itg_log_enable" id="itg_log_enable" <?php echo $checkbox_checked; ?> ><?php _e('Save Logs.',ITG_TEXT_DOMAIN); ?></label>
+                                    <label><input type="checkbox" name="itg_log_enable" id="itg_log_enable" <?php echo $checkbox_checked; ?> ><?php _e('Enable Debug Logging',ITG_TEXT_DOMAIN); ?></label>
                                 </div>  
                                 <p class="submit">
                                     <input type="submit" name="ifthengive_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
