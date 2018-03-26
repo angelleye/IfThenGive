@@ -313,17 +313,10 @@ class Ifthengive {
                
                 $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
                 if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){
-                    
-                    $temp = $PayPalResultGEC['CUSTOM'];
-                    $arr = explode('|',$temp);
-                    $amount_array = explode('_',$arr[0]);
-                    $amount = $amount_array[1];
-                    
-                    $post_array = explode('_',$arr[1]);
-                    $goal_post_id = $post_array[2];
-                    
-                    $user_array = explode('_',$arr[2]);                   
-                    $goal_user_id = $user_array[2];
+                                        
+                    $amount = $_SESSION['itg_signup_amount'];                                        
+                    $goal_post_id = $_SESSION['itg_signup_wp_goal_id'];                 
+                    $goal_user_id = $_SESSION['itg_signup_wp_user_id'];
                 }
                 else{
                     $_SESSION['ITG_Error'] = true;
@@ -398,7 +391,16 @@ class Ifthengive {
 
                         update_post_meta($new_post_id,'itg_signup_amount',$amount);                    
                         update_post_meta($new_post_id,'itg_signup_wp_user_id',$goal_user_id);
-                        update_post_meta($new_post_id,'itg_signup_wp_goal_id',$goal_post_id);    
+                        update_post_meta($new_post_id,'itg_signup_wp_goal_id',$goal_post_id);  
+                        if(isset($_SESSION['itg_signup_amount'])){
+                            unset($_SESSION['itg_signup_amount']);
+                        }
+                        if(isset($_SESSION['itg_signup_wp_user_id'])){
+                            unset($_SESSION['itg_signup_wp_user_id']);
+                        }
+                        if(isset($_SESSION['itg_signup_wp_goal_id'])){
+                            unset($_SESSION['itg_signup_wp_goal_id']);
+                        }                                                                                
                         /*save log*/
                         $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                         if ('yes' == $debug) {
