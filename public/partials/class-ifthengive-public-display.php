@@ -404,8 +404,12 @@ class AngellEYE_IfThenGive_Public_Display {
                 $userdata['user_pass'] = 'ITGPassword';
             }
         }        
-        $_SESSION['itg_user_data'] = $userdata;       
+        $_SESSION['itg_user_data'] = $userdata;  
         
+        $_SESSION['itg_signup_amount'] = $amount;
+        $_SESSION['itg_signup_wp_user_id'] = $user_id;
+        $_SESSION['itg_signup_wp_goal_id'] = $post_id;
+                
         $brandname = get_option('itg_brandname');
         $logoimg = get_option('itg_brandlogo');
         $customerservicenumber = get_option('itg_cs_number');
@@ -431,8 +435,7 @@ class AngellEYE_IfThenGive_Public_Display {
         );
         $Payments = array();
         $Payment = array(
-            'amt' => 0,            
-            'custom' => 'amount_'.$amount.'|post_id_'.$post_id.'|user_id_'.$user_id
+            'amt' => 0
         );
         array_push($Payments, $Payment);
         
