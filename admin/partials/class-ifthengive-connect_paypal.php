@@ -591,16 +591,16 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                 update_option('itg_log_enable', 'no');
             }
             if(isset($_POST['itg_brandlogo'])){
-                 update_option('itg_brandlogo', $_POST['itg_brandlogo']);
+                 update_option('itg_brandlogo', trim($_POST['itg_brandlogo']));
             }
             if(isset($_POST['itg_hd_brandlogo'])){
-                 update_option('itg_hd_brandlogo', $_POST['itg_hd_brandlogo']);
+                 update_option('itg_hd_brandlogo', trim($_POST['itg_hd_brandlogo']));
             }
             if(isset($_POST['itg_brandname'])){
-                 update_option('itg_brandname', $_POST['itg_brandname']);
+                 update_option('itg_brandname', trim($_POST['itg_brandname']));
             }
             if(isset($_POST['itg_cs_number'])){
-                 update_option('itg_cs_number', $_POST['itg_cs_number']);
+                 update_option('itg_cs_number', trim($_POST['itg_cs_number']));
             }
             
             ?>
