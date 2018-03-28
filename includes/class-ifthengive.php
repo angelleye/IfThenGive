@@ -296,6 +296,7 @@ class Ifthengive {
                 die();
             }
             if (isset($_GET['action']) && $_GET['action'] == 'ec_return') {
+                $sanbox_enable = get_option('itg_sandbox_enable');                
                 if(!session_id()) {
                     session_start();
                 }                
@@ -392,6 +393,13 @@ class Ifthengive {
                         update_post_meta($new_post_id,'itg_signup_amount',$amount);                    
                         update_post_meta($new_post_id,'itg_signup_wp_user_id',$goal_user_id);
                         update_post_meta($new_post_id,'itg_signup_wp_goal_id',$goal_post_id);  
+                        if($sanbox_enable === 'yes'){
+                            update_post_meta($new_post_id,'signup_in_sandbox','yes');
+                        }
+                        else{
+                            update_post_meta($new_post_id,'signup_in_sandbox','no');
+                        }
+                        
                         if(isset($_SESSION['itg_signup_amount'])){
                             unset($_SESSION['itg_signup_amount']);
                         }

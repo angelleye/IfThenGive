@@ -49,8 +49,11 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
      * @return mixed
      */
     public static function get_givers( $per_page = 10, $page_number = 1 ) {       
-        
+                
         global $wpdb;        
+        $sanbox_enable = get_option('itg_sandbox_enable');
+        $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
+        
         $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
@@ -64,7 +67,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              join `{$wpdb->prefix}users` as u on p.post_author = u.ID 
              join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
              left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
-             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'itg_signup_wp_goal_id') ";
+             WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'signup_in_sandbox') ";
         
              
             $sql .= " group by u.ID";
@@ -90,14 +93,17 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
             $per_page = $_REQUEST['records_show-filter'];
         }
         $sql .= " LIMIT $per_page";
-        $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;    
+        $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;            
         
         $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );
         return $result_array;
     }
     
     public static function get_all_givers() {
-        global $wpdb;        
+        global $wpdb;       
+        $sanbox_enable = get_option('itg_sandbox_enable');
+        $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
+        
         $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
@@ -111,7 +117,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              join `{$wpdb->prefix}users` as u on p.post_author = u.ID 
              join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
              left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
-             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'itg_signup_wp_goal_id') 
+             WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'signup_in_sandbox') 
              group by u.ID Having GiverStatus = 'active' OR GiverStatus IS NULL";
              
         $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );               
@@ -140,7 +146,9 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     */
     public static function record_count() {
       global $wpdb;
-
+      $sanbox_enable = get_option('itg_sandbox_enable');
+      $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
+        
       $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
@@ -154,7 +162,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              join `{$wpdb->prefix}users` as u on p.post_author = u.ID 
              join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
              left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
-             WHERE pm.`post_id` IN (SELECT post_id FROM {$wpdb->prefix}postmeta WHERE `meta_value` = '{$_REQUEST['post']}' AND `meta_key` = 'itg_signup_wp_goal_id') ";
+             WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'signup_in_sandbox') ";
         $sql .= " group by u.ID";
         if(isset($_REQUEST['s'])){
            $sql .= "  Having (( BillingAgreement LIKE '%{$_REQUEST['s']}%' ) OR ( u.display_name LIKE '%{$_REQUEST['s']}%' ) OR ( PayPalEmail LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( PayPalPayerID LIKE '%{$_REQUEST['s']}%' )) ";               
