@@ -508,7 +508,9 @@ class AngellEYE_IfThenGive_interface {
         $EmailString = '';       
         $options = new Options();
         $options->setIsRemoteEnabled(true);
-        $dompdf = new Dompdf($options);        
+        $dompdf = new Dompdf($options);   
+        $sanbox_enable = get_option('itg_sandbox_enable');
+        $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
         if (ob_get_level() == 0)
             ob_start();
         ?>
@@ -638,6 +640,7 @@ class AngellEYE_IfThenGive_interface {
             update_post_meta($new_post_id, 'itg_transactions_wp_goal_id', $goal_id);
             update_post_meta($new_post_id, 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
             update_post_meta($new_post_id, 'itg_transactions_ack', $PayPalResultDRT['ACK']);
+            update_post_meta($new_post_id, 'signup_in_sandbox', $sandbox);
             ?>
                                         <?php
                                         $total_txn++;
@@ -668,25 +671,26 @@ class AngellEYE_IfThenGive_interface {
                     <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
                 </div>';
                         $EmailString.=$alert_info_email_string;       
-                                               
-                        $headers = "From: IfThenGive <info@ifthengive.com> \r\n";
-                        $headers .= "Reply-To: noreply@ifthengive.com \r\n";
-                        //$headers .= "CC: ifthengive@ifthengive.com\r\n";
-                        $headers .= "MIME-Version: 1.0\r\n";
-                        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                        if($total_txn > 0 ){
+                            $headers = "From: IfThenGive <info@ifthengive.com> \r\n";
+                            $headers .= "Reply-To: noreply@ifthengive.com \r\n";
+                            //$headers .= "CC: ifthengive@ifthengive.com\r\n";
+                            $headers .= "MIME-Version: 1.0\r\n";
+                            $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-                        $to = $admin_email = get_option('admin_email');
-                        $subject = __('IfThenGive Transaction Report For ' . $trigger_name,ITG_TEXT_DOMAIN);
-                        $message = $headerString.$EmailString;
-                        
-                        $dompdf->load_html($message);
-                        $dompdf->set_paper("A4", "portrait");
-                        $dompdf->render();
-                        $output  = $dompdf->output(); // to Download PDF
-                        $filename = sanitize_file_name($trigger_name.'_transaction_report_'.time().'.pdf');
-                        file_put_contents(ITG_LOG_DIR.'/'.$filename, $output);  
-                        $attachments = array( ITG_LOG_DIR . '/'.$filename );
-                        wp_mail($to, $subject, $headerString.$alert_info_email_string, $headers,$attachments);
+                            $to = $admin_email = get_option('admin_email');
+                            $subject = __('IfThenGive Transaction Report For ' . $trigger_name,ITG_TEXT_DOMAIN);
+                            $message = $headerString.$EmailString;
+
+                            $dompdf->load_html($message);
+                            $dompdf->set_paper("A4", "portrait");
+                            $dompdf->render();
+                            $output  = $dompdf->output(); // to Download PDF
+                            $filename = sanitize_file_name($trigger_name.'_transaction_report_'.time().'.pdf');
+                            file_put_contents(ITG_LOG_DIR.'/'.$filename, $output);  
+                            $attachments = array( ITG_LOG_DIR . '/'.$filename );
+                            wp_mail($to, $subject, $headerString.$alert_info_email_string, $headers,$attachments);
+                        }
                         ?>
                     </div>
                     <div class="clearfix"></div>
@@ -937,7 +941,13 @@ class AngellEYE_IfThenGive_interface {
         else{        
         @set_time_limit(ITG_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
-        $EmailString = '';        
+        $EmailString = '';
+        $EmailString = '';       
+        $options = new Options();
+        $options->setIsRemoteEnabled(true);
+        $dompdf = new Dompdf($options);        
+        $sanbox_enable = get_option('itg_sandbox_enable');
+        $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
         if (ob_get_level() == 0)
             ob_start();
         ?>
@@ -1057,6 +1067,7 @@ class AngellEYE_IfThenGive_interface {
                                             $EmailString.= $trEmailString;
                                         }
                                         update_post_meta($value['post_id'], 'itg_transactions_ack', $PayPalResultDRT['ACK']);
+                                        update_post_meta($new_post_id, 'signup_in_sandbox', $sandbox);
                                         ?>
                                         <?php
                                         $total_txn++;
@@ -1083,19 +1094,28 @@ class AngellEYE_IfThenGive_interface {
                     <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount,2) . '</strong></p>
                     <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_success,2) . '</strong></p> 
                     <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
-                </div>';                        
-                        $EmailString.=$alert_info_email_string;
+                </div>';   
+                        if($total_txn > 0){
+                            $EmailString.=$alert_info_email_string;
 
-                        $headers = "From: info@ifthengive.com \r\n";
-                        $headers .= "Reply-To: noreply@ifthengive.com \r\n";
-                        //$headers .= "CC: ifthengive@ifthengive.com\r\n";
-                        $headers .= "MIME-Version: 1.0\r\n";
-                        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                            $headers = "From: IfThenGive <info@ifthengive.com> \r\n";
+                            $headers .= "Reply-To: noreply@ifthengive.com \r\n";
+                            //$headers .= "CC: ifthengive@ifthengive.com\r\n";
+                            $headers .= "MIME-Version: 1.0\r\n";
+                            $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-                        $to = $admin_email = get_option('admin_email');
-                        $subject = __('Retried Transaction Report For ' . $trigger_name,ITG_TEXT_DOMAIN);
-                        $message = $headerString.$EmailString;
-                        wp_mail($to, $subject, $message, $headers);
+                            $to = $admin_email = get_option('admin_email');
+                            $subject = __('Retried Transaction Report For ' . $trigger_name,ITG_TEXT_DOMAIN);
+                            $message = $headerString.$EmailString;
+                            $dompdf->load_html($message);
+                            $dompdf->set_paper("A4", "portrait");
+                            $dompdf->render();
+                            $output  = $dompdf->output(); // to Download PDF
+                            $filename = sanitize_file_name($trigger_name.'_transaction_report_'.time().'.pdf');
+                            file_put_contents(ITG_LOG_DIR.'/'.$filename, $output);  
+                            $attachments = array( ITG_LOG_DIR . '/'.$filename );
+                            wp_mail($to, $subject, $headerString.$alert_info_email_string, $headers,$attachments);                        
+                        }
                         ?>
                     </div>
                     <div class="clearfix"></div>
