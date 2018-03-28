@@ -39,14 +39,11 @@ class AngellEYE_IfThenGive_Public_Display {
     public static function ifthengive_detect_my_account_shortcode()
     {
         global $post;
-        $pattern = get_shortcode_regex();
-
-        if (   preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches )
-            && array_key_exists( 2, $matches )
-            && in_array( 'ifthengive_account', $matches[2] ) )
-        {         
-            wp_enqueue_script('ifthengive_plugin_compress', ITG_PLUGIN_URL . 'public/js/plugins-compressed.js', array('jquery'));
-        }        
+        if($post){
+            if(has_shortcode( $post->post_content, 'ifthengive_account')){
+                wp_enqueue_script('ifthengive_plugin_compress', ITG_PLUGIN_URL . 'public/js/plugins-compressed.js', array('jquery'));
+            }
+        }               
     }
    
     /*
