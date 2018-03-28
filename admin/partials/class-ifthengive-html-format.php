@@ -1242,6 +1242,12 @@ class AngellEYE_IfThenGive_interface {
     }
     
     public static function is_My_Goal($goal_id){
+        
+        if ( current_user_can( 'manage_options' ) ) {
+            /* return true if current user is administrator, he can access everything */
+            return true;
+        }
+            
         global $current_user;
         $post = get_post($goal_id);	
 	if (is_user_logged_in() && $current_user->ID == $post->post_author)  {
