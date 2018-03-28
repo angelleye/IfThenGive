@@ -31,6 +31,22 @@ class AngellEYE_IfThenGive_Public_Display {
         
         add_action( 'wp_ajax_change_giver_status', array(__CLASS__,'change_giver_status'));
         add_action("wp_ajax_nopriv_change_giver_status",  array(__CLASS__,'change_giver_status'));          
+        
+        add_action( 'wp_enqueue_scripts', array(__CLASS__,'ifthengive_detect_my_account_shortcode'));
+    }
+    
+    
+    public static function ifthengive_detect_my_account_shortcode()
+    {
+        global $post;
+        $pattern = get_shortcode_regex();
+
+        if (   preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches )
+            && array_key_exists( 2, $matches )
+            && in_array( 'ifthengive_account', $matches[2] ) )
+        {         
+            wp_enqueue_script('ifthengive_plugin_compress', ITG_PLUGIN_URL . 'public/js/plugins-compressed.js', array('jquery'));
+        }        
     }
    
     /*

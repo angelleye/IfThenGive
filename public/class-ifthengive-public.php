@@ -99,8 +99,7 @@ class Ifthengive_Public {
         wp_enqueue_script($this->plugin_name . 'DataTablejs', plugin_dir_url(__FILE__).'js/datatables/jquery.dataTables.min.js', array('jquery'), $this->version, true);
         wp_enqueue_script($this->plugin_name . 'DataTable', plugin_dir_url(__FILE__).'js/datatables/dataTables.responsive.js', array('jquery'), $this->version, true);
         wp_enqueue_script($this->plugin_name . 'public_alertify_js', ITG_PLUGIN_URL . 'includes/css/alertify/alertify.min.js', array('jquery'), $this->version, false);
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ifthengive-public.js', array('jquery'), $this->version, false);
-        wp_enqueue_script($this->plugin_name.'plugin_compress', plugin_dir_url(__FILE__) . 'js/plugins-compressed.js', array('jquery'), $this->version, false);        
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ifthengive-public.js', array('jquery'), $this->version, false);        
         wp_localize_script($this->plugin_name, 'admin_ajax_url', admin_url('admin-ajax.php'));
     }
 
