@@ -581,7 +581,7 @@ class AngellEYE_IfThenGive_interface {
                                             </tr>';
                                         ob_flush();
                                         flush();
-        foreach ($givers as $value) {                       
+        foreach ($givers as $value) {            
             if($total_txn %2== 0){
                 $css = "";
             }
@@ -599,8 +599,7 @@ class AngellEYE_IfThenGive_interface {
             $PaymentDetails = array(
                 'amt' => number_format($value['amount'],2),
                 'currencycode' => get_option('itg_currency_code'),
-                'desc' => $desc,
-                'custom' => 'user_id_' . $value['user_id'] . '|post_id_' . $_REQUEST['post'],
+                'desc' => $desc                
             );
 
             $PayPalRequestData = array(
@@ -667,7 +666,7 @@ class AngellEYE_IfThenGive_interface {
                                         $total_amount += $value['amount'];
                                         ob_flush();
                                         flush();
-                                        //sleep(2);
+                                        sleep(1);
                                         /* we can uncomment above line if necesory because sleep will wait for 2 seconds on every iteration */
                                     }
                                     ?>              <?php echo $endtabeEmailString = "</table>";
@@ -1011,7 +1010,15 @@ class AngellEYE_IfThenGive_interface {
                           ">'. __('Retried Transactions Report For ', ITG_TEXT_DOMAIN).__($trigger_name,ITG_TEXT_DOMAIN).'</strong></div>
             </div>
         </div>';
-                                    
+                                    ?>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+              0%
+            </div>
+        </div>
+                                    <?php
+                                    ob_flush();
+                                        flush();
                             echo $EmailString.='<table style="                                
                                                         width: 100%;
                                                         max-width: 100%;
@@ -1026,7 +1033,8 @@ class AngellEYE_IfThenGive_interface {
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payer Email',ITG_TEXT_DOMAIN).'</th>                                                
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payment Status',ITG_TEXT_DOMAIN).'</th>
                                             </tr>';
-                                    
+                                     ob_flush();
+                                        flush();
                                     foreach ($givers as $value) {
                                         if($total_txn %2== 0){
                                             $css = "";
@@ -1091,10 +1099,18 @@ class AngellEYE_IfThenGive_interface {
                                         ?>
                                         <?php
                                         $total_txn++;
+                                         $progress = round(($total_txn * 100)/$number_of_givers);
+                                        ?>
+                                        <script>                                            
+                                            jQuery('.progress-bar').css('width','<?php echo $progress; ?>%');
+                                            jQuery('.progress-bar').attr('aria-valuenow','<?php echo $progress; ?>');
+                                            jQuery('.progress-bar').html('<?php echo $progress; ?>%');
+                                        </script>
+                                        <?php
                                         $total_amount += $value['amount'];
                                         ob_flush();
                                         flush();
-                                        //sleep(2);
+                                        sleep(1);
                                         /* we can uncomment above line if necesory because sleep will wait for 2 seconds on every iteration */
                                     }
                                     ?>              <?php echo $endtabeEmailString = "</table>";
