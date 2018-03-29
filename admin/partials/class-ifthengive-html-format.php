@@ -545,7 +545,7 @@ class AngellEYE_IfThenGive_interface {
         $total_amount=0;
         $total_amount_success=0;
         $total_amount_failed=0;
-        $n = count($givers);        
+        $number_of_givers = count($givers);        
         
         $headerString = '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">
@@ -555,6 +555,16 @@ class AngellEYE_IfThenGive_interface {
                           ">'. __('Transactions Report For ', ITG_TEXT_DOMAIN).__($trigger_name,ITG_TEXT_DOMAIN).'</strong></div>
             </div>
         </div>';
+        ?>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+              0%
+            </div>
+        </div>
+                                    <?php
+                                    ob_flush();
+                                        flush();
+                                    
        echo $EmailString.='<table style="                                
                                 width: 100%;
                                 max-width: 100%;
@@ -568,8 +578,10 @@ class AngellEYE_IfThenGive_interface {
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Amount',ITG_TEXT_DOMAIN).'</th>
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payer Email',ITG_TEXT_DOMAIN).'</th>
                                                 <th style="padding: 8px;line-height: 1.42857143;vertical-align: top;">'.__('Payment Status',ITG_TEXT_DOMAIN).'</th>
-                                            </tr>';       
-        foreach ($givers as $value) {    
+                                            </tr>';
+                                        ob_flush();
+                                        flush();
+        foreach ($givers as $value) {                       
             if($total_txn %2== 0){
                 $css = "";
             }
@@ -644,6 +656,14 @@ class AngellEYE_IfThenGive_interface {
             ?>
                                         <?php
                                         $total_txn++;
+                                        $progress = round(($total_txn * 100)/$number_of_givers);
+                                        ?>
+                                        <script>                                            
+                                            jQuery('.progress-bar').css('width','<?php echo $progress; ?>%');
+                                            jQuery('.progress-bar').attr('aria-valuenow','<?php echo $progress; ?>');
+                                            jQuery('.progress-bar').html('<?php echo $progress; ?>%');
+                                        </script>
+                                        <?php
                                         $total_amount += $value['amount'];
                                         ob_flush();
                                         flush();
