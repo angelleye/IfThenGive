@@ -581,6 +581,8 @@ class AngellEYE_IfThenGive_interface {
                                             </tr>';
                                         ob_flush();
                                         flush();
+        update_option('itg_txns_in_process', 'yes');
+        update_option('itg_current_process_goal_id', $goal_id);
         foreach ($givers as $value) {            
             if($total_txn %2== 0){
                 $css = "";
@@ -652,10 +654,13 @@ class AngellEYE_IfThenGive_interface {
             update_post_meta($new_post_id, 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
             update_post_meta($new_post_id, 'itg_transactions_ack', $PayPalResultDRT['ACK']);
             update_post_meta($new_post_id, 'signup_in_sandbox', $sandbox);
+            update_post_meta($value['signup_postid'], 'itg_transaction_status', '1');                        
             ?>
                                         <?php
                                         $total_txn++;
                                         $progress = round(($total_txn * 100)/$number_of_givers);
+                                        update_option('itg_current_process_progress', $progress);
+                                        
                                         ?>
                                         <script>                                            
                                             jQuery('.progress-bar').css('width','<?php echo $progress; ?>%');
@@ -691,6 +696,9 @@ class AngellEYE_IfThenGive_interface {
                 </div>';
                         $EmailString.=$alert_info_email_string;       
                         if($total_txn > 0 ){
+                            update_option('itg_txns_in_process', 'no');
+                            update_option('itg_current_process_goal_id','');
+                            update_option('itg_current_process_progress', 0);
                             $headers = "From: IfThenGive <info@ifthengive.com> \r\n";
                             $headers .= "Reply-To: noreply@ifthengive.com \r\n";
                             //$headers .= "CC: ifthengive@ifthengive.com\r\n";
@@ -708,7 +716,7 @@ class AngellEYE_IfThenGive_interface {
                             $filename = sanitize_file_name($trigger_name.'_transaction_report_'.time().'.pdf');
                             file_put_contents(ITG_LOG_DIR.'/'.$filename, $output);  
                             $attachments = array( ITG_LOG_DIR . '/'.$filename );
-                            wp_mail($to, $subject, $headerString.$alert_info_email_string, $headers,$attachments);
+                            wp_mail($to, $subject, $headerString.$alert_info_email_string, $headers,$attachments);                            
                         }
                         ?>
                     </div>

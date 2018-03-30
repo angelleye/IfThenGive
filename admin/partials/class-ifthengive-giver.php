@@ -112,6 +112,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              p.post_date as BADate,
              u.display_name as DisplayName,
              pm.meta_value as amount,
+             pm.`post_id` as signup_postid,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID 
              FROM `{$wpdb->prefix}posts` as p 
              join `{$wpdb->prefix}users` as u on p.post_author = u.ID 

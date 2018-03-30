@@ -189,6 +189,7 @@ class Ifthengive {
                 $this->loader->add_action('admin_init', $plugin_admin, 'ifthengive_shortcode_button_init');
                 $this->loader->add_filter('post_updated_messages', $plugin_admin, 'ifthengive_messages');
                 $this->loader->add_filter('plugin_row_meta', $plugin_admin, 'ifthengive_plugin_action_links', 10, 2);
+                $this->loader->add_action('admin_notices', $plugin_admin, 'processing_notice');
     }
 
 	/**
@@ -399,6 +400,7 @@ class Ifthengive {
                         else{
                             update_post_meta($new_post_id,'signup_in_sandbox','no');
                         }
+                        update_post_meta($new_post_id,'itg_transaction_status','0');  
                         
                         if(isset($_SESSION['itg_signup_amount'])){
                             unset($_SESSION['itg_signup_amount']);

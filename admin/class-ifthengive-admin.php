@@ -240,4 +240,17 @@ class IfThenGive_Admin {
            }
            return $links;
     }
+    
+    function processing_notice(){
+            $in_process = get_option('itg_txns_in_process');
+            $current_process_goal = get_option('itg_current_process_goal_id');
+            $complete_percentage = get_option('itg_current_process_progress');
+            if($in_process === 'yes'){
+        ?>
+        <div class="notice notice-warning is-dismissible">
+            <p><?php _e( 'IfThenGive : Transactions are in Process. '.$complete_percentage.'% Completed.', ITG_TEXT_DOMAIN ); ?></p>
+        </div>
+        <?php
+            }
+        }    
 }
