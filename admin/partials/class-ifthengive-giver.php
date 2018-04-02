@@ -125,6 +125,45 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         return $result_array;
     }
     
+    
+    public static function reset_givers_transaction_status($goal_id){
+        global $wpdb;
+        $sanbox_enable = get_option('itg_sandbox_enable');
+        $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
+        
+        $sql ="SELECT
+                pm.`post_id` AS signup_postid
+                FROM
+                    `{$wpdb->prefix}posts` AS p
+                JOIN `{$wpdb->prefix}users` AS u
+                ON
+                    p.post_author = u.ID
+                JOIN `{$wpdb->prefix}postmeta` AS pm
+                ON
+                    pm.post_id = p.ID
+                LEFT JOIN {$wpdb->prefix}usermeta AS um
+                ON
+                    um.user_id = u.ID
+                WHERE
+                    pm.`post_id` IN(
+                    SELECT
+                        tp.post_id
+                    FROM
+                        {$wpdb->prefix}postmeta AS tp
+                    JOIN {$wpdb->prefix}postmeta AS wpm
+                    ON
+                        wpm.post_id = tp.post_id
+                    WHERE
+                        tp.`meta_value` = '".$goal_id."' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND
+                        wpm.`meta_value` = '".$sandbox."' AND wpm.`meta_key` = 'signup_in_sandbox'
+                )
+                GROUP BY
+                    u.ID";
+        $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );               
+        return $result_array;
+    }
+    
+    
     /**
     * Delete a customer record.
     *

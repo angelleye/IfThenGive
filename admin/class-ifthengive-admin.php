@@ -285,9 +285,26 @@ class IfThenGive_Admin {
                 </div>
                 
             <?php 
+                $this->rest_transaction_status($current_process_goal);
+                update_option('itg_txns_in_process', 'no');
                 update_option('itg_current_process_goal_id','');
                 update_option('itg_current_process_progress', 0);
                 update_option('itg_transaction_complete','');
+                
             endif;
         }
-}
+        
+        /*
+         *   While do transaction, we are adding transaction status to 1.
+         *   We are resting here to 0 in this function so that means process for that is completed.
+         *   and all givers are set to 0.
+         */
+        function rest_transaction_status($goal_id=''){
+            if(!empty($goal_id)){
+                $meta_post_ids = AngellEYE_IfThenGive_Givers_Table::reset_givers_transaction_status($goal_id);
+                foreach ($meta_post_ids as $post_id) {
+                     update_post_meta($post_id['signup_postid'], 'itg_transaction_status', '0');     
+                }
+            }
+        }
+    }

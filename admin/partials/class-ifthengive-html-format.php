@@ -488,7 +488,7 @@ class AngellEYE_IfThenGive_interface {
         }
     }
     
-    public static function ifthengive_do_transactions_interface_html() {                
+    public static function ifthengive_do_transactions_interface_html() {                  
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
@@ -583,7 +583,7 @@ class AngellEYE_IfThenGive_interface {
                                         flush();
         update_option('itg_txns_in_process', 'yes');
         update_option('itg_current_process_goal_id', $goal_id);
-        foreach ($givers as $value) {            
+        foreach ($givers as $value) {               
             if($total_txn %2== 0){
                 $css = "";
             }
@@ -699,8 +699,7 @@ class AngellEYE_IfThenGive_interface {
                     <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
                 </div>';
                         $EmailString.=$alert_info_email_string;       
-                        if($total_txn > 0 ){
-                            update_option('itg_txns_in_process', 'no');                           
+                        if($total_txn > 0 ){                                                       
                             $headers = "From: IfThenGive <info@ifthengive.com> \r\n";
                             $headers .= "Reply-To: noreply@ifthengive.com \r\n";
                             //$headers .= "CC: ifthengive@ifthengive.com\r\n";
