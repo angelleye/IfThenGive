@@ -245,12 +245,49 @@ class IfThenGive_Admin {
             $in_process = get_option('itg_txns_in_process');
             $current_process_goal = get_option('itg_current_process_goal_id');
             $complete_percentage = get_option('itg_current_process_progress');
-            if($in_process === 'yes'){
-        ?>
-        <div class="notice notice-warning is-dismissible">
-            <p><?php _e( 'IfThenGive : Transactions are in Process. '.$complete_percentage.'% Completed.', ITG_TEXT_DOMAIN ); ?></p>
-        </div>
-        <?php
+            $is_complete = get_option('itg_transaction_complete');
+            if(!empty($current_process_goal) && is_numeric($current_process_goal)){
+                $goal_title =  get_the_title( $current_process_goal );
             }
-        }    
+            else{
+                $goal_title = '';
+            }
+            if($in_process === 'yes') : ?>
+                <div class="notice notice-warning is-dismissible">
+                    <p>
+                        <?php
+                        echo sprintf('%1$s<b>%2$s</b> %3$s %4$s%5$s',
+                                __('IfThenGive : ',ITG_TEXT_DOMAIN),
+                                $goal_title,
+                                __('Transactions are in Process. ',ITG_TEXT_DOMAIN),
+                                $complete_percentage,
+                                __('% Completed.',ITG_TEXT_DOMAIN) 
+                             );
+                        ?>
+                    </p>                   
+                </div>
+            <?php
+            endif;
+            
+            if($is_complete == 'yes'): ?>
+                <div class="notice notice-success is-dismissible">
+                    <p>
+                        <?php
+                        echo sprintf('%1$s<b>%2$s</b> %3$s <a href="%5$s">%4$s</a>',
+                                    __('IfThenGive : ',ITG_TEXT_DOMAIN),
+                                    $goal_title,
+                                    __('Transactions Completed.',ITG_TEXT_DOMAIN),
+                                    __('See Transactions.',ITG_TEXT_DOMAIN),
+                                    admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$current_process_goal.'&view=ListTransactions')
+                                    );
+                        ?>
+                    </p>                    
+                </div>
+                
+            <?php 
+                update_option('itg_current_process_goal_id','');
+                update_option('itg_current_process_progress', 0);
+                update_option('itg_transaction_complete','');
+            endif;
+        }
 }

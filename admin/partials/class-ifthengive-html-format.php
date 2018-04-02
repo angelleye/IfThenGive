@@ -37,7 +37,7 @@ class AngellEYE_IfThenGive_interface {
      * @since 1.0.0
      * @access public
      */
-    public static function ifthengive_interface_html() {        
+    public static function ifthengive_interface_html() {
         $connect_to_sandbox_paypal_flag = get_option('itg_sb_connected_to_paypal');
         $connect_to_live_paypal_flag = get_option('itg_live_connected_to_paypal');
         if ($connect_to_sandbox_paypal_flag != 'Yes' && $connect_to_live_paypal_flag != 'Yes') {
@@ -488,7 +488,7 @@ class AngellEYE_IfThenGive_interface {
         }
     }
     
-    public static function ifthengive_do_transactions_interface_html() {
+    public static function ifthengive_do_transactions_interface_html() {                
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
@@ -659,8 +659,7 @@ class AngellEYE_IfThenGive_interface {
                                         <?php
                                         $total_txn++;
                                         $progress = round(($total_txn * 100)/$number_of_givers);
-                                        update_option('itg_current_process_progress', $progress);
-                                        
+                                        update_option('itg_current_process_progress', $progress);                                                                                        
                                         ?>
                                         <script>                                            
                                             jQuery('.progress-bar').css('width','<?php echo $progress; ?>%');
@@ -668,6 +667,11 @@ class AngellEYE_IfThenGive_interface {
                                             jQuery('.progress-bar').html('<?php echo $progress; ?>%');
                                         </script>
                                         <?php
+                                        if($progress == 100){
+                                            update_option('itg_transaction_complete', 'yes');
+                                            add_action("admin_notices", array('IfThenGive_Admin', 'processing_notice'));
+                                            update_option('itg_txns_in_process', 'no');
+                                        }
                                         $total_amount += $value['amount'];
                                         ob_flush();
                                         flush();
@@ -696,9 +700,7 @@ class AngellEYE_IfThenGive_interface {
                 </div>';
                         $EmailString.=$alert_info_email_string;       
                         if($total_txn > 0 ){
-                            update_option('itg_txns_in_process', 'no');
-                            update_option('itg_current_process_goal_id','');
-                            update_option('itg_current_process_progress', 0);
+                            update_option('itg_txns_in_process', 'no');                           
                             $headers = "From: IfThenGive <info@ifthengive.com> \r\n";
                             $headers .= "Reply-To: noreply@ifthengive.com \r\n";
                             //$headers .= "CC: ifthengive@ifthengive.com\r\n";
@@ -716,7 +718,7 @@ class AngellEYE_IfThenGive_interface {
                             $filename = sanitize_file_name($trigger_name.'_transaction_report_'.time().'.pdf');
                             file_put_contents(ITG_LOG_DIR.'/'.$filename, $output);  
                             $attachments = array( ITG_LOG_DIR . '/'.$filename );
-                            wp_mail($to, $subject, $headerString.$alert_info_email_string, $headers,$attachments);                            
+                            wp_mail($to, $subject, $headerString.$alert_info_email_string, $headers,$attachments);                                                        
                         }
                         ?>
                     </div>
@@ -731,7 +733,7 @@ class AngellEYE_IfThenGive_interface {
         ob_end_flush();
        }
     }
-
+    
     public static function ifthengive_list_transactions_interface_html() {        
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
