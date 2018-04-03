@@ -246,6 +246,7 @@ class IfThenGive_Admin {
             $current_process_goal = get_option('itg_current_process_goal_id');
             $complete_percentage = get_option('itg_current_process_progress');
             $is_complete = get_option('itg_transaction_complete');
+            $is_retry_txn = get_option('itg_failed_txns_in_process');
             if(!empty($current_process_goal) && is_numeric($current_process_goal)){
                 $goal_title =  get_the_title( $current_process_goal );
             }
@@ -259,7 +260,7 @@ class IfThenGive_Admin {
                         echo sprintf('%1$s<b>%2$s</b> %3$s %4$s%5$s',
                                 __('IfThenGive : ',ITG_TEXT_DOMAIN),
                                 $goal_title,
-                                __('Transactions are in Process. ',ITG_TEXT_DOMAIN),
+                                __(' running in background. Transactions are in Process. ',ITG_TEXT_DOMAIN),
                                 $complete_percentage,
                                 __('% Completed.',ITG_TEXT_DOMAIN) 
                              );
@@ -284,13 +285,8 @@ class IfThenGive_Admin {
                     </p>                    
                 </div>
                 
-            <?php 
-                $this->rest_transaction_status($current_process_goal);
-                update_option('itg_txns_in_process', 'no');
-                update_option('itg_current_process_goal_id','');
-                update_option('itg_current_process_progress', 0);
-                update_option('itg_transaction_complete','');
-                
+            <?php                 
+                $this->rest_transaction_status($current_process_goal,$is_retry_txn);                                
             endif;
         }
         
@@ -299,12 +295,25 @@ class IfThenGive_Admin {
          *   We are resting here to 0 in this function so that means process for that is completed.
          *   and all givers are set to 0.
          */
-        function rest_transaction_status($goal_id=''){
+        function rest_transaction_status($goal_id='',$is_retry_txn=''){             
+            update_option('itg_txns_in_process', 'no');
+            update_option('itg_current_process_goal_id',0);
+            update_option('itg_current_process_progress', 0);
+            update_option('itg_transaction_complete','');
             if(!empty($goal_id)){
-                $meta_post_ids = AngellEYE_IfThenGive_Givers_Table::reset_givers_transaction_status($goal_id);
-                foreach ($meta_post_ids as $post_id) {
-                     update_post_meta($post_id['signup_postid'], 'itg_transaction_status', '0');     
+                if($is_retry_txn == 'yes'){
+                    update_option('itg_failed_txns_in_process','no');
+                    $meta_post_ids = AngellEYE_IfThenGive_Transactions_Table::reset_transaction_status($goal_id);
+                    foreach ($meta_post_ids as $post_id) {
+                         update_post_meta($post_id['post_id'], 'itg_txn_pt_status', '0');     
+                    }
                 }
+                else{
+                    $meta_post_ids = AngellEYE_IfThenGive_Givers_Table::reset_givers_transaction_status($goal_id);
+                    foreach ($meta_post_ids as $post_id) {
+                         update_post_meta($post_id['signup_postid'], 'itg_transaction_status', '0');     
+                    }
+                }                
             }
         }
     }

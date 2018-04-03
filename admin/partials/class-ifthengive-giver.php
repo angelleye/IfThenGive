@@ -132,7 +132,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
         
         $sql ="SELECT
-                pm.`post_id` AS signup_postid
+                pm.`post_id` AS signup_postid                
                 FROM
                     `{$wpdb->prefix}posts` AS p
                 JOIN `{$wpdb->prefix}users` AS u
@@ -159,6 +159,55 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
                 )
                 GROUP BY
                     u.ID";
+        $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );               
+        return $result_array;
+    }
+    
+    public static function get_remaining_process_givers($goal_id){
+        global $wpdb;
+        $sanbox_enable = get_option('itg_sandbox_enable');
+        $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
+        
+        $sql ="SELECT
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,             
+             um.user_id, 
+             p.post_date as BADate,
+             u.display_name as DisplayName,
+             pm.meta_value as amount,
+             pm.`post_id` AS signup_postid,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".$_REQUEST['post']."_status') AS GiverStatus,
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID 
+                FROM
+                    `{$wpdb->prefix}posts` AS p
+                JOIN `{$wpdb->prefix}users` AS u
+                ON
+                    p.post_author = u.ID
+                JOIN `{$wpdb->prefix}postmeta` AS pm
+                ON
+                    pm.post_id = p.ID
+                LEFT JOIN {$wpdb->prefix}usermeta AS um
+                ON
+                    um.user_id = u.ID
+                WHERE
+                    pm.`post_id` IN(
+                    SELECT
+                        tp.post_id
+                    FROM
+                        {$wpdb->prefix}postmeta AS tp
+                    JOIN {$wpdb->prefix}postmeta AS wpm
+                    ON
+                        wpm.post_id = tp.post_id
+                    JOIN wp_postmeta AS tpm
+                    ON
+                        tpm.post_id = tp.post_id
+                    WHERE
+                        tp.`meta_value` = '".$goal_id."' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND
+                        wpm.`meta_value` = '".$sandbox."' AND wpm.`meta_key` = 'signup_in_sandbox' AND
+                        tpm.`meta_value` = 0 AND tpm.`meta_key` = 'itg_transaction_status'
+                )
+                GROUP BY
+                    u.ID Having GiverStatus = 'active' OR GiverStatus IS NULL";       
         $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );               
         return $result_array;
     }

@@ -94,7 +94,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
         $sql .= " LIMIT $per_page";
         $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
         $result_array = $wpdb->get_results($sql, 'ARRAY_A');
-
+        
         return $result_array;
     }
 
@@ -111,7 +111,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               pm.meta_value as amount,
               b.meta_value as user_id,
               c.meta_value as transactionId,
-              t.meta_value as ppack,
+              t.meta_value as ppack,              
               p.post_date as Txn_date
               FROM `{$wpdb->prefix}postmeta` as pm 
               left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'itg_transactions_wp_user_id'
@@ -120,7 +120,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$post_id}%'     
               WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'signup_in_sandbox')  ";
         $sql .= ' group by  p.ID';                
-        $sql .= "  Having (( ppack LIKE 'Failure' ) ) ";
+        $sql .= "  Having (( ppack LIKE 'Failure' ) ) ";        
         $result_array = $wpdb->get_results($sql, 'ARRAY_A');
 
         return $result_array;
@@ -172,6 +172,42 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
         }
         $wpdb->get_results($sql, 'ARRAY_A');
         return $wpdb->num_rows;
+    }
+    
+    public static function reset_transaction_status($goal_id=''){
+        global $wpdb;
+        $sanbox_enable = get_option('itg_sandbox_enable');
+        $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
+        
+        $sql = "SELECT
+                pm.post_id as post_id
+                FROM
+                    `{$wpdb->prefix}postmeta` AS pm
+                LEFT JOIN {$wpdb->prefix}postmeta b ON
+                    b.post_id = pm.post_id AND b.meta_key = 'itg_transactions_wp_user_id'
+                LEFT JOIN {$wpdb->prefix}postmeta c ON
+                    c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
+                LEFT JOIN {$wpdb->prefix}postmeta t ON
+                    t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'
+                JOIN {$wpdb->prefix}posts p ON
+                    p.ID = pm.post_id AND p.post_title LIKE '%GoalID:".$goal_id."%'
+                WHERE
+                    pm.`post_id` IN(
+                    SELECT
+                        tp.post_id
+                    FROM
+                        {$wpdb->prefix}postmeta AS tp
+                    JOIN {$wpdb->prefix}postmeta AS wpm
+                    ON
+                        wpm.post_id = tp.post_id
+                    WHERE
+                        tp.`meta_value` = '".$goal_id."' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND 
+                        wpm.`meta_value` = '".$sandbox."' AND wpm.`meta_key` = 'signup_in_sandbox'
+                )
+                GROUP BY
+                p.ID";
+        $result_array = $wpdb->get_results($sql, 'ARRAY_A');
+        return $result_array;
     }
 
     /** Text displayed when no giver's data is available */

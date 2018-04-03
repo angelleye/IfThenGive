@@ -106,16 +106,41 @@
             alertify.defaults.theme.ok = "btn btn-primary";
             alertify.defaults.theme.cancel = "btn btn-danger";
             alertify.defaults.theme.input = "form-control";
-            alertify.confirm('Process Donation', 'Are you ready to process donations for all Givers on this goal?',
-                function ()
-                {                                        
-                    alertify.success('Processing Donations...');
-                    window.location.href = $('#ifthengive_fun').attr('data-redirectUrl');
+            var post_id = $('#ifthengive_fun').attr('data-postid');
+            $.ajax({
+                type: 'POST',
+                url: admin_ajax_url,
+                 data: { 
+                    action  : 'check_goal_is_in_process',
+                    post_id : post_id
                 },
-                function ()
-                {
-                    alertify.error('The donation process has been canceled.');
-                });            
+                dataType: "json",
+                success: function (result) {
+                    if(result.in_process == 'true'){
+                        
+                        if(result.same_goal == 'true'){
+                            var content = $('#div_goal_in_process').html();
+                            alertify.alert('Transactions are in Process','').setContent(content).show();
+                        }
+                        else{
+                            alertify.alert('In Process', 'Other Donation Process are working. You can start when it gets over.!');
+                        }
+                    }
+                    else{
+                        alertify.confirm('Process Donation', 'Are you ready to process donations for all Givers on this goal?',
+                        function ()
+                        {                                        
+                            alertify.success('Processing Donations...');
+                            window.location.href = $('#ifthengive_fun').attr('data-redirectUrl');
+                        },
+                        function ()
+                        {
+                            alertify.error('The donation process has been canceled.');
+                        });
+                    }
+                }
+            });
+            return false;                                   
         });
         
         $(document).on('click','#itg_sandbox_enable',function(){

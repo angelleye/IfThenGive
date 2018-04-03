@@ -28,6 +28,10 @@ class AngellEYE_IfThenGive_interface {
         add_action('admin_head', array(__CLASS__, 'ifthengive_hide_publish_button_until'));
         add_action('wp_ajax_cancel_billing_agreement_giver', array(__CLASS__, 'cancel_billing_agreement_giver'));
         add_action("wp_ajax_nopriv_cancel_billing_agreement_giver", array(__CLASS__, 'cancel_billing_agreement_giver'));
+        
+        add_action('wp_ajax_check_goal_is_in_process', array(__CLASS__, 'check_goal_is_in_process'));
+        add_action("wp_ajax_nopriv_check_goal_is_in_process", array(__CLASS__, 'check_goal_is_in_process'));
+        
     }
 
     /**
@@ -449,8 +453,13 @@ class AngellEYE_IfThenGive_interface {
                     ?>    
                         <div class="col-md-12 text-center">
                             <span class="itg_text-info"><?php echo __('Click ', ITG_TEXT_DOMAIN); ?><strong><?php _e('"Process Donation"',ITG_TEXT_DOMAIN); ?></strong><?php echo __(' Button to Capture your Transactions.', ITG_TEXT_DOMAIN); ?></span><br/>
-                            <a class="btn itg_btn-primary btn-lg" id="ifthengive_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" ><?php _e('Process Donation',ITG_TEXT_DOMAIN); ?></a>
+                            <a class="btn itg_btn-primary btn-lg" id="ifthengive_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" data-postid ="<?php echo $_REQUEST['post']; ?>" ><?php _e('Process Donation',ITG_TEXT_DOMAIN); ?></a>
                         </div>
+                    <div class="hidden" id="div_goal_in_process">
+                        <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions&process=continue_old'); ?>" class="btn btn-warning"><?php _e('Continue with remaning',ITG_TEXT_DOMAIN) ?></a>
+                        <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions'); ?>" class="btn btn-primary"><?php _e('Start Over', ITG_TEXT_DOMAIN); ?></a>
+                    </div>
+                    
                     <?php                    
                     }
                     ?>                    
@@ -488,21 +497,41 @@ class AngellEYE_IfThenGive_interface {
         }
     }
     
-    public static function ifthengive_do_transactions_interface_html() {                  
+    public static function ifthengive_do_transactions_interface_html() {                
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                         <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
+                            <div class="notice notice-warning is-dismissible">
+                                <p style="font-size: 22px;">
+                                    <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>        
         <?php
         }
-        else{                            
+        else{
+        $in_process = get_option('itg_txns_in_process');
+        if($in_process === 'yes') : ?>
+            <div class="wrap">
+                <div class="ifthengive_admin_container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="notice notice-warning is-dismissible">
+                                <p style="font-size: 22px;"><?php _e('Other Donation Process are working. You can start when it gets over.!',ITG_TEXT_DOMAIN); ?></p>
+                            </div>                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+            exit;        
+        endif;    
         @set_time_limit(ITG_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
         $EmailString = '';       
@@ -525,7 +554,12 @@ class AngellEYE_IfThenGive_interface {
         <?php                
         $goal_id = $_REQUEST['post'];               
         $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
-        $givers = AngellEYE_IfThenGive_Givers_Table::get_all_givers();
+        if(isset($_REQUEST['process']) && $_REQUEST['process'] === 'continue_old'){
+            $givers = AngellEYE_IfThenGive_Givers_Table::get_remaining_process_givers($goal_id);
+        }
+        else{
+            $givers = AngellEYE_IfThenGive_Givers_Table::get_all_givers();
+        }        
         $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();        
         $PayPal_config->set_api_cedentials();                
         $PayPal_config->set_api_subject($goal_id);
@@ -583,7 +617,7 @@ class AngellEYE_IfThenGive_interface {
                                         flush();
         update_option('itg_txns_in_process', 'yes');
         update_option('itg_current_process_goal_id', $goal_id);
-        foreach ($givers as $value) {               
+        foreach ($givers as $value) {            
             if($total_txn %2== 0){
                 $css = "";
             }
@@ -654,6 +688,7 @@ class AngellEYE_IfThenGive_interface {
             update_post_meta($new_post_id, 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
             update_post_meta($new_post_id, 'itg_transactions_ack', $PayPalResultDRT['ACK']);
             update_post_meta($new_post_id, 'signup_in_sandbox', $sandbox);
+            update_post_meta($new_post_id, 'itg_txn_pt_status', '0');
             update_post_meta($value['signup_postid'], 'itg_transaction_status', '1');                        
             ?>
                                         <?php
@@ -952,21 +987,41 @@ class AngellEYE_IfThenGive_interface {
       }
     }
 
-    public static function ifthengive_retry_failed_transactions_interface_html() {
+    public static function ifthengive_retry_failed_transactions_interface_html() {       
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                         <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
+                            <div class="notice notice-warning is-dismissible">
+                                <p style="font-size: 22px;">
+                                    <?php _e('Sorry , You are not allow to access this page.',ITG_TEXT_DOMAIN); ?>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>        
         <?php
         }
-        else{        
+        else{ 
+        $in_process = get_option('itg_txns_in_process');
+        if($in_process === 'yes') { ?>
+            <div class="wrap">
+                <div class="ifthengive_admin_container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="notice notice-warning is-dismissible">
+                                <p style="font-size: 22px;"><?php _e('Other Donation Process are working. You can start when it gets over.!',ITG_TEXT_DOMAIN); ?></p>
+                            </div>                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+            exit;        
+        }
         @set_time_limit(ITG_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
         $EmailString = '';
@@ -990,7 +1045,7 @@ class AngellEYE_IfThenGive_interface {
                                     global $post, $post_ID;
                                     $goal_id = $_REQUEST['post'];
                                     $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
-                                    $givers = AngellEYE_IfThenGive_Transactions_Table::get_all_failed_givers($goal_id);
+                                    $givers = AngellEYE_IfThenGive_Transactions_Table::get_all_failed_givers($goal_id);                                    
                                     $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();                                    
                                     $PayPal_config->set_api_cedentials();                                     
                                     $PayPal_config->set_api_subject($goal_id);
@@ -1010,7 +1065,7 @@ class AngellEYE_IfThenGive_interface {
                                     $total_amount=0;
                                     $total_amount_success=0;
                                     $total_amount_failed=0;   
-
+                                    $number_of_givers = count($givers);
                                     $headerString = '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">
                 <div style="text-align: center;"><img src="'.ITG_PLUGIN_URL.'/admin/images/ifthengive.png" alt="IfThenGive"></div>
@@ -1044,6 +1099,9 @@ class AngellEYE_IfThenGive_interface {
                                             </tr>';
                                      ob_flush();
                                         flush();
+                                    update_option('itg_txns_in_process', 'yes');
+                                    update_option('itg_failed_txns_in_process', 'yes');
+                                    update_option('itg_current_process_goal_id', $goal_id);
                                     foreach ($givers as $value) {
                                         if($total_txn %2== 0){
                                             $css = "";
@@ -1061,8 +1119,7 @@ class AngellEYE_IfThenGive_interface {
                                         $PaymentDetails = array(
                                             'amt' => $value['amount'],
                                             'currencycode' => get_option('itg_currency_code'),
-                                            'desc' => $desc,
-                                            'custom' => 'user_id_' . $value['user_id'] . '|post_id_' . $_REQUEST['post'],
+                                            'desc' => $desc                                            
                                         );
 
                                         $PayPalRequestData = array(
@@ -1104,7 +1161,8 @@ class AngellEYE_IfThenGive_interface {
                                             $EmailString.= $trEmailString;
                                         }
                                         update_post_meta($value['post_id'], 'itg_transactions_ack', $PayPalResultDRT['ACK']);
-                                        update_post_meta($new_post_id, 'signup_in_sandbox', $sandbox);
+                                        update_post_meta($value['post_id'], 'signup_in_sandbox', $sandbox);
+                                        update_post_meta($value['post_id'], 'itg_txn_pt_status', '1');
                                         ?>
                                         <?php
                                         $total_txn++;
@@ -1116,6 +1174,11 @@ class AngellEYE_IfThenGive_interface {
                                             jQuery('.progress-bar').html('<?php echo $progress; ?>%');
                                         </script>
                                         <?php
+                                        if($progress == 100){
+                                            update_option('itg_transaction_complete', 'yes');
+                                            add_action("admin_notices", array('IfThenGive_Admin', 'processing_notice'));
+                                            update_option('itg_txns_in_process', 'no');
+                                        }
                                         $total_amount += $value['amount'];
                                         ob_flush();
                                         flush();
@@ -1304,6 +1367,37 @@ class AngellEYE_IfThenGive_interface {
             return false;
         }
     }
+    
+    public static function check_goal_is_in_process(){
+        $process_button_postid = isset($_POST['post_id']) ? $_POST['post_id'] : '';
+        $in_process = get_option('itg_txns_in_process');
+        $current_process_goal = get_option('itg_current_process_goal_id');
+        $complete_percentage = get_option('itg_current_process_progress');
+        if($in_process === 'yes') {
+            if($process_button_postid == $current_process_goal){
+                echo json_encode( array (
+                        'in_process' => 'true',
+                        'same_goal' => 'true'                
+                    ));
+                exit;
+            }
+            else{
+                echo json_encode( array (
+                    'in_process' => 'true',
+                    'same_goal' => 'false'                
+                ));
+                exit;
+            }
+        }
+        else{
+            echo json_encode( array (
+                    'in_process' => 'false'                    
+                ));
+            exit;
+        }        
+    }
+    
+    
 }
 
 AngellEYE_IfThenGive_interface::init();
