@@ -517,7 +517,8 @@ class AngellEYE_IfThenGive_interface {
         }
         else{
         $in_process = get_option('itg_txns_in_process');
-        if($in_process === 'yes') : ?>
+        $process = isset($_REQUEST['process']) ? $_REQUEST['process'] : '';        
+        if($in_process === 'yes' && $process!='continue_old') : ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
                     <div class="row">
@@ -987,7 +988,7 @@ class AngellEYE_IfThenGive_interface {
       }
     }
 
-    public static function ifthengive_retry_failed_transactions_interface_html() {       
+    public static function ifthengive_retry_failed_transactions_interface_html() {                    
         if(!self::is_My_Goal($_REQUEST['post'])){
             ?>
             <div class="wrap">
@@ -1007,7 +1008,8 @@ class AngellEYE_IfThenGive_interface {
         }
         else{ 
         $in_process = get_option('itg_txns_in_process');
-        if($in_process === 'yes') { ?>
+        $process = isset($_REQUEST['process']) ? $_REQUEST['process'] : '';
+        if($in_process === 'yes' && $process!='continue_old') { ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
                     <div class="row">
@@ -1045,7 +1047,12 @@ class AngellEYE_IfThenGive_interface {
                                     global $post, $post_ID;
                                     $goal_id = $_REQUEST['post'];
                                     $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
-                                    $givers = AngellEYE_IfThenGive_Transactions_Table::get_all_failed_givers($goal_id);                                    
+                                    if(isset($_REQUEST['process']) && $_REQUEST['process'] === 'continue_old'){
+                                        $givers = AngellEYE_IfThenGive_Transactions_Table::get_remaining_process_failed_givers($goal_id);
+                                    }
+                                    else{
+                                        $givers = AngellEYE_IfThenGive_Transactions_Table::get_all_failed_givers($goal_id);                                    
+                                    }                                    
                                     $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();                                    
                                     $PayPal_config->set_api_cedentials();                                     
                                     $PayPal_config->set_api_subject($goal_id);
@@ -1102,7 +1109,7 @@ class AngellEYE_IfThenGive_interface {
                                     update_option('itg_txns_in_process', 'yes');
                                     update_option('itg_failed_txns_in_process', 'yes');
                                     update_option('itg_current_process_goal_id', $goal_id);
-                                    foreach ($givers as $value) {
+                                    foreach ($givers as $value) {                                            
                                         if($total_txn %2== 0){
                                             $css = "";
                                         }
@@ -1167,6 +1174,7 @@ class AngellEYE_IfThenGive_interface {
                                         <?php
                                         $total_txn++;
                                          $progress = round(($total_txn * 100)/$number_of_givers);
+                                         update_option('itg_current_process_progress', $progress);
                                         ?>
                                         <script>                                            
                                             jQuery('.progress-bar').css('width','<?php echo $progress; ?>%');

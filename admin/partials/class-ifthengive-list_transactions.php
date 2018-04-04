@@ -125,6 +125,44 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
 
         return $result_array;
     }    
+            
+    public static function get_remaining_process_failed_givers($post_id){
+        global $wpdb;
+        $sanbox_enable = get_option('itg_sandbox_enable');
+        $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
+        
+        $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID,
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_email') as user_paypal_email,
+             (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
+             (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
+              pm.post_id,
+              pm.meta_value as amount,
+              b.meta_value as user_id,
+              c.meta_value as transactionId,
+              t.meta_value as ppack,              
+              p.post_date as Txn_date
+              FROM `{$wpdb->prefix}postmeta` as pm 
+              left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'itg_transactions_wp_user_id'
+              left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
+              left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'
+              JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$post_id}%'     
+              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp
+              join {$wpdb->prefix}postmeta as wpm 
+              on wpm.post_id = tp.post_id 
+              JOIN wp_postmeta AS tpm
+              ON tpm.post_id = tp.post_id
+              WHERE 
+              tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND
+              wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'signup_in_sandbox' AND
+              tpm.`meta_value` = '0' AND tpm.`meta_key` = 'itg_txn_pt_status'    
+                      )  ";
+        $sql .= ' group by  p.ID';                
+        $sql .= "  Having (( ppack LIKE 'Failure' ) ) ";           
+        $result_array = $wpdb->get_results($sql, 'ARRAY_A');
+
+        return $result_array;
+    }
+
     /**
      * Delete a txn record.
      *
@@ -457,7 +495,11 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
                     <option value="50" <?php if($rs_filter === '50') { echo $selected; } ?>>50</option>
                     <option value="100" <?php if($rs_filter === '100') { echo $selected; } ?>>100</option>
                 </select>
-                <a class="btn btn-primary btn-sm" href="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=<?php echo $_REQUEST['post']; ?>&view=RetryFailedTransactions"><?php _e('Retry Failure Payments',ITG_TEXT_DOMAIN) ?></a>
+               <div class="hidden" id="div_goal_in_process">
+                    <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions&process=continue_old'); ?>" class="btn btn-warning"><?php _e('Continue with remaning',ITG_TEXT_DOMAIN) ?></a>
+                    <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions'); ?>" class="btn btn-primary"><?php _e('Start Over', ITG_TEXT_DOMAIN); ?></a>
+                </div>
+                <a class="btn btn-primary btn-sm" id="ifthengive_fun_retry" data-postid="<?php echo $_REQUEST['post']; ?>" data-redirectUrl="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions');?>" href=""><?php _e('Retry Failure Payments',ITG_TEXT_DOMAIN) ?></a>
                 
             </div>
             <?php
