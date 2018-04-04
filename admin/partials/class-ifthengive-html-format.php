@@ -235,7 +235,7 @@ class AngellEYE_IfThenGive_interface {
                                                 </div>
                                                 <div class="itg_post-title">
                                                     <div class="select_amount" style="display: none">
-                                                        <h4 class="lead"><?php _e('If ',ITG_TEXT_DOMAIN); ?><span class="trigger_name"></span><?php _e(' Then I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="ifthengive_fixed_price_span_select"></span></h4>                                                        
+                                                        <h4 class="lead"><?php _e('If ',ITG_TEXT_DOMAIN); ?><span class="trigger_thing"></span><?php _e(' Then I will Give ',ITG_TEXT_DOMAIN); ?><?php echo $symbol; ?><span id="ifthengive_fixed_price_span_select"></span></h4>                                                        
                                                     </div>
                                                 </div>
                                             </div>                                                            
@@ -245,12 +245,12 @@ class AngellEYE_IfThenGive_interface {
                                             <div class="itg_hr-title itg_center">
                                                 <abbr><?php _e('Sign up for',ITG_TEXT_DOMAIN); ?> <span class="trigger_name"></span></abbr>
                                             </div>
-                                            <p class="text-info"><?php _e('Instruction',ITG_TEXT_DOMAIN); ?></p>
+<!--                                            <p class="text-info"><?php _e('Instruction',ITG_TEXT_DOMAIN); ?></p>
                                             <ol>
                                                 <li><?php _e('Lorem ipsum dolor sit amet',ITG_TEXT_DOMAIN); ?></li>
                                                 <li><?php _e('Consectetur adipiscing elit',ITG_TEXT_DOMAIN); ?></li>
                                                 <li><?php _e('Integer molestie lorem at massa',ITG_TEXT_DOMAIN); ?></li>
-                                            </ol>
+                                            </ol>-->
                                             <form method="post" name="signup" id="ifthengive_signup">                                                                                                
                                                 <div class="itg_post-title">
                                                     <div class="manual_amount" style="display: none">                                                        
@@ -312,11 +312,11 @@ class AngellEYE_IfThenGive_interface {
                     jQuery('#preview-goal .fixed_amount').css('display','none');
                     jQuery('#preview-goal .manual_amount').css('display','none');
                     jQuery('#preview-goal .select_amount').css('display','none');
-                    var trigger_name = jQuery('input[name="post_title"]').val();
+                    var trigger_name = jQuery('input[name="post_title"]').val();                    
                     var image_url = jQuery('input[name="image_url"]').val();
                     var trigger_desc = jQuery('textarea[name="trigger_desc"]').val();
                     var fixed_radio = jQuery('input[name="fixed_radio"]:checked').val();
-                    var trigger_thing = jQuery('input[name="trigger_thing"]').val();                       
+                    var trigger_thing = jQuery('input[name="trigger_thing"]').val();                     
                     jQuery('.trigger_thing').text(trigger_thing);
                     jQuery('#preview-goal .trigger_name').text(trigger_name);
                     jQuery('#preview-goal .image_url').attr('src',image_url);
