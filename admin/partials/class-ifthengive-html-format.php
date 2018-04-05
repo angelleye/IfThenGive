@@ -754,6 +754,7 @@ class AngellEYE_IfThenGive_interface {
                             file_put_contents(ITG_LOG_DIR.'/'.$filename, $output);  
                             $attachments = array( ITG_LOG_DIR . '/'.$filename );
                             wp_mail($to, $subject, $headerString.$alert_info_email_string, $headers,$attachments);                                                        
+                            unlink(ITG_LOG_DIR . '/'.$filename);
                         }
                         ?>
                     </div>
@@ -1230,7 +1231,8 @@ class AngellEYE_IfThenGive_interface {
                             $filename = sanitize_file_name($trigger_name.'_transaction_report_'.time().'.pdf');
                             file_put_contents(ITG_LOG_DIR.'/'.$filename, $output);  
                             $attachments = array( ITG_LOG_DIR . '/'.$filename );
-                            wp_mail($to, $subject, $headerString.$alert_info_email_string, $headers,$attachments);                        
+                            wp_mail($to, $subject, $headerString.$alert_info_email_string, $headers,$attachments);
+                            unlink(ITG_LOG_DIR . '/'.$filename);
                         }
                         ?>
                     </div>
