@@ -649,49 +649,66 @@ class AngellEYE_IfThenGive_interface {
             $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
             //save log
             $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
-            if ('yes' == $debug) {
-                $log_write = new AngellEYE_IfThenGive_Logger();
-                $log_write->add('angelleye_ifthengive_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
-            }
-            $paypal_email = get_user_meta($value['user_id'], 'itg_gec_email', true);
-            if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {
+            
+            $paypal_email = get_user_meta($value['user_id'], 'itg_gec_email', true);            
+            if ($PayPalResultDRT['RAWRESPONSE'] !== false){            
+                if ('yes' == $debug) {
+                    $log_write = new AngellEYE_IfThenGive_Logger();
+                    $log_write->add('angelleye_ifthengive_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
+                }
+                if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {
 
-                $total_txn_success++;
-                $total_amount_success += $value['amount'];
-                echo $trEmailString = "<tr style='".$css."'>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],ITG_TEXT_DOMAIN)."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),ITG_TEXT_DOMAIN)."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                    
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],ITG_TEXT_DOMAIN)."</td>
-                </tr>";
-                $EmailString.= $trEmailString;
-            } else {
+                    $total_txn_success++;
+                    $total_amount_success += $value['amount'];
+                    echo $trEmailString = "<tr style='".$css."'>
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],ITG_TEXT_DOMAIN)."</td>
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),ITG_TEXT_DOMAIN)."</td>
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                    
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],ITG_TEXT_DOMAIN)."</td>
+                    </tr>";
+                    $EmailString.= $trEmailString;
+                } else {
+                    $total_txn_failed++;
+                    $total_amount_failed += $value['amount'];
+                    $PayPalResultDRT['TRANSACTIONID'] = '';
+
+                    echo $trEmailString = "<tr style='".$css."'>
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                    
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
+                    </tr>";
+                    $EmailString.= $trEmailString;
+                }
+                $new_post_id = wp_insert_post(array(
+                    'post_status' => 'publish',
+                    'post_type' => 'itg_transactions',
+                    'post_title' => ('UserID:' . $value['user_id'] . '|GoalID:' . $goal_id . '|TxnID :' . $PayPalResultDRT['TRANSACTIONID'])
+                        ));
+                update_post_meta($new_post_id, 'itg_transactions_amount', number_format($value['amount'],2));
+                update_post_meta($new_post_id, 'itg_transactions_wp_user_id', $value['user_id']);
+                update_post_meta($new_post_id, 'itg_transactions_wp_goal_id', $goal_id);
+                update_post_meta($new_post_id, 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
+                update_post_meta($new_post_id, 'itg_transactions_ack', $PayPalResultDRT['ACK']);
+                update_post_meta($new_post_id, 'signup_in_sandbox', $sandbox);
+                update_post_meta($new_post_id, 'itg_txn_pt_status', '0');
+                update_post_meta($value['signup_postid'], 'itg_transaction_status', '1');                        
+            }
+            else{
                 $total_txn_failed++;
                 $total_amount_failed += $value['amount'];
                 $PayPalResultDRT['TRANSACTIONID'] = '';
-
                 echo $trEmailString = "<tr style='".$css."'>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                    
-                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
-                </tr>";
-                $EmailString.= $trEmailString;
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                    
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__('Internal Server Error.',ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
+                    </tr>";
+                    $EmailString.= $trEmailString;
+                    
+                
             }
-            $new_post_id = wp_insert_post(array(
-                'post_status' => 'publish',
-                'post_type' => 'itg_transactions',
-                'post_title' => ('UserID:' . $value['user_id'] . '|GoalID:' . $goal_id . '|TxnID :' . $PayPalResultDRT['TRANSACTIONID'])
-                    ));
-            update_post_meta($new_post_id, 'itg_transactions_amount', number_format($value['amount'],2));
-            update_post_meta($new_post_id, 'itg_transactions_wp_user_id', $value['user_id']);
-            update_post_meta($new_post_id, 'itg_transactions_wp_goal_id', $goal_id);
-            update_post_meta($new_post_id, 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
-            update_post_meta($new_post_id, 'itg_transactions_ack', $PayPalResultDRT['ACK']);
-            update_post_meta($new_post_id, 'signup_in_sandbox', $sandbox);
-            update_post_meta($new_post_id, 'itg_txn_pt_status', '0');
-            update_post_meta($value['signup_postid'], 'itg_transaction_status', '1');                        
-            ?>
+                ?>
                                         <?php
                                         $total_txn++;
                                         $progress = round(($total_txn * 100)/$number_of_givers);
@@ -1145,18 +1162,35 @@ class AngellEYE_IfThenGive_interface {
                                             $log_write->add('angelleye_ifthengive_transactions', 'DoReferenceTransaction ' . $PayPalResultDRT['ACK'] . ' : ' . print_r($logArray, true), 'transactions');
                                         }
                                         $paypal_email = get_user_meta($value['user_id'], 'itg_gec_email', true);
-                                        if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {
-                                            update_post_meta($value['post_id'], 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
-                                            $total_txn_success++;
-                                            $total_amount_success += $value['amount'];
-                                            echo $trEmailString = "<tr style='".$css."'>
-                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],ITG_TEXT_DOMAIN)."</td>
-                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),ITG_TEXT_DOMAIN)."</td>
-                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
-                                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],ITG_TEXT_DOMAIN)."</td>
-                                                                </tr>";                                            
-                                            $EmailString.= $trEmailString;
-                                        } else {
+                                        if ($PayPalResultDRT['RAWRESPONSE'] !== false){                                                                                    
+                                            if ($PayPal->APICallSuccessful($PayPalResultDRT['ACK'])) {
+                                                update_post_meta($value['post_id'], 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
+                                                $total_txn_success++;
+                                                $total_amount_success += $value['amount'];
+                                                echo $trEmailString = "<tr style='".$css."'>
+                                                                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],ITG_TEXT_DOMAIN)."</td>
+                                                                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),ITG_TEXT_DOMAIN)."</td>
+                                                                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
+                                                                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],ITG_TEXT_DOMAIN)."</td>
+                                                                    </tr>";                                            
+                                                $EmailString.= $trEmailString;
+                                            } else {
+                                                $total_txn_failed++;
+                                                $total_amount_failed += $value['amount'];
+                                                $PayPalResultDRT['TRANSACTIONID'] = '';
+                                                 echo $trEmailString = "<tr style='".$css."'>
+                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
+                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
+                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                                                
+                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
+                                                </tr>";
+                                                $EmailString.= $trEmailString;
+                                            }
+                                            update_post_meta($value['post_id'], 'itg_transactions_ack', $PayPalResultDRT['ACK']);
+                                            update_post_meta($value['post_id'], 'signup_in_sandbox', $sandbox);
+                                            update_post_meta($value['post_id'], 'itg_txn_pt_status', '1');
+                                        }
+                                        else{
                                             $total_txn_failed++;
                                             $total_amount_failed += $value['amount'];
                                             $PayPalResultDRT['TRANSACTIONID'] = '';
@@ -1164,14 +1198,11 @@ class AngellEYE_IfThenGive_interface {
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                                                
-                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
+                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__('Internal Server Error occured.',ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
                                             </tr>";
                                             $EmailString.= $trEmailString;
                                         }
-                                        update_post_meta($value['post_id'], 'itg_transactions_ack', $PayPalResultDRT['ACK']);
-                                        update_post_meta($value['post_id'], 'signup_in_sandbox', $sandbox);
-                                        update_post_meta($value['post_id'], 'itg_txn_pt_status', '1');
-                                        ?>
+                                            ?>
                                         <?php
                                         $total_txn++;
                                          $progress = round(($total_txn * 100)/$number_of_givers);
