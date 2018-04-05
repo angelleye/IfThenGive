@@ -61,6 +61,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              um.user_id,
              p.post_date as BADate,
              u.display_name as DisplayName,
+             pm.`post_id` as signup_postid,
              pm.meta_value as amount,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID
              FROM `{$wpdb->prefix}posts` as p 
@@ -294,7 +295,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     *
     * @return mixed
     */
-    public function column_default( $item, $column_name ) {
+    public function column_default( $item, $column_name ) {        
       switch ( $column_name ) {
         case 'BillingAgreement':
              _e($item['BillingAgreement'],ITG_TEXT_DOMAIN);
@@ -338,7 +339,8 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
                     $label = __('Activate',ITG_TEXT_DOMAIN);
                     $class = "btn-defalt";
                 }            
-                echo apply_filters('itg_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-itgchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,ITG_TEXT_DOMAIN).'</button>',$_REQUEST['post']);
+                echo apply_filters('itg_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-itgchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,ITG_TEXT_DOMAIN).'</button> ',$_REQUEST['post']);
+                echo '<button type="button" class="btn btn-danger btn-sm btn-dgiver" data-signupid="'.$item['signup_postid'].'" data-goalid="'.$_REQUEST['post'].'" data-userid="'.$item['user_id'].'">'.__('Delete',ITG_TEXT_DOMAIN).'</button>';
             }
             break;
       }

@@ -32,6 +32,9 @@ class AngellEYE_IfThenGive_interface {
         add_action('wp_ajax_check_goal_is_in_process', array(__CLASS__, 'check_goal_is_in_process'));
         add_action("wp_ajax_nopriv_check_goal_is_in_process", array(__CLASS__, 'check_goal_is_in_process'));
         
+        add_action('wp_ajax_delete_giver_from_goal', array(__CLASS__, 'delete_giver_from_goal'));
+        add_action("wp_ajax_nopriv_delete_giver_from_goal", array(__CLASS__, 'delete_giver_from_goal'));
+        
     }
 
     /**
@@ -1438,7 +1441,29 @@ class AngellEYE_IfThenGive_interface {
         }        
     }
     
-    
+    public function delete_giver_from_goal(){
+       $signup_postid = $_POST['signup_postid'];
+       $user_id = $_POST['userid'];
+       $goal_id = $_POST['goal_id'];
+       
+       // just update it with blank so user data will not delete forever.
+       update_post_meta($signup_postid, 'itg_signup_amount', '');
+       update_post_meta($signup_postid, 'itg_signup_wp_user_id', '');
+       update_post_meta($signup_postid, 'itg_signup_wp_goal_id', '');
+       update_post_meta($signup_postid, 'signup_in_sandbox', '');
+       update_post_meta($signup_postid, 'itg_transaction_status', '');
+       
+       $itg_signedup_goals = get_user_meta($user_id, 'itg_signedup_goals');
+       $goalArray = explode('|', $itg_signedup_goals[0]);
+        if(!empty($goalArray)){
+            if(in_array($goal_id, $goalArray)){
+                $array_without_goal = array_diff($goalArray, array($goal_id));
+                $goals_string = implode("|",$array_without_goal);
+                update_user_meta($user_id, 'itg_signedup_goals', $goals_string);
+            }
+        }
+    }    
+   
 }
 
 AngellEYE_IfThenGive_interface::init();

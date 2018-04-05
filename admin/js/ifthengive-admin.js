@@ -354,6 +354,42 @@
             $('[data-toggle="tooltip"]').tooltip();   
         }
         
+        $(document).on('click','.btn-dgiver ', function(e){
+            
+            var userid =$(this).attr('data-userid');
+            var post_id =$(this).attr('data-signupid');
+            var goal_id =$(this).attr('data-goalid');
+                    
+            alertify.defaults.transition = "slide";
+            alertify.defaults.theme.ok = "btn btn-primary";
+            alertify.defaults.theme.cancel = "btn btn-danger";
+            alertify.defaults.theme.input = "form-control";
+            alertify.confirm('Delete this Giver?', 'Are you sure you want to Delete this Giver from Goal?',
+                function ()
+                {                                                            
+                    
+                    
+                    $.ajax({
+                       type: 'POST',
+                       url: admin_ajax_url,
+                        data: { 
+                           action  : 'delete_giver_from_goal',
+                           userid : userid,
+                           signup_postid : post_id,
+                           goal_id : goal_id                           
+                       },
+                       dataType: "json",
+                       success: function (result) {                           
+                           
+                       }
+                   });
+                },
+                function ()
+                {
+                    //alertify.error('You Pressed Cancel');
+                });             
+        });
+        
     });    
 
 })(jQuery);
