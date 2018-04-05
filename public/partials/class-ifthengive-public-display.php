@@ -368,6 +368,8 @@ class AngellEYE_IfThenGive_Public_Display {
                         exit;
                     }
                 }
+                $sanbox_enable = get_option('itg_sandbox_enable');
+                $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
                 /* Create new post for signup post type and save goal_id,user_id,amount */
                 $new_post_id = wp_insert_post( array(
                     'post_author' => $user_id,
@@ -379,6 +381,8 @@ class AngellEYE_IfThenGive_Public_Display {
                 update_post_meta($new_post_id,'itg_signup_amount',$amount);                    
                 update_post_meta($new_post_id,'itg_signup_wp_user_id',$user_id);
                 update_post_meta($new_post_id,'itg_signup_wp_goal_id',$post_id);
+                update_post_meta($post_id, 'signup_in_sandbox', $sandbox);
+                update_post_meta($post_id,'itg_transaction_status','0');
                 
                 $amount = base64_encode($amount);
                 $post = get_post($post_id); 
