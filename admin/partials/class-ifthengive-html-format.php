@@ -453,6 +453,9 @@ class AngellEYE_IfThenGive_interface {
                     </div>
                     <?php
                     if(self::is_My_Goal($_REQUEST['post'])){
+                        $givers_count = AngellEYE_IfThenGive_Givers_Table::record_count();
+                        //$is_all_givers_suspended = AngellEYE_IfThenGive_Givers_Table::check_all_givers_suspended($_REQUEST['post']);
+                        if($givers_count > 0) {
                     ?>    
                         <div class="col-md-12 text-center">
                             <span class="itg_text-info"><?php echo __('Click ', ITG_TEXT_DOMAIN); ?><strong><?php _e('"Process Donation"',ITG_TEXT_DOMAIN); ?></strong><?php echo __(' Button to Capture your Transactions.', ITG_TEXT_DOMAIN); ?></span><br/>
@@ -464,6 +467,7 @@ class AngellEYE_IfThenGive_interface {
                     </div>
                     
                     <?php                    
+                        }
                     }
                     ?>                    
                 </div>                            
@@ -1509,7 +1513,7 @@ class AngellEYE_IfThenGive_interface {
         </tbody>
     </table>
     </div>';
-        $EmailString .= '<div style="margin-right: -15px; margin-left: -15px;">
+        $EmailString = '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">                
                 <div style="margin: 10px 75px 25px; float: none; height: auto;font-weight: 600;">
                     <p style="padding: 10px;font-size: 12px;font-family: inherit; color: #076799">'. __('Hi '.$user->display_name.',',ITG_TEXT_DOMAIN).'

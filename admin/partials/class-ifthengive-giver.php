@@ -261,7 +261,11 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
      return $wpdb->num_rows;
     }
     
-    /** Text displayed when no giver's data is available */
+    public static function check_all_givers_suspended($goal_id){
+        
+    }
+
+        /** Text displayed when no giver's data is available */
     public function no_items() {
       _e( 'No Givers avaliable.', ITG_TEXT_DOMAIN );
     }

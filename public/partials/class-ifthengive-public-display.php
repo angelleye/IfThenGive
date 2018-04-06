@@ -268,12 +268,12 @@ class AngellEYE_IfThenGive_Public_Display {
         }
         /*Create array of user data */
         $userdata=array(
-                'user_pass' => $itguser['ifthengive_password'],
-                'user_login' => $itguser['ifthengive_email'],
-                'user_email' => $itguser['ifthengive_email'],
+                'user_pass' => isset($itguser['ifthengive_password']) ? $itguser['ifthengive_password'] : '',
+                'user_login' => isset($itguser['ifthengive_email']) ? $itguser['ifthengive_email'] : '',
+                'user_email' => isset($itguser['ifthengive_email']) ? $itguser['ifthengive_email'] : '',
                 'display_name' => $itguser['ifthengive_firstname'].' '.$itguser['ifthengive_lastname'],
-                'first_name' => $itguser['ifthengive_firstname'],
-                'last_name' => $itguser['ifthengive_lastname'],
+                'first_name' => isset($itguser['ifthengive_firstname']) ? $itguser['ifthengive_firstname'] : '',
+                'last_name' => isset($itguser['ifthengive_lastname']) ? $itguser['ifthengive_lastname'] : '',
                 'role' => 'giver'
         );
         /*

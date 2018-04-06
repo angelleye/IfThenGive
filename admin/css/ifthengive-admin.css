@@ -507,7 +507,7 @@ tr.strikeout td:before {
   position: absolute;
   display: inline-block;
   padding: 5px 10px;
-  left: 0;
+  left: 20px;
   border-bottom: 2px solid #FF9800;;
-  width: 100%;
+  width: 82%;
 }
