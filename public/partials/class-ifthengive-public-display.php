@@ -381,8 +381,8 @@ class AngellEYE_IfThenGive_Public_Display {
                 update_post_meta($new_post_id,'itg_signup_amount',$amount);                    
                 update_post_meta($new_post_id,'itg_signup_wp_user_id',$user_id);
                 update_post_meta($new_post_id,'itg_signup_wp_goal_id',$post_id);
-                update_post_meta($post_id, 'signup_in_sandbox', $sandbox);
-                update_post_meta($post_id,'itg_transaction_status','0');
+                update_post_meta($new_post_id, 'signup_in_sandbox', $sandbox);
+                update_post_meta($new_post_id,'itg_transaction_status','0');
                 
                 $amount = base64_encode($amount);
                 $post = get_post($post_id); 
