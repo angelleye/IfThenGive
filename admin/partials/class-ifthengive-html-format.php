@@ -1453,6 +1453,8 @@ class AngellEYE_IfThenGive_interface {
        update_post_meta($signup_postid, 'signup_in_sandbox', '');
        update_post_meta($signup_postid, 'itg_transaction_status', '');
        
+       update_user_meta( $user_id , 'itg_giver_'.$goal_id.'_status', '' );
+       
        $itg_signedup_goals = get_user_meta($user_id, 'itg_signedup_goals');
        $goalArray = explode('|', $itg_signedup_goals[0]);
         if(!empty($goalArray)){

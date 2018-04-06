@@ -97,11 +97,11 @@ class AngellEYE_IfThenGive_My_Goals_Table {
         $sql = "SELECT                
                 e.meta_value AS goal_id
                 FROM
-                  wp_postmeta AS pm
+                  {$wpdb->prefix}postmeta AS pm
                 LEFT JOIN
-                  wp_postmeta AS t ON t.post_id = pm.post_id AND t.meta_key = 'itg_signup_wp_user_id'
+                  {$wpdb->prefix}postmeta AS t ON t.post_id = pm.post_id AND t.meta_key = 'itg_signup_wp_user_id'
                 LEFT JOIN
-                  wp_postmeta AS e ON e.post_id = pm.post_id AND e.meta_key = 'itg_signup_wp_goal_id'
+                  {$wpdb->prefix}postmeta AS e ON e.post_id = pm.post_id AND e.meta_key = 'itg_signup_wp_goal_id'
                 WHERE
                   t.meta_value IS NOT NULL AND t.meta_value = '".$user_id."'
                 GROUP BY

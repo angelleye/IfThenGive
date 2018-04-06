@@ -199,7 +199,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
                     JOIN {$wpdb->prefix}postmeta AS wpm
                     ON
                         wpm.post_id = tp.post_id
-                    JOIN wp_postmeta AS tpm
+                    JOIN {$wpdb->prefix}postmeta AS tpm
                     ON
                         tpm.post_id = tp.post_id
                     WHERE

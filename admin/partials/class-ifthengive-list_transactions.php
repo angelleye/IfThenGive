@@ -149,7 +149,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp
               join {$wpdb->prefix}postmeta as wpm 
               on wpm.post_id = tp.post_id 
-              JOIN wp_postmeta AS tpm
+              JOIN {$wpdb->prefix}postmeta AS tpm
               ON tpm.post_id = tp.post_id
               WHERE 
               tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND
