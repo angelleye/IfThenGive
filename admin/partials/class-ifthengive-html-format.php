@@ -460,7 +460,7 @@ class AngellEYE_IfThenGive_interface {
                         </div>
                     <div class="hidden" id="div_goal_in_process">
                         <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions&process=continue_old'); ?>" class="btn btn-warning"><?php _e('Continue with remaning',ITG_TEXT_DOMAIN) ?></a>
-                        <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions'); ?>" class="btn btn-primary"><?php _e('Start Over', ITG_TEXT_DOMAIN); ?></a>
+                        <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions$process=start_over'); ?>" class="btn btn-primary"><?php _e('Start Over', ITG_TEXT_DOMAIN); ?></a>
                     </div>
                     
                     <?php                    
@@ -521,7 +521,7 @@ class AngellEYE_IfThenGive_interface {
         else{
         $in_process = get_option('itg_txns_in_process');
         $process = isset($_REQUEST['process']) ? $_REQUEST['process'] : '';        
-        if($in_process === 'yes' && $process!='continue_old') : ?>
+        if($in_process === 'yes' && $process!='continue_old' && $process!= 'start_over') : ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
                     <div class="row">
@@ -1034,7 +1034,7 @@ class AngellEYE_IfThenGive_interface {
         else{ 
         $in_process = get_option('itg_txns_in_process');
         $process = isset($_REQUEST['process']) ? $_REQUEST['process'] : '';
-        if($in_process === 'yes' && $process!='continue_old') { ?>
+        if($in_process === 'yes' && $process!='continue_old' && $process!= 'start_over') { ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
                     <div class="row">
