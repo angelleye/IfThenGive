@@ -1376,7 +1376,7 @@ class AngellEYE_IfThenGive_interface {
         }        
     }
     
-    public function cancel_billing_agreement_giver() {
+    public static function cancel_billing_agreement_giver() {
         if (isset($_POST['userid'])) {
             $user_id = $_POST['userid'];
             $data = get_user_meta($user_id,'itg_giver_'.$_POST['postid'].'_status',true);
@@ -1441,7 +1441,7 @@ class AngellEYE_IfThenGive_interface {
         }        
     }
     
-    public function delete_giver_from_goal(){
+    public static function delete_giver_from_goal(){
        $signup_postid = $_POST['signup_postid'];
        $user_id = $_POST['userid'];
        $goal_id = $_POST['goal_id'];
@@ -1458,10 +1458,73 @@ class AngellEYE_IfThenGive_interface {
         if(!empty($goalArray)){
             if(in_array($goal_id, $goalArray)){
                 $array_without_goal = array_diff($goalArray, array($goal_id));
-                $goals_string = implode("|",$array_without_goal);
-                update_user_meta($user_id, 'itg_signedup_goals', $goals_string);
+                if(empty($array_without_goal)){                    
+                    update_user_meta($user_id, 'itg_signedup_goals', '');
+                }
+                else{
+                    $goals_string = implode("|",$array_without_goal);
+                    update_user_meta($user_id, 'itg_signedup_goals', $goals_string);
+                }
+                
             }
         }
+        $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
+        $user = get_userdata($user_id);        
+        $EmailHeader = '<div dir="ltr" style="background-color: rgb(245, 245, 245); margin: 0; padding: 70px 0 70px 0; width: 100%; height:100%">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" min-height="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="center" valign="top">
+                                            <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: rgb(253, 253, 253); border: 1px solid rgb(220, 220, 220)">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="top">
+                                                            <table border="0" cellpadding="0" cellspacing="0" width="600" style=" color: rgb(255, 255, 255); border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="padding: 10px; display: block">
+                                                                          <h1 style="color: rgb(255, 255, 255); font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: center; text-shadow: 0 1px 0 rgb(119, 151, 180)"><img src="'.ITG_PLUGIN_URL.'/admin/images/ifthengive.png" alt="IfThenGive"></h1> </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td valign="top">';                
+        $EmailFooter = '</td></tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>';
+        $EmailString .= '<div style="margin-right: -15px; margin-left: -15px;">
+            <div style="width: 100%;">                
+                <div style="margin: 10px 75px 25px; float: none; height: auto;font-weight: 600;">
+                    <p style="padding: 10px;font-size: 12px;font-family: inherit; color: #076799">'. __('Hi '.$user->display_name.',',ITG_TEXT_DOMAIN).'
+                    <br><br>'.__('You have been removed from the following goal:  '.$trigger_name,ITG_TEXT_DOMAIN).'
+                    <br><br>                    
+                    '.__('You will no longer be included in the donations that get processed with this goal occurs.',ITG_TEXT_DOMAIN).'
+                    <br><br>
+                    '.__('Thanks!',ITG_TEXT_DOMAIN).'
+                    </p>
+                    <p style="padding: 10px;font-size: 12px;font-family: inherit; color: #076799">'.get_bloginfo('name').'</p>
+                </div>
+            </div>
+        </div>';
+        
+        $headers = "From: IfThenGive <info@ifthengive.com> \r\n";
+        $headers .= "Reply-To: noreply@ifthengive.com \r\n";
+        //$headers .= "CC: ifthengive@ifthengive.com\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+        $to = $admin_email = get_option('admin_email');
+        $subject = __('IfThenGive Notification',ITG_TEXT_DOMAIN);
+        $message = $EmailHeader.$EmailString.$EmailFooter;     
+        wp_mail($to, $subject, $message, $headers);
+        exit;
     }    
    
 }

@@ -359,16 +359,17 @@
             var userid =$(this).attr('data-userid');
             var post_id =$(this).attr('data-signupid');
             var goal_id =$(this).attr('data-goalid');
-                    
+            var btn = $(this);
+            btn.find('span').addClass('glyphicon glyphicon-refresh glyphicon-spin');
+            btn.closest('tr').addClass('strikeout');      
+            
             alertify.defaults.transition = "slide";
             alertify.defaults.theme.ok = "btn btn-primary";
             alertify.defaults.theme.cancel = "btn btn-danger";
             alertify.defaults.theme.input = "form-control";
             alertify.confirm('Delete this Giver?', 'Are you sure you want to Delete this Giver from Goal?',
                 function ()
-                {                                                            
-                    
-                    
+                {                                                                                                    
                     $.ajax({
                        type: 'POST',
                        url: admin_ajax_url,
@@ -379,14 +380,16 @@
                            goal_id : goal_id                           
                        },
                        dataType: "json",
-                       success: function (result) {                           
-                           
+                       success: function (result) {
+                           alertify.error('Giver Deleted');
+                           window.location.reload();
                        }
                    });
                 },
                 function ()
-                {
-                    //alertify.error('You Pressed Cancel');
+                {                    
+                    btn.find('span').removeClass('glyphicon glyphicon-refresh glyphicon-spin');
+                    btn.closest('tr').removeClass('strikeout'); 
                 });             
         });
         

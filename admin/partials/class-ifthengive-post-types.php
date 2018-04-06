@@ -38,7 +38,7 @@ class AngellEYE_IfThenGive_Post_types {
             echo '.wp-list-table .column-amount { width: 7%; }';
             echo '.wp-list-table .column-PayPalPayerID { width: 11%; }';
             echo '.wp-list-table .column-BADate { width: 10%; }';
-            echo '.wp-list-table .column-ITGAction { width: 13%; }';        
+            echo '.wp-list-table .column-ITGAction { width: 15%; }';        
             echo '</style>';
         }
         elseif( 'ListTransactions' == $page || 'GetUsersTransactions' == $page){
