@@ -720,10 +720,14 @@ class AngellEYE_IfThenGive_interface {
                                         <script>                                            
                                             jQuery('.progress-bar').css('width','<?php echo $progress; ?>%');
                                             jQuery('.progress-bar').attr('aria-valuenow','<?php echo $progress; ?>');
-                                            jQuery('.progress-bar').html('<?php echo $progress; ?>%');
+                                            jQuery('.progress-bar').html('<?php echo $progress; ?>%');                                            
                                         </script>
                                         <?php
-                                        if($progress == 100){
+                                        if($progress == 100){ ?>
+                                            <script>
+                                                jQuery('.progress-bar').addClass('progress-bar-success');
+                                            </script>
+                                            <?php
                                             update_option('itg_transaction_complete', 'yes');
                                             add_action("admin_notices", array('IfThenGive_Admin', 'processing_notice'));
                                             update_option('itg_txns_in_process', 'no');
@@ -1217,7 +1221,11 @@ class AngellEYE_IfThenGive_interface {
                                             jQuery('.progress-bar').html('<?php echo $progress; ?>%');
                                         </script>
                                         <?php
-                                        if($progress == 100){
+                                        if($progress == 100){ ?>
+                                            <script>
+                                                jQuery('.progress-bar').addClass('progress-bar-success');
+                                            </script>
+                                            <?php
                                             update_option('itg_transaction_complete', 'yes');
                                             add_action("admin_notices", array('IfThenGive_Admin', 'processing_notice'));
                                             update_option('itg_txns_in_process', 'no');
