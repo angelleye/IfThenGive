@@ -147,18 +147,18 @@ class AngellEYE_IfThenGive_interface {
                                         </div>
                                         <div class="col-sm-3 nopadding">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="option_name" name="option_name[]" value="<?php echo esc_attr($name,ITG_TEXT_DOMAIN); ?>" placeholder="Option Name">
+                                                <input type="text" class="form-control" id="option_name<?php echo ($i + 1); ?>" name="option_name[]" value="<?php echo esc_attr($name,ITG_TEXT_DOMAIN); ?>" placeholder="Option Name">
                                             </div>
                                         </div>                
                                         <div class="col-sm-3 nopadding">
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" id="option_amount" name="option_amount[]" value="<?php echo esc_attr($dynamic_option_amount[$i],ITG_TEXT_DOMAIN); ?>" placeholder="Option Amount">
+                                                    <input type="text" class="form-control" id="option_amount<?php echo ($i + 1); ?>" name="option_amount[]" value="<?php echo esc_attr($dynamic_option_amount[$i],ITG_TEXT_DOMAIN); ?>" placeholder="Option Amount">
                                                     <div class="input-group-btn">
                     <?php if (($i + 1) == $total_options) { ?>
                                                             <button class="btn btn-success" type="button" id="add_dynamic_field"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
                                                         <?php } else { ?>                                            
-                                                            <button class="btn btn-danger" type="button" id="remove_dynamic_fields" data-fieldid="<?php echo ($i + 1); ?>"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>                                            
+                                                            <button class="btn btn-danger remove_dynamic_fields" type="button" data-fieldid="<?php echo ($i + 1); ?>"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>                                            
                                                         <?php } ?>    
                                                     </div>
                                                 </div>
