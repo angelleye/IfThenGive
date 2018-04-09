@@ -416,9 +416,9 @@ class AngellEYE_IfThenGive_Public_Display {
         if(isset($itguser['itg_signup_as_guest']) && $itguser['itg_signup_as_guest']=='on' ){
             $_SESSION['itg_guest_user'] = 'no';            
         }
-        else{
-            $_SESSION['itg_guest_user'] = 'yes';
+        else{            
             if(empty($user_id)){
+                $_SESSION['itg_guest_user'] = 'yes';
                 $userdata['user_pass'] = 'ITGPassword';
             }
         }        
