@@ -543,6 +543,32 @@ class AngellEYE_IfThenGive_interface {
         @set_time_limit(ITG_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
         $EmailString = '';       
+        $goal_id = $_REQUEST['post'];               
+        
+        if(isset($_REQUEST['process']) && $_REQUEST['process'] === 'continue_old'){
+            $givers = AngellEYE_IfThenGive_Givers_Table::get_remaining_process_givers($goal_id);
+        }
+        else{
+            $givers = AngellEYE_IfThenGive_Givers_Table::get_all_givers();
+        }
+        $number_of_givers = count($givers);
+        if($number_of_givers <= 0){ ?>
+            <div class="wrap">
+                <div class="ifthengive_admin_container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="notice notice-warning is-dismissible">
+                                <p style="font-size: 22px;"><?php _e('No Givers to process.!',ITG_TEXT_DOMAIN); ?></p>
+                            </div>                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+            exit;
+        }
+        
+        $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
         $options = new Options();
         $options->setIsRemoteEnabled(true);
         $dompdf = new Dompdf($options);   
@@ -559,15 +585,7 @@ class AngellEYE_IfThenGive_interface {
                         
                     <div class="col-md-12">                        
                                 <div class="table-responsive">
-        <?php                
-        $goal_id = $_REQUEST['post'];               
-        $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
-        if(isset($_REQUEST['process']) && $_REQUEST['process'] === 'continue_old'){
-            $givers = AngellEYE_IfThenGive_Givers_Table::get_remaining_process_givers($goal_id);
-        }
-        else{
-            $givers = AngellEYE_IfThenGive_Givers_Table::get_all_givers();
-        }        
+        <?php                                
         $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();        
         $PayPal_config->set_api_cedentials();                
         $PayPal_config->set_api_subject($goal_id);
@@ -586,8 +604,7 @@ class AngellEYE_IfThenGive_interface {
         $total_txn_failed = 0;
         $total_amount=0;
         $total_amount_success=0;
-        $total_amount_failed=0;
-        $number_of_givers = count($givers);        
+        $total_amount_failed=0;           
         
         $headerString = '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">
@@ -1055,8 +1072,31 @@ class AngellEYE_IfThenGive_interface {
         }
         @set_time_limit(ITG_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
-        $EmailString = '';
-        $EmailString = '';       
+        $EmailString = '';        
+        $goal_id = $_REQUEST['post'];
+        $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
+        if(isset($_REQUEST['process']) && $_REQUEST['process'] === 'continue_old'){
+            $givers = AngellEYE_IfThenGive_Transactions_Table::get_remaining_process_failed_givers($goal_id);
+        }
+        else{
+            $givers = AngellEYE_IfThenGive_Transactions_Table::get_all_failed_givers($goal_id);
+        }
+        $number_of_givers = count($givers);
+        if($number_of_givers <= 0) { ?>
+            <div class="wrap">
+                <div class="ifthengive_admin_container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="notice notice-warning is-dismissible">
+                                <p style="font-size: 22px;"><?php _e('No Givers to process.!',ITG_TEXT_DOMAIN); ?></p>
+                            </div>                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+        exit;
+        }
         $options = new Options();
         $options->setIsRemoteEnabled(true);
         $dompdf = new Dompdf($options);        
@@ -1072,16 +1112,7 @@ class AngellEYE_IfThenGive_interface {
                     <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Capturing Failure Payments',ITG_TEXT_DOMAIN); ?></abbr></div>                    
                     <div class="col-md-12">                        
                                 <div class="table-responsive">
-                                    <?php                                    
-                                    global $post, $post_ID;
-                                    $goal_id = $_REQUEST['post'];
-                                    $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
-                                    if(isset($_REQUEST['process']) && $_REQUEST['process'] === 'continue_old'){
-                                        $givers = AngellEYE_IfThenGive_Transactions_Table::get_remaining_process_failed_givers($goal_id);
-                                    }
-                                    else{
-                                        $givers = AngellEYE_IfThenGive_Transactions_Table::get_all_failed_givers($goal_id);                                    
-                                    }                                    
+                                    <?php                                                                                                            
                                     $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();                                    
                                     $PayPal_config->set_api_cedentials();                                     
                                     $PayPal_config->set_api_subject($goal_id);
@@ -1100,8 +1131,7 @@ class AngellEYE_IfThenGive_interface {
                                     $total_txn_failed = 0;
                                     $total_amount=0;
                                     $total_amount_success=0;
-                                    $total_amount_failed=0;   
-                                    $number_of_givers = count($givers);
+                                    $total_amount_failed=0;                                      
                                     $headerString = '<div style="margin-right: -15px; margin-left: -15px;">
             <div style="width: 100%;">
                 <div style="text-align: center;"><img src="'.ITG_PLUGIN_URL.'/admin/images/ifthengive.png" alt="IfThenGive"></div>
