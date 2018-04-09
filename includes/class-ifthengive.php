@@ -395,10 +395,10 @@ class Ifthengive {
                         update_post_meta($new_post_id,'itg_signup_wp_user_id',$goal_user_id);
                         update_post_meta($new_post_id,'itg_signup_wp_goal_id',$goal_post_id);  
                         if($sanbox_enable === 'yes'){
-                            update_post_meta($new_post_id,'signup_in_sandbox','yes');
+                            update_post_meta($new_post_id,'itg_signup_in_sandbox','yes');
                         }
                         else{
-                            update_post_meta($new_post_id,'signup_in_sandbox','no');
+                            update_post_meta($new_post_id,'itg_signup_in_sandbox','no');
                         }
                         update_post_meta($new_post_id,'itg_transaction_status','0');  
                         

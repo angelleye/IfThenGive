@@ -697,7 +697,7 @@ class AngellEYE_IfThenGive_interface {
                 update_post_meta($new_post_id, 'itg_transactions_wp_goal_id', $goal_id);
                 update_post_meta($new_post_id, 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
                 update_post_meta($new_post_id, 'itg_transactions_ack', $PayPalResultDRT['ACK']);
-                update_post_meta($new_post_id, 'signup_in_sandbox', $sandbox);
+                update_post_meta($new_post_id, 'itg_signup_in_sandbox', $sandbox);
                 update_post_meta($new_post_id, 'itg_txn_pt_status', '0');
                 update_post_meta($value['signup_postid'], 'itg_transaction_status', '1');                        
             }
@@ -1198,7 +1198,7 @@ class AngellEYE_IfThenGive_interface {
                                                 $EmailString.= $trEmailString;
                                             }
                                             update_post_meta($value['post_id'], 'itg_transactions_ack', $PayPalResultDRT['ACK']);
-                                            update_post_meta($value['post_id'], 'signup_in_sandbox', $sandbox);
+                                            update_post_meta($value['post_id'], 'itg_signup_in_sandbox', $sandbox);
                                             update_post_meta($value['post_id'], 'itg_txn_pt_status', '1');
                                         }
                                         else{
@@ -1462,7 +1462,7 @@ class AngellEYE_IfThenGive_interface {
        update_post_meta($signup_postid, 'itg_signup_amount', '');
        update_post_meta($signup_postid, 'itg_signup_wp_user_id', '');
        update_post_meta($signup_postid, 'itg_signup_wp_goal_id', '');
-       update_post_meta($signup_postid, 'signup_in_sandbox', '');
+       update_post_meta($signup_postid, 'itg_signup_in_sandbox', '');
        update_post_meta($signup_postid, 'itg_transaction_status', '');
        
        update_user_meta( $user_id , 'itg_giver_'.$goal_id.'_status', '' );

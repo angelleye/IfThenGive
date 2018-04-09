@@ -66,7 +66,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
               left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'
               JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$_REQUEST['post']}%'     
-              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'signup_in_sandbox')  ";
+              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox')  ";
 
         $sql .= ' group by  p.ID';
         if (isset($_REQUEST['s'])) {
@@ -118,7 +118,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
               left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'
               JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$post_id}%'     
-              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'signup_in_sandbox')  ";
+              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox')  ";
         $sql .= ' group by  p.ID';                
         $sql .= "  Having (( ppack LIKE 'Failure' ) ) ";        
         $result_array = $wpdb->get_results($sql, 'ARRAY_A');
@@ -153,7 +153,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               ON tpm.post_id = tp.post_id
               WHERE 
               tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND
-              wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'signup_in_sandbox' AND
+              wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox' AND
               tpm.`meta_value` = '0' AND tpm.`meta_key` = 'itg_txn_pt_status'    
                       )  ";
         $sql .= ' group by  p.ID';                
@@ -200,7 +200,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
               left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'    
               JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$_REQUEST['post']}%'     
-              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'signup_in_sandbox')  ";
+              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox')  ";
         $sql .= ' group by  p.ID';
         if (isset($_REQUEST['s'])) {
             $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
@@ -240,7 +240,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
                         wpm.post_id = tp.post_id
                     WHERE
                         tp.`meta_value` = '".$goal_id."' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND 
-                        wpm.`meta_value` = '".$sandbox."' AND wpm.`meta_key` = 'signup_in_sandbox'
+                        wpm.`meta_value` = '".$sandbox."' AND wpm.`meta_key` = 'itg_signup_in_sandbox'
                 )
                 GROUP BY
                 p.ID";
