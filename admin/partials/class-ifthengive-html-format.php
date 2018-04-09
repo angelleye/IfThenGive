@@ -1549,7 +1549,7 @@ class AngellEYE_IfThenGive_interface {
                     <p style="padding: 10px;font-size: 12px;font-family: inherit; color: #076799">'. __('Hi '.$user->display_name.',',ITG_TEXT_DOMAIN).'
                     <br><br>'.__('You have been removed from the following goal:  '.$trigger_name,ITG_TEXT_DOMAIN).'
                     <br><br>                    
-                    '.__('You will no longer be included in the donations that get processed with this goal occurs.',ITG_TEXT_DOMAIN).'
+                    '.__('You will no longer be included in the donations that get processed when this goal occurs.',ITG_TEXT_DOMAIN).'
                     <br><br>
                     '.__('Thanks!',ITG_TEXT_DOMAIN).'
                     </p>
