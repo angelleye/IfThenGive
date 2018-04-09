@@ -282,14 +282,14 @@ class AngellEYE_IfThenGive_Public_Display {
          * 2). user is not login and directly enter email that we stored in usermeta.                    
          */
         $external_email_userid='';
-        $records = $wpdb->get_row( "SELECT user_id FROM ".$wpdb->prefix."usermeta WHERE `meta_key` IN ('itg_gec_email','itg_external_email') AND `meta_value`='".$itguser['ifthengive_email']."' LIMIT 1", ARRAY_A );
-        if($records){
-           $external_email_userid=$records['user_id'];
-        }
-        else{
-            /*Nothing match in database*/
-            //echo 'here';
-        }
+//        $records = $wpdb->get_row( "SELECT user_id FROM ".$wpdb->prefix."usermeta WHERE `meta_key` IN ('itg_gec_email','itg_external_email') AND `meta_value`='".$itguser['ifthengive_email']."' LIMIT 1", ARRAY_A );
+//        if($records){
+//           $external_email_userid=$records['user_id'];
+//        }
+//        else{
+//            /*Nothing match in database*/
+//            //echo 'here';
+//        }
         
         $user_exist = email_exists($itguser['ifthengive_email']);
         /*If user exist then just add capabilities of giver with current capabilities. */
@@ -349,7 +349,7 @@ class AngellEYE_IfThenGive_Public_Display {
                 } 
                 $itguser['itg_signup_as_guest']='on';
                 //echo "<br>user not exist. i.e. Always new user to signup in goal but user is login<br>";
-                update_user_meta($user_id,'itg_external_email', $itguser['ifthengive_email']);
+                //update_user_meta($user_id,'itg_external_email', $itguser['ifthengive_email']);
             }            
         }        
         
