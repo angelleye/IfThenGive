@@ -42,7 +42,7 @@
             }
         });
                 
-        var room = jQuery("button#remove_dynamic_fields").length;
+        var room = jQuery("button.remove_dynamic_fields").length;
         if(room === 0){
             room = 1;
         }
@@ -55,7 +55,7 @@
             var divtest = document.createElement("div");
                 divtest.setAttribute("class", "form-group removeclass"+room);
                 var rdiv = 'removeclass'+room;
-            divtest.innerHTML = '<div class="col-sm-1 nopadding"><label class="control-label">Option </label></div><div class="col-sm-3 nopadding"><div class="form-group"><input type="text" class="form-control" id="option_name" name="option_name[]" value="" placeholder="Option Name"></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"><input type="text" class="form-control" id="option_amount" name="option_amount[]" value="" placeholder="Option Amount"><div class="input-group-btn"> <button class="btn btn-danger remove_dynamic_fields" type="button" data-fieldid="'+room+'"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+            divtest.innerHTML = '<div class="col-sm-1 nopadding"><label class="control-label">Option </label></div><div class="col-sm-3 nopadding"><div class="form-group"><input type="text" class="form-control" id="option_name'+room+'" autocomplete="off" name="option_name[]" value="" placeholder="Option Name"></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"><input type="text" class="form-control" id="option_amount'+room+'" autocomplete="off" name="option_amount[]" value="" placeholder="Option Amount"><div class="input-group-btn"> <button class="btn btn-danger remove_dynamic_fields" type="button" data-fieldid="'+room+'"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
             objTo.prepend(divtest);            
         });
         
