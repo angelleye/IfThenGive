@@ -76,7 +76,7 @@ class AngellEYE_IfThenGive_Post_types {
                         'add_new' => __('Add Goal', ITG_TEXT_DOMAIN),
                         'add_new_item' => __('Add New Goal', ITG_TEXT_DOMAIN),
                         'edit' => __('Edit', ITG_TEXT_DOMAIN),
-                        'edit_item' => __('View Goal', ITG_TEXT_DOMAIN),
+                        'edit_item' => __('Edit Goal', ITG_TEXT_DOMAIN),
                         'new_item' => __('New Goal', ITG_TEXT_DOMAIN),
                         'view' => __('View Goal', ITG_TEXT_DOMAIN),
                         'view_item' => __('View Goal', ITG_TEXT_DOMAIN),

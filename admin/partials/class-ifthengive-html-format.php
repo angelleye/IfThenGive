@@ -435,6 +435,8 @@ class AngellEYE_IfThenGive_interface {
              /*clipboard.on(\'error\', function(e) {
              console.log(e);
              });*/
+             jQuery(\'#title\').attr(\'readonly\',\'true\');
+             jQuery(\'.wp-heading-inline\').html(\'\').html(\'View Goal\');
         </script>';
         echo apply_filters('itg_filter_goal_view',$final,$post_ID);
     }
