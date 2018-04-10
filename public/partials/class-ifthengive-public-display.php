@@ -108,7 +108,7 @@ class AngellEYE_IfThenGive_Public_Display {
                                 if($amount == 'fixed'){
                                     $html .= '<div class="itg_post-title">';
                                     $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);                                
-                                    $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ). esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span">'.number_format($fixed_amount,2).'</span></h4>';
+                                    $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ). esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span">'.$fixed_amount.'</span></h4>';
                                     $html .= '</div>';                                    
                                 }                                
                                 elseif($amount == 'manual'){
@@ -119,10 +119,10 @@ class AngellEYE_IfThenGive_Public_Display {
                                 }
                                 else{
                                     $option_name = get_post_meta($post->ID,'option_name',true);
-                                    $option_amount = get_post_meta($post->ID,'option_amount',true);
+                                    $option_amount = get_post_meta($post->ID,'option_amount',true);                                    
                                     $i=0;
                                     $html .= '<div class="itg_post-title">';
-                                        $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span_select">'.number_format($option_amount[0],2).'</span></h4>';
+                                        $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span_select">'.$option_amount[0].'</span></h4>';
                                     $html .= '</div>';                                   
                                 }
                         $html .= '</div>'; // itg_post-content-details
@@ -176,7 +176,7 @@ class AngellEYE_IfThenGive_Public_Display {
                                                 $html .= '<select class="itg_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount">';
 
                                                 foreach ($option_name as $name) {
-                                                     $html .=  '<option value="'.number_format($option_amount[$i],2).'">'.$name." ".number_format($option_amount[$i],2).'</option>';                                        
+                                                     $html .=  '<option value="'.$option_amount[$i].'">'.$name." ".$option_amount[$i].'</option>';                                        
                                                 $i++;
                                                 }
                                                 $html .= '</select>';
@@ -223,7 +223,7 @@ class AngellEYE_IfThenGive_Public_Display {
         global $wpdb;
         /*Getting data from ajax */        
         $post_id = $_POST['post_id'];
-        $amount = number_format($_POST['amount'],2);        
+        $amount = filter_var(number_format($_POST['amount'],2), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         
         /* Get user information  from Form Data. */
         $itguser = array();
