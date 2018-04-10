@@ -115,15 +115,20 @@
                     post_id : post_id
                 },
                 dataType: "json",
+                beforeSend: function () {
+                    $('#itg_fun_refresh').removeClass('hidden');
+                }, 
                 success: function (result) {
                     if(result.in_process == 'true'){
                         
                         if(result.same_goal == 'true'){
                             var content = $('#div_goal_in_process').html();
                             alertify.alert('Transactions are in Process','').setContent(content).show();
+                            $('#itg_fun_refresh').addClass('hidden');
                         }
                         else{
                             alertify.alert('In Process', 'Other Donation Process are working. You can start when it gets over.!');
+                            $('#itg_fun_refresh').addClass('hidden');
                         }
                     }
                     else{
@@ -131,11 +136,13 @@
                         function ()
                         {                                        
                             alertify.success('Processing Donations...');
+                            $('#itg_fun_refresh').addClass('hidden');
                             window.location.href = $('#ifthengive_fun').attr('data-redirectUrl');
                         },
                         function ()
                         {
                             alertify.error('The donation process has been canceled.');
+                            $('#itg_fun_refresh').addClass('hidden');
                         });
                     }
                 }

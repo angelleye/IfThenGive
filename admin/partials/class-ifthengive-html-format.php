@@ -462,6 +462,7 @@ class AngellEYE_IfThenGive_interface {
                         <div class="col-md-12 text-center">
                             <span class="itg_text-info"><?php echo __('Click ', ITG_TEXT_DOMAIN); ?><strong><?php _e('"Process Donation"',ITG_TEXT_DOMAIN); ?></strong><?php echo __(' Button to Capture your Transactions.', ITG_TEXT_DOMAIN); ?></span><br/>
                             <a  style="margin-top: 10px" class="btn itg_btn-primary btn-lg" id="ifthengive_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" data-postid ="<?php echo $_REQUEST['post']; ?>" ><?php _e('Process Donation',ITG_TEXT_DOMAIN); ?></a>
+                            <span class="glyphicon glyphicon-refresh glyphicon-spin hidden" id="itg_fun_refresh" style="font-size: x-large;top: 14px;"></span>
                         </div>
                     <div class="hidden" id="div_goal_in_process">
                         <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions&process=continue_old'); ?>" class="btn btn-warning"><?php _e('Continue with remaning',ITG_TEXT_DOMAIN) ?></a>
