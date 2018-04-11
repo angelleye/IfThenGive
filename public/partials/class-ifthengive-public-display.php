@@ -108,13 +108,13 @@ class AngellEYE_IfThenGive_Public_Display {
                                 if($amount == 'fixed'){
                                     $html .= '<div class="itg_post-title">';
                                     $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);                                
-                                    $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ). esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span">'.$fixed_amount.'</span></h4>';
+                                    $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ). esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span_'.$post->ID.'">'.$fixed_amount.'</span></h4>';
                                     $html .= '</div>';                                    
                                 }                                
                                 elseif($amount == 'manual'){
                                     $manual_amount_input_value = get_post_meta($post->ID, 'manual_amount_input', true);
                                     $html .= '<div class="itg_post-title">';
-                                        $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_manual_price_span">'.$manual_amount_input_value.'</span></h4>';
+                                        $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_manual_price_span_'.$post->ID.'">'.$manual_amount_input_value.'</span></h4>';
                                     $html .= '</div>';                                   
                                 }
                                 else{
@@ -122,7 +122,7 @@ class AngellEYE_IfThenGive_Public_Display {
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);                                    
                                     $i=0;
                                     $html .= '<div class="itg_post-title">';
-                                        $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span_select">'.$option_amount[0].'</span></h4>';
+                                        $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span_select_'.$post->ID.'">'.$option_amount[0].'</span></h4>';
                                     $html .= '</div>';                                   
                                 }
                         $html .= '</div>'; // itg_post-content-details
@@ -158,22 +158,35 @@ class AngellEYE_IfThenGive_Public_Display {
                                         $user_id = '';
                                      }
                                     
-                                    $html .= '<form method="post" name="signup" id="ifthengive_signup">';                                        
+                                    $html .= '<form method="post" name="signup" id="ifthengive_signup_'.$post->ID.'">';                                        
                                         if($amount == 'fixed'){                                            
                                         }                                
                                         elseif($amount == 'manual'){
                                             $manual_amount_input_value = get_post_meta($post->ID, 'manual_amount_input', true);                                            
                                             $html .= '<div class="itg_form-group">';
                                                 $html .= '<label for="manualamout" class="itg_upper">'. esc_html('Enter Amount',ITG_TEXT_DOMAIN).'</label>';
-                                                $html .= '<input type="text" name="itg_manual_amount_input" value="'.$manual_amount_input_value.'" class="itg_form-control" autocomplete="off" id="itg_manual_amount_input" placeholder="Enter Amount"/>';
+                                                $html .= '<input type="text" name="itg_manual_amount_input" value="'.$manual_amount_input_value.'" class="itg_form-control" autocomplete="off" id="itg_manual_amount_input_'.$post->ID.'" placeholder="Enter Amount"/>';
                                             $html .= '</div>';
+                                            $html .= '<script>
+                                                        jQuery(document).on("keyup","#itg_manual_amount_input_'.$post->ID.'", function (){
+                                                            var amt = parseFloat(jQuery(this).val()).toFixed(2);
+                                                            if(isNaN(amt)){
+                                                                jQuery("#ifthengive_manual_price_span_'.$post->ID.'").html("").html("1.00");
+                                                            }else{
+                                                                jQuery("#ifthengive_manual_price_span_'.$post->ID.'").html("").html(amt);
+                                                            }
+                                                        });
+                                                        jQuery(document).on("input","#itg_manual_amount_input_'.$post->ID.'", function() {
+                                                            this.value = this.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+                                                        });
+                                                    </script>';
                                         }
                                         else{
                                             $option_name = get_post_meta($post->ID,'option_name',true);
                                             $option_amount = get_post_meta($post->ID,'option_amount',true);
                                             $i=0;                                           
                                             $html .= '<div class="itg_form-group">';
-                                                $html .= '<select class="itg_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount">';
+                                                $html .= '<select class="itg_form-control" name="ifthengive_option_amount" id="ifthengive_option_amount_'.$post->ID.'">';
 
                                                 foreach ($option_name as $name) {
                                                      $html .=  '<option value="'.$option_amount[$i].'">'.$name." ".$option_amount[$i].'</option>';                                        
@@ -181,6 +194,11 @@ class AngellEYE_IfThenGive_Public_Display {
                                                 }
                                                 $html .= '</select>';
                                             $html .= '</div>';
+                                            $html .= '<script>
+                                                        jQuery(document).on("change","#ifthengive_option_amount_'.$post->ID.'", function (){
+                                                            jQuery("#ifthengive_fixed_price_span_select_'.$post->ID.'").html("").html(jQuery(this).val());
+                                                        });
+                                                        </script>';
                                         }
                                         $html .= '<div class="itg_form-group">';                                        
                                           $html .= '<label class="itg_upper" for="name">'.esc_html('First Name',ITG_TEXT_DOMAIN).'</label>';
@@ -213,7 +231,8 @@ class AngellEYE_IfThenGive_Public_Display {
                                         $html .= '<button type="button" class="itg_btn itg_btn-primary" id="ifthengive_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="'.$user_id.'">'.esc_html('Sign Up For ',ITG_TEXT_DOMAIN) . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
                                     $html .= '</form>';
                                 $html .= '</div>'; // itgcontainer
-                            $html .= '</div>'; // itg_container                        
+                            $html .= '</div>'; // itg_container                                     
+                            
             }
         }
         return $html;        

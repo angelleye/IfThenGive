@@ -1,29 +1,30 @@
 (function( $ ) {
 	'use strict';
         jQuery(document).ready(function ($) {
-            $(document).on('click','#ifthengive_angelleye_checkout',function(){                
+            $(document).on('click','#ifthengive_angelleye_checkout',function(){      
+                var post_id = $(this).attr('data-postid');
                 var amount='';
                 var formData = '';
-                var user_id = '';
-                if ($('#ifthengive_fixed_price_span').length) {
-                    amount = $('#ifthengive_fixed_price_span').html();
+                var user_id = '';                
+                if ($('#ifthengive_fixed_price_span_'+post_id).length) {
+                    amount = $('#ifthengive_fixed_price_span_'+post_id).html();
                 }
-                if($('#ifthengive_fixed_price_span_select').length){
-                    amount = $('#ifthengive_fixed_price_span_select').html();
+                if($('#ifthengive_fixed_price_span_select_'+post_id).length){
+                    amount = $('#ifthengive_fixed_price_span_select_'+post_id).html();
                 }
-                if($('#ifthengive_manual_price_span').length){
-                    amount = $('#ifthengive_manual_price_span').html();
+                if($('#ifthengive_manual_price_span_'+post_id).length){
+                    amount = $('#ifthengive_manual_price_span_'+post_id).html();
                 }
                 
-                formData = $("#ifthengive_signup").serialize();                
-                user_id = $(this).attr('data-userid');                
+                formData = $('#ifthengive_signup_'+post_id).serialize();                
+                user_id = $(this).attr('data-userid');                               
                 
                 $.ajax({
                     type: 'POST',
                     url: admin_ajax_url,
                      data: { 
                         action: 'start_express_checkout',
-                        post_id : $(this).attr('data-postid'),
+                        post_id : post_id,
                         amount : amount,
                         formData: formData,
                         login_user_id : user_id
@@ -68,14 +69,17 @@
                     }
                 });
             });
-            $(document).on('change','#ifthengive_option_amount', function (){                
+/*           
+ * Below commented code are now in the shortcode page. coming with the html and inline script tag to
+ * manage with post id and diffrentiate it while page have multiple goals.
+ * $(document).on('change','#ifthengive_option_amount', function (){                
                 jQuery('#ifthengive_fixed_price_span_select').html('').html($(this).val());
             });
             
             $(document).on('keyup','#itg_manual_amount_input', function (){
                 var amt = parseFloat($(this).val()).toFixed(2);
                 if(isNaN(amt)){
-                    jQuery('#ifthengive_manual_price_span').html('').html('50.00');
+                    jQuery('#ifthengive_manual_price_span').html('').html('1.00');
                 }else{
                     jQuery('#ifthengive_manual_price_span').html('').html(amt);
                 }
@@ -84,7 +88,7 @@
             $(document).on('input','#itg_manual_amount_input', function() {
                 this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
             });
-            
+            */
             $(document).on('click','#itg_signup_as_guest',function() {
                 if($(this).is(":checked")) {
                     $(".itg-password").show(300);
