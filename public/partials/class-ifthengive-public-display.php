@@ -84,7 +84,7 @@ class AngellEYE_IfThenGive_Public_Display {
             $post = get_post($id);
             if(!empty($post->post_type) && $post->post_type == 'ifthengive_goals' && $post->post_status == 'publish') {
         
-                $html .= '<div id="overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">';
+                $html .= '<div class="overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">';
                 $html .=  '<div class="itg_loader"></div>
                            <h1 style="font-weight: 600;">'.esc_html('Processing...',ITG_TEXT_DOMAIN).'</h1></div>';                
                 $html .= '<div class="itg_container">';

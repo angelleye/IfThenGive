@@ -17,12 +17,7 @@
                 }
                 
                 formData = $('#ifthengive_signup_'+post_id).serialize();                
-                user_id = $(this).attr('data-userid');                               
-                console.log(post_id);
-                console.log(amount);
-                console.log(formData);
-                console.log(user_id);
-                return false;
+                user_id = $(this).attr('data-userid');                                               
                 $.ajax({
                     type: 'POST',
                     url: admin_ajax_url,
@@ -35,7 +30,7 @@
                     },
                     dataType: "json",
                     beforeSend: function () {
-                        $('#overlay').show();
+                        $('.overlay:last').show();
                     },                
                     success: function (result) {                      
                        if(result.Ack == 'Success'){                            
@@ -43,7 +38,7 @@
                        }
                        else{
                            if( result.Ack == 'ValidationError'){
-                             $('#overlay').hide();
+                             $('.overlay:last').hide();
                              $('#connect_paypal_error_public_'+post_id).show();
                              $('#connect_paypal_error_p_'+post_id).html('').html('<strong>Acknowledgement :</strong> ' + result.Ack);
                              $('#connect_paypal_error_p_'+post_id).append('<br><strong>Error Code :</strong> ' + result.ErrorCode);
