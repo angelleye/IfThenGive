@@ -99,7 +99,7 @@ class AngellEYE_IfThenGive_Public_Display {
                             $html .= '</div>';
 
                             $html .= '<div class="itg_post-content-details">'; 
-                                $html .= '<div class="itg_post-description" id="scrolltopid">
+                                $html .= '<div class="itg_post-description" id="scrolltopid_'.$post->ID.'">
                                             <p>'.get_post_meta( $post->ID, 'trigger_desc', true ).'</p>
                                           </div>';
                                 $html .= $post->post_content;                                                                                
@@ -133,8 +133,8 @@ class AngellEYE_IfThenGive_Public_Display {
                         $html .= '<abbr>'.esc_html('Sign up for ',ITG_TEXT_DOMAIN). get_post_meta( $post->ID, 'trigger_name', true ).'</abbr>';
                         $html .= '</div>';
                                                              
-                        $html .= '<div class="itg_alert itg_alert-warning" id="connect_paypal_error_public" style="display: none">';
-                        $html .= '<span id="connect_paypal_error_p"></span>';
+                        $html .= '<div class="itg_alert itg_alert-warning" id="connect_paypal_error_public_'.$post->ID.'" style="display: none">';
+                        $html .= '<span id="connect_paypal_error_p_'.$post->ID.'"></span>';
                         $html .= '</div>';
                         
 /*                        $html .= '<p class="text-info">'.__('Instructions',ITG_TEXT_DOMAIN).'</p>';
