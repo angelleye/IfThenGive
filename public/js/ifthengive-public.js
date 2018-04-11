@@ -1,7 +1,7 @@
 (function( $ ) {
 	'use strict';
         jQuery(document).ready(function ($) {
-            $(document).on('click','#ifthengive_angelleye_checkout',function(){      
+            $(document).on('click','.ifthengive_angelleye_checkout',function(){      
                 var post_id = $(this).attr('data-postid');
                 var amount='';
                 var formData = '';
@@ -18,7 +18,11 @@
                 
                 formData = $('#ifthengive_signup_'+post_id).serialize();                
                 user_id = $(this).attr('data-userid');                               
-                
+                console.log(post_id);
+                console.log(amount);
+                console.log(formData);
+                console.log(user_id);
+                return false;
                 $.ajax({
                     type: 'POST',
                     url: admin_ajax_url,
@@ -88,14 +92,15 @@
             $(document).on('input','#itg_manual_amount_input', function() {
                 this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
             });
-            */
+           
             $(document).on('click','#itg_signup_as_guest',function() {
                 if($(this).is(":checked")) {
                     $(".itg-password").show(300);
                 } else {
                     $(".itg-password").hide(200);
                 }
-            });
+            }); 
+        */
             
             //Check if function exists
             $.fn.exists = function () {
