@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Don't allow direct access
 get_header();
 ?>
 
-<div class="itg_center_container">
+<div class="itg_center_container" style="display: inline-block;width: 100%;padding-bottom: 75px;">
     <div class="itgcontainer">
         <div class="itg_heading itg_heading-center">            
 <?php
