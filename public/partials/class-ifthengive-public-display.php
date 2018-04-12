@@ -247,7 +247,7 @@ class AngellEYE_IfThenGive_Public_Display {
         return $html;        
     }
          
-    public function start_express_checkout(){        
+    public static function start_express_checkout(){        
         global $wpdb;
         /*Getting data from ajax */        
         $post_id = $_POST['post_id'];

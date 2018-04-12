@@ -354,12 +354,18 @@ class Ifthengive {
                         }
                         else{                
                             /*it makes user a normal login*/
-                            if($_SESSION['itg_guest_user'] == 'no'){
+                            if(isset($_SESSION['itg_guest_user']) && $_SESSION['itg_guest_user'] == 'no'){
                                 wp_new_user_notification($goal_user_id,null,'user');
                                 wp_set_auth_cookie( $goal_user_id, true );
                             }                            
                         }
                             
+                        if(isset($_SESSION['itg_guest_user'])){
+                            $guest_user = $_SESSION['itg_guest_user'];
+                        }
+                        else{
+                            $guest_user = '';
+                        }
                         /* save GetExpressCheckoutDetails to User Meta */
                         update_user_meta($goal_user_id,'itg_gec_email', $PayPalResultGEC['EMAIL']);                     
                         update_user_meta($goal_user_id,'itg_gec_payer_id',$PayPalResultGEC['PAYERID']);
@@ -367,7 +373,7 @@ class Ifthengive {
                         update_user_meta($goal_user_id,'itg_gec_last_name',$PayPalResultGEC['LASTNAME']);
                         update_user_meta($goal_user_id,'itg_gec_country_code',$PayPalResultGEC['COUNTRYCODE']);
                         update_user_meta($goal_user_id,'itg_gec_currency_code',$PayPalResultGEC['CURRENCYCODE']);
-                        update_user_meta($goal_user_id,'itg_guest_user',$_SESSION['itg_guest_user']);
+                        update_user_meta($goal_user_id,'itg_guest_user',$guest_user);
                         $signedup_goals= get_user_meta($goal_user_id,'itg_signedup_goals',true);
                         if($signedup_goals !=''){
                         $signedup_goals = $signedup_goals."|".$goal_post_id;
