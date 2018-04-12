@@ -38,6 +38,9 @@ class IfThenGive_Activator {
         if (!get_option('itg_currency_code ')) {
             add_option('itg_currency_code ', 'USD');
         }
+        if (!get_option('itg_log_enable ')) {
+            add_option('itg_log_enable ', 'yes');
+        }
         /* set_transient added for endpoints. */
         set_transient( 'itg_flush', 1, 60 );
     } 
