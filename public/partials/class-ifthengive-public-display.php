@@ -501,16 +501,26 @@ class AngellEYE_IfThenGive_Public_Display {
             'BillingAgreements' => $BillingAgreements,
         );
         $PayPalResult = $PayPal->SetExpressCheckout($PayPalRequestData);        
-        if($PayPal->APICallSuccessful($PayPalResult['ACK']))
-        {            
-            echo json_encode(array('Ack'=>'Success','RedirectURL'=>$PayPalResult['REDIRECTURL']));
+        if($PayPalResult['RAWRESPONSE'] != false){
+            if(isset($PayPalResult['ACK'])){
+                if($PayPal->APICallSuccessful($PayPalResult['ACK']))
+                {            
+                    echo json_encode(array('Ack'=>'Success','RedirectURL'=>$PayPalResult['REDIRECTURL']));
+                }
+                else
+                {
+                    echo json_encode(array('Ack'=>'Failure','ErrorCode'=>$PayPalResult['L_ERRORCODE0'],'ErrorShort'=>$PayPalResult['L_SHORTMESSAGE0'],'ErrorLong'=>$PayPalResult['L_LONGMESSAGE0']));            
+                }
+            }
+            else{
+                echo json_encode(array('Ack'=>'Failure','ErrorCode'=>'0','ErrorShort'=>__('No PayPal Acknowledgement',ITG_TEXT_DOMAIN),'ErrorLong'=>__('No PayPal Acknowledgement',ITG_TEXT_DOMAIN)));
+            }
         }
-        else
-        {
-            echo json_encode(array('Ack'=>'Failure','ErrorCode'=>$PayPalResult['L_ERRORCODE0'],'ErrorShort'=>$PayPalResult['L_SHORTMESSAGE0'],'ErrorLong'=>$PayPalResult['L_LONGMESSAGE0']));            
+        else{
+            echo json_encode(array('Ack'=>'Failure','ErrorCode'=>'0','ErrorShort'=>__('Something went wrong.',ITG_TEXT_DOMAIN),'ErrorLong'=>__('PayPal Timeout issue or SSL issue.',ITG_TEXT_DOMAIN)));
         }
         exit;
-    }    
+    }
     
     public static function ifthengive_my_transactions(){
         $table = new AngellEYE_IfThenGive_My_Transactions_Table();
