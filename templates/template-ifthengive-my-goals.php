@@ -19,7 +19,7 @@ if(! is_admin()){
     <div class="itg_loader"></div>
     <h1 style="font-weight: 600;">Processing...</h1>
 </div>
-<div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Goals', ITG_TEXT_DOMAIN) ?></abbr></div>
+<div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php _e('Goals', ITG_TEXT_DOMAIN) ?></abbr></div>
 <div class="itg_center_container">   
     <div class="itgcontainer">
         <div class="itg_table-responsive">

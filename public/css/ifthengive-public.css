@@ -60,6 +60,7 @@
     top: -10px;
     letter-spacing: .2em;
     text-transform: uppercase;
+    border-bottom: 0px;
 }
 .itg_hr-title abbr {
     background-color: #ffffff;    
@@ -96,7 +97,7 @@
     min-height: 100%;
     display: inline-block;
     width: 100%;
-    height: 100vh;
+/*    height: 100vh;*/
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
@@ -171,7 +172,7 @@ select[name=IfThenGive_Goals_Table_length]:focus{
 
 .itg_heading {
     padding-top: 80px;
-    margin-bottom: 80px;
+    padding-bottom: 80px;
 }
 .itg_heading h3 {
     font-size: 30px;
@@ -533,7 +534,7 @@ Tabs
 -------------------------------------------------------------------------*/
 
 .itgcontainer .tabs-navigation {
-    margin-bottom: 0px;
+    margin: 0px;
     padding: 0;
     border-bottom-width: 0px;
     list-style: none;

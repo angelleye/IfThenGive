@@ -23,7 +23,7 @@ if (!is_admin()) {
     ?>
     <div class="itg_center_container">
         <div class="itgcontainer">
-            <div class="itg_heading itg_heading-center">                        
+            <div class="itg_heading itg_heading-center" style="padding-top: 10px;padding-bottom: 10px">                        
                 <h3><?php _e("Account", ITG_TEXT_DOMAIN); ?></h3>
             </div>   
             <div id="itg-tabs" class="tabs border">                    
