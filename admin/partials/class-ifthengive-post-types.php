@@ -200,27 +200,27 @@ class AngellEYE_IfThenGive_Post_types {
             if($_POST['fixed_radio']=='fixed'){
                 $fixed_amount_input = filter_var(number_format($_POST['fixed_amount_input'],2),FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
                 update_post_meta($post_ID, 'amount','fixed');
-                if(empty(trim($_POST['manual_amount_input']))){
-                    $_POST['fixed_amount_input']=1.00;
-                }
+                if(empty(trim($_POST['fixed_amount_input'])) || $fixed_amount_input == 0){
+                    $fixed_amount_input=filter_var('1.00',FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+                }               
                 update_post_meta($post_ID, 'fixed_amount_input',$fixed_amount_input);
             }
             elseif($_POST['fixed_radio']=='manual'){
                 $manual_amount_input = filter_var(number_format($_POST['manual_amount_input'],2),FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
                 update_post_meta($post_ID, 'amount','manual');
-                if(empty(trim($_POST['manual_amount_input']))){
-                    $_POST['manual_amount_input']=1.00;
+                if(empty(trim($_POST['manual_amount_input'])) || $manual_amount_input == 0){
+                    $manual_amount_input=filter_var('1.00',FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
                 }
                 update_post_meta($post_ID, 'manual_amount_input',$manual_amount_input);
             }
             else{
                 $amountArray = array();                
                 foreach ($_POST['option_amount'] as $amount) {
-                    if(!empty($amount)){
-                        $amountArray[] = filter_var(number_format($amount,2), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                    if(empty(trim($amount)) || $amount == 0 ){
+                        $amountArray[] = filter_var('1.00',FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
                     }
-                    else{
-                        $amountArray[] = 1.00;
+                    else{                        
+                        $amountArray[] = filter_var(number_format($amount,2), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                     }
                 }
                 update_post_meta($post_ID, 'amount','select');
