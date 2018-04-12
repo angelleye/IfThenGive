@@ -349,7 +349,7 @@ class AngellEYE_IfThenGive_interface {
                         jQuery('#preview-goal .select_amount').css('display','block');
                         var selectamt = parseFloat(jQuery('input[name="option_amount[]"]').val()).toFixed(2);
                         if(isNaN(selectamt)){
-                            jQuery('#ifthengive_fixed_price_span_select').html('').html('50.00');
+                            jQuery('#ifthengive_fixed_price_span_select').html('').html('1.00');
                         }else{
                             jQuery('#ifthengive_fixed_price_span_select').text(selectamt);
                         }                        
@@ -358,8 +358,9 @@ class AngellEYE_IfThenGive_interface {
                         var option_amounts = jQuery('input[name="option_amount[]"]').val();
                         jQuery("#ifthengive_option_amount").html('');
                         jQuery('input[name="option_name[]"]').each(function() {
-                            var option_name = jQuery(this).val();
-                            var option_amount = parseFloat(jQuery('[id=option_amount]:eq('+i+')').val()).toFixed(2);
+                            var option_name = jQuery('[id=option_name'+(i+1)).val();
+                            var option_amount = parseFloat(jQuery('[id=option_amount'+(i+1)).val()).toFixed(2);
+                            console.log(option_amount);
                             if(isNaN(option_amount)){
                                 option_amount = '0.00';
                             }
