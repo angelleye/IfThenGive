@@ -276,7 +276,12 @@ class AngellEYE_IfThenGive_Public_Display {
             if ($itguser['ifthengive_password'] !== $itguser['ifthengive_retype_password']) {
                 $ValidationErrors['Password'] = __("Mismatch Input : Password Fields are not matched",ITG_TEXT_DOMAIN);
             }
-        }                                
+        }
+        if(isset($itguser['itg_signup_as_guest']) && $itguser['itg_signup_as_guest']=='on'){
+            if (isset($itguser['ifthengive_password']) && empty($itguser['ifthengive_password'])) {
+                $ValidationErrors['PasswordRequired'] = __("Mismatch Input : Password Field is required",ITG_TEXT_DOMAIN);
+            }
+        }
         if(!empty($ValidationErrors)){
             echo json_encode(array('Ack'=>__('ValidationError',ITG_TEXT_DOMAIN),'ErrorCode'=>__('Invalid Inputs',ITG_TEXT_DOMAIN),'ErrorLong'=>__('Please find Following Error',ITG_TEXT_DOMAIN),'Errors'=>$ValidationErrors));
             exit;
