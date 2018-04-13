@@ -17,7 +17,7 @@ get_header();
 ?>
 <div class="itg_center_container">
     <div class="itgcontainer">
-        <div class="itg_heading itg_heading-center">
+        <div class="itg_heading itg_heading-center" style="padding-top: 10px;padding-bottom: 10px">
 <?php
 if(isset($_SESSION['ITG_Error']) && isset($_SESSION['ITG_Error_Type'])){
     ?>
