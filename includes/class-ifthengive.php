@@ -313,32 +313,42 @@ class Ifthengive {
                 $PayPal->APIButtonSource = ITG_BUTTON_SOURCE;
                 $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
                
-                $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);                
-                if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){
-                                        
-                    $amount = $_SESSION['itg_signup_amount'];                                        
-                    $goal_post_id = $_SESSION['itg_signup_wp_goal_id'];                 
-                    $goal_user_id = $_SESSION['itg_signup_wp_user_id'];
+                $PayPalResultGEC = $PayPal->GetExpressCheckoutDetails($token);  
+                if ($PayPalResultGEC['RAWRESPONSE'] !== false){   
+                    if($PayPal->APICallSuccessful($PayPalResultGEC['ACK'])){
+
+                        $amount = $_SESSION['itg_signup_amount'];                                        
+                        $goal_post_id = $_SESSION['itg_signup_wp_goal_id'];                 
+                        $goal_user_id = $_SESSION['itg_signup_wp_user_id'];
+                    }
+                    else{
+                        $_SESSION['ITG_Error'] = true;
+                        $_SESSION['ITG_Error_Type'] = __('PayPal Get Express Checkout Error',ITG_TEXT_DOMAIN);
+                        $_SESSION['ITG_Error_Array'] = $PayPalResultGEC['ERRORS'];                    
+                        /* save log */
+                        $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
+                        if ('yes' == $debug) {
+                            $logArray = '';
+                            $logArray = $PayPalResultGEC;
+                            $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultGEC['RAWREQUEST']);
+                            $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
+                            $log_write = new AngellEYE_IfThenGive_Logger();
+                            $log_write->add('angelleye_ifthengive_express_checkout', 'GetExpressCheckout Failed : ' . print_r($logArray, true), 'express_checkout');
+                        }
+                        wp_redirect(site_url('itg-error'));
+                        exit;
+                    }
                 }
                 else{
                     $_SESSION['ITG_Error'] = true;
-                    $_SESSION['ITG_Error_Type'] = __('PayPal Error',ITG_TEXT_DOMAIN);
-                    $_SESSION['ITG_Error_Array'] = $PayPalResultGEC['ERRORS'];                    
-                    /* save log */
-                    $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
-                    if ('yes' == $debug) {
-                        $logArray = '';
-                        $logArray = $PayPalResultGEC;
-                        $logArray['RAWREQUEST'] = $PayPal->MaskAPIResult($PayPalResultGEC['RAWREQUEST']);
-                        $logArray['REQUESTDATA'] = $PayPal->NVPToArray($logArray['RAWREQUEST']);
-                        $log_write = new AngellEYE_IfThenGive_Logger();
-                        $log_write->add('angelleye_ifthengive_express_checkout', 'GetExpressCheckout Failed : ' . print_r($logArray, true), 'express_checkout');
-                    }
+                    $_SESSION['ITG_Error_Type'] = __('Internal server Error. or Timout error occured.',ITG_TEXT_DOMAIN);
+                    $_SESSION['ITG_Error_Array'] = array();
                     wp_redirect(site_url('itg-error'));
                     exit;
                 }
                     $PayPalResultCBA = $PayPal->CreateBillingAgreement($token);
-                    if($PayPal->APICallSuccessful($PayPalResultCBA['ACK'])){
+                    if ($PayPalResultCBA['RAWRESPONSE'] !== false){
+                        if($PayPal->APICallSuccessful($PayPalResultCBA['ACK'])){
                         
                         /*inserting new user and if user_id is available then update user.*/
                         $goal_user_id = wp_insert_user($_SESSION['itg_user_data']);                        
@@ -434,9 +444,9 @@ class Ifthengive {
                         wp_redirect(site_url('itg-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr));
                         exit;
                     }
-                    else{
+                        else{
                         $_SESSION['ITG_Error'] = true;
-                        $_SESSION['ITG_Error_Type'] = 'PayPalError';
+                        $_SESSION['ITG_Error_Type'] = 'PayPal Create Biling Aagreement Error';
                         $_SESSION['ITG_Error_Array'] = $PayPalResultCBA;
                         /*save log*/
                         $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
@@ -451,6 +461,15 @@ class Ifthengive {
                         wp_redirect(site_url('itg-error'));
                         exit;
                     }
+                    }
+                    else{
+                        $_SESSION['ITG_Error'] = true;
+                        $_SESSION['ITG_Error_Type'] = __('Internal server Error. or Timout error occured.',ITG_TEXT_DOMAIN);
+                        $_SESSION['ITG_Error_Array'] = array();
+                        wp_redirect(site_url('itg-error'));
+                        exit;
+                    }
+                    
             }                        
         }                
 }
