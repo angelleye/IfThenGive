@@ -353,7 +353,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
                     $label = __('Activate',ITG_TEXT_DOMAIN);
                     $class = "btn-defalt";
                 }            
-                echo apply_filters('itg_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-itgchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,ITG_TEXT_DOMAIN).'</button> ',$_REQUEST['post']);
+                //echo apply_filters('itg_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-itgchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,ITG_TEXT_DOMAIN).'</button> ',$_REQUEST['post']);
                 echo '<button type="button" class="btn btn-danger btn-sm btn-dgiver" data-signupid="'.$item['signup_postid'].'" data-goalid="'.$_REQUEST['post'].'" data-userid="'.$item['user_id'].'"><span></span>'.__(' Delete',ITG_TEXT_DOMAIN).'</button>';
             }
             break;
