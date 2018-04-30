@@ -751,6 +751,7 @@ class AngellEYE_IfThenGive_interface {
                                         if($progress == 100){ ?>
                                             <script>
                                                 jQuery('.progress-bar').addClass('progress-bar-success');
+                                                jQuery('.progress-bar').removeClass('progress-bar-striped');
                                             </script>
                                             <?php
                                             update_option('itg_transaction_complete', 'yes');
@@ -1262,6 +1263,7 @@ class AngellEYE_IfThenGive_interface {
                                         if($progress == 100){ ?>
                                             <script>
                                                 jQuery('.progress-bar').addClass('progress-bar-success');
+                                                jQuery('.progress-bar').removeClass('progress-bar-striped');
                                             </script>
                                             <?php
                                             update_option('itg_transaction_complete', 'yes');
