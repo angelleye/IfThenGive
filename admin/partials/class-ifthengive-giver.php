@@ -422,8 +422,9 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
       $sortable_columns = array(
         'BillingAgreement' => array( 'BillingAgreement', true ),
         'DisplayName' => array('DisplayName',true),
-        'Email' => array('Email',true),
-        'amount' =>  array( 'amount', true )
+        'Email' => array('CoreEmail',true),
+        'amount' =>  array( 'amount', true ),
+        'BADate' => array('BADate', true)
       );
 
       return $sortable_columns;
