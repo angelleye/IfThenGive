@@ -35,7 +35,7 @@ class AngellEYE_IfThenGive_Post_types {
             echo '.wp-list-table .column-BillingAgreement { width: 15%; }';
             echo '.wp-list-table .column-DisplayName { width: 15%; }';
             echo '.wp-list-table .column-Email { width: 20%; }';  
-            echo '.wp-list-table .column-PayPalInfo { width: 10%; }';
+            echo '.wp-list-table .column-PayPalInfo { width: 11%; }';
             echo '.wp-list-table .column-amount { width: 8%; }';            
             echo '.wp-list-table .column-BADate { width: 11%; }';
             echo '.wp-list-table .column-ITGAction { width: 15%; }';        
@@ -54,7 +54,7 @@ class AngellEYE_IfThenGive_Post_types {
             echo '.wp-list-table .column-email { width: 25%; }';           
             echo '.wp-list-table .column-ppack { width: 11%; }';
             echo '.wp-list-table .column-Txn_date { width: 11%; }';
-            echo '.wp-list-table .column-ppinfo { width: 10%; }';            
+            echo '.wp-list-table .column-ppinfo { width: 11%; }';            
             echo '</style>';   
             echo '<script>
             $(document).ready(function(){
