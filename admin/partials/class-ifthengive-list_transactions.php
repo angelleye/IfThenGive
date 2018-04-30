@@ -23,8 +23,8 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
     public function __construct() {
 
         parent::__construct([
-            'singular' => __('Giver', ITG_TEXT_DOMAIN), //singular name of the listed records
-            'plural' => __('Givers', ITG_TEXT_DOMAIN), //plural name of the listed records
+            'singular' => __('transaction', ITG_TEXT_DOMAIN), //singular name of the listed records
+            'plural' => __('transactions', ITG_TEXT_DOMAIN), //plural name of the listed records
             'ajax' => false //should this table support ajax?
         ]);
     }
@@ -55,6 +55,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
         $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_email') as user_paypal_email,
              (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
+             (SELECT usr.user_email from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as core_email,
               pm.post_id,
               pm.meta_value as amount,
               b.meta_value as userId,
@@ -106,6 +107,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
         $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_email') as user_paypal_email,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
+             (SELECT usr.user_email from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as core_email,
              (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
               pm.post_id,
               pm.meta_value as amount,
@@ -134,6 +136,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
         $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_email') as user_paypal_email,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
+             (SELECT usr.user_email from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as core_email,
              (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
               pm.post_id,
               pm.meta_value as amount,
@@ -188,6 +191,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
         
         $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_email') as user_paypal_email,
+             (SELECT usr.user_email from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as core_email,
              (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
               pm.post_id,
               pm.meta_value as amount,
@@ -296,12 +300,18 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
                 $symbol = $paypal->get_currency_symbol($ccode);
                 _e($symbol.number_format($item['amount'],2),ITG_TEXT_DOMAIN);
                 break;
-            case 'PayPalPayerID' :
-                _e($item['PayPalPayerID'],ITG_TEXT_DOMAIN);
+            case 'email':
+                 _e($item['core_email'],ITG_TEXT_DOMAIN);
                 break;
-            case 'user_paypal_email' :
-                _e($item['user_paypal_email'],ITG_TEXT_DOMAIN);
-                break;
+            case 'ppinfo' :
+                echo '<a href="#" class="btn btn-info" '
+                    . 'title="PayPal Details of '.$item['user_display_name'].'" '
+                    . ' data-toggle="popover"'
+                    . ' data-placement="top" '
+                    . ' data-html="true" '
+                    . ' data-content="<div><p><strong>PayPal Email: </strong><br>'.$item['user_paypal_email'].'</p><p><strong>PayPal PayerID: </strong>'.$item['PayPalPayerID'].'</p></div>">'
+                    . 'See Details</a>';
+                break;                        
             case 'ppack' :
                 _e($item['ppack'],ITG_TEXT_DOMAIN);
                 break;
@@ -319,9 +329,9 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
      * @return string
      */
     public function column_cb($item) {
-        return sprintf(
-                '<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['user_id']
-        );
+//        return sprintf(
+//                '<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['user_id']
+//        );
     }
 
     /**
@@ -334,10 +344,12 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
             'transactionId' => __('Transaction ID', ITG_TEXT_DOMAIN),
             'user_display_name' => __('Name', ITG_TEXT_DOMAIN),
             'amount' => __('Amount', ITG_TEXT_DOMAIN),
-            'user_paypal_email' => __('PayPal Email ID', ITG_TEXT_DOMAIN),
-            'PayPalPayerID' => __('PayPal Payer ID', ITG_TEXT_DOMAIN),
+//            'user_paypal_email' => __('PayPal Email ID', ITG_TEXT_DOMAIN),
+//            'PayPalPayerID' => __('PayPal Payer ID', ITG_TEXT_DOMAIN),
+            'email' => __('Email', ITG_TEXT_DOMAIN),
             'ppack' => __('Payment Status', ITG_TEXT_DOMAIN),
-            'Txn_date' => __('Payment Date', ITG_TEXT_DOMAIN)
+            'Txn_date' => __('Payment Date', ITG_TEXT_DOMAIN),
+            'ppinfo' => __('PayPal Info', ITG_TEXT_DOMAIN),
         ];
 
         return $columns;

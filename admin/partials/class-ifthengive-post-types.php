@@ -48,14 +48,19 @@ class AngellEYE_IfThenGive_Post_types {
         }
         elseif( 'ListTransactions' == $page || 'GetUsersTransactions' == $page){
             echo '<style type="text/css">';            
-            echo '.wp-list-table .column-transactionId { width: 13%; }';      
+            echo '.wp-list-table .column-transactionId { width: 15%; }';      
             echo '.wp-list-table .column-user_display_name { width: 15%; }';
-            echo '.wp-list-table .column-amount { width: 7%; }';
-            echo '.wp-list-table .column-user_paypal_email { width: 25%; }';
-            echo '.wp-list-table .column-PayPalPayerID { width: 15%; }';
+            echo '.wp-list-table .column-amount { width: 8%; }';
+            echo '.wp-list-table .column-email { width: 25%; }';           
             echo '.wp-list-table .column-ppack { width: 11%; }';
-            echo '.wp-list-table .column-Txn_date { width: 11%; }';            
-            echo '</style>';            
+            echo '.wp-list-table .column-Txn_date { width: 11%; }';
+            echo '.wp-list-table .column-ppinfo { width: 10%; }';            
+            echo '</style>';   
+            echo '<script>
+            $(document).ready(function(){
+                $(\'[data-toggle="popover"]\').popover();   
+            });
+            </script>';
         }        
         else{
             return; 

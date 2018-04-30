@@ -308,16 +308,14 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         case 'BillingAgreement':
              _e($item['BillingAgreement'],ITG_TEXT_DOMAIN);
             break;
-        case 'PayPalInfo':
-                $item['PayPalEmail'];
-                $item['PayPalPayerID'];
-                echo '<a href="#" class="btn btn-info" '
-                        . 'title="PayPal Details of '.$item['DisplayName'].'" '
-                        . ' data-toggle="popover"'
-                        . ' data-placement="top" '
-                        . ' data-html="true" '
-                        . ' data-content="<div><p><strong>PayPal Email: </strong><br>'.$item['PayPalEmail'].'</p><p><strong>PayPal PayerID: </strong>'.$item['PayPalPayerID'].'</p></div>">'
-                        . 'See Details</a>';
+        case 'PayPalInfo':                
+            echo '<a href="#" class="btn btn-info" '
+                    . 'title="PayPal Details of '.$item['DisplayName'].'" '
+                    . ' data-toggle="popover"'
+                    . ' data-placement="top" '
+                    . ' data-html="true" '
+                    . ' data-content="<div><p><strong>PayPal Email: </strong><br>'.$item['PayPalEmail'].'</p><p><strong>PayPal PayerID: </strong>'.$item['PayPalPayerID'].'</p></div>">'
+                    . 'See Details</a>';
             break;            
         case 'amount' :
             $ccode = get_option('itg_currency_code');
