@@ -53,6 +53,6 @@ if (!is_admin()) {
 <?php    
     }
     else{
-        echo "Please login to site.";
+        _e("Please login to site.",ITG_TEXT_DOMAIN);
     }
 }

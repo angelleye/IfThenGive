@@ -14,6 +14,8 @@ if (!defined('ABSPATH'))
 
 <?php
 if(! is_admin()){
+        $userID = get_current_user_id();
+        if(is_int($userID) && $userID > 0){
 ?>
 <div id="adjust_amount_overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
     <div class="itg_loader"></div>
@@ -183,3 +185,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
     });
 </script>
 <?php }
+    else{
+        _e("Please login to site.",ITG_TEXT_DOMAIN);
+    }
+}

@@ -14,6 +14,8 @@ if (!defined('ABSPATH'))
 
 <?php
 if(! is_admin()){
+    $userID = get_current_user_id();
+    if(is_int($userID) && $userID > 0){
 ?>
 <div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php _e('Transactions', ITG_TEXT_DOMAIN) ?></abbr></div>
 <div class="itg_center_container">   
@@ -89,3 +91,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
     });
 </script>
 <?php }
+    else{
+        _e("Please login to site.",ITG_TEXT_DOMAIN);
+    }
+}
