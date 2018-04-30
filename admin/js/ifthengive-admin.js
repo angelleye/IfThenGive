@@ -176,7 +176,7 @@
                         }
                     }
                     else{
-                        alertify.confirm('Process Donation', 'Are you ready to process donations for all Givers on this goal?',
+                        alertify.confirm('Retry all failed transactions', 'Are you ready to process all failed transactions on this goal?',
                         function ()
                         {                                        
                             alertify.success('Processing Donations...');
