@@ -365,8 +365,8 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
             'transactionId' => array('transactionId', true),
             'user_display_name' => array('user_display_name', true),
             'amount' => array('amount', true),
-            'user_paypal_email' => array('user_paypal_email', true),
-            'PayPalPayerID' => array('PayPalPayerID', true)
+            'email' => array('core_email', true),
+            'Txn_date' => array('Txn_date', true)
         );
 
         return $sortable_columns;
