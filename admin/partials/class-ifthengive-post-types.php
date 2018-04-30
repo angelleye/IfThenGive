@@ -34,12 +34,17 @@ class AngellEYE_IfThenGive_Post_types {
             echo '<style type="text/css">';            
             echo '.wp-list-table .column-BillingAgreement { width: 15%; }';
             echo '.wp-list-table .column-DisplayName { width: 15%; }';
-            echo '.wp-list-table .column-PayPalEmail { width: 25%; }';
-            echo '.wp-list-table .column-amount { width: 7%; }';
-            echo '.wp-list-table .column-PayPalPayerID { width: 11%; }';
-            echo '.wp-list-table .column-BADate { width: 10%; }';
+            echo '.wp-list-table .column-Email { width: 20%; }';  
+            echo '.wp-list-table .column-PayPalInfo { width: 10%; }';
+            echo '.wp-list-table .column-amount { width: 8%; }';            
+            echo '.wp-list-table .column-BADate { width: 11%; }';
             echo '.wp-list-table .column-ITGAction { width: 15%; }';        
             echo '</style>';
+            echo '<script>
+            $(document).ready(function(){
+                $(\'[data-toggle="popover"]\').popover();   
+            });
+            </script>';
         }
         elseif( 'ListTransactions' == $page || 'GetUsersTransactions' == $page){
             echo '<style type="text/css">';            

@@ -59,6 +59,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".$_REQUEST['post']."_status') AS GiverStatus,
              um.user_id,
+             u.user_email as CoreEmail,
              p.post_date as BADate,
              u.display_name as DisplayName,
              pm.`post_id` as signup_postid,
@@ -110,6 +111,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".$_REQUEST['post']."_status') AS GiverStatus,             
              um.user_id,
+             u.user_email as CoreEmail,
              p.post_date as BADate,
              u.display_name as DisplayName,
              pm.meta_value as amount,
@@ -172,7 +174,8 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         $sql ="SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,             
-             um.user_id, 
+             um.user_id,
+             u.user_email as CoreEmail,
              p.post_date as BADate,
              u.display_name as DisplayName,
              pm.meta_value as amount,
@@ -244,6 +247,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".$_REQUEST['post']."_status') AS GiverStatus,
              um.user_id,
+             u.user_email as CoreEmail,
              p.post_date as BADate,
              u.display_name as DisplayName,
              pm.meta_value as amount,
@@ -304,24 +308,32 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         case 'BillingAgreement':
              _e($item['BillingAgreement'],ITG_TEXT_DOMAIN);
             break;
-        case 'PayPalEmail':
-            _e($item['PayPalEmail'],ITG_TEXT_DOMAIN);
-            break;
+        case 'PayPalInfo':
+                $item['PayPalEmail'];
+                $item['PayPalPayerID'];
+                echo '<a href="#" class="btn btn-info" '
+                        . 'title="PayPal Details of '.$item['DisplayName'].'" '
+                        . ' data-toggle="popover"'
+                        . ' data-placement="top" '
+                        . ' data-html="true" '
+                        . ' data-content="<div><p><strong>PayPal Email: </strong><br>'.$item['PayPalEmail'].'</p><p><strong>PayPal PayerID: </strong>'.$item['PayPalPayerID'].'</p></div>">'
+                        . 'See Details</a>';
+            break;            
         case 'amount' :
             $ccode = get_option('itg_currency_code');
             $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
             $symbol = $paypal->get_currency_symbol($ccode);
             _e($symbol.$item['amount'],ITG_TEXT_DOMAIN);
-            break;
-        case 'PayPalPayerID' :
-            _e($item['PayPalPayerID'],ITG_TEXT_DOMAIN);
-            break;
+            break;        
         case 'DisplayName' :
             _e(apply_filters('itg_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),ITG_TEXT_DOMAIN);
             break;
          case 'BADate' :
             _e(date('Y-m-d',  strtotime($item['BADate'])),ITG_TEXT_DOMAIN);
              break;
+         case 'Email' :
+            _e($item['CoreEmail'],ITG_TEXT_DOMAIN);
+             break;         
         case 'ITGAction' :
             if($item['BillingAgreement']==''){
                 echo "-";
@@ -393,9 +405,9 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         //'cb'           => '<input type="checkbox" />',
         'BillingAgreement'=> __( 'Billing Agreement ID', ITG_TEXT_DOMAIN ),
         'DisplayName'    => __( 'Name', ITG_TEXT_DOMAIN ),
-        'PayPalEmail'         => __( 'PayPal Email ID', ITG_TEXT_DOMAIN ),
+        'Email'         => __('Email',ITG_TEXT_DOMAIN),         
         'amount'       => __( 'Amount', ITG_TEXT_DOMAIN ),
-        'PayPalPayerID' => __('PayPal Payer ID',ITG_TEXT_DOMAIN),
+        'PayPalInfo' => __('PayPal Info',ITG_TEXT_DOMAIN),
         'BADate'       => __('Agreement Date',ITG_TEXT_DOMAIN),
         'ITGAction' => __('Action',ITG_TEXT_DOMAIN)
       ];
@@ -411,10 +423,9 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     public function get_sortable_columns() {
       $sortable_columns = array(
         'BillingAgreement' => array( 'BillingAgreement', true ),
-        'DisplayName' => array('DisplayName',true),  
-        'PayPalEmail' => array( 'PayPalEmail', true ),        
-        'amount' =>  array( 'amount', true ),
-        'PayPalPayerID' => array( 'PayPalPayerID', true )
+        'DisplayName' => array('DisplayName',true),
+        'Email' => array('Email',true),
+        'amount' =>  array( 'amount', true )
       );
 
       return $sortable_columns;

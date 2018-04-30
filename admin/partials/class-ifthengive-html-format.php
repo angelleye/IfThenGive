@@ -442,7 +442,7 @@ class AngellEYE_IfThenGive_interface {
         echo apply_filters('itg_filter_goal_view',$final,$post_ID);
     }
 
-    public static function ifthengive_givers_interface_html() {                            
+    public static function ifthengive_givers_interface_html() {        
         ?>
         <div class="wrap">            
             <div class="ifthengive_admin_container">
