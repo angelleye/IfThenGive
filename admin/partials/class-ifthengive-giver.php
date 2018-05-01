@@ -308,6 +308,21 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         case 'BillingAgreement':
              _e($item['BillingAgreement'],ITG_TEXT_DOMAIN);
             break;
+        case 'Status':
+            $giverstatus = $item['GiverStatus'];
+            /* if status is active we have to change it into suspended */
+            if($giverstatus == 'active'){
+                _e('Active',ITG_TEXT_DOMAIN);
+            }
+            /* if no status found,default is suspended */
+            else if($giverstatus === NULL){
+                _e('Active',ITG_TEXT_DOMAIN);
+            }
+            /* else status is always suspended so make it active */
+            else{                
+                _e('Suspend',ITG_TEXT_DOMAIN);
+            }            
+            break;
         case 'PayPalInfo':                
             echo '<a href="#" class="btn btn-info" '
                     . 'title="PayPal Details of '.$item['DisplayName'].'" '
@@ -407,6 +422,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         'amount'       => __( 'Amount', ITG_TEXT_DOMAIN ),
         'PayPalInfo' => __('PayPal Info',ITG_TEXT_DOMAIN),
         'BADate'       => __('Agreement Date',ITG_TEXT_DOMAIN),
+        'Status'       => __('Status',ITG_TEXT_DOMAIN),
         'ITGAction' => __('Action',ITG_TEXT_DOMAIN)
       ];
 

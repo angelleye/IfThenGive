@@ -37,8 +37,9 @@ class AngellEYE_IfThenGive_Post_types {
             echo '.wp-list-table .column-Email { width: 20%; }';  
             echo '.wp-list-table .column-PayPalInfo { width: 11%; }';
             echo '.wp-list-table .column-amount { width: 8%; }';            
-            echo '.wp-list-table .column-BADate { width: 11%; }';
-            echo '.wp-list-table .column-ITGAction { width: 15%; }';        
+            echo '.wp-list-table .column-BADate { width: 12%; }';
+            echo '.wp-list-table .column-Status { width: 7%; }';
+            echo '.wp-list-table .column-ITGAction { width: 9%; }';        
             echo '</style>';
             echo '<script>
             $(document).ready(function(){
