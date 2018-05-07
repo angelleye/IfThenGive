@@ -92,6 +92,9 @@
                         else if (this.text() == 'My Signedup Goals'){
                             tinyMCE.activeEditor.selection.setContent( '[ifthengive_goals]' );
                         }
+                        else if (this.text() == 'Hosted Login/ Signup form'){
+                            tinyMCE.activeEditor.selection.setContent( '[ifthengive_login_or_signup]' );
+                        }
                         else{
                             tinyMCE.activeEditor.selection.setContent( '[ifthengive_goal id=' + this.value() + ']' );
                         }
