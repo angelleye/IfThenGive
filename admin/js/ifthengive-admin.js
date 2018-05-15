@@ -237,7 +237,7 @@
         $(document).on('input','input[name="option_amount[]"]', function() {
            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); 
         });
-        $('#itg_manual_amount_input').on('input', function() {
+        $('#manual_amount_input').on('input', function() {
             this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
         });
         
