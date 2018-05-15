@@ -353,19 +353,18 @@ class AngellEYE_IfThenGive_interface {
                         }else{
                             jQuery('#ifthengive_fixed_price_span_select').text(selectamt);
                         }                        
-                        
-                        var i = 0;
-                        var option_amounts = jQuery('input[name="option_amount[]"]').val();
+                                                
                         jQuery("#ifthengive_option_amount").html('');
                         jQuery('input[name="option_name[]"]').each(function() {
-                            var option_name = jQuery('[id=option_name'+(i+1)).val();
-                            var option_amount = parseFloat(jQuery('[id=option_amount'+(i+1)).val()).toFixed(2);
+                            var idText = jQuery(this).attr('id');
+                            var id = idText[idText.length -1];                            
+                            var option_name = jQuery('[id=option_name'+id).val();
+                            var option_amount = parseFloat(jQuery('[id=option_amount'+id).val()).toFixed(2);
                             console.log(option_amount);
                             if(isNaN(option_amount)){
                                 option_amount = '0.00';
                             }
-                            jQuery("#ifthengive_option_amount").append(jQuery('<option>', { value: option_amount, text: option_name+'    '+option_amount }));
-                            i++;
+                            jQuery("#ifthengive_option_amount").append(jQuery('<option>', { value: option_amount, text: option_name+'    '+option_amount }));                            
                         });
                    }
                    jQuery(document).on('keyup','#itg_manual_amount_input', function (){
