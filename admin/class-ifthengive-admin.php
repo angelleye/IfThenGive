@@ -103,8 +103,12 @@ class IfThenGive_Admin {
                 if($screen->post_type == 'ifthengive_goals' || $screen ->id == 'settings_page_ifthengive_option' || $screen ->id == 'dashboard_page_ifthengive_givers' ){
                      wp_enqueue_script($this->plugin_name . 'six', ITG_PLUGIN_URL . 'includes/css/bootstrap/js/bootstrap.min.js', array('jquery'), $this->version, false);
                      wp_enqueue_script($this->plugin_name . 'seven', ITG_PLUGIN_URL . 'includes/css/clipboardjs/clipboard.min.js', array('jquery'), $this->version, false);
-                     wp_enqueue_script($this->plugin_name . 'ten', ITG_PLUGIN_URL . 'includes/css/alertify/alertify.min.js', array('jquery'), $this->version, false);
+                     wp_enqueue_script($this->plugin_name . 'ten', ITG_PLUGIN_URL . 'includes/css/alertify/alertify.min.js', array('jquery'), $this->version, false);                     
                 }
+                if($screen->post_type == 'ifthengive_goals'){
+                    wp_enqueue_script($this->plugin_name . 'ele', plugin_dir_url( __FILE__ ) . 'js/ifthengive-post.js', array('jquery'), $this->version, false);
+                }
+                                
                 if ( ! did_action( 'wp_enqueue_media' ) ) {
                     wp_enqueue_media();
                 }                

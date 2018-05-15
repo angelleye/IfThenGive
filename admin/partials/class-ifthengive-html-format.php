@@ -359,8 +359,7 @@ class AngellEYE_IfThenGive_interface {
                             var idText = jQuery(this).attr('id');
                             var id = idText[idText.length -1];                            
                             var option_name = jQuery('[id=option_name'+id).val();
-                            var option_amount = parseFloat(jQuery('[id=option_amount'+id).val()).toFixed(2);
-                            console.log(option_amount);
+                            var option_amount = parseFloat(jQuery('[id=option_amount'+id).val()).toFixed(2);                            
                             if(isNaN(option_amount)){
                                 option_amount = '0.00';
                             }
