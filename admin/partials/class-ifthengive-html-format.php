@@ -273,23 +273,23 @@ class AngellEYE_IfThenGive_interface {
                                                 </div>
                                                 <div class="itg_form-group">
                                                     <label class="itg_upper"><?php _e('Frist Name',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="text" class="itg_form-control" name="ifthengive_firstname" id="ifthengive_firstname" required="required" value="" autocomplete="off">
+                                                    <input disabled="disabled" type="text" class="itg_form-control" name="ifthengive_firstname" id="ifthengive_firstname" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-group">
                                                      <label for="itg_upper"><?php _e('Last Name',ITG_TEXT_DOMAIN); ?></label>
-                                                      <input type="text" class="itg_form-control" name="ifthengive_lastname" id="ifthengive_lastname" required="required" value="" autocomplete="off">
+                                                      <input disabled="disabled" type="text" class="itg_form-control" name="ifthengive_lastname" id="ifthengive_lastname" required="required" value="" autocomplete="off">
                                                 </div>
                                                  <div class="itg_form-group">
                                                     <label for="itg_upper"><?php _e('Email address',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="email" class="itg_form-control" name="ifthengive_email" id="ifthengive_email" required="required" value="" autocomplete="off">
+                                                    <input disabled="disabled" type="email" class="itg_form-control" name="ifthengive_email" id="ifthengive_email" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-group">
                                                     <label for="itg_upper"><?php _e('Password',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="password" class="itg_form-control" name="ifthengive_password" id="ifthengive_password" required="required" autocomplete="off">
+                                                    <input disabled="disabled" type="password" class="itg_form-control" name="ifthengive_password" id="ifthengive_password" required="required" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-group">
                                                     <label for="itg_upper"><?php _e('Re-type Password',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="password" class="itg_form-control" name="ifthengive_retype_password" id="ifthengive_retype_password" required="required" autocomplete="off">
+                                                    <input disabled="disabled" type="password" class="itg_form-control" name="ifthengive_retype_password" id="ifthengive_retype_password" required="required" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-inline itg_form-group">
                                                     <button type="button" class="itg_btn itg_btn-primary" ><?php _e('Sign Up For',ITG_TEXT_DOMAIN); ?> <span class="trigger_name"></span></button>
@@ -311,6 +311,9 @@ class AngellEYE_IfThenGive_interface {
                 </div>                
             </div>
             <script type="text/javascript">
+                $(document).on('input','#itg_manual_amount_input', function() {
+                    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+                });
                 jQuery('#preview-goal').on('show.bs.modal', function () {
                     jQuery('#preview-goal .fixed_amount').css('display','none');
                     jQuery('#preview-goal .manual_amount').css('display','none');
