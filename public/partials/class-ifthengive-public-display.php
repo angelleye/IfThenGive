@@ -364,12 +364,12 @@ class AngellEYE_IfThenGive_Public_Display {
                 unset($userdata['last_name']);
 
                 $theUser = new WP_User($user_id);            
-                $userdata['user_email'] = $theUser->data->user_email;
-                $userdata['user_nicename'] = $theUser->data->user_nicename;
-                $userdata['user_login'] = $theUser->data->user_login;
-                $userdata['display_name'] = $theUser->data->display_name;
-                $userdata['first_name'] = $theUser->data->first_name;
-                $userdata['last_name'] = $theUser->data->last_name;
+                $userdata['user_email'] = isset($theUser->data->user_email) ? $theUser->data->user_email : '' ;
+                $userdata['user_nicename'] = isset($theUser->data->user_nicename) ? $theUser->data->user_nicename : '';
+                $userdata['user_login'] = isset($theUser->data->user_login) ? $theUser->data->user_login : '';
+                $userdata['display_name'] = isset($theUser->data->display_name) ? $theUser->data->display_name : '';
+                $userdata['first_name'] = isset($theUser->data->first_name) ? $theUser->data->first_name : '';
+                $userdata['last_name'] = isset($theUser->data->last_name) ? $theUser->data->last_name : '';
 
                 /*if user is admin then no change in the role*/
                 $is_admin = user_can($user_id, 'manage_options' );            
