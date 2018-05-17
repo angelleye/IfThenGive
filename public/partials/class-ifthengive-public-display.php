@@ -353,7 +353,7 @@ class AngellEYE_IfThenGive_Public_Display {
             }
             else{
                 $user_id = $external_email_userid;
-            }
+            }            
             if(!empty($user_id)){
                 $userdata['ID'] = $user_id;            
                 unset($userdata['user_pass']);
@@ -393,7 +393,7 @@ class AngellEYE_IfThenGive_Public_Display {
             $isAvailableBAID = get_user_meta($user_id,'itg_gec_billing_agreement_id',true);        
             if(!empty($isAvailableBAID)){
                 /*Check if user is already signed up for this goal then get him back with info.*/
-                $signnedup_goals = get_user_meta($user_exist,'itg_signedup_goals');        
+                $signnedup_goals = get_user_meta($user_id,'itg_signedup_goals');        
                 $goalArray = explode('|', $signnedup_goals[0]);                
                 if(!empty($goalArray)){
                     if(in_array($post_id, $goalArray)){
