@@ -298,7 +298,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
                 $ccode = get_option('itg_currency_code');
                 $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
                 $symbol = $paypal->get_currency_symbol($ccode);
-                _e($symbol.number_format($item['amount'],2),ITG_TEXT_DOMAIN);
+                _e($symbol.number_format($item['amount'],2,'.', ''),ITG_TEXT_DOMAIN);
                 break;
             case 'email':
                  _e($item['core_email'],ITG_TEXT_DOMAIN);

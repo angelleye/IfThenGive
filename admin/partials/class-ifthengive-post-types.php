@@ -209,7 +209,7 @@ class AngellEYE_IfThenGive_Post_types {
             update_post_meta($post_ID, 'trigger_desc',$_POST['trigger_desc']);
             update_post_meta($post_ID, 'image_url',$_POST['image_url']);                        
             if($_POST['fixed_radio']=='fixed'){
-                $fixed_amount_input = filter_var(number_format($_POST['fixed_amount_input'],2),FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+                $fixed_amount_input = filter_var(number_format($_POST['fixed_amount_input'],2,'.', ''),FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
                 update_post_meta($post_ID, 'amount','fixed');
                 if(empty(trim($_POST['fixed_amount_input'])) || $fixed_amount_input == 0){
                     $fixed_amount_input=filter_var('1.00',FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
@@ -217,7 +217,7 @@ class AngellEYE_IfThenGive_Post_types {
                 update_post_meta($post_ID, 'fixed_amount_input',$fixed_amount_input);
             }
             elseif($_POST['fixed_radio']=='manual'){
-                $manual_amount_input = filter_var(number_format($_POST['manual_amount_input'],2),FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+                $manual_amount_input = filter_var(number_format($_POST['manual_amount_input'],2,'.', ''),FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
                 update_post_meta($post_ID, 'amount','manual');
                 if(empty(trim($_POST['manual_amount_input'])) || $manual_amount_input == 0){
                     $manual_amount_input=filter_var('1.00',FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
@@ -231,7 +231,7 @@ class AngellEYE_IfThenGive_Post_types {
                         $amountArray[] = filter_var('1.00',FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
                     }
                     else{                        
-                        $amountArray[] = filter_var(number_format($amount,2), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                        $amountArray[] = filter_var(number_format($amount,2,'.', ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                     }
                 }
                 update_post_meta($post_ID, 'amount','select');

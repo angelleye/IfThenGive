@@ -251,7 +251,7 @@ class AngellEYE_IfThenGive_Public_Display {
         global $wpdb;
         /*Getting data from ajax */        
         $post_id = $_POST['post_id'];
-        $amount = filter_var(number_format($_POST['amount'],2), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $amount = filter_var(number_format($_POST['amount'],2,'.', ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         
         /* Get user information  from Form Data. */
         $itguser = array();

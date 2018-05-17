@@ -336,7 +336,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
             $ccode = get_option('itg_currency_code');
             $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
             $symbol = $paypal->get_currency_symbol($ccode);
-            _e($symbol.$item['amount'],ITG_TEXT_DOMAIN);
+            echo $symbol.number_format($item['amount'],2,'.', '');
             break;        
         case 'DisplayName' :
             _e(apply_filters('itg_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),ITG_TEXT_DOMAIN);
