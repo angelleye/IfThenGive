@@ -177,7 +177,7 @@ class AngellEYE_IfThenGive_Public_Display {
                                                             }
                                                         });
                                                         jQuery(document).on("input","#itg_manual_amount_input_'.$post->ID.'", function() {
-                                                            this.value = this.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+                                                            this.value = this.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");                                                            
                                                         });
                                                     </script>';
                                         }

@@ -117,9 +117,9 @@ $symbol = $paypal->get_currency_symbol($ccode);
                 e.preventDefault();
                 alertify.prompt( 'Adjust Amount for ' + goalName, 'Enter Amount', goalAmount,
                     function(evt, value) {
-                        var changed_amount = parseFloat(value).toFixed(2);
-                        changed_amount.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-                        if(isNaN(changed_amount)){
+                        var changed_amount = parseFloat(value).toFixed(2);                        
+                        changed_amount.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');                        
+                        if(isNaN(changed_amount) || (changed_amount <= 0)){
                             alertify.error('Please Enter Numeric Value.');
                             return false;
                         }
