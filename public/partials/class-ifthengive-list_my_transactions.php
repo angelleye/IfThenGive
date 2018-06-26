@@ -53,19 +53,13 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
         if($colOrder==0)
             $col='transactionId';
         else if($colOrder==1)
-            $col='user_display_name';
+            $col='amount';
         else if($colOrder==2)
-            $col='amount';      
-        else if($colOrder==3)
             $col='goal_name';      
-        else if($colOrder==4)
-            $col='user_paypal_email';      
-        else if($colOrder==5)
-            $col='PayPalPayerID';      
-        else if($colOrder==6)
+        else if($colOrder==3)
             $col='ppack';
-        else if($colOrder==6)
-            $col='Txn_date';
+        else if($colOrder==4)
+            $col='ppack';        
         else
             $col='Txn_date';
         

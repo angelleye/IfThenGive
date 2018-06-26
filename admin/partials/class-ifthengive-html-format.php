@@ -107,7 +107,7 @@ class AngellEYE_IfThenGive_interface {
                 <form>                    
                     <div class="form-group">
                         <label for="triggerName" class="control-label"><?php echo __('Goal Label', ITG_TEXT_DOMAIN); ?></label>
-                        <input type="text" name="trigger_thing" value="<?php echo esc_attr( $trigger_thing , ITG_TEXT_DOMAIN); ?>" class="form-control" autocomplete="off" id="trigger_thing" placeholder="Enter event Here"/>
+                        <input type="text" name="trigger_thing" value="<?php echo esc_attr( $trigger_thing , ITG_TEXT_DOMAIN); ?>" class="form-control" autocomplete="off" id="trigger_thing" placeholder="Enter Event Here"/>
                     </div>
                     <div class="form-group">
                         <label for="triggerDesc" class="control-label"><?php echo __('Goal Description', ITG_TEXT_DOMAIN); ?></label>
@@ -273,23 +273,23 @@ class AngellEYE_IfThenGive_interface {
                                                 </div>
                                                 <div class="itg_form-group">
                                                     <label class="itg_upper"><?php _e('Frist Name',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="text" class="itg_form-control" name="ifthengive_firstname" id="ifthengive_firstname" required="required" value="" autocomplete="off">
+                                                    <input disabled="disabled" type="text" class="itg_form-control" name="ifthengive_firstname" id="ifthengive_firstname" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-group">
                                                      <label for="itg_upper"><?php _e('Last Name',ITG_TEXT_DOMAIN); ?></label>
-                                                      <input type="text" class="itg_form-control" name="ifthengive_lastname" id="ifthengive_lastname" required="required" value="" autocomplete="off">
+                                                      <input disabled="disabled" type="text" class="itg_form-control" name="ifthengive_lastname" id="ifthengive_lastname" required="required" value="" autocomplete="off">
                                                 </div>
                                                  <div class="itg_form-group">
                                                     <label for="itg_upper"><?php _e('Email address',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="email" class="itg_form-control" name="ifthengive_email" id="ifthengive_email" required="required" value="" autocomplete="off">
+                                                    <input disabled="disabled" type="email" class="itg_form-control" name="ifthengive_email" id="ifthengive_email" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-group">
                                                     <label for="itg_upper"><?php _e('Password',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="password" class="itg_form-control" name="ifthengive_password" id="ifthengive_password" required="required" autocomplete="off">
+                                                    <input disabled="disabled" type="password" class="itg_form-control" name="ifthengive_password" id="ifthengive_password" required="required" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-group">
                                                     <label for="itg_upper"><?php _e('Re-type Password',ITG_TEXT_DOMAIN); ?></label>
-                                                    <input type="password" class="itg_form-control" name="ifthengive_retype_password" id="ifthengive_retype_password" required="required" autocomplete="off">
+                                                    <input disabled="disabled" type="password" class="itg_form-control" name="ifthengive_retype_password" id="ifthengive_retype_password" required="required" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-inline itg_form-group">
                                                     <button type="button" class="itg_btn itg_btn-primary" ><?php _e('Sign Up For',ITG_TEXT_DOMAIN); ?> <span class="trigger_name"></span></button>
@@ -311,6 +311,9 @@ class AngellEYE_IfThenGive_interface {
                 </div>                
             </div>
             <script type="text/javascript">
+                $(document).on('input','#itg_manual_amount_input', function() {
+                    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+                });
                 jQuery('#preview-goal').on('show.bs.modal', function () {
                     jQuery('#preview-goal .fixed_amount').css('display','none');
                     jQuery('#preview-goal .manual_amount').css('display','none');
@@ -353,19 +356,17 @@ class AngellEYE_IfThenGive_interface {
                         }else{
                             jQuery('#ifthengive_fixed_price_span_select').text(selectamt);
                         }                        
-                        
-                        var i = 0;
-                        var option_amounts = jQuery('input[name="option_amount[]"]').val();
+                                                
                         jQuery("#ifthengive_option_amount").html('');
                         jQuery('input[name="option_name[]"]').each(function() {
-                            var option_name = jQuery('[id=option_name'+(i+1)).val();
-                            var option_amount = parseFloat(jQuery('[id=option_amount'+(i+1)).val()).toFixed(2);
-                            console.log(option_amount);
+                            var idText = jQuery(this).attr('id');
+                            var id = idText[idText.length -1];                            
+                            var option_name = jQuery('[id=option_name'+id).val();
+                            var option_amount = parseFloat(jQuery('[id=option_amount'+id).val()).toFixed(2);                            
                             if(isNaN(option_amount)){
                                 option_amount = '0.00';
                             }
-                            jQuery("#ifthengive_option_amount").append(jQuery('<option>', { value: option_amount, text: option_name+'    '+option_amount }));
-                            i++;
+                            jQuery("#ifthengive_option_amount").append(jQuery('<option>', { value: option_amount, text: option_name+'    '+option_amount }));                            
                         });
                    }
                    jQuery(document).on('keyup','#itg_manual_amount_input', function (){
@@ -662,7 +663,7 @@ class AngellEYE_IfThenGive_interface {
             );
 
             $PaymentDetails = array(
-                'amt' => number_format($value['amount'],2),
+                'amt' => filter_var(number_format($value['amount'],2,'.', ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
                 'currencycode' => get_option('itg_currency_code'),
                 'desc' => $desc                
             );
@@ -690,7 +691,7 @@ class AngellEYE_IfThenGive_interface {
                     $total_amount_success += $value['amount'];
                     echo $trEmailString = "<tr style='".$css."'>
                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],ITG_TEXT_DOMAIN)."</td>
-                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),ITG_TEXT_DOMAIN)."</td>
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.number_format($PayPalResultDRT['AMT'],2,'.', '')."</td>
                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                    
                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],ITG_TEXT_DOMAIN)."</td>
                     </tr>";
@@ -702,7 +703,7 @@ class AngellEYE_IfThenGive_interface {
 
                     echo $trEmailString = "<tr style='".$css."'>
                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
-                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.number_format($value['amount'],2,'.', '')."</td>
                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                    
                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
                     </tr>";
@@ -713,7 +714,7 @@ class AngellEYE_IfThenGive_interface {
                     'post_type' => 'itg_transactions',
                     'post_title' => ('UserID:' . $value['user_id'] . '|GoalID:' . $goal_id . '|TxnID :' . $PayPalResultDRT['TRANSACTIONID'])
                         ));
-                update_post_meta($new_post_id, 'itg_transactions_amount', number_format($value['amount'],2));
+                update_post_meta($new_post_id, 'itg_transactions_amount', number_format($value['amount'],2,'.', ''));
                 update_post_meta($new_post_id, 'itg_transactions_wp_user_id', $value['user_id']);
                 update_post_meta($new_post_id, 'itg_transactions_wp_goal_id', $goal_id);
                 update_post_meta($new_post_id, 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
@@ -728,7 +729,7 @@ class AngellEYE_IfThenGive_interface {
                 $PayPalResultDRT['TRANSACTIONID'] = '';
                 echo $trEmailString = "<tr style='".$css."'>
                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
-                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
+                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.number_format($value['amount'],2,'.', '')."</td>
                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                    
                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__('Internal Server Error.',ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
                     </tr>";
@@ -780,9 +781,9 @@ class AngellEYE_IfThenGive_interface {
                     <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions : ',ITG_TEXT_DOMAIN).'<strong>' . $total_txn_success . '</strong></p>
                     <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions : ',ITG_TEXT_DOMAIN).'<strong>' . $total_txn_failed . '</strong></p>
                     <hr style="box-sizing: content-box;height: 0;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;border-top-color: #a6e1ec;">    
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount,2) . '</strong></p>
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_success,2) . '</strong></p> 
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount,2,'.', '') . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_success,2,'.', '') . '</strong></p> 
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_failed,2,'.', '') . '</strong></p>    
                 </div>';
                         $EmailString.=$alert_info_email_string;       
                         if($total_txn > 0 ){                                                       
@@ -993,7 +994,7 @@ class AngellEYE_IfThenGive_interface {
                                         <label class="text-primary"><?php _e('Amount :',ITG_TEXT_DOMAIN); ?></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <?php echo isset($PayPalResultTransactionDetail['AMT']) ? number_format($PayPalResultTransactionDetail['AMT'],2) : ''; ?>
+                                        <?php echo isset($PayPalResultTransactionDetail['AMT']) ? number_format($PayPalResultTransactionDetail['AMT'],2,'.', '') : ''; ?>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-2">
@@ -1215,7 +1216,7 @@ class AngellEYE_IfThenGive_interface {
                                                 $total_amount_success += $value['amount'];
                                                 echo $trEmailString = "<tr style='".$css."'>
                                                                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['TRANSACTIONID'],ITG_TEXT_DOMAIN)."</td>
-                                                                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($PayPalResultDRT['AMT'],2),ITG_TEXT_DOMAIN)."</td>
+                                                                        <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.number_format($PayPalResultDRT['AMT'],2,'.', '')."</td>
                                                                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>
                                                                         <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['PAYMENTSTATUS'],ITG_TEXT_DOMAIN)."</td>
                                                                     </tr>";                                            
@@ -1226,7 +1227,7 @@ class AngellEYE_IfThenGive_interface {
                                                 $PayPalResultDRT['TRANSACTIONID'] = '';
                                                  echo $trEmailString = "<tr style='".$css."'>
                                                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
-                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
+                                                    <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.number_format($value['amount'],2,'.', '')."</td>
                                                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                                                
                                                     <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($PayPalResultDRT['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
                                                 </tr>";
@@ -1242,7 +1243,7 @@ class AngellEYE_IfThenGive_interface {
                                             $PayPalResultDRT['TRANSACTIONID'] = '';
                                              echo $trEmailString = "<tr style='".$css."'>
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>-</td>
-                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.__(number_format($value['amount'],2),ITG_TEXT_DOMAIN)."</td>
+                                                <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".$symbol.number_format($value['amount'],2,'.', '')."</td>
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__($paypal_email,ITG_TEXT_DOMAIN)."</td>                                                
                                                 <td style='padding: 8px;line-height: 1.42857143;vertical-align: top;'>".__('Internal Server Error occured.',ITG_TEXT_DOMAIN)."<br>".__("See ",ITG_TEXT_DOMAIN)."<a href='".admin_url('admin.php?page=ifthengive_option&tab=logs')."'>".__('logs',ITG_TEXT_DOMAIN)."</a>". __(' for more details',ITG_TEXT_DOMAIN)."</td>
                                             </tr>";
@@ -1290,9 +1291,9 @@ class AngellEYE_IfThenGive_interface {
                     <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions : ',ITG_TEXT_DOMAIN).'<strong>' . $total_txn_success . '</strong></p>
                     <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions : ',ITG_TEXT_DOMAIN).'<strong>' . $total_txn_failed . '</strong></p>
                     <hr style="box-sizing: content-box;height: 0;margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #eee;border-top-color: #a6e1ec;">    
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount,2) . '</strong></p>
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_success,2) . '</strong></p> 
-                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_failed,2) . '</strong></p>    
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount,2,'.', '') . '</strong></p>
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Successful Transactions Amount : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_success,2,'.', '') . '</strong></p> 
+                    <p style="margin: 0 0 10px;margin-bottom: 0;">'.__('Total Failed Transactions Amount  : ',ITG_TEXT_DOMAIN).'<strong>' . $symbol.number_format($total_amount_failed,2,'.', '') . '</strong></p>    
                 </div>';   
                         if($total_txn > 0){
                             $EmailString.=$alert_info_email_string;

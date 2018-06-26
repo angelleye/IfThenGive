@@ -122,7 +122,7 @@ class AngellEYE_IfThenGive_Public_Display {
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);                                    
                                     $i=0;
                                     $html .= '<div class="itg_post-title">';
-                                        $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_name', true ).esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span_select_'.$post->ID.'">'.$option_amount[0].'</span></h4>';
+                                        $html .= '<h4>'.esc_html('If ',ITG_TEXT_DOMAIN).'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).esc_html(' Then I will Give ',ITG_TEXT_DOMAIN).$symbol.'<span id="ifthengive_fixed_price_span_select_'.$post->ID.'">'.$option_amount[0].'</span></h4>';
                                     $html .= '</div>';                                   
                                 }
                         $html .= '</div>'; // itg_post-content-details
@@ -177,7 +177,7 @@ class AngellEYE_IfThenGive_Public_Display {
                                                             }
                                                         });
                                                         jQuery(document).on("input","#itg_manual_amount_input_'.$post->ID.'", function() {
-                                                            this.value = this.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+                                                            this.value = this.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");                                                            
                                                         });
                                                     </script>';
                                         }
@@ -251,7 +251,7 @@ class AngellEYE_IfThenGive_Public_Display {
         global $wpdb;
         /*Getting data from ajax */        
         $post_id = $_POST['post_id'];
-        $amount = filter_var(number_format($_POST['amount'],2), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $amount = filter_var(number_format($_POST['amount'],2,'.', ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         
         /* Get user information  from Form Data. */
         $itguser = array();
@@ -353,7 +353,7 @@ class AngellEYE_IfThenGive_Public_Display {
             }
             else{
                 $user_id = $external_email_userid;
-            }
+            }            
             if(!empty($user_id)){
                 $userdata['ID'] = $user_id;            
                 unset($userdata['user_pass']);
@@ -364,12 +364,12 @@ class AngellEYE_IfThenGive_Public_Display {
                 unset($userdata['last_name']);
 
                 $theUser = new WP_User($user_id);            
-                $userdata['user_email'] = $theUser->data->user_email;
-                $userdata['user_nicename'] = $theUser->data->user_nicename;
-                $userdata['user_login'] = $theUser->data->user_login;
-                $userdata['display_name'] = $theUser->data->display_name;
-                $userdata['first_name'] = $theUser->data->first_name;
-                $userdata['last_name'] = $theUser->data->last_name;
+                $userdata['user_email'] = isset($theUser->data->user_email) ? $theUser->data->user_email : '' ;
+                $userdata['user_nicename'] = isset($theUser->data->user_nicename) ? $theUser->data->user_nicename : '';
+                $userdata['user_login'] = isset($theUser->data->user_login) ? $theUser->data->user_login : '';
+                $userdata['display_name'] = isset($theUser->data->display_name) ? $theUser->data->display_name : '';
+                $userdata['first_name'] = isset($theUser->data->first_name) ? $theUser->data->first_name : '';
+                $userdata['last_name'] = isset($theUser->data->last_name) ? $theUser->data->last_name : '';
 
                 /*if user is admin then no change in the role*/
                 $is_admin = user_can($user_id, 'manage_options' );            
@@ -393,7 +393,7 @@ class AngellEYE_IfThenGive_Public_Display {
             $isAvailableBAID = get_user_meta($user_id,'itg_gec_billing_agreement_id',true);        
             if(!empty($isAvailableBAID)){
                 /*Check if user is already signed up for this goal then get him back with info.*/
-                $signnedup_goals = get_user_meta($user_exist,'itg_signedup_goals');        
+                $signnedup_goals = get_user_meta($user_id,'itg_signedup_goals');        
                 $goalArray = explode('|', $signnedup_goals[0]);                
                 if(!empty($goalArray)){
                     if(in_array($post_id, $goalArray)){

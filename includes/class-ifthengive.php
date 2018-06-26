@@ -398,7 +398,7 @@ class Ifthengive {
                         unset($_SESSION['itg_guest_user']);
                         /* Save BILLING AGREEMENT ID in the UserMeta */
                         update_user_meta($goal_user_id,'itg_gec_billing_agreement_id',$PayPalResultCBA['BILLINGAGREEMENTID']);
-
+                        update_user_meta($goal_user_id,'itg_giver_'.$goal_post_id.'_status','active');
                         /* Create new post for signup post type and save goal_id,user_id,amount */
                         $new_post_id = wp_insert_post( array(
                             'post_author' => $goal_user_id,

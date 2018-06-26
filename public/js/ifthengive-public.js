@@ -14,8 +14,15 @@
                 }
                 if($('#ifthengive_manual_price_span_'+post_id).length){
                     amount = $('#ifthengive_manual_price_span_'+post_id).html();
+                }                
+                if(parseFloat(amount).toFixed(2) <= 0){                    
+                    $('#connect_paypal_error_public_'+post_id).show();                                        
+                    $('#connect_paypal_error_p_'+post_id).append('<br><strong>Please Enter Valid amount</strong>');
+                    $('html, body').animate({
+                        scrollTop: $("#scrolltopid_"+post_id).offset().top
+                    }, 2000);
+                    return false;
                 }
-                
                 formData = $('#ifthengive_signup_'+post_id).serialize();                
                 user_id = $(this).attr('data-userid');                                               
                 $.ajax({
