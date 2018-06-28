@@ -323,7 +323,7 @@ class Ifthengive {
                     }
                     else{
                         $_SESSION['ITG_Error'] = true;
-                        $_SESSION['ITG_Error_Type'] = __('PayPal Get Express Checkout Error',ITG_TEXT_DOMAIN);
+                        $_SESSION['ITG_Error_Type'] = __('PayPal Get Express Checkout Error','ifthengive');
                         $_SESSION['ITG_Error_Array'] = $PayPalResultGEC['ERRORS'];                    
                         /* save log */
                         $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
@@ -341,7 +341,7 @@ class Ifthengive {
                 }
                 else{
                     $_SESSION['ITG_Error'] = true;
-                    $_SESSION['ITG_Error_Type'] = __('Internal server Error. or Timout error occured.',ITG_TEXT_DOMAIN);
+                    $_SESSION['ITG_Error_Type'] = __('Internal server Error. or Timout error occured.','ifthengive');
                     $_SESSION['ITG_Error_Array'] = array();
                     wp_redirect(site_url('itg-error'));
                     exit;
@@ -353,7 +353,7 @@ class Ifthengive {
                         /*inserting new user and if user_id is available then update user.*/
                         $goal_user_id = wp_insert_user($_SESSION['itg_user_data']);                        
                         if( is_wp_error( $goal_user_id ) ) {
-                            $error = __('Error on user creation.',ITG_TEXT_DOMAIN);
+                            $error = __('Error on user creation.','ifthengive');
                             $_SESSION['ITG_Error'] = true;
                             $_SESSION['ITG_Error_Type'] = 'WP Error.';
                             $_SESSION['ITG_Error_Array']['ACK'] = 'Failed';
@@ -464,7 +464,7 @@ class Ifthengive {
                     }
                     else{
                         $_SESSION['ITG_Error'] = true;
-                        $_SESSION['ITG_Error_Type'] = __('Internal server Error. or Timout error occured.',ITG_TEXT_DOMAIN);
+                        $_SESSION['ITG_Error_Type'] = __('Internal server Error. or Timout error occured.','ifthengive');
                         $_SESSION['ITG_Error_Array'] = array();
                         wp_redirect(site_url('itg-error'));
                         exit;

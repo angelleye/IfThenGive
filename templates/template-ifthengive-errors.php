@@ -22,19 +22,19 @@ get_header();
 if(isset($_SESSION['ITG_Error']) && isset($_SESSION['ITG_Error_Type'])){
     ?>
 
-        <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Errors', ITG_TEXT_DOMAIN) ?></abbr></div>
+        <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Errors', 'ifthengive') ?></abbr></div>
     
-        <h3> <?php _e('Error Type :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['ITG_Error_Type']) ? __($_SESSION['ITG_Error_Type'],ITG_TEXT_DOMAIN) : ''; ?> </h3>
-        <span> <?php _e('Acknowledgement :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['ITG_Error_Array']['ACK']) ? __($_SESSION['ITG_Error_Array']['ACK'],ITG_TEXT_DOMAIN) : ''; ?></span>
-        <span> <?php _e('Error Code :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['ITG_Error_Array']['L_ERRORCODE0']) ? __($_SESSION['ITG_Error_Array']['L_ERRORCODE0'],ITG_TEXT_DOMAIN) : ''; ?></span>
-        <span> <?php _e('Error Short Message :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['ITG_Error_Array']['L_SHORTMESSAGE0']) ? __($_SESSION['ITG_Error_Array']['L_SHORTMESSAGE0'],ITG_TEXT_DOMAIN) : ''; ?></span>
-        <span> <?php _e('Error Long Message :',ITG_TEXT_DOMAIN); ?> <?php echo isset($_SESSION['ITG_Error_Array']['L_LONGMESSAGE0']) ? __($_SESSION['ITG_Error_Array']['L_LONGMESSAGE0'],ITG_TEXT_DOMAIN) : ''; ?></span>
+        <h3> <?php _e('Error Type :','ifthengive'); ?> <?php echo isset($_SESSION['ITG_Error_Type']) ? __($_SESSION['ITG_Error_Type'],'ifthengive') : ''; ?> </h3>
+        <span> <?php _e('Acknowledgement :','ifthengive'); ?> <?php echo isset($_SESSION['ITG_Error_Array']['ACK']) ? __($_SESSION['ITG_Error_Array']['ACK'],'ifthengive') : ''; ?></span>
+        <span> <?php _e('Error Code :','ifthengive'); ?> <?php echo isset($_SESSION['ITG_Error_Array']['L_ERRORCODE0']) ? __($_SESSION['ITG_Error_Array']['L_ERRORCODE0'],'ifthengive') : ''; ?></span>
+        <span> <?php _e('Error Short Message :','ifthengive'); ?> <?php echo isset($_SESSION['ITG_Error_Array']['L_SHORTMESSAGE0']) ? __($_SESSION['ITG_Error_Array']['L_SHORTMESSAGE0'],'ifthengive') : ''; ?></span>
+        <span> <?php _e('Error Long Message :','ifthengive'); ?> <?php echo isset($_SESSION['ITG_Error_Array']['L_LONGMESSAGE0']) ? __($_SESSION['ITG_Error_Array']['L_LONGMESSAGE0'],'ifthengive') : ''; ?></span>
 <?php    
     unset($_SESSION['ITG_Error'],$_SESSION['ITG_Error_Type'],$_SESSION['ITG_Error_Array']);
 }
 else{
-    ?> <h3><?php _e("You are accessing this page without any process of Goals.",ITG_TEXT_DOMAIN); ?></h3>
-        <span><?php echo __("Try again Sigining in for Goals.",ITG_TEXT_DOMAIN); ?></span>
+    ?> <h3><?php _e("You are accessing this page without any process of Goals.",'ifthengive'); ?></h3>
+        <span><?php echo __("Try again Sigining in for Goals.",'ifthengive'); ?></span>
         <?php 
 }
 ?>

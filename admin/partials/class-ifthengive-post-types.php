@@ -81,22 +81,22 @@ class AngellEYE_IfThenGive_Post_types {
 
         register_post_type('ifthengive_goals', apply_filters('ifthengive_register_post_types', array(
                     'labels' => array(
-                        'name' => __('Goals', ITG_TEXT_DOMAIN),
-                        'singular_name' => __('Goals', ITG_TEXT_DOMAIN),
-                        'menu_name' => _x('IfThenGive', 'Admin menu name', ITG_TEXT_DOMAIN),
-                        'add_new' => __('Add Goal', ITG_TEXT_DOMAIN),
-                        'add_new_item' => __('Add New Goal', ITG_TEXT_DOMAIN),
-                        'edit' => __('Edit', ITG_TEXT_DOMAIN),
-                        'edit_item' => __('Edit Goal', ITG_TEXT_DOMAIN),
-                        'new_item' => __('New Goal', ITG_TEXT_DOMAIN),
-                        'view' => __('View Goal', ITG_TEXT_DOMAIN),
-                        'view_item' => __('View Goal', ITG_TEXT_DOMAIN),
-                        'search_items' => __('Search Goal', ITG_TEXT_DOMAIN),
-                        'not_found' => __('No Goal found', ITG_TEXT_DOMAIN),
-                        'not_found_in_trash' => __('No Goal found in trash', ITG_TEXT_DOMAIN),
-                        'parent' => __('Parent Goal', ITG_TEXT_DOMAIN)
+                        'name' => __('Goals', 'ifthengive'),
+                        'singular_name' => __('Goals', 'ifthengive'),
+                        'menu_name' => _x('IfThenGive', 'Admin menu name', 'ifthengive'),
+                        'add_new' => __('Add Goal', 'ifthengive'),
+                        'add_new_item' => __('Add New Goal', 'ifthengive'),
+                        'edit' => __('Edit', 'ifthengive'),
+                        'edit_item' => __('Edit Goal', 'ifthengive'),
+                        'new_item' => __('New Goal', 'ifthengive'),
+                        'view' => __('View Goal', 'ifthengive'),
+                        'view_item' => __('View Goal', 'ifthengive'),
+                        'search_items' => __('Search Goal', 'ifthengive'),
+                        'not_found' => __('No Goal found', 'ifthengive'),
+                        'not_found_in_trash' => __('No Goal found in trash', 'ifthengive'),
+                        'parent' => __('Parent Goal', 'ifthengive')
                     ),                    
-                    'description' => __('This is where you can create new Goal.', ITG_TEXT_DOMAIN),
+                    'description' => __('This is where you can create new Goal.', 'ifthengive'),
                     'public' => false,
                     'show_ui' => true,
                     'capability_type' => apply_filters('itg_capability_type','post'),
@@ -125,10 +125,10 @@ class AngellEYE_IfThenGive_Post_types {
 
         $columns = array(
             'cb' => '<input type="checkbox" />',
-            'title' => __('Goal Name',ITG_TEXT_DOMAIN),
-            'shortcodes' => __('Shortcodes',ITG_TEXT_DOMAIN),
-            'createdby' => __('Created By',ITG_TEXT_DOMAIN),
-            'date' => __('Date',ITG_TEXT_DOMAIN)
+            'title' => __('Goal Name','ifthengive'),
+            'shortcodes' => __('Shortcodes','ifthengive'),
+            'createdby' => __('Created By','ifthengive'),
+            'date' => __('Date','ifthengive')
         );
 
         return $columns;
@@ -171,7 +171,7 @@ class AngellEYE_IfThenGive_Post_types {
      * @access public
      */
     public static function ifthengive_add_meta_boxes() {
-        add_meta_box('ifthengive-meta-id', __('Goal',ITG_TEXT_DOMAIN), array(__CLASS__, 'ifthengive_metabox'), 'ifthengive_goals', 'normal', 'high');
+        add_meta_box('ifthengive-meta-id', __('Goal','ifthengive'), array(__CLASS__, 'ifthengive_metabox'), 'ifthengive_goals', 'normal', 'high');
     }
     
      /**
@@ -253,9 +253,9 @@ class AngellEYE_IfThenGive_Post_types {
     public static function my_action_row($actions, $post){
         //check for your post type
         if ($post->post_type == "ifthengive_goals") {           
-            $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">'.__('View',ITG_TEXT_DOMAIN).'</a>';
-            $actions['givers'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $post->ID . '&view=givers">'.__('Givers',ITG_TEXT_DOMAIN).'</a>';
-            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $post->ID . '&view=ListTransactions">'.__('Transactions',ITG_TEXT_DOMAIN).'</a>';
+            $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">'.__('View','ifthengive').'</a>';
+            $actions['givers'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $post->ID . '&view=givers">'.__('Givers','ifthengive').'</a>';
+            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $post->ID . '&view=ListTransactions">'.__('Transactions','ifthengive').'</a>';
         }
         return $actions;
     }    
@@ -263,19 +263,19 @@ class AngellEYE_IfThenGive_Post_types {
     public static function register_ifthengive_submenu_page() {
         add_submenu_page( 
             null,
-            __('ITG Givers Page', ITG_TEXT_DOMAIN),
-            __('ITG Givers Page', ITG_TEXT_DOMAIN),
+            __('ITG Givers Page', 'ifthengive'),
+            __('ITG Givers Page', 'ifthengive'),
             apply_filters('itg_submenu_capability','manage_options'),
-            __('ifthengive_givers', ITG_TEXT_DOMAIN),
+            __('ifthengive_givers', 'ifthengive'),
             array(__CLASS__,'ifthengive_givers_page_callback')
         );
         
         add_submenu_page(
             null,
-            __('IfThenGive disconnect Page', ITG_TEXT_DOMAIN),
-            __('IfThenGive disconnect Page', ITG_TEXT_DOMAIN),
+            __('IfThenGive disconnect Page', 'ifthengive'),
+            __('IfThenGive disconnect Page', 'ifthengive'),
             apply_filters('itg_submenu_capability','manage_options'),
-            __('ifthengive_disconnect_paypal', ITG_TEXT_DOMAIN),
+            __('ifthengive_disconnect_paypal', 'ifthengive'),
             array(__CLASS__,'ifthengive_disconnect_paypal_page_callback')
         );
     }

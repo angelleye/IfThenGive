@@ -23,8 +23,8 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     public function __construct() {
         
         parent::__construct( [
-                'singular' => __( 'Giver', ITG_TEXT_DOMAIN ), //singular name of the listed records
-                'plural'   => __( 'Givers', ITG_TEXT_DOMAIN ), //plural name of the listed records
+                'singular' => __( 'Giver', 'ifthengive' ), //singular name of the listed records
+                'plural'   => __( 'Givers', 'ifthengive' ), //plural name of the listed records
                 'ajax'     => false //should this table support ajax?
 
         ] );
@@ -271,7 +271,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
 
         /** Text displayed when no giver's data is available */
     public function no_items() {
-      _e( 'No Givers avaliable.', ITG_TEXT_DOMAIN );
+      _e( 'No Givers avaliable.', 'ifthengive' );
     }
     
     /**
@@ -306,21 +306,21 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     public function column_default( $item, $column_name ) {        
       switch ( $column_name ) {
         case 'BillingAgreement':
-             _e($item['BillingAgreement'],ITG_TEXT_DOMAIN);
+             _e($item['BillingAgreement'],'ifthengive');
             break;
         case 'Status':
             $giverstatus = $item['GiverStatus'];
             /* if status is active we have to change it into suspended */
             if($giverstatus == 'active'){
-                _e('Active',ITG_TEXT_DOMAIN);
+                _e('Active','ifthengive');
             }
             /* if no status found,default is suspended */
             else if($giverstatus === NULL){
-                _e('Active',ITG_TEXT_DOMAIN);
+                _e('Active','ifthengive');
             }
             /* else status is always suspended so make it active */
             else{                
-                _e('Suspend',ITG_TEXT_DOMAIN);
+                _e('Suspend','ifthengive');
             }            
             break;
         case 'PayPalInfo':                
@@ -339,13 +339,13 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
             echo $symbol.number_format($item['amount'],2,'.', '');
             break;        
         case 'DisplayName' :
-            _e(apply_filters('itg_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),ITG_TEXT_DOMAIN);
+            _e(apply_filters('itg_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),'ifthengive');
             break;
          case 'BADate' :
-            _e(date('Y-m-d',  strtotime($item['BADate'])),ITG_TEXT_DOMAIN);
+            _e(date('Y-m-d',  strtotime($item['BADate'])),'ifthengive');
              break;
          case 'Email' :
-            _e($item['CoreEmail'],ITG_TEXT_DOMAIN);
+            _e($item['CoreEmail'],'ifthengive');
              break;         
         case 'ITGAction' :
             if($item['BillingAgreement']==''){
@@ -355,21 +355,21 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
                 $giverstatus = $item['GiverStatus'];
                 /* if status is active we have to change it into suspended */
                 if($giverstatus == 'active'){               
-                    $label = __('Suspend',ITG_TEXT_DOMAIN);                
+                    $label = __('Suspend','ifthengive');                
                     $class = "btn-warning";
                 }
                 /* if no status found,default is suspended */
                 else if($giverstatus === NULL){                
-                    $label = __('Suspend',ITG_TEXT_DOMAIN);               
+                    $label = __('Suspend','ifthengive');               
                     $class = "btn-warning";
                 }
                 /* else status is always suspended so make it active */
                 else{                
-                    $label = __('Activate',ITG_TEXT_DOMAIN);
+                    $label = __('Activate','ifthengive');
                     $class = "btn-defalt";
                 }            
-                //echo apply_filters('itg_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-itgchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,ITG_TEXT_DOMAIN).'</button> ',$_REQUEST['post']);
-                echo '<button type="button" class="btn btn-danger btn-sm btn-dgiver" data-signupid="'.$item['signup_postid'].'" data-goalid="'.$_REQUEST['post'].'" data-userid="'.$item['user_id'].'"><span></span>'.__(' Delete',ITG_TEXT_DOMAIN).'</button>';
+                //echo apply_filters('itg_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-itgchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,'ifthengive').'</button> ',$_REQUEST['post']);
+                echo '<button type="button" class="btn btn-danger btn-sm btn-dgiver" data-signupid="'.$item['signup_postid'].'" data-goalid="'.$_REQUEST['post'].'" data-userid="'.$item['user_id'].'"><span></span>'.__(' Delete','ifthengive').'</button>';
             }
             break;
       }
@@ -416,14 +416,14 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     public function get_columns() {
       $columns = [
         //'cb'           => '<input type="checkbox" />',
-        'BillingAgreement'=> __( 'Billing Agreement ID', ITG_TEXT_DOMAIN ),
-        'DisplayName'    => __( 'Name', ITG_TEXT_DOMAIN ),
-        'Email'         => __('Email',ITG_TEXT_DOMAIN),         
-        'amount'       => __( 'Amount', ITG_TEXT_DOMAIN ),
-        'PayPalInfo' => __('PayPal Info',ITG_TEXT_DOMAIN),
-        'BADate'       => __('Agreement Date',ITG_TEXT_DOMAIN),
-        'Status'       => __('Status',ITG_TEXT_DOMAIN),
-        'ITGAction' => __('Action',ITG_TEXT_DOMAIN)
+        'BillingAgreement'=> __( 'Billing Agreement ID', 'ifthengive' ),
+        'DisplayName'    => __( 'Name', 'ifthengive' ),
+        'Email'         => __('Email','ifthengive'),         
+        'amount'       => __( 'Amount', 'ifthengive' ),
+        'PayPalInfo' => __('PayPal Info','ifthengive'),
+        'BADate'       => __('Agreement Date','ifthengive'),
+        'Status'       => __('Status','ifthengive'),
+        'ITGAction' => __('Action','ifthengive')
       ];
 
       return $columns;
@@ -553,7 +553,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
                 <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals'; ?>">Back to Goals</a>               
             </div>
             <select name="number_of_givers" class="ewc-filter-num">
-                <option value=""><?php _e('Show Number of Records',ITG_TEXT_DOMAIN); ?></option>
+                <option value=""><?php _e('Show Number of Records','ifthengive'); ?></option>
                 <option value="10" <?php if($rs_filter === '10') { echo $selected; } ?>>10</option>
                 <option value="25" <?php if($rs_filter === '25') { echo $selected; } ?>>25</option>
                 <option value="50" <?php if($rs_filter === '50') { echo $selected; } ?>>50</option>

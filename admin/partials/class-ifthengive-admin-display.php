@@ -45,7 +45,7 @@ class AngellEYE_IfThenGive_Admin_Display {
         <h2 class="nav-tab-wrapper">
             <?php
             foreach ($setting_tabs as $name => $label)
-                echo '<a href="' . admin_url('admin.php?page=ifthengive_option&tab=' . $name) . '" class="nav-tab ' . ( $current_tab == $name ? 'nav-tab-active' : '' ) . '">' . __($label,ITG_TEXT_DOMAIN) . '</a>';
+                echo '<a href="' . admin_url('admin.php?page=ifthengive_option&tab=' . $name) . '" class="nav-tab ' . ( $current_tab == $name ? 'nav-tab-active' : '' ) . '">' . __($label,'ifthengive') . '</a>';
             ?>
         </h2>
         <?php

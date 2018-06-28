@@ -22,8 +22,8 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
     public function __construct() {
 
         parent::__construct([
-            'singular' => __('transaction', ITG_TEXT_DOMAIN), //singular name of the listed records
-            'plural' => __('transactions', ITG_TEXT_DOMAIN), //plural name of the listed records
+            'singular' => __('transaction', 'ifthengive'), //singular name of the listed records
+            'plural' => __('transactions', 'ifthengive'), //plural name of the listed records
             'ajax' => false //should this table support ajax?
         ]);
     }
@@ -142,7 +142,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
 
     /** Text displayed when no giver's data is available */
     public function no_items() {
-        _e('No Transactions avaliable.', ITG_TEXT_DOMAIN);
+        _e('No Transactions avaliable.', 'ifthengive');
     }
 
     /**
@@ -177,28 +177,28 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
     public function column_default($item, $column_name) {
         switch ($column_name) {
             case 'transactionId':
-                _e('<a href="' . site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id=' . $item['transactionId'] . '">' . $item['transactionId'] . '</a>',ITG_TEXT_DOMAIN);
+                _e('<a href="' . site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id=' . $item['transactionId'] . '">' . $item['transactionId'] . '</a>','ifthengive');
                 break;
             case 'user_display_name':
-                _e($item['user_display_name'],ITG_TEXT_DOMAIN);
+                _e($item['user_display_name'],'ifthengive');
                 break;
             case 'amount' :
                 $ccode = get_option('itg_currency_code');
                 $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
                 $symbol = $paypal->get_currency_symbol($ccode);
-                _e($symbol.number_format($item['amount'],2,'.', ''),ITG_TEXT_DOMAIN);
+                _e($symbol.number_format($item['amount'],2,'.', ''),'ifthengive');
                 break;
             case 'PayPalPayerID' :
-                _e($item['PayPalPayerID'],ITG_TEXT_DOMAIN);
+                _e($item['PayPalPayerID'],'ifthengive');
                 break;
             case 'user_paypal_email' :
-                _e($item['user_paypal_email'],ITG_TEXT_DOMAIN);
+                _e($item['user_paypal_email'],'ifthengive');
                 break;
             case 'ppack' :
-                _e($item['ppack'],ITG_TEXT_DOMAIN);
+                _e($item['ppack'],'ifthengive');
                 break;
             case 'Txn_date' :
-                _e(date('Y-m-d', strtotime($item['Txn_date'])),ITG_TEXT_DOMAIN);
+                _e(date('Y-m-d', strtotime($item['Txn_date'])),'ifthengive');
                 break;
         }
     }
@@ -223,13 +223,13 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
      */
     public function get_columns() {
         $columns = [
-            'transactionId' => __('Transaction ID', ITG_TEXT_DOMAIN),
-            'user_display_name' => __('Name', ITG_TEXT_DOMAIN),
-            'amount' => __('Amount', ITG_TEXT_DOMAIN),
-            'user_paypal_email' => __('PayPal Email ID', ITG_TEXT_DOMAIN),
-            'PayPalPayerID' => __('PayPal Payer ID', ITG_TEXT_DOMAIN),
-            'ppack' => __('Payment Status', ITG_TEXT_DOMAIN),
-            'Txn_date' => __('Payment Date', ITG_TEXT_DOMAIN)
+            'transactionId' => __('Transaction ID', 'ifthengive'),
+            'user_display_name' => __('Name', 'ifthengive'),
+            'amount' => __('Amount', 'ifthengive'),
+            'user_paypal_email' => __('PayPal Email ID', 'ifthengive'),
+            'PayPalPayerID' => __('PayPal Payer ID', 'ifthengive'),
+            'ppack' => __('Payment Status', 'ifthengive'),
+            'Txn_date' => __('Payment Date', 'ifthengive')
         ];
 
         return $columns;
@@ -355,23 +355,23 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
         if ($which == "top") {
             ?>
             <div class="alignleft actions bulkactions">
-                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo admin_url('edit.php?post_type=ifthengive_goals'); ?>"><?php _e('Back to Goals',ITG_TEXT_DOMAIN); ?></a>
-                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=givers'); ?>"><?php _e('Back to Givers',ITG_TEXT_DOMAIN); ?></a>
+                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo admin_url('edit.php?post_type=ifthengive_goals'); ?>"><?php _e('Back to Goals','ifthengive'); ?></a>
+                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=givers'); ?>"><?php _e('Back to Givers','ifthengive'); ?></a>
                 <select name="cat-filter" class="ewc-filter-cat">
-                    <option value=""><?php _e('Filter by Payment Status',ITG_TEXT_DOMAIN); ?></option>
-                    <option value="all"><?php _e('Show All',ITG_TEXT_DOMAIN); ?></option>
+                    <option value=""><?php _e('Filter by Payment Status','ifthengive'); ?></option>
+                    <option value="all"><?php _e('Show All','ifthengive'); ?></option>
                     <option value="<?php echo $move_on_url; ?>Success" <?php if ($status_filter == "Success") {
                 echo $selected;
-            } ?>><?php _e('Success',ITG_TEXT_DOMAIN); ?></option>
+            } ?>><?php _e('Success','ifthengive'); ?></option>
                     <option value="<?php echo $move_on_url; ?>Failure" <?php if ($status_filter == "Failure") {
                 echo $selected;
-            } ?>><?php _e('Failure',ITG_TEXT_DOMAIN); ?></option>
+            } ?>><?php _e('Failure','ifthengive'); ?></option>
                     <option value="<?php echo $move_on_url; ?>pending" <?php if ($status_filter == "pending") {
                 echo $selected;
-            } ?>><?php _e('Pending',ITG_TEXT_DOMAIN); ?></option>
+            } ?>><?php _e('Pending','ifthengive'); ?></option>
                 </select>                    
                 <select name="number_of_trans" class="ewc-filter-num">
-                    <option value=""><?php _e('Show Number of Records',ITG_TEXT_DOMAIN); ?></option>
+                    <option value=""><?php _e('Show Number of Records','ifthengive'); ?></option>
                     <option value="10" <?php if($rs_filter === '10') { echo $selected; } ?>>10</option>
                     <option value="25" <?php if($rs_filter === '25') { echo $selected; } ?>>25</option>
                     <option value="50" <?php if($rs_filter === '50') { echo $selected; } ?>>50</option>
