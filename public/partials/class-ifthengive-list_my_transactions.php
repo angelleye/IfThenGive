@@ -86,12 +86,12 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
             $sql .= "  Having (( PayPalPayerID LIKE '%{$search}%' ) OR ( user_paypal_email LIKE '%{$search}%' ) OR ( user_display_name LIKE '%{$search}%' ) OR ( amount LIKE '%{$search}%' ) OR ( transactionId LIKE '%{$search}%' ) OR ( ppack LIKE '%{$search}%' ) ) ";
         }
         if(isset($_REQUEST['payment_status-filter'])  && $_REQUEST['payment_status-filter'] != 'all' ){
-          $sql .= "  Having (( ppack LIKE '{$_REQUEST['payment_status-filter']}' ) ) ";     
+          $sql .= "  Having (( ppack LIKE '".esc_sql($_REQUEST['payment_status-filter'])."' ) ) ";     
         }                    
         $sql .= "ORDER BY {$col} {$coldir} LIMIT {$start}, {$length}";
         
         if(isset($_REQUEST['records_show-filter'])){
-            $per_page = $_REQUEST['records_show-filter'];
+            $per_page = esc_sql($_REQUEST['records_show-filter']);
         }
         
         $result_array = $wpdb->get_results($sql, 'ARRAY_A');
@@ -128,7 +128,7 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
             $sql .= "  Having (( PayPalPayerID LIKE '%{$search}%' ) OR ( user_paypal_email LIKE '%{$search}%' ) OR ( user_display_name LIKE '%{$search}%' ) OR ( amount LIKE '%{$search}%' ) OR ( transactionId LIKE '%{$search}%' ) OR ( ppack LIKE '%{$search}%' ) ) ";
         }
         if(isset($_REQUEST['payment_status-filter']) && $_REQUEST['payment_status-filter'] != 'all' ){
-          $sql .= "  Having (( ppack LIKE '{$_REQUEST['payment_status-filter']}' ) ) ";     
+          $sql .= "  Having (( ppack LIKE '".esc_sql($_REQUEST['payment_status-filter'])."' ) ) ";     
         }
         $wpdb->get_results($sql, 'ARRAY_A');
         return $wpdb->num_rows;

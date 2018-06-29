@@ -66,19 +66,20 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'itg_transactions_wp_user_id'
               left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
               left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'
-              JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$_REQUEST['post']}%'     
-              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox')  ";
+              JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:".esc_sql($_REQUEST['post'])."%'     
+              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '".esc_sql($_REQUEST['post'])."' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox')  ";
 
         $sql .= ' group by  p.ID';
         if (isset($_REQUEST['s'])) {
-            $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
+            $request_s = esc_sql($_REQUEST['s']);
+            $sql .= "  Having (( PayPalPayerID LIKE '%{$request_s}%' ) OR ( user_paypal_email LIKE '%{$request_s}%' ) OR ( user_display_name LIKE '%{$request_s}%' ) OR ( amount LIKE '%{$request_s}%' ) OR ( transactionId LIKE '%{$request_s}%' ) OR ( ppack LIKE '%{$request_s}%' ) ) ";
         }
         if(isset($_REQUEST['payment_status-filter'])  && $_REQUEST['payment_status-filter'] != 'all' ){
-          $sql .= "  Having (( ppack LIKE '{$_REQUEST['payment_status-filter']}' ) ) ";     
+          $sql .= "  Having (( ppack LIKE '".esc_sql($_REQUEST['payment_status-filter'])."' ) ) ";     
         }
         if (isset($_REQUEST['orderby'])) {
             if (!empty($_REQUEST['orderby'])) {
-                $sql .= ' ORDER BY ' . $_REQUEST['orderby'];
+                $sql .= ' ORDER BY ' . esc_sql($_REQUEST['orderby']);
             } else {
                 /* by default we will add post time/post type time order by  */
                 $sql .= ' ORDER BY user_display_name ';
@@ -90,7 +91,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
             $sql .=!empty($_REQUEST['order']) ? ' ' . esc_sql($_REQUEST['order']) : ' ASC';
         }
         if(isset($_REQUEST['records_show-filter'])){
-            $per_page = $_REQUEST['records_show-filter'];
+            $per_page = esc_sql($_REQUEST['records_show-filter']);
         }
         $sql .= " LIMIT $per_page";
         $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
@@ -120,7 +121,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
               left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'
               JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$post_id}%'     
-              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox')  ";
+              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '".esc_sql($_REQUEST['post'])."' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox')  ";
         $sql .= ' group by  p.ID';                
         $sql .= "  Having (( ppack LIKE 'Failure' ) ) ";        
         $result_array = $wpdb->get_results($sql, 'ARRAY_A');
@@ -155,7 +156,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               JOIN {$wpdb->prefix}postmeta AS tpm
               ON tpm.post_id = tp.post_id
               WHERE 
-              tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND
+              tp.`meta_value` = '".esc_sql($_REQUEST['post'])."' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND
               wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox' AND
               tpm.`meta_value` = '0' AND tpm.`meta_key` = 'itg_txn_pt_status'    
                       )  ";
@@ -203,14 +204,15 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'itg_transactions_wp_user_id'
               left JOIN {$wpdb->prefix}postmeta c ON c.post_id = pm.post_id AND c.meta_key = 'itg_transactions_transaction_id'
               left JOIN {$wpdb->prefix}postmeta t ON t.post_id = pm.post_id AND t.meta_key = 'itg_transactions_ack'    
-              JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:{$_REQUEST['post']}%'     
-              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox')  ";
+              JOIN {$wpdb->prefix}posts p ON p.ID = pm.post_id AND p.post_title Like '%GoalID:".esc_sql($_REQUEST['post'])."%'     
+              WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '".esc_sql($_REQUEST['post'])."' AND tp.`meta_key` = 'itg_transactions_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox')  ";
         $sql .= ' group by  p.ID';
         if (isset($_REQUEST['s'])) {
-            $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
+            $request_s = esc_sql($_REQUEST['s']);
+            $sql .= "  Having (( PayPalPayerID LIKE '%{$request_s}%' ) OR ( user_paypal_email LIKE '%{$request_s}%' ) OR ( user_display_name LIKE '%{$request_s}%' ) OR ( amount LIKE '%{$request_s}%' ) OR ( transactionId LIKE '%{$request_s}%' ) OR ( ppack LIKE '%{$request_s}%' ) ) ";
         }
         if(isset($_REQUEST['payment_status-filter']) && $_REQUEST['payment_status-filter'] != 'all' ){
-          $sql .= "  Having (( ppack LIKE '{$_REQUEST['payment_status-filter']}' ) ) ";     
+          $sql .= "  Having (( ppack LIKE '".esc_sql($_REQUEST['payment_status-filter'])."' ) ) ";     
         }
         $wpdb->get_results($sql, 'ARRAY_A');
         return $wpdb->num_rows;
@@ -289,7 +291,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
     public function column_default($item, $column_name) {
         switch ($column_name) {
             case 'transactionId':
-                _e('<a href="' . site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id=' . $item['transactionId'] . '">' . $item['transactionId'] . '</a>','ifthengive');
+                _e('<a href="'.esc_url(admin_url("edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=".$_REQUEST['post']."&view=GetTransactionDetail&txn_id=".$item['transactionId'])).'">' . $item['transactionId'] . '</a>','ifthengive');
                 break;
             case 'user_display_name':
                 _e($item['user_display_name'],'ifthengive');
@@ -401,7 +403,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
         $per_page = $this->get_items_per_page('transactions_per_page', 10);
         $current_page = $this->get_pagenum();
         if(isset($_REQUEST['records_show-filter'])){
-            $per_page = $_REQUEST['records_show-filter'];
+            $per_page = esc_sql($_REQUEST['records_show-filter']);
         }
         $total_items = self::record_count();
         $this->set_pagination_args([
@@ -432,9 +434,9 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               if( rsFilter != '' ){
                   <?php
                   if (isset($_REQUEST['records_show-filter'])) {
-                      $new_url = remove_query_arg('records_show-filter', admin_url('?' . $_SERVER['QUERY_STRING']));
+                      $new_url = esc_url(remove_query_arg('records_show-filter', admin_url('?' . $_SERVER['QUERY_STRING'])));
                   } else {
-                      $new_url = admin_url('?' . $_SERVER['QUERY_STRING']);
+                      $new_url = esc_url(admin_url('?' . $_SERVER['QUERY_STRING']));
                   }
                   ?>
                   document.location.href = '<?php echo $new_url; ?>&records_show-filter='+rsFilter;
@@ -481,8 +483,8 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
     public function extra_tablenav($which) {
         global $wpdb, $testiURL, $tablename, $tablet;        
         $selected = "selected='selected'";
-        $status_filter = !empty($_REQUEST['payment_status-filter']) ? $_REQUEST['payment_status-filter'] : '';
-        $rs_filter = !empty($_REQUEST['records_show-filter']) ? $_REQUEST['records_show-filter'] : '';
+        $status_filter = !empty($_REQUEST['payment_status-filter']) ? sanitize_text_field($_REQUEST['payment_status-filter']) : '';
+        $rs_filter = !empty($_REQUEST['records_show-filter']) ? sanitize_text_field($_REQUEST['records_show-filter']) : '';
         if ($which == "top") {
             ?>
             <div class="alignleft actions bulkactions">
@@ -508,10 +510,10 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
                     <option value="100" <?php if($rs_filter === '100') { echo $selected; } ?>>100</option>
                 </select>
                <div class="hidden" id="div_goal_in_process">
-                    <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions&process=continue_old'); ?>" class="btn btn-warning"><?php _e('Continue with remaning','ifthengive') ?></a>
-                    <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions'); ?>" class="btn btn-primary"><?php _e('Start Over', 'ifthengive'); ?></a>
+                    <a href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions&process=continue_old')); ?>" class="btn btn-warning"><?php _e('Continue with remaning','ifthengive') ?></a>
+                    <a href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions')); ?>" class="btn btn-primary"><?php _e('Start Over', 'ifthengive'); ?></a>
                 </div>
-                <a class="btn btn-primary btn-sm" id="ifthengive_fun_retry" data-postid="<?php echo $_REQUEST['post']; ?>" data-redirectUrl="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions');?>" href=""><?php _e('Retry Failure Payments','ifthengive') ?></a>
+                <a class="btn btn-primary btn-sm" id="ifthengive_fun_retry" data-postid="<?php echo sanitize_key($_REQUEST['post']); ?>" data-redirectUrl="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions'));?>" href=""><?php _e('Retry Failure Payments','ifthengive') ?></a>
                 
             </div>
             <?php

@@ -58,7 +58,7 @@ class AngellEYE_IfThenGive_interface {
             </div>
             <?php
         } else {
-            $action_request = isset($_REQUEST['view']) ? $_REQUEST['view'] : '';
+            $action_request = isset($_REQUEST['view']) ? sanitize_text_field($_REQUEST['view']) : '';
             global $post;            
             $trigger_name = get_post_meta($post->ID, 'trigger_name', true);
             $trigger_thing = get_post_meta($post->ID, 'trigger_thing', true);
@@ -450,25 +450,25 @@ class AngellEYE_IfThenGive_interface {
                 <div class="row">
                     <div class="col-md-12">
                         <?php
-                        $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
+                        $trigger_name = get_post_meta(sanitize_key($_REQUEST['post']), 'trigger_name', true);
                         ?>
                         <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                         <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php echo __('Givers For ', 'ifthengive'); ?><?php echo $trigger_name; ?></abbr></div>
                     </div>
                     <?php
-                    if(self::is_My_Goal($_REQUEST['post'])){
+                    if(self::is_My_Goal(sanitize_key($_REQUEST['post']))){
                         $givers_count = AngellEYE_IfThenGive_Givers_Table::record_count();
                         //$is_all_givers_suspended = AngellEYE_IfThenGive_Givers_Table::check_all_givers_suspended($_REQUEST['post']);
                         if($givers_count > 0) {
                     ?>    
                         <div class="col-md-12 text-center">
                             <span class="itg_text-info"><?php echo __('Click ', 'ifthengive'); ?><strong><?php _e('"Process Donation"','ifthengive'); ?></strong><?php echo __(' Button to Capture your Transactions.', 'ifthengive'); ?></span><br/>
-                            <a  style="margin-top: 10px" class="btn itg_btn-primary btn-lg" id="ifthengive_fun" data-redirectUrl="<?php echo site_url(); ?>/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=<?php echo $_REQUEST['post']; ?>&view=DoTransactions" href="#" data-postid ="<?php echo $_REQUEST['post']; ?>" ><?php _e('Process Donation','ifthengive'); ?></a>
+                            <a  style="margin-top: 10px" class="btn itg_btn-primary btn-lg" id="ifthengive_fun" data-redirectUrl="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=DoTransactions')); ?>" href="#" data-postid ="<?php echo sanitize_key($_REQUEST['post']); ?>" ><?php _e('Process Donation','ifthengive'); ?></a>
                             <span class="glyphicon glyphicon-refresh glyphicon-spin hidden" id="itg_fun_refresh" style="font-size: x-large;top: 14px;"></span>
                         </div>
                     <div class="hidden" id="div_goal_in_process">
-                        <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions&process=continue_old'); ?>" class="btn btn-warning"><?php _e('Continue with remaning','ifthengive') ?></a>
-                        <a href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions$process=start_over'); ?>" class="btn btn-primary"><?php _e('Start Over', 'ifthengive'); ?></a>
+                        <a href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions&process=continue_old')); ?>" class="btn btn-warning"><?php _e('Continue with remaning','ifthengive') ?></a>
+                        <a href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions$process=start_over')); ?>" class="btn btn-primary"><?php _e('Start Over', 'ifthengive'); ?></a>
                     </div>
                     
                     <?php                    
@@ -510,7 +510,7 @@ class AngellEYE_IfThenGive_interface {
     }
     
     public static function ifthengive_do_transactions_interface_html() {                
-        if(!self::is_My_Goal($_REQUEST['post'])){
+        if(!self::is_My_Goal(sanitize_key($_REQUEST['post']))){
             ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
@@ -529,7 +529,7 @@ class AngellEYE_IfThenGive_interface {
         }
         else{
         $in_process = get_option('itg_txns_in_process');
-        $process = isset($_REQUEST['process']) ? $_REQUEST['process'] : '';        
+        $process = isset($_REQUEST['process']) ? sanitize_text_field($_REQUEST['process']) : '';        
         if($in_process === 'yes' && $process!='continue_old' && $process!= 'start_over') : ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
@@ -548,9 +548,9 @@ class AngellEYE_IfThenGive_interface {
         @set_time_limit(ITG_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
         $EmailString = '';       
-        $goal_id = $_REQUEST['post'];               
+        $goal_id = sanitize_key($_REQUEST['post']);
         
-        if(isset($_REQUEST['process']) && $_REQUEST['process'] === 'continue_old'){
+        if(isset($_REQUEST['process']) && sanitize_key($_REQUEST['process']) === 'continue_old'){
             $givers = AngellEYE_IfThenGive_Givers_Table::get_remaining_process_givers($goal_id);
         }
         else{
@@ -715,8 +715,8 @@ class AngellEYE_IfThenGive_interface {
                     'post_title' => ('UserID:' . $value['user_id'] . '|GoalID:' . $goal_id . '|TxnID :' . $PayPalResultDRT['TRANSACTIONID'])
                         ));
                 update_post_meta($new_post_id, 'itg_transactions_amount', number_format($value['amount'],2,'.', ''));
-                update_post_meta($new_post_id, 'itg_transactions_wp_user_id', $value['user_id']);
-                update_post_meta($new_post_id, 'itg_transactions_wp_goal_id', $goal_id);
+                update_post_meta($new_post_id, 'itg_transactions_wp_user_id', sanitize_key($value['user_id']));
+                update_post_meta($new_post_id, 'itg_transactions_wp_goal_id', sanitize_key($goal_id));
                 update_post_meta($new_post_id, 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
                 update_post_meta($new_post_id, 'itg_transactions_ack', $PayPalResultDRT['ACK']);
                 update_post_meta($new_post_id, 'itg_signup_in_sandbox', $sandbox);
@@ -822,7 +822,7 @@ class AngellEYE_IfThenGive_interface {
     }
     
     public static function ifthengive_list_transactions_interface_html() {        
-        if(!self::is_My_Goal($_REQUEST['post'])){
+        if(!self::is_My_Goal(sanitize_key($_REQUEST['post']))){
             ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
@@ -842,7 +842,7 @@ class AngellEYE_IfThenGive_interface {
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <?php
-                        $trigger_name = get_post_meta($_REQUEST['post'], 'trigger_name', true);
+                        $trigger_name = get_post_meta(sanitize_key($_REQUEST['post']), 'trigger_name', true);
                         ?>
                         <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
                         <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Transactions for ','ifthengive'); ?> <?php echo __($trigger_name,'ifthengive') ; ?></abbr></div>                        
@@ -867,7 +867,7 @@ class AngellEYE_IfThenGive_interface {
     }
 
     public static function ifthengive_get_transaction_detail_html() {
-        if(!self::is_My_Goal($_REQUEST['post'])){
+        if(!self::is_My_Goal(sanitize_key($_REQUEST['post']))){
             ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
@@ -881,8 +881,8 @@ class AngellEYE_IfThenGive_interface {
         <?php
         }
         else{        
-        $transaction_id = $_REQUEST['txn_id'];        
-        $goal_id = $_REQUEST['post'];
+        $transaction_id = sanitize_text_field($_REQUEST['txn_id']);        
+        $goal_id = sanitize_key($_REQUEST['post']);
         $givers = AngellEYE_IfThenGive_Givers_Table::get_all_givers();
         $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();
         $PayPal_config->set_api_cedentials();        
@@ -929,7 +929,7 @@ class AngellEYE_IfThenGive_interface {
                 <div class="ifthengive_admin_container">                                    
                     <div class="row">
                         <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>    
-                        <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Transaction Id ','ifthengive'); ?> <?php echo '#' . $_REQUEST['txn_id']; ?></abbr></div>                            
+                        <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Transaction Id ','ifthengive'); ?> <?php echo '#' . esc_html($_REQUEST['txn_id']); ?></abbr></div>                            
                         <div class="col-md-10">
                                     <div class="col-md-2">
                                         <label class="text-primary"><?php _e('Payer Email :','ifthengive'); ?></label>
@@ -1041,7 +1041,7 @@ class AngellEYE_IfThenGive_interface {
     }
 
     public static function ifthengive_retry_failed_transactions_interface_html() {                    
-        if(!self::is_My_Goal($_REQUEST['post'])){
+        if(!self::is_My_Goal(sanitize_key($_REQUEST['post']))){
             ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
@@ -1060,7 +1060,7 @@ class AngellEYE_IfThenGive_interface {
         }
         else{ 
         $in_process = get_option('itg_txns_in_process');
-        $process = isset($_REQUEST['process']) ? $_REQUEST['process'] : '';
+        $process = isset($_REQUEST['process']) ? sanitize_text_field($_REQUEST['process']) : '';
         if($in_process === 'yes' && $process!='continue_old' && $process!= 'start_over') { ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
@@ -1079,9 +1079,9 @@ class AngellEYE_IfThenGive_interface {
         @set_time_limit(ITG_PLUGIN_SET_TIME_LIMIT);
         @ignore_user_abort(true);
         $EmailString = '';        
-        $goal_id = $_REQUEST['post'];
+        $goal_id = sanitize_key($_REQUEST['post']);
         $trigger_name = get_post_meta($goal_id, 'trigger_name', true);
-        if(isset($_REQUEST['process']) && $_REQUEST['process'] === 'continue_old'){
+        if(isset($_REQUEST['process']) && sanitize_text_field($_REQUEST['process']) === 'continue_old'){
             $givers = AngellEYE_IfThenGive_Transactions_Table::get_remaining_process_failed_givers($goal_id);
         }
         else{
@@ -1359,7 +1359,7 @@ class AngellEYE_IfThenGive_interface {
     }
 
     public static function ifthengive_get_users_transactions_interface_html(){
-        if(!self::is_My_Goal($_REQUEST['post'])){
+        if(!self::is_My_Goal(sanitize_key($_REQUEST['post']))){
             ?>
             <div class="wrap">
                 <div class="ifthengive_admin_container">
@@ -1379,7 +1379,7 @@ class AngellEYE_IfThenGive_interface {
                 <div class="row">
                     <div class="text-center"><img src="<?php echo ITG_PLUGIN_URL.'admin\images\icon.png' ?>" alt="IfThenGive"></div>
                     <?php if(isset($_REQUEST['user_id'])){ 
-                          $user_info = get_userdata($_REQUEST['user_id']);  
+                          $user_info = get_userdata(sanitize_key($_REQUEST['user_id']));  
                     ?>
                     <div class="itg_hr-title itg_hr-long itg_center"><abbr><?php _e('Transactions Of '.$user_info->display_name,'ifthengive'); ?></abbr></div>
                     <div class="col-md-12">

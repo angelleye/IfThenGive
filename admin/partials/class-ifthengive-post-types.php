@@ -184,7 +184,7 @@ class AngellEYE_IfThenGive_Post_types {
      */
     
     public static function ifthengive_metabox() {
-        $action_request= isset($_REQUEST['view']) ? $_REQUEST['view'] : '';        
+        $action_request= isset($_REQUEST['view']) ? sanitize_text_field($_REQUEST['view']) : '';        
         if ($action_request==='true') {
             do_action('ifthengive_shortcode_interface');
         }       

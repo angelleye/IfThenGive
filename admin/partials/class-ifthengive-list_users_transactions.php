@@ -48,7 +48,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
     public static function get_transactions($per_page = 5, $page_number = 1) {
 
         global $wpdb;
-        $userID = $_REQUEST['user_id'];
+        $userID = esc_sql($_REQUEST['user_id']);
         $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_email') as user_paypal_email,
              (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
@@ -66,14 +66,15 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
 
         $sql .= ' group by  p.ID';
         if (isset($_REQUEST['s'])) {
-            $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
+            $request_s = esc_sql($_REQUEST['s']);
+            $sql .= "  Having (( PayPalPayerID LIKE '%{$request_s}%' ) OR ( user_paypal_email LIKE '%{$request_s}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
         }
         if(isset($_REQUEST['payment_status-filter'])  && $_REQUEST['payment_status-filter'] != 'all' ){
-          $sql .= "  Having (( ppack LIKE '{$_REQUEST['payment_status-filter']}' ) ) ";     
+          $sql .= "  Having (( ppack LIKE '".esc_sql($_REQUEST['payment_status-filter'])."' ) ) ";     
         }
         if (isset($_REQUEST['orderby'])) {
             if (!empty($_REQUEST['orderby'])) {
-                $sql .= ' ORDER BY ' . $_REQUEST['orderby'];
+                $sql .= ' ORDER BY ' . esc_sql($_REQUEST['orderby']);
             } else {
                 /* by default we will add post time/post type time order by  */
                 $sql .= ' ORDER BY user_display_name ';
@@ -85,7 +86,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
             $sql .=!empty($_REQUEST['order']) ? ' ' . esc_sql($_REQUEST['order']) : ' ASC';
         }
         if(isset($_REQUEST['records_show-filter'])){
-            $per_page = $_REQUEST['records_show-filter'];
+            $per_page = esc_sql($_REQUEST['records_show-filter']);
         }
         $sql .= " LIMIT $per_page";
         $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
@@ -113,7 +114,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
      */
     public static function record_count() {
         global $wpdb;
-        $userID = $_REQUEST['user_id'];
+        $userID = esc_sql($_REQUEST['user_id']);
         $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_email') as user_paypal_email,
              (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
@@ -131,10 +132,11 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
               WHERE  b.meta_value =".$userID;
         $sql .= ' group by  p.ID';
         if (isset($_REQUEST['s'])) {
-            $sql .= "  Having (( PayPalPayerID LIKE '%{$_REQUEST['s']}%' ) OR ( user_paypal_email LIKE '%{$_REQUEST['s']}%' ) OR ( user_display_name LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( transactionId LIKE '%{$_REQUEST['s']}%' ) OR ( ppack LIKE '%{$_REQUEST['s']}%' ) ) ";
+            $request_s = esc_sql($_REQUEST['s']);
+            $sql .= "  Having (( PayPalPayerID LIKE '%{$request_s}%' ) OR ( user_paypal_email LIKE '%{$request_s}%' ) OR ( user_display_name LIKE '%{$request_s}%' ) OR ( amount LIKE '%{$request_s}%' ) OR ( transactionId LIKE '%{$request_s}%' ) OR ( ppack LIKE '%{$request_s}%' ) ) ";
         }
         if(isset($_REQUEST['payment_status-filter']) && $_REQUEST['payment_status-filter'] != 'all' ){
-          $sql .= "  Having (( ppack LIKE '{$_REQUEST['payment_status-filter']}' ) ) ";     
+          $sql .= "  Having (( ppack LIKE '".esc_sql($_REQUEST['payment_status-filter'])."' ) ) ";     
         }
         $wpdb->get_results($sql, 'ARRAY_A');
         return $wpdb->num_rows;
@@ -177,7 +179,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
     public function column_default($item, $column_name) {
         switch ($column_name) {
             case 'transactionId':
-                _e('<a href="' . site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id=' . $item['transactionId'] . '">' . $item['transactionId'] . '</a>','ifthengive');
+                _e('<a href="'.admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetTransactionDetail&txn_id='.$item['transactionId']).'">' . $item['transactionId'] . '</a>','ifthengive');
                 break;
             case 'user_display_name':
                 _e($item['user_display_name'],'ifthengive');
@@ -281,7 +283,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
         $per_page = $this->get_items_per_page('transactions_per_page', 10);
         $current_page = $this->get_pagenum();
         if(isset($_REQUEST['records_show-filter'])){
-            $per_page = $_REQUEST['records_show-filter'];
+            $per_page = esc_sql($_REQUEST['records_show-filter']);
         }
         $total_items = self::record_count();
         $this->set_pagination_args([
@@ -348,15 +350,15 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
     public function extra_tablenav($which) {
         global $wpdb, $testiURL, $tablename, $tablet;
         $move_on_url='';
-        $move_on_url = '&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id='.$_REQUEST['user_id'].'&payment_status-filter=';
+        $move_on_url = '&post=' . sanitize_text_field($_REQUEST['post']) . '&view=GetUsersTransactions&user_id='.sanitize_text_field($_REQUEST['user_id']).'&payment_status-filter=';
         $selected = "selected='selected'";
-        $status_filter = !empty($_REQUEST['payment_status-filter']) ? $_REQUEST['payment_status-filter'] : '';
-        $rs_filter = !empty($_REQUEST['records_show-filter']) ? $_REQUEST['records_show-filter'] : '';
+        $status_filter = !empty($_REQUEST['payment_status-filter']) ? sanitize_text_field($_REQUEST['payment_status-filter']) : '';
+        $rs_filter = !empty($_REQUEST['records_show-filter']) ? sanitize_text_field($_REQUEST['records_show-filter']) : '';
         if ($which == "top") {
             ?>
             <div class="alignleft actions bulkactions">
-                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo admin_url('edit.php?post_type=ifthengive_goals'); ?>"><?php _e('Back to Goals','ifthengive'); ?></a>
-                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=givers'); ?>"><?php _e('Back to Givers','ifthengive'); ?></a>
+                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals')); ?>"><?php _e('Back to Goals','ifthengive'); ?></a>
+                <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=givers')); ?>"><?php _e('Back to Givers','ifthengive'); ?></a>
                 <select name="cat-filter" class="ewc-filter-cat">
                     <option value=""><?php _e('Filter by Payment Status','ifthengive'); ?></option>
                     <option value="all"><?php _e('Show All','ifthengive'); ?></option>

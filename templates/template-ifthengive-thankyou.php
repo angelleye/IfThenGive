@@ -20,7 +20,7 @@ get_header();
         <div class="itg_heading itg_heading-center">            
 <?php
 if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
-    $the_slug = $_REQUEST['goal'];
+    $the_slug = sanitize_text_field($_REQUEST['goal']);
     $amount = base64_decode($_REQUEST['amt']);
     $args = array(
       'name'        => $the_slug,
