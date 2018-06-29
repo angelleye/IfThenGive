@@ -261,7 +261,7 @@ class Ifthengive {
         public function handle_callback_permission() {
             @session_start();
             global $wp;
-            if (isset($_GET['action']) && $_GET['action'] == 'permission_callback') {
+            if (isset($_GET['action']) && sanitize_text_field($_GET['action']) == 'permission_callback') {
                 $sanbox_enable = get_option('itg_sandbox_enable');
                 if($sanbox_enable === 'yes'){
                     $sandbox = 'true';

@@ -416,7 +416,7 @@ class AngellEYE_IfThenGive_interface {
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a class="btn btn-info" href="'. admin_url().'post.php?post='. $_GET['post'] .'&action=edit">'. __('Back To Edit Goal','ifthengive').'</a>
+                    <a class="btn btn-info" href="'. esc_url(admin_url('post.php?post='. $_GET['post'] .'&action=edit')).'">'. __('Back To Edit Goal','ifthengive').'</a>
                 </div>
             </div>
         </div>
@@ -1351,7 +1351,7 @@ class AngellEYE_IfThenGive_interface {
         }        
         
         
-        $url = admin_url('admin.php?page=ifthengive_option&tab=connect_to_paypal');
+        $url = esc_url(admin_url('admin.php?page=ifthengive_option&tab=connect_to_paypal'));
         echo "<script>";
         echo 'window.location.href = "' . $url . '";';
         echo "</script>";

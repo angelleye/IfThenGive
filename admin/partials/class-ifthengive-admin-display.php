@@ -40,7 +40,7 @@ class AngellEYE_IfThenGive_Admin_Display {
      */
     public static function ifthengive_option() {
         $setting_tabs = apply_filters('ifthengive_setting_tab', array('connect_to_paypal' => 'Connect To PayPal', 'logs' => 'Logs'));
-        $current_tab = (isset($_GET['tab'])) ? $_GET['tab'] : 'connect_to_paypal';
+        $current_tab = (isset($_GET['tab'])) ? sanitize_text_field($_GET['tab']) : 'connect_to_paypal';
         ?>
         <h2 class="nav-tab-wrapper">
             <?php
