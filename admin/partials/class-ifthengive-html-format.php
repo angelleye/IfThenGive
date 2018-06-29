@@ -1427,16 +1427,16 @@ class AngellEYE_IfThenGive_interface {
     
     public static function cancel_billing_agreement_giver() {
         if (isset($_POST['userid'])) {
-            $user_id = $_POST['userid'];
-            $data = get_user_meta($user_id,'itg_giver_'.$_POST['postid'].'_status',true);
+            $user_id = sanitize_key($_POST['userid']);
+            $data = get_user_meta($user_id,'itg_giver_'.sanitize_key($_POST['postid']).'_status',true);
             if(empty($data)){
-               update_user_meta( $user_id , 'itg_giver_'.$_POST['postid'].'_status', 'suspended' );
+               update_user_meta( $user_id , 'itg_giver_'.sanitize_key($_POST['postid']).'_status', 'suspended' );
             }
             elseif($data == 'suspended'){
-                update_user_meta( $user_id , 'itg_giver_'.$_POST['postid'].'_status', 'active' );
+                update_user_meta( $user_id , 'itg_giver_'.sanitize_key($_POST['postid']).'_status', 'active' );
             }
             else{
-                update_user_meta( $user_id , 'itg_giver_'.$_POST['postid'].'_status', 'suspended' );
+                update_user_meta( $user_id , 'itg_giver_'.sanitize_key($_POST['postid']).'_status', 'suspended' );
             }
         }
         exit;
@@ -1462,7 +1462,7 @@ class AngellEYE_IfThenGive_interface {
     }
     
     public static function check_goal_is_in_process(){
-        $process_button_postid = isset($_POST['post_id']) ? $_POST['post_id'] : '';
+        $process_button_postid = isset($_POST['post_id']) ? sanitize_key($_POST['post_id']) : '';
         $in_process = get_option('itg_txns_in_process');
         $current_process_goal = get_option('itg_current_process_goal_id');
         $complete_percentage = get_option('itg_current_process_progress');
@@ -1491,9 +1491,9 @@ class AngellEYE_IfThenGive_interface {
     }
     
     public static function delete_giver_from_goal(){
-       $signup_postid = $_POST['signup_postid'];
-       $user_id = $_POST['userid'];
-       $goal_id = $_POST['goal_id'];
+       $signup_postid = sanitize_key($_POST['signup_postid']);
+       $user_id = sanitize_key($_POST['userid']);
+       $goal_id = sanitize_key($_POST['goal_id']);
        
        // just update it with blank so user data will not delete forever.
        update_post_meta($signup_postid, 'itg_signup_amount', '');

@@ -44,12 +44,12 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
         $userID = get_current_user_id();
         
         
-        $search   = $_POST['search']['value'];
-        $start    = $_POST['start'];
-        $length   = $_POST['length'];
+        $search   = esc_sql($_POST['search']['value']);
+        $start    = esc_sql($_POST['start']);
+        $length   = esc_sql($_POST['length']);
         $filter   = 0;
-        $colOrder = $_POST['order'][0]['column'];
-    	$coldir   = $_POST['order'][0]['dir'];
+        $colOrder = esc_sql($_POST['order'][0]['column']);
+    	$coldir   = esc_sql($_POST['order'][0]['dir']);
         if($colOrder==0)
             $col='transactionId';
         else if($colOrder==1)
@@ -107,7 +107,7 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
     public static function record_count() {
         global $wpdb;
         $userID = get_current_user_id();
-        $search   = $_POST['search']['value'];        
+        $search   = esc_sql($_POST['search']['value']);        
         $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_email') as user_paypal_email,
              (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,

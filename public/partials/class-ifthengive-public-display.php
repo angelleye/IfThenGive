@@ -250,7 +250,7 @@ class AngellEYE_IfThenGive_Public_Display {
     public static function start_express_checkout(){        
         global $wpdb;
         /*Getting data from ajax */        
-        $post_id = sanitize_text_field($_POST['post_id']);
+        $post_id = sanitize_key($_POST['post_id']);
         $amount = filter_var(number_format($_POST['amount'],2,'.', ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         
         /* Get user information  from Form Data. */
@@ -268,8 +268,8 @@ class AngellEYE_IfThenGive_Public_Display {
           $ValidationErrors['LastName'] = __("Invalid Input : Only letters allowed in Last Name",'ifthengive');
         }
 
-        $email = $itguser['ifthengive_email'];
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $email = sanitize_email($itguser['ifthengive_email']);
+        if (!is_email($email)) {
             $ValidationErrors['Email'] = __("Invalid email format",'ifthengive');
         }
         if(isset($itguser['ifthengive_password'])){
@@ -292,7 +292,7 @@ class AngellEYE_IfThenGive_Public_Display {
         $trigger_name = get_post_meta( $post_id, 'trigger_name', true );       
         
         /*Create cancel page url like return to the cancel page from where it goes.*/        
-        $cancel_page = $itguser['ifthengive_page_id'];
+        $cancel_page = esc_url($itguser['ifthengive_page_id']);
             
         /*if no role defined in the code then it adds new role as giver */
         $role = get_role( 'giver' );
@@ -301,12 +301,12 @@ class AngellEYE_IfThenGive_Public_Display {
         }
         /*Create array of user data */
         $userdata=array(
-                'user_pass' => isset($itguser['ifthengive_password']) ? $itguser['ifthengive_password'] : '',
-                'user_login' => isset($itguser['ifthengive_email']) ? $itguser['ifthengive_email'] : '',
-                'user_email' => isset($itguser['ifthengive_email']) ? $itguser['ifthengive_email'] : '',
-                'display_name' => $itguser['ifthengive_firstname'].' '.$itguser['ifthengive_lastname'],
-                'first_name' => isset($itguser['ifthengive_firstname']) ? $itguser['ifthengive_firstname'] : '',
-                'last_name' => isset($itguser['ifthengive_lastname']) ? $itguser['ifthengive_lastname'] : '',
+                'user_pass' => isset($itguser['ifthengive_password']) ? sanitize_text_field($itguser['ifthengive_password']) : '',
+                'user_login' => isset($itguser['ifthengive_email']) ? sanitize_email($itguser['ifthengive_email']) : '',
+                'user_email' => isset($itguser['ifthengive_email']) ? sanitize_email($itguser['ifthengive_email']) : '',
+                'display_name' => sanitize_text_field($itguser['ifthengive_firstname']).' '.sanitize_text_field($itguser['ifthengive_lastname']),
+                'first_name' => isset($itguser['ifthengive_firstname']) ? sanitize_text_field($itguser['ifthengive_firstname']) : '',
+                'last_name' => isset($itguser['ifthengive_lastname']) ? sanitize_text_field($itguser['ifthengive_lastname']) : '',
                 'role' => 'giver'
         );
         /*
@@ -324,7 +324,7 @@ class AngellEYE_IfThenGive_Public_Display {
 //            //echo 'here';
 //        }
         
-        $user_exist = email_exists($itguser['ifthengive_email']);
+        $user_exist = email_exists(sanitize_email($itguser['ifthengive_email']));
         /*If user exist then just add capabilities of giver with current capabilities. */
         if($user_exist){
             unset($userdata['user_pass']);
@@ -349,7 +349,7 @@ class AngellEYE_IfThenGive_Public_Display {
              * if both empty then it will go further
              */
             if(is_user_logged_in()){
-                $user_id = $_POST['login_user_id'];
+                $user_id = sanitize_key($_POST['login_user_id']);
             }
             else{
                 $user_id = $external_email_userid;
@@ -411,17 +411,17 @@ class AngellEYE_IfThenGive_Public_Display {
                     'post_title' => ('User ID : '.$user_id.'& Goal ID : '.$post_id)
                 ) );
 
-                update_post_meta($new_post_id,'itg_signup_amount',$amount);                    
-                update_post_meta($new_post_id,'itg_signup_wp_user_id',$user_id);
+                update_post_meta($new_post_id,'itg_signup_amount',  sanitize_key($amount));                    
+                update_post_meta($new_post_id,'itg_signup_wp_user_id',sanitize_key($user_id));
                 update_post_meta($new_post_id,'itg_signup_wp_goal_id',$post_id);
-                update_post_meta($new_post_id, 'itg_signup_in_sandbox', $sandbox);
+                update_post_meta($new_post_id, 'itg_signup_in_sandbox', sanitize_text_field($sandbox));
                 update_post_meta($new_post_id,'itg_transaction_status','0');
                 
                 $amount = base64_encode($amount);
                 $post = get_post($post_id); 
                 $slug = $post->post_name;
                 $urlusr = base64_encode($user_id);
-                $REDIRECTURL = site_url('itg-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr);                
+                $REDIRECTURL = esc_url(site_url('itg-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr));
                 /* Add post id in the user's signedup goals */
                 $signedup_goals= get_user_meta($user_id,'itg_signedup_goals',true);
                 if($signedup_goals !=''){
@@ -552,7 +552,7 @@ class AngellEYE_IfThenGive_Public_Display {
     }
     
     public static function cancel_my_account_ba(){        
-        $user_id = $_POST['userid'];
+        $user_id = sanitize_text_field($_POST['userid']);
         $billing_agreement_id = get_user_meta( $user_id, 'itg_gec_billing_agreement_id', true );
         $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();        
         $PayPal_config->set_api_cedentials();        
@@ -595,8 +595,8 @@ class AngellEYE_IfThenGive_Public_Display {
     
     public static function itg_adjust_amount(){
         if(isset($_POST['changed_amount'])){
-            $changed_amount = $_POST['changed_amount'];
-            $postid = $_POST['postid'];
+            $changed_amount = sanitize_text_field($_POST['changed_amount']);
+            $postid = sanitize_key($_POST['postid']);
             update_post_meta( $postid,'itg_signup_amount',$changed_amount);
         }        
         exit;
@@ -604,16 +604,16 @@ class AngellEYE_IfThenGive_Public_Display {
     
     public static function change_giver_status(){       
         if(isset($_POST['userId'])){
-            $user_id = $_POST['userId'];
-            $data = get_user_meta($user_id,'itg_giver_'.$_POST['goalId'].'_status',true);
+            $user_id = sanitize_key($_POST['userId']);
+            $data = get_user_meta($user_id,'itg_giver_'.sanitize_key($_POST['goalId']).'_status',true);
             if(empty($data)){
-               update_user_meta( $user_id , 'itg_giver_'.$_POST['goalId'].'_status', 'suspended' );
+               update_user_meta( $user_id , 'itg_giver_'.sanitize_key($_POST['goalId']).'_status', 'suspended' );
             }
             elseif($data == 'suspended'){
-                update_user_meta( $user_id , 'itg_giver_'.$_POST['goalId'].'_status', 'active' );
+                update_user_meta( $user_id , 'itg_giver_'.sanitize_key($_POST['goalId']).'_status', 'active' );
             }
             else{
-                update_user_meta( $user_id , 'itg_giver_'.$_POST['goalId'].'_status', 'suspended' );
+                update_user_meta( $user_id , 'itg_giver_'.sanitize_key($_POST['goalId']).'_status', 'suspended' );
             }
         }
         exit;
