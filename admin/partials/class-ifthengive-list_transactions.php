@@ -434,9 +434,9 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
               if( rsFilter != '' ){
                   <?php
                   if (isset($_REQUEST['records_show-filter'])) {
-                      $new_url = esc_url(remove_query_arg('records_show-filter', admin_url('?' . $_SERVER['QUERY_STRING'])));
+                      $new_url = remove_query_arg('records_show-filter', admin_url('?' . $_SERVER['QUERY_STRING']));
                   } else {
-                      $new_url = esc_url(admin_url('?' . $_SERVER['QUERY_STRING']));
+                      $new_url = admin_url('?' . $_SERVER['QUERY_STRING']);
                   }
                   ?>
                   document.location.href = '<?php echo $new_url; ?>&records_show-filter='+rsFilter;
@@ -459,7 +459,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
             } else {
                 self::delete_customer(absint($_GET['customer']));
 
-                wp_redirect(esc_url(add_query_arg()));
+                wp_safe_redirect(esc_url(add_query_arg()));
                 exit;
             }
         }
@@ -475,7 +475,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
                 self::delete_customer($id);
             }
 
-            wp_redirect(esc_url(add_query_arg()));
+            wp_safe_redirect(add_query_arg());
             exit;
         }
     }
@@ -513,7 +513,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
                     <a href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions&process=continue_old')); ?>" class="btn btn-warning"><?php _e('Continue with remaning','ifthengive') ?></a>
                     <a href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions')); ?>" class="btn btn-primary"><?php _e('Start Over', 'ifthengive'); ?></a>
                 </div>
-                <a class="btn btn-primary btn-sm" id="ifthengive_fun_retry" data-postid="<?php echo sanitize_key($_REQUEST['post']); ?>" data-redirectUrl="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions'));?>" href=""><?php _e('Retry Failure Payments','ifthengive') ?></a>
+                <a class="btn btn-primary btn-sm" id="ifthengive_fun_retry" data-postid="<?php echo sanitize_key($_REQUEST['post']); ?>" data-redirectUrl="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions');?>" href=""><?php _e('Retry Failure Payments','ifthengive') ?></a>
                 
             </div>
             <?php

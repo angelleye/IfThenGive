@@ -467,7 +467,7 @@ class AngellEYE_IfThenGive_interface {
                     ?>    
                         <div class="col-md-12 text-center">
                             <span class="itg_text-info"><?php echo __('Click ', 'ifthengive'); ?><strong><?php _e('"Process Donation"','ifthengive'); ?></strong><?php echo __(' Button to Capture your Transactions.', 'ifthengive'); ?></span><br/>
-                            <a  style="margin-top: 10px" class="btn itg_btn-primary btn-lg" id="ifthengive_fun" data-redirectUrl="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=DoTransactions')); ?>" href="#" data-postid ="<?php echo sanitize_key($_REQUEST['post']); ?>" ><?php _e('Process Donation','ifthengive'); ?></a>
+                            <a  style="margin-top: 10px" class="btn itg_btn-primary btn-lg" id="ifthengive_fun" data-redirectUrl="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=DoTransactions'); ?>" href="#" data-postid ="<?php echo sanitize_key($_REQUEST['post']); ?>" ><?php _e('Process Donation','ifthengive'); ?></a>
                             <span class="glyphicon glyphicon-refresh glyphicon-spin hidden" id="itg_fun_refresh" style="font-size: x-large;top: 14px;"></span>
                         </div>
                     <div class="hidden" id="div_goal_in_process">
@@ -1355,7 +1355,7 @@ class AngellEYE_IfThenGive_interface {
         }        
         
         
-        $url = esc_url(admin_url('admin.php?page=ifthengive_option&tab=connect_to_paypal'));
+        $url = admin_url('admin.php?page=ifthengive_option&tab=connect_to_paypal');
         echo "<script>";
         echo 'window.location.href = "' . $url . '";';
         echo "</script>";
