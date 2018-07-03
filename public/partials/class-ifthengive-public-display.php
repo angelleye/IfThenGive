@@ -292,7 +292,7 @@ class AngellEYE_IfThenGive_Public_Display {
         $trigger_name = get_post_meta( $post_id, 'trigger_name', true );       
         
         /*Create cancel page url like return to the cancel page from where it goes.*/        
-        $cancel_page = esc_url($itguser['ifthengive_page_id']);
+        $cancel_page = $itguser['ifthengive_page_id'];
             
         /*if no role defined in the code then it adds new role as giver */
         $role = get_role( 'giver' );
@@ -421,7 +421,7 @@ class AngellEYE_IfThenGive_Public_Display {
                 $post = get_post($post_id); 
                 $slug = $post->post_name;
                 $urlusr = base64_encode($user_id);
-                $REDIRECTURL = esc_url(site_url('itg-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr));
+                $REDIRECTURL = site_url('itg-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr);
                 /* Add post id in the user's signedup goals */
                 $signedup_goals= get_user_meta($user_id,'itg_signedup_goals',true);
                 if($signedup_goals !=''){

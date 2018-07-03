@@ -207,7 +207,7 @@ class AngellEYE_IfThenGive_Post_types {
             update_post_meta($post_ID, 'trigger_name',sanitize_text_field($_REQUEST['post_title']));
             update_post_meta($post_ID, 'trigger_thing',sanitize_text_field($_POST['trigger_thing']));
             update_post_meta($post_ID, 'trigger_desc',sanitize_text_field($_POST['trigger_desc']));
-            update_post_meta($post_ID, 'image_url',  esc_url($_POST['image_url']));                        
+            update_post_meta($post_ID, 'image_url',  sanitize_text_field($_POST['image_url']));                        
             if($_POST['fixed_radio']=='fixed'){
                 $fixed_amount_input = filter_var(number_format($_POST['fixed_amount_input'],2,'.', ''),FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
                 update_post_meta($post_ID, 'amount','fixed');

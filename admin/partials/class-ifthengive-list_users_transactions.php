@@ -326,7 +326,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
             } else {
                 self::delete_customer(absint($_GET['customer']));
 
-                wp_redirect(esc_url(add_query_arg()));
+                wp_safe_redirect(add_query_arg());
                 exit;
             }
         }
@@ -342,7 +342,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
                 self::delete_customer($id);
             }
 
-            wp_redirect(esc_url(add_query_arg()));
+            wp_safe_redirect(add_query_arg());
             exit;
         }
     }

@@ -496,9 +496,9 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
               if( rsFilter != '' ){   
                   <?php
                   if (isset($_REQUEST['records_show-filter'])) {
-                      $new_url = esc_url(remove_query_arg('records_show-filter', admin_url('?' . $_SERVER['QUERY_STRING'])));
+                      $new_url = remove_query_arg('records_show-filter', admin_url('?' . $_SERVER['QUERY_STRING']));
                   } else {
-                      $new_url = esc_url(admin_url('?' . $_SERVER['QUERY_STRING']));
+                      $new_url = admin_url('?' . $_SERVER['QUERY_STRING']);
                   }
                   ?>
                   document.location.href = '<?php echo $new_url; ?>&records_show-filter='+rsFilter;
@@ -521,7 +521,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     else {
       self::delete_customer( absint( $_GET['customer'] ) );
 
-      wp_redirect( esc_url( add_query_arg() ) );
+      wp_safe_redirect(add_query_arg());
       exit;
     }
 
@@ -540,7 +540,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
 
     }
 
-    wp_redirect( esc_url( add_query_arg() ) );
+    wp_safe_redirect(add_query_arg());
     exit;
   }
 }
