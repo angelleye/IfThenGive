@@ -272,7 +272,7 @@ class AngellEYE_IfThenGive_interface {
                                                     </div>
                                                 </div>
                                                 <div class="itg_form-group">
-                                                    <label class="itg_upper"><?php _e('Frist Name',ITG_TEXT_DOMAIN); ?></label>
+                                                    <label class="itg_upper"><?php _e('First Name',ITG_TEXT_DOMAIN); ?></label>
                                                     <input disabled="disabled" type="text" class="itg_form-control" name="ifthengive_firstname" id="ifthengive_firstname" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-group">
