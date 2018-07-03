@@ -240,12 +240,22 @@ class AngellEYE_IfThenGive_Post_types {
             }
         }
         if(isset($_POST['publish']) && $_POST['post_type']=='ifthengive_goals'){
-            $url = esc_url(admin_url("post.php?post=".$post_ID."&action=edit&view=true&add_post_success=true"));
-            wp_redirect( $url );
+            $url =  add_query_arg( array(
+                                'post' => $post_ID,
+                                'action' => 'edit',
+                                'view' => 'true',
+                                'add_post_success' => 'true'
+                            ), admin_url('post.php'));            
+            wp_safe_redirect($url);
             exit;
         }elseif(isset($_POST['save'])  && $_POST['post_type']=='ifthengive_goals'){
-            $url = esc_url(admin_url("post.php?post=".$post_ID."&action=edit&view=true&update_post_success=true"));
-            wp_redirect( $url );
+            $url =  add_query_arg( array(
+                                'post' => $post_ID,
+                                'action' => 'edit',
+                                'view' => 'true',
+                                'update_post_success' => 'true'
+                            ), admin_url('post.php'));            
+            wp_safe_redirect($url);
             exit;
         }
     }
