@@ -23,8 +23,8 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     public function __construct() {
         
         parent::__construct( [
-                'singular' => __( 'Giver', ITG_TEXT_DOMAIN ), //singular name of the listed records
-                'plural'   => __( 'Givers', ITG_TEXT_DOMAIN ), //plural name of the listed records
+                'singular' => __( 'Giver', 'ifthengive' ), //singular name of the listed records
+                'plural'   => __( 'Givers', 'ifthengive' ), //plural name of the listed records
                 'ajax'     => false //should this table support ajax?
 
         ] );
@@ -57,7 +57,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
-             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".$_REQUEST['post']."_status') AS GiverStatus,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".esc_sql($_REQUEST['post'])."_status') AS GiverStatus,
              um.user_id,
              u.user_email as CoreEmail,
              p.post_date as BADate,
@@ -69,16 +69,18 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              join `{$wpdb->prefix}users` as u on p.post_author = u.ID 
              join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
              left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
-             WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox') ";
+             WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '".esc_sql($_REQUEST['post'])."' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox') ";
         
              
             $sql .= " group by u.ID";
             if(isset($_REQUEST['s'])){
-               $sql .= "  Having (( BillingAgreement LIKE '%{$_REQUEST['s']}%' ) OR ( u.display_name LIKE '%{$_REQUEST['s']}%' ) OR ( PayPalEmail LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( PayPalPayerID LIKE '%{$_REQUEST['s']}%' )) ";               
+               $request_s = esc_sql($_REQUEST['s']);
+               $sql .= "  Having (( BillingAgreement LIKE '%{$request_s}%' ) OR ( u.display_name LIKE '%{$request_s}%' ) OR ( PayPalEmail LIKE '%{$request_s}%' ) OR ( amount LIKE '%{$request_s}%' ) OR ( PayPalPayerID LIKE '%{$request_s}%' )) ";               
             }
              if(isset($_REQUEST['orderby'])){
                  if(!empty($_REQUEST['orderby'])){
-                    $sql .= ' ORDER BY '.$_REQUEST['orderby'];
+                     $request_orderby = esc_sql($_REQUEST['orderby']);
+                    $sql .= ' ORDER BY '.$request_orderby;
                  }                 
                  else{
                      /* by default we will add post time/post type time order by  */
@@ -92,7 +94,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
                 $sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' DESC';
             }
         if(isset($_REQUEST['records_show-filter'])){
-            $per_page = $_REQUEST['records_show-filter'];
+            $per_page = esc_sql($_REQUEST['records_show-filter']);
         }
         $sql .= " LIMIT $per_page";
         $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;            
@@ -109,7 +111,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
-             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".$_REQUEST['post']."_status') AS GiverStatus,             
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".esc_sql($_REQUEST['post'])."_status') AS GiverStatus,             
              um.user_id,
              u.user_email as CoreEmail,
              p.post_date as BADate,
@@ -121,7 +123,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              join `{$wpdb->prefix}users` as u on p.post_author = u.ID 
              join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
              left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
-             WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox') 
+             WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '".esc_sql($_REQUEST['post'])."' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox') 
              group by u.ID Having GiverStatus = 'active' OR GiverStatus IS NULL";
              
         $result_array = $wpdb->get_results( $sql, 'ARRAY_A' );               
@@ -157,7 +159,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
                     ON
                         wpm.post_id = tp.post_id
                     WHERE
-                        tp.`meta_value` = '".$goal_id."' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND
+                        tp.`meta_value` = '".esc_sql($goal_id)."' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND
                         wpm.`meta_value` = '".$sandbox."' AND wpm.`meta_key` = 'itg_signup_in_sandbox'
                 )
                 GROUP BY
@@ -180,7 +182,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              u.display_name as DisplayName,
              pm.meta_value as amount,
              pm.`post_id` AS signup_postid,
-             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".$_REQUEST['post']."_status') AS GiverStatus,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".esc_sql($_REQUEST['post'])."_status') AS GiverStatus,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID 
                 FROM
                     `{$wpdb->prefix}posts` AS p
@@ -245,7 +247,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
       $sql = "SELECT
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = um.user_id and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
              (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_gec_email') AS PayPalEmail,
-             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".$_REQUEST['post']."_status') AS GiverStatus,
+             (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta AS usrmeta WHERE usrmeta.user_id = um.user_id AND usrmeta.meta_key = 'itg_giver_".esc_sql($_REQUEST['post'])."_status') AS GiverStatus,
              um.user_id,
              u.user_email as CoreEmail,
              p.post_date as BADate,
@@ -256,10 +258,11 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
              join `{$wpdb->prefix}users` as u on p.post_author = u.ID 
              join `{$wpdb->prefix}postmeta` as pm on pm.post_id = p.ID 
              left join {$wpdb->prefix}usermeta as um on um.user_id=u.ID 
-             WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '{$_REQUEST['post']}' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox') ";
+             WHERE pm.`post_id` IN (SELECT tp.post_id FROM {$wpdb->prefix}postmeta as tp  join {$wpdb->prefix}postmeta as wpm on wpm.post_id = tp.post_id WHERE tp.`meta_value` = '".esc_sql($_REQUEST['post'])."' AND tp.`meta_key` = 'itg_signup_wp_goal_id' AND wpm.`meta_value` = '".$sandbox."' ANd wpm.`meta_key` = 'itg_signup_in_sandbox') ";
         $sql .= " group by u.ID";
         if(isset($_REQUEST['s'])){
-           $sql .= "  Having (( BillingAgreement LIKE '%{$_REQUEST['s']}%' ) OR ( u.display_name LIKE '%{$_REQUEST['s']}%' ) OR ( PayPalEmail LIKE '%{$_REQUEST['s']}%' ) OR ( amount LIKE '%{$_REQUEST['s']}%' ) OR ( PayPalPayerID LIKE '%{$_REQUEST['s']}%' )) ";               
+            $request_s = esc_sql($_REQUEST['s']);
+           $sql .= "  Having (( BillingAgreement LIKE '%{$request_s}%' ) OR ( u.display_name LIKE '%{$request_s}%' ) OR ( PayPalEmail LIKE '%{$request_s}%' ) OR ( amount LIKE '%{$request_s}%' ) OR ( PayPalPayerID LIKE '%{$request_s}%' )) ";               
         }
      $wpdb->get_results( $sql, 'ARRAY_A' );     
      return $wpdb->num_rows;
@@ -271,7 +274,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
 
         /** Text displayed when no giver's data is available */
     public function no_items() {
-      _e( 'No Givers avaliable.', ITG_TEXT_DOMAIN );
+      _e( 'No Givers avaliable.', 'ifthengive' );
     }
     
     /**
@@ -306,21 +309,21 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     public function column_default( $item, $column_name ) {        
       switch ( $column_name ) {
         case 'BillingAgreement':
-             _e($item['BillingAgreement'],ITG_TEXT_DOMAIN);
+             _e($item['BillingAgreement'],'ifthengive');
             break;
         case 'Status':
             $giverstatus = $item['GiverStatus'];
             /* if status is active we have to change it into suspended */
             if($giverstatus == 'active'){
-                _e('Active',ITG_TEXT_DOMAIN);
+                _e('Active','ifthengive');
             }
             /* if no status found,default is suspended */
             else if($giverstatus === NULL){
-                _e('Active',ITG_TEXT_DOMAIN);
+                _e('Active','ifthengive');
             }
             /* else status is always suspended so make it active */
             else{                
-                _e('Suspend',ITG_TEXT_DOMAIN);
+                _e('Suspend','ifthengive');
             }            
             break;
         case 'PayPalInfo':                
@@ -339,13 +342,13 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
             echo $symbol.number_format($item['amount'],2,'.', '');
             break;        
         case 'DisplayName' :
-            _e(apply_filters('itg_givers_list_link','<a href="' . site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $_REQUEST['post'] . '&view=GetUsersTransactions&user_id=' . $item['user_id'] . '">' . $item['DisplayName'] . '</a>',$item['DisplayName'],$_REQUEST['post']),ITG_TEXT_DOMAIN);
+            echo apply_filters('itg_givers_list_link','<a href="' . esc_url(site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . sanitize_key($_REQUEST['post']) . '&view=GetUsersTransactions&user_id=' . $item['user_id']) . '">' . esc_html($item['DisplayName']) . '</a>',$item['DisplayName'],$_REQUEST['post']);
             break;
          case 'BADate' :
-            _e(date('Y-m-d',  strtotime($item['BADate'])),ITG_TEXT_DOMAIN);
+            _e(date('Y-m-d',  strtotime($item['BADate'])),'ifthengive');
              break;
          case 'Email' :
-            _e($item['CoreEmail'],ITG_TEXT_DOMAIN);
+            _e($item['CoreEmail'],'ifthengive');
              break;         
         case 'ITGAction' :
             if($item['BillingAgreement']==''){
@@ -355,21 +358,21 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
                 $giverstatus = $item['GiverStatus'];
                 /* if status is active we have to change it into suspended */
                 if($giverstatus == 'active'){               
-                    $label = __('Suspend',ITG_TEXT_DOMAIN);                
+                    $label = __('Suspend','ifthengive');                
                     $class = "btn-warning";
                 }
                 /* if no status found,default is suspended */
                 else if($giverstatus === NULL){                
-                    $label = __('Suspend',ITG_TEXT_DOMAIN);               
+                    $label = __('Suspend','ifthengive');               
                     $class = "btn-warning";
                 }
                 /* else status is always suspended so make it active */
                 else{                
-                    $label = __('Activate',ITG_TEXT_DOMAIN);
+                    $label = __('Activate','ifthengive');
                     $class = "btn-defalt";
                 }            
-                //echo apply_filters('itg_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-itgchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,ITG_TEXT_DOMAIN).'</button> ',$_REQUEST['post']);
-                echo '<button type="button" class="btn btn-danger btn-sm btn-dgiver" data-signupid="'.$item['signup_postid'].'" data-goalid="'.$_REQUEST['post'].'" data-userid="'.$item['user_id'].'"><span></span>'.__(' Delete',ITG_TEXT_DOMAIN).'</button>';
+                //echo apply_filters('itg_givers_action_link','<button type="button" class="btn '.$class.' btn-sm btn-cbaid" data-postid="'.$_REQUEST['post'].'" data-itgchangestatus="'.$label.'" data-userid="'.$item['user_id'].'">'.__($label,'ifthengive').'</button> ',$_REQUEST['post']);
+                echo '<button type="button" class="btn btn-danger btn-sm btn-dgiver" data-signupid="'.$item['signup_postid'].'" data-goalid="'.sanitize_key($_REQUEST['post']).'" data-userid="'.$item['user_id'].'"><span></span>'.__(' Delete','ifthengive').'</button>';
             }
             break;
       }
@@ -416,14 +419,14 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     public function get_columns() {
       $columns = [
         //'cb'           => '<input type="checkbox" />',
-        'BillingAgreement'=> __( 'Billing Agreement ID', ITG_TEXT_DOMAIN ),
-        'DisplayName'    => __( 'Name', ITG_TEXT_DOMAIN ),
-        'Email'         => __('Email',ITG_TEXT_DOMAIN),         
-        'amount'       => __( 'Amount', ITG_TEXT_DOMAIN ),
-        'PayPalInfo' => __('PayPal Info',ITG_TEXT_DOMAIN),
-        'BADate'       => __('Agreement Date',ITG_TEXT_DOMAIN),
-        'Status'       => __('Status',ITG_TEXT_DOMAIN),
-        'ITGAction' => __('Action',ITG_TEXT_DOMAIN)
+        'BillingAgreement'=> __( 'Billing Agreement ID', 'ifthengive' ),
+        'DisplayName'    => __( 'Name', 'ifthengive' ),
+        'Email'         => __('Email','ifthengive'),         
+        'amount'       => __( 'Amount', 'ifthengive' ),
+        'PayPalInfo' => __('PayPal Info','ifthengive'),
+        'BADate'       => __('Agreement Date','ifthengive'),
+        'Status'       => __('Status','ifthengive'),
+        'ITGAction' => __('Action','ifthengive')
       ];
 
       return $columns;
@@ -475,7 +478,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
      $per_page     = $this->get_items_per_page( 'givers_per_page', 10 );     
      $current_page = $this->get_pagenum();
      if(isset($_REQUEST['records_show-filter'])){
-            $per_page = $_REQUEST['records_show-filter'];
+            $per_page = esc_sql($_REQUEST['records_show-filter']);
      }
      $total_items  = self::record_count();       
      $this->set_pagination_args( [
@@ -493,9 +496,9 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
               if( rsFilter != '' ){   
                   <?php
                   if (isset($_REQUEST['records_show-filter'])) {
-                      $new_url = remove_query_arg('records_show-filter', admin_url('?' . $_SERVER['QUERY_STRING']));
+                      $new_url = esc_url(remove_query_arg('records_show-filter', admin_url('?' . $_SERVER['QUERY_STRING'])));
                   } else {
-                      $new_url = admin_url('?' . $_SERVER['QUERY_STRING']);
+                      $new_url = esc_url(admin_url('?' . $_SERVER['QUERY_STRING']));
                   }
                   ?>
                   document.location.href = '<?php echo $new_url; ?>&records_show-filter='+rsFilter;
@@ -543,17 +546,17 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
 }
     public function extra_tablenav($which) {
         global $wpdb, $testiURL, $tablename, $tablet;
-        $move_on_url = '&post=' . $_REQUEST['post'] . '&view=ListTransactions&payment_status-filter=';
+        $move_on_url = '&post=' . sanitize_key($_REQUEST['post']) . '&view=ListTransactions&payment_status-filter=';
         $selected = "selected='selected'";
-        $status_filter = !empty($_REQUEST['payment_status-filter']) ? $_REQUEST['payment_status-filter'] : '';
-        $rs_filter = !empty($_REQUEST['records_show-filter']) ? $_REQUEST['records_show-filter'] : '';
+        $status_filter = !empty($_REQUEST['payment_status-filter']) ? sanitize_text_field($_REQUEST['payment_status-filter']) : '';
+        $rs_filter = !empty($_REQUEST['records_show-filter']) ? sanitize_text_field($_REQUEST['records_show-filter']) : '';
         if ($which == "top") {
             ?>
             <div class="alignleft actions bulkactions">                                
                 <a style="margin-right: 5px;margin-bottom: 5px;" class="btn btn-info btn-sm pull-left" href="<?php echo site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals'; ?>">Back to Goals</a>               
             </div>
             <select name="number_of_givers" class="ewc-filter-num">
-                <option value=""><?php _e('Show Number of Records',ITG_TEXT_DOMAIN); ?></option>
+                <option value=""><?php _e('Show Number of Records','ifthengive'); ?></option>
                 <option value="10" <?php if($rs_filter === '10') { echo $selected; } ?>>10</option>
                 <option value="25" <?php if($rs_filter === '25') { echo $selected; } ?>>25</option>
                 <option value="50" <?php if($rs_filter === '50') { echo $selected; } ?>>50</option>

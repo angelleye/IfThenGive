@@ -17,18 +17,18 @@ if(! is_admin()){
     $userID = get_current_user_id();
     if(is_int($userID) && $userID > 0){
 ?>
-<div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php _e('Transactions', ITG_TEXT_DOMAIN) ?></abbr></div>
+<div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php _e('Transactions', 'ifthengive') ?></abbr></div>
 <div class="itg_center_container">   
     <div class="itgcontainer">
         <div class="itg_table-responsive">
             <table class="itg_table" id="IfThenGive_Transaction_Table" width="100%">
                 <thead>
                     <tr>
-                        <th><?php _e('Transaction ID', ITG_TEXT_DOMAIN); ?></th>                        
-                        <th><?php _e('Amount', ITG_TEXT_DOMAIN); ?></th>
-                        <th><?php _e('Goal Name', ITG_TEXT_DOMAIN); ?></th>                                                
-                        <th><?php _e('Payment Status', ITG_TEXT_DOMAIN); ?></th>
-                        <th><?php _e('Payment Date', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('Transaction ID', 'ifthengive'); ?></th>                        
+                        <th><?php _e('Amount', 'ifthengive'); ?></th>
+                        <th><?php _e('Goal Name', 'ifthengive'); ?></th>                                                
+                        <th><?php _e('Payment Status', 'ifthengive'); ?></th>
+                        <th><?php _e('Payment Date', 'ifthengive'); ?></th>
                     </tr>
                 </thead>
             </table>            
@@ -92,6 +92,6 @@ $symbol = $paypal->get_currency_symbol($ccode);
 </script>
 <?php }
     else{
-        _e("Please login to site.",ITG_TEXT_DOMAIN);
+        _e("Please login to site.",'ifthengive');
     }
 }

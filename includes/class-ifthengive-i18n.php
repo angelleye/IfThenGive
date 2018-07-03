@@ -35,7 +35,7 @@ class Ifthengive_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			ITG_TEXT_DOMAIN,
+			'ifthengive',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

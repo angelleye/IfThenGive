@@ -211,19 +211,19 @@ class IfThenGive_Admin {
         $custom_message = 'Goal Created Successfully';
         $messages['ifthengive_goals'] = array(
 		0 => '', // Unused. Messages start at index 1.
-		1 => sprintf(__('Goal Updated Successfully',ITG_TEXT_DOMAIN)),
-		2 => __('Custom field updated.',ITG_TEXT_DOMAIN),
-		3 => __('Custom field deleted.',ITG_TEXT_DOMAIN),
-		4 => __($custom_message,ITG_TEXT_DOMAIN),
+		1 => sprintf(__('Goal Updated Successfully','ifthengive')),
+		2 => __('Custom field updated.','ifthengive'),
+		3 => __('Custom field deleted.','ifthengive'),
+		4 => __($custom_message,'ifthengive'),
 		/* translators: %s: date and time of the revision */
-		5 => isset($_GET['revision']) ? sprintf(__('Goal restored to revision from %s',ITG_TEXT_DOMAIN), wp_post_revision_title((int) $_GET['revision'], false)) : false,
-		6 => sprintf(__($custom_message,ITG_TEXT_DOMAIN)),
-		7 => __('Goal saved.',ITG_TEXT_DOMAIN),
-		8 => sprintf(__('Goal submitted. <a target="_blank" href="%s">Preview Goal</a>',ITG_TEXT_DOMAIN), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
-		9 => sprintf(__('Goal scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Goal</a>',ITG_TEXT_DOMAIN),
+		5 => isset($_GET['revision']) ? sprintf(__('Goal restored to revision from %s','ifthengive'), wp_post_revision_title((int) $_GET['revision'], false)) : false,
+		6 => sprintf(__($custom_message,'ifthengive')),
+		7 => __('Goal saved.','ifthengive'),
+		8 => sprintf(__('Goal submitted. <a target="_blank" href="%s">Preview Goal</a>','ifthengive'), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+		9 => sprintf(__('Goal scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Goal</a>','ifthengive'),
 		// translators: Publish box date format, see http://php.net/date
 		date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date)), esc_url(get_permalink($post_ID))),
-		10 => sprintf(__('Goal draft updated. <a target="_blank" href="%s">Preview Goal</a>',ITG_TEXT_DOMAIN), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+		10 => sprintf(__('Goal draft updated. <a target="_blank" href="%s">Preview Goal</a>','ifthengive'), esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
 		);
 		return $messages;
 
@@ -234,10 +234,10 @@ class IfThenGive_Admin {
            if($file == $plugin_basename)
            {
                $new_links = array(
-                   sprintf( '<a href="%s">%s</a>', admin_url('options-general.php?page=ifthengive_option'), __( 'Configure', ITG_TEXT_DOMAIN ) ),
-                   sprintf( '<a href="%s" target="_blank">%s</a>', 'https://www.angelleye.com/category/docs/wordpress', __( 'Docs', ITG_TEXT_DOMAIN ) ),
-                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Support', ITG_TEXT_DOMAIN ) ),
-                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Write a Review', ITG_TEXT_DOMAIN ) ),
+                   sprintf( '<a href="%s">%s</a>', admin_url('options-general.php?page=ifthengive_option'), __( 'Configure', 'ifthengive' ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', 'https://www.angelleye.com/category/docs/wordpress', __( 'Docs', 'ifthengive' ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Support', 'ifthengive' ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Write a Review', 'ifthengive' ) ),
                );
 
                $links = array_merge( $links, $new_links );
@@ -262,11 +262,11 @@ class IfThenGive_Admin {
                     <p>
                         <?php
                         echo sprintf('%1$s<b>%2$s</b> %3$s %4$s%5$s',
-                                __('IfThenGive : ',ITG_TEXT_DOMAIN),
+                                __('IfThenGive : ','ifthengive'),
                                 $goal_title,
-                                __(' running in background. Transactions are in Process. ',ITG_TEXT_DOMAIN),
+                                __(' running in background. Transactions are in Process. ','ifthengive'),
                                 $complete_percentage,
-                                __('% Completed.',ITG_TEXT_DOMAIN) 
+                                __('% Completed.','ifthengive') 
                              );
                         ?>
                     </p>                   
@@ -279,10 +279,10 @@ class IfThenGive_Admin {
                     <p>
                         <?php
                         echo sprintf('%1$s<b>%2$s</b> %3$s <a href="%5$s">%4$s</a>',
-                                    __('IfThenGive : ',ITG_TEXT_DOMAIN),
+                                    __('IfThenGive : ','ifthengive'),
                                     $goal_title,
-                                    __('Transactions Completed.',ITG_TEXT_DOMAIN),
-                                    __('See Transactions.',ITG_TEXT_DOMAIN),
+                                    __('Transactions Completed.','ifthengive'),
+                                    __('See Transactions.','ifthengive'),
                                     admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$current_process_goal.'&view=ListTransactions')
                                     );
                         ?>
