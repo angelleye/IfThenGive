@@ -235,7 +235,7 @@ class AngellEYE_IfThenGive_Post_types {
                     }
                 }
                 update_post_meta($post_ID, 'amount','select');
-                update_post_meta($post_ID, 'option_name',sanitize_text_field($_POST['option_name']));
+                update_post_meta($post_ID, 'option_name',array_map('sanitize_text_field',$_POST['option_name']));
                 update_post_meta($post_ID, 'option_amount',$amountArray);
             }
         }
