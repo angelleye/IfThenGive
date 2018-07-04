@@ -108,13 +108,13 @@ class AngellEYE_IfThenGive_Public_Display {
                                 if($amount == 'fixed'){
                                     $html .= '<div class="itg_post-title">';
                                     $fixed_amount = get_post_meta($post->ID,'fixed_amount_input',true);                                
-                                    $html .= '<h4>'.esc_html('If ','ifthengive').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ). esc_html(' Then I will Give ','ifthengive').$symbol.'<span id="ifthengive_fixed_price_span_'.$post->ID.'">'.$fixed_amount.'</span></h4>';
+                                    $html .= '<h4>'.esc_html('If ','ifthengive').get_post_meta( $post->ID, 'trigger_thing', true ). esc_html(' Then I will Give ','ifthengive').$symbol.'<span id="ifthengive_fixed_price_span_'.$post->ID.'">'.$fixed_amount.'</span></h4>';
                                     $html .= '</div>';                                    
                                 }                                
                                 elseif($amount == 'manual'){
                                     $manual_amount_input_value = get_post_meta($post->ID, 'manual_amount_input', true);
                                     $html .= '<div class="itg_post-title">';
-                                        $html .= '<h4>'.esc_html('If ','ifthengive').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).esc_html(' Then I will Give ','ifthengive').$symbol.'<span id="ifthengive_manual_price_span_'.$post->ID.'">'.$manual_amount_input_value.'</span></h4>';
+                                        $html .= '<h4>'.esc_html('If ','ifthengive').get_post_meta( $post->ID, 'trigger_thing', true ).esc_html(' Then I will Give ','ifthengive').$symbol.'<span id="ifthengive_manual_price_span_'.$post->ID.'">'.$manual_amount_input_value.'</span></h4>';
                                     $html .= '</div>';                                   
                                 }
                                 else{
@@ -122,7 +122,7 @@ class AngellEYE_IfThenGive_Public_Display {
                                     $option_amount = get_post_meta($post->ID,'option_amount',true);                                    
                                     $i=0;
                                     $html .= '<div class="itg_post-title">';
-                                        $html .= '<h4>'.esc_html('If ','ifthengive').'&nbsp;'.get_post_meta( $post->ID, 'trigger_thing', true ).esc_html(' Then I will Give ','ifthengive').$symbol.'<span id="ifthengive_fixed_price_span_select_'.$post->ID.'">'.$option_amount[0].'</span></h4>';
+                                        $html .= '<h4>'.esc_html('If ','ifthengive').get_post_meta( $post->ID, 'trigger_thing', true ).esc_html(' Then I will Give ','ifthengive').$symbol.'<span id="ifthengive_fixed_price_span_select_'.$post->ID.'">'.$option_amount[0].'</span></h4>';
                                     $html .= '</div>';                                   
                                 }
                         $html .= '</div>'; // itg_post-content-details
