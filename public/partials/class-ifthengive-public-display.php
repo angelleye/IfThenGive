@@ -237,6 +237,7 @@ class AngellEYE_IfThenGive_Public_Display {
                                                   </script>';
                                          }                                        
                                         $html .= '<input type="hidden" name="ifthengive_page_id" id="ifthengive_page_id_'.$post->ID.'" value="'.$ifthengive_page_id.'">';
+                                        $html .= wp_nonce_field('itg_goal_form','_itg_goal_form_nonce');
                                         $html .= '<button type="button" class="itg_btn itg_btn-primary ifthengive_angelleye_checkout" data-postid="'.$post->ID.'" data-userid="'.$user_id.'">'.esc_html('Sign Up For ','ifthengive') . get_post_meta( $post->ID, 'trigger_name', true ).'</button>';
                                     $html .= '</form>';
                                 $html .= '</div>'; // itgcontainer
@@ -256,6 +257,18 @@ class AngellEYE_IfThenGive_Public_Display {
         /* Get user information  from Form Data. */
         $itguser = array();
         parse_str($_POST['formData'], $itguser);
+        
+        $nonce_value = $itguser['_itg_goal_form_nonce'];
+        if (!wp_verify_nonce(  $nonce_value ,  'itg_goal_form'  )  ) {            
+            echo json_encode(array(
+                'Ack'=>'Failure',
+                'ErrorCode'=>'0',
+                'ErrorShort'=>__('Invalid nonce','ifthengive'),
+                'ErrorLong'=>__('WordPress nonce verificaion failed.','ifthengive')
+                ));
+            exit;
+        }
+        
         
         /*valodation starts */
         $ValidationErrors = array();
