@@ -38,9 +38,13 @@ class AngellEYE_IfThenGive_Public_Display {
     
     public static function ifthengive_detect_my_account_shortcode()
     {
-        global $post;
+        global $post,$wp_query;
+        $is_endpoint = false;
+        if(isset($wp_query->query_vars['itgmyaccount'])){
+            $is_endpoint = true;
+        }
         if($post){
-            if(has_shortcode( $post->post_content, 'ifthengive_account')){
+            if(has_shortcode( $post->post_content, 'ifthengive_account') || $is_endpoint == true){
                 wp_enqueue_script('ifthengive_plugin_compress', ITG_PLUGIN_URL . 'public/js/plugins-compressed.js', array('jquery'));
             }
         }               
