@@ -44,12 +44,12 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
         $userID = get_current_user_id();
         
         
-        $search   = $_POST['search']['value'];
-        $start    = $_POST['start'];
-        $length   = $_POST['length'];
+        $search   = esc_sql($_POST['search']['value']);
+        $start    = esc_sql($_POST['start']);
+        $length   = esc_sql($_POST['length']);
         $filter   = 0;
-        $colOrder = $_POST['order'][0]['column'];
-    	$coldir   = $_POST['order'][0]['dir'];
+        $colOrder = esc_sql($_POST['order'][0]['column']);
+    	$coldir   = esc_sql($_POST['order'][0]['dir']);
         if($colOrder==0)
             $col='transactionId';
         else if($colOrder==1)
@@ -86,12 +86,12 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
             $sql .= "  Having (( PayPalPayerID LIKE '%{$search}%' ) OR ( user_paypal_email LIKE '%{$search}%' ) OR ( user_display_name LIKE '%{$search}%' ) OR ( amount LIKE '%{$search}%' ) OR ( transactionId LIKE '%{$search}%' ) OR ( ppack LIKE '%{$search}%' ) ) ";
         }
         if(isset($_REQUEST['payment_status-filter'])  && $_REQUEST['payment_status-filter'] != 'all' ){
-          $sql .= "  Having (( ppack LIKE '{$_REQUEST['payment_status-filter']}' ) ) ";     
+          $sql .= "  Having (( ppack LIKE '".esc_sql($_REQUEST['payment_status-filter'])."' ) ) ";     
         }                    
         $sql .= "ORDER BY {$col} {$coldir} LIMIT {$start}, {$length}";
         
         if(isset($_REQUEST['records_show-filter'])){
-            $per_page = $_REQUEST['records_show-filter'];
+            $per_page = esc_sql($_REQUEST['records_show-filter']);
         }
         
         $result_array = $wpdb->get_results($sql, 'ARRAY_A');
@@ -107,7 +107,7 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
     public static function record_count() {
         global $wpdb;
         $userID = get_current_user_id();
-        $search   = $_POST['search']['value'];        
+        $search   = esc_sql($_POST['search']['value']);        
         $sql = "SELECT  (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = b.meta_value and usrmeta.meta_key = 'itg_gec_payer_id') as PayPalPayerID,
              (SELECT usrmeta.meta_value from {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id =  b.meta_value and usrmeta.meta_key = 'itg_gec_email') as user_paypal_email,
              (SELECT usr.display_name from {$wpdb->prefix}users as usr where usr.ID =  b.meta_value ) as user_display_name,
@@ -128,7 +128,7 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
             $sql .= "  Having (( PayPalPayerID LIKE '%{$search}%' ) OR ( user_paypal_email LIKE '%{$search}%' ) OR ( user_display_name LIKE '%{$search}%' ) OR ( amount LIKE '%{$search}%' ) OR ( transactionId LIKE '%{$search}%' ) OR ( ppack LIKE '%{$search}%' ) ) ";
         }
         if(isset($_REQUEST['payment_status-filter']) && $_REQUEST['payment_status-filter'] != 'all' ){
-          $sql .= "  Having (( ppack LIKE '{$_REQUEST['payment_status-filter']}' ) ) ";     
+          $sql .= "  Having (( ppack LIKE '".esc_sql($_REQUEST['payment_status-filter'])."' ) ) ";     
         }
         $wpdb->get_results($sql, 'ARRAY_A');
         return $wpdb->num_rows;

@@ -44,12 +44,12 @@ class AngellEYE_IfThenGive_My_Goals_Table {
         $userID = get_current_user_id();
         
         
-        $search   = $_POST['search']['value'];
-        $start    = $_POST['start'];
-        $length   = $_POST['length'];
+        $search   = esc_sql($_POST['search']['value']);
+        $start    = esc_sql($_POST['start']);
+        $length   = esc_sql($_POST['length']);
         $filter   = 0;
-        $colOrder = $_POST['order'][0]['column'];
-    	$coldir   = $_POST['order'][0]['dir'];
+        $colOrder = esc_sql($_POST['order'][0]['column']);
+    	$coldir   = esc_sql($_POST['order'][0]['dir']);
         if($colOrder==0)
             $col='GoalName';
         else if($colOrder==1)
@@ -119,7 +119,7 @@ class AngellEYE_IfThenGive_My_Goals_Table {
     public static function record_count() {
         global $wpdb;
         $userID = get_current_user_id();
-        $search   = $_POST['search']['value'];        
+        $search   = esc_sql($_POST['search']['value']);        
         $sql = "SELECT
                 t.meta_value AS user_Id,  
                 e.meta_value as goal_id,

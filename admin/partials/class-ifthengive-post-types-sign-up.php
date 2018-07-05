@@ -31,20 +31,20 @@ class AngellEYE_IfThenGive_Post_type_Sign_Up {
         }
         register_post_type('itg_sign_up', apply_filters('ifthengive_register_post_type_sign_up', array(
                     'labels' => array(
-                        'name' => __('IfThenGive Sign up', ITG_TEXT_DOMAIN),
-                        'singular_name' => __('IfThenGive Sign up', ITG_TEXT_DOMAIN),
-                        'menu_name' => _x('IfThenGive Sign up', 'Admin menu name', ITG_TEXT_DOMAIN),                        
-                        'edit' => __('Edit', ITG_TEXT_DOMAIN),
-                        'edit_item' => __('View IfThenGive Sign up', ITG_TEXT_DOMAIN),
-                        'new_item' => __('New IfThenGive Sign up', ITG_TEXT_DOMAIN),
-                        'view' => __('View IfThenGive Sign up', ITG_TEXT_DOMAIN),
-                        'view_item' => __('View IfThenGive Sign up', ITG_TEXT_DOMAIN),
-                        'search_items' => __('Search IfThenGive Sign up', ITG_TEXT_DOMAIN),
-                        'not_found' => __('No users found', ITG_TEXT_DOMAIN),
-                        'not_found_in_trash' => __('No users found in trash', ITG_TEXT_DOMAIN),
-                        'parent' => __('Parent IfThenGive Sign up', ITG_TEXT_DOMAIN)
+                        'name' => __('IfThenGive Sign up', 'ifthengive'),
+                        'singular_name' => __('IfThenGive Sign up', 'ifthengive'),
+                        'menu_name' => _x('IfThenGive Sign up', 'Admin menu name', 'ifthengive'),                        
+                        'edit' => __('Edit', 'ifthengive'),
+                        'edit_item' => __('View IfThenGive Sign up', 'ifthengive'),
+                        'new_item' => __('New IfThenGive Sign up', 'ifthengive'),
+                        'view' => __('View IfThenGive Sign up', 'ifthengive'),
+                        'view_item' => __('View IfThenGive Sign up', 'ifthengive'),
+                        'search_items' => __('Search IfThenGive Sign up', 'ifthengive'),
+                        'not_found' => __('No users found', 'ifthengive'),
+                        'not_found_in_trash' => __('No users found in trash', 'ifthengive'),
+                        'parent' => __('Parent IfThenGive Sign up', 'ifthengive')
                     ),
-                    'description' => __('This is where you can create new IfThenGive Sign up.', ITG_TEXT_DOMAIN),
+                    'description' => __('This is where you can create new IfThenGive Sign up.', 'ifthengive'),
                     'public' => false,
                     'show_ui' => false,
                     'capability_type' => 'post',                    

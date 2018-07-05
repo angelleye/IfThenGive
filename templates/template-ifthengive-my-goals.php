@@ -21,18 +21,18 @@ if(! is_admin()){
     <div class="itg_loader"></div>
     <h1 style="font-weight: 600;">Processing...</h1>
 </div>
-<div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php _e('Goals', ITG_TEXT_DOMAIN) ?></abbr></div>
+<div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php _e('Goals', 'ifthengive') ?></abbr></div>
 <div class="itg_center_container">   
     <div class="itgcontainer">
         <div class="itg_table-responsive">
             <table class="itg_table" id="IfThenGive_Goals_Table" width="100%">
                 <thead>
                     <tr>
-                        <th><?php _e('Goal Name', ITG_TEXT_DOMAIN); ?></th>                        
-                        <th><?php _e('Amount', ITG_TEXT_DOMAIN); ?></th>           
-                        <th><?php _e('Adjust Amount', ITG_TEXT_DOMAIN); ?></th>
-                        <th><?php _e('Action', ITG_TEXT_DOMAIN); ?></th>
-                        <th><?php _e('Date', ITG_TEXT_DOMAIN); ?></th>
+                        <th><?php _e('Goal Name', 'ifthengive'); ?></th>                        
+                        <th><?php _e('Amount', 'ifthengive'); ?></th>           
+                        <th><?php _e('Adjust Amount', 'ifthengive'); ?></th>
+                        <th><?php _e('Action', 'ifthengive'); ?></th>
+                        <th><?php _e('Date', 'ifthengive'); ?></th>
                     </tr>
                 </thead>
             </table>            
@@ -79,7 +79,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
                             return '-';
                         }
                         else{
-                            return '<button class="itg_btn itg_btn-primary itg_btn-sm itg_adjust_amount" data-goalamount="'+parseFloat(row.amount).toFixed(2)+'"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Adjust',ITG_TEXT_DOMAIN); ?></button>';
+                            return '<button class="itg_btn itg_btn-primary itg_btn-sm itg_adjust_amount" data-goalamount="'+parseFloat(row.amount).toFixed(2)+'"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Adjust','ifthengive'); ?></button>';
                         }
                     }
                 },
@@ -91,10 +91,10 @@ $symbol = $paypal->get_currency_symbol($ccode);
                         }
                         else{
                             if(row.giver_status =='suspended'){
-                                return '<button class="itg_btn itg_btn-sm itg_giver_status" data-changestatus="Active" data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Activate',ITG_TEXT_DOMAIN); ?></button>';
+                                return '<button class="itg_btn itg_btn-sm itg_giver_status" data-changestatus="Active" data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Activate','ifthengive'); ?></button>';
                             }
                             else{
-                                return '<button class="itg_btn itg_btn-warning itg_btn-sm itg_giver_status" data-changestatus="Suspend"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Suspend',ITG_TEXT_DOMAIN); ?></button>';
+                                return '<button class="itg_btn itg_btn-warning itg_btn-sm itg_giver_status" data-changestatus="Suspend"  data-goalname="'+row.GoalName+'" data-goalid="'+row.goal_id+'" data-epostid="'+row.e_postId+'" data-userId="'+row.user_Id+'" ><?php _e('Suspend','ifthengive'); ?></button>';
                             }
                         }
                     }
@@ -187,6 +187,6 @@ $symbol = $paypal->get_currency_symbol($ccode);
 </script>
 <?php }
     else{
-        _e("Please login to site.",ITG_TEXT_DOMAIN);
+        _e("Please login to site.",'ifthengive');
     }
 }
