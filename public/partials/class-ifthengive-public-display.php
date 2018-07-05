@@ -247,30 +247,9 @@ class AngellEYE_IfThenGive_Public_Display {
         }
         return $html;        
     }
-         
-    public static function start_express_checkout(){        
-        global $wpdb;
-        /*Getting data from ajax */        
-        $post_id = sanitize_key($_POST['post_id']);
-        $amount = filter_var(number_format($_POST['amount'],2,'.', ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-        
-        /* Get user information  from Form Data. */
-        $itguser = array();
-        parse_str($_POST['formData'], $itguser);
-        
-        $nonce_value = $itguser['_itg_goal_form_nonce'];
-        if (!wp_verify_nonce(  $nonce_value ,  'itg_goal_form'  )  ) {            
-            echo json_encode(array(
-                'Ack'=>'Failure',
-                'ErrorCode'=>'0',
-                'ErrorShort'=>__('Invalid nonce','ifthengive'),
-                'ErrorLong'=>__('WordPress nonce verificaion failed.','ifthengive')
-                ));
-            exit;
-        }
-        
-        
-        /*valodation starts */
+    
+    public static function validate_fields($itguser){
+                /*valodation starts */
         $ValidationErrors = array();
         $fname = sanitize_text_field( $itguser['ifthengive_firstname']);
         if (!preg_match("/^[a-zA-Z]+$/",$fname)) {
@@ -299,7 +278,33 @@ class AngellEYE_IfThenGive_Public_Display {
             echo json_encode(array('Ack'=>__('ValidationError','ifthengive'),'ErrorCode'=>__('Invalid Inputs','ifthengive'),'ErrorLong'=>__('Please find Following Error','ifthengive'),'Errors'=>$ValidationErrors));
             exit;
         }            
-        /*valodation End */            
+        /*valodation End */
+        return true;
+    }
+
+    public static function start_express_checkout(){        
+        global $wpdb;
+        /*Getting data from ajax */        
+        $post_id = sanitize_key($_POST['post_id']);
+        $amount = filter_var(number_format($_POST['amount'],2,'.', ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        
+        /* Get user information  from Form Data. */
+        $itguser = array();
+        parse_str($_POST['formData'], $itguser);
+        
+        $nonce_value = $itguser['_itg_goal_form_nonce'];
+        if (!wp_verify_nonce(  $nonce_value ,  'itg_goal_form'  )  ) {            
+            echo json_encode(array(
+                'Ack'=>'Failure',
+                'ErrorCode'=>'0',
+                'ErrorShort'=>__('Invalid nonce','ifthengive'),
+                'ErrorLong'=>__('WordPress nonce verificaion failed.','ifthengive')
+                ));
+            exit;
+        }
+        
+        self::validate_fields($itguser);
+
             
         /*Get trigger_name of Post */        
         $trigger_name = get_post_meta( $post_id, 'trigger_name', true );       
