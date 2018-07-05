@@ -48,13 +48,13 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         global $wpdb;
         $Logger = new AngellEYE_IfThenGive_Logger();       
         $fields[] = array(
-            'title' => __('Sandbox', ITG_TEXT_DOMAIN),
+            'title' => __('Sandbox', 'ifthengive'),
             'id' => 'itg_sandbox_enable',
             'type' => 'checkbox',
-            'label' => __('Enable logging', ITG_TEXT_DOMAIN),
+            'label' => __('Enable logging', 'ifthengive'),
             'default' => 'no',
             'labelClass' => 'switch',
-            'desc' => sprintf(__('<div class="slider round"></div>', ITG_TEXT_DOMAIN))
+            'desc' => sprintf(__('<div class="slider round"></div>', 'ifthengive'))
         );
         $fields[] = array('type' => 'sectionend', 'id' => 'general_options_setting');
         return $fields;
@@ -100,7 +100,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                 </div>                  
                     <div id="overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
                         <div class="itg_loader"></div>
-                        <h1 style="font-weight: 600;"><?php _e('Processing...',ITG_TEXT_DOMAIN); ?></h1>                    
+                        <h1 style="font-weight: 600;"><?php _e('Processing...','ifthengive'); ?></h1>                    
                     </div>
                 </div>
                 <div class="row">
@@ -124,7 +124,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                 $success_notice = get_option('itg_permission_connect_to_paypal_success_notice');
                                 if ($success_notice) {
                                     echo '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12"><div class="alert alert-success">';
-                                    echo "<strong>" . __($success_notice, ITG_TEXT_DOMAIN) . "</strong>";
+                                    echo "<strong>" . __($success_notice, 'ifthengive') . "</strong>";
                                     echo '</div></div></div>';
                                     delete_option('itg_permission_connect_to_paypal_success_notice');
                                 }
@@ -132,7 +132,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                 $failed_notice = get_option('itg_permission_connect_to_paypal_failed_notice');
                                 if ($failed_notice) {
                                     echo '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12"><div class="alert alert-danger">';
-                                    echo "<strong>" . __($failed_notice, ITG_TEXT_DOMAIN) . "</strong>";
+                                    echo "<strong>" . __($failed_notice, 'ifthengive') . "</strong>";
                                     echo '</div></div></div>';
                                     delete_option('itg_permission_connect_to_paypal_failed_notice');
                                 }
@@ -151,7 +151,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                             <div class="table-responsive">
                                                 <table class="table table-responsive">
                                                     <tr>        
-                                                        <td><strong><?php echo __('PayPal Account ID', ITG_TEXT_DOMAIN); ?></strong></td>
+                                                        <td><strong><?php echo __('PayPal Account ID', 'ifthengive'); ?></strong></td>
                                                         <td class="text-primary"><?php echo $sb_paypal_account_id; ?></td>
                                                     </tr>                                                
                                                 </table>
@@ -159,7 +159,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                         </div>
                                         <?php } ?>
                                         <div class="col-md-6 col-lg-6 col-sm-6">
-                                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/?page=ifthengive_disconnect_paypal&action=true&env=sandbox'; ?>"><?php _e('Disconnect',ITG_TEXT_DOMAIN); ?></a>
+                                            <a class="btn btn-info" href="<?php echo site_url() . '/wp-admin/?page=ifthengive_disconnect_paypal&action=true&env=sandbox'; ?>"><?php _e('Disconnect','ifthengive'); ?></a>
                                         </div>                                        
                                     </div>                                    
                                     <div class="clearfix"></div>
@@ -168,23 +168,23 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                          <div class="col-md-6 col-lg-6 col-sm-6">
                                             <?php
                                             if ($sb_paypal_account_id !== false && $connect_to_sandbox_paypal_flag == 'Yes') {
-                                                echo '<span class="label label-success">'.__('You are Connected with SandBox PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';
+                                                echo '<span class="label label-success">'.__('You are Connected with SandBox PayPal Environment.','ifthengive').'</span><br><br><br>';
                                             }
                                             else if($connect_to_sandbox_paypal_flag == 'Yes'){
-                                                echo '<br><span class="label label-warning">'.__('You are Partially Connected with SandBox PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';                                               
+                                                echo '<br><span class="label label-warning">'.__('You are Partially Connected with SandBox PayPal Environment.','ifthengive').'</span><br><br><br>';                                               
                                             }
                                             else{
-                                                echo '<span class="label label-danger">'.__('You are not Connected with SandBox PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';
+                                                echo '<span class="label label-danger">'.__('You are not Connected with SandBox PayPal Environment.','ifthengive').'</span><br><br><br>';
                                             }
                                             if($itg_sb_add_manually !== false  && $itg_sb_add_manually ==='Yes' && $sb_paypal_account_id === false){
                                                 $collpase_class = 'in';
-                                                $itg_sb_button_text = __('Hide Advanced Details',ITG_TEXT_DOMAIN);
+                                                $itg_sb_button_text = __('Hide Advanced Details','ifthengive');
                                                 $checkbox_sb_manually = 'checked';
                                                 $sb_disabled = '';
                                             }
                                             else{
                                                 $collpase_class = '';
-                                                $itg_sb_button_text = __('Show Advanced Details',ITG_TEXT_DOMAIN);
+                                                $itg_sb_button_text = __('Show Advanced Details','ifthengive');
                                                 $checkbox_sb_manually = '';
                                                 $sb_disabled = 'disabled';
                                             }
@@ -233,16 +233,16 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                     if(isset($error['error']) || isset($error['error_description'])){                                                                                                            
                                                     ?>
                                                     <div class="alert alert-warning" id="connect_with_paypal_error">
-                                                        <p><?php _e('PayPal Error',ITG_TEXT_DOMAIN); ?></p>
-                                                        <p id="connect_with_paypal_error_p"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo isset($error['error']) ? $error['error'] : ''; ?></p>
-                                                        <p id="connect_with_paypal_error_desc"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo isset($error['error_description']) ? $error['error_description'] : '' ; ?></p>
+                                                        <p><?php _e('PayPal Error','ifthengive'); ?></p>
+                                                        <p id="connect_with_paypal_error_p"><?php _e('Error :','ifthengive'); ?> <?php echo isset($error['error']) ? $error['error'] : ''; ?></p>
+                                                        <p id="connect_with_paypal_error_desc"><?php _e('Error :','ifthengive'); ?> <?php echo isset($error['error_description']) ? $error['error_description'] : '' ; ?></p>
                                                     </div>
                                                     <?php }
                                                     if(isset($ConnectPayPalArray['DATA']['RAWRESPONSE']['name']) || isset($ConnectPayPalArray['DATA']['RAWRESPONSE']['message'])){ ?>
                                                         <div class="alert alert-warning" id="connect_with_paypal_error">
-                                                            <p><?php _e('PayPal Error',ITG_TEXT_DOMAIN); ?></p>
-                                                            <p id="connect_with_paypal_error_p"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['name']; ?></p>
-                                                            <p id="connect_with_paypal_error_desc"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['message']; ?></p>
+                                                            <p><?php _e('PayPal Error','ifthengive'); ?></p>
+                                                            <p id="connect_with_paypal_error_p"><?php _e('Error :','ifthengive'); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['name']; ?></p>
+                                                            <p id="connect_with_paypal_error_desc"><?php _e('Error :','ifthengive'); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['message']; ?></p>
                                                         </div>
                                                     <?php                                                    
                                                     }
@@ -254,20 +254,20 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                         <div class="col-lg-12 col-md-12 col-sm-12 collapse <?php echo $collpase_class; ?>" id="itgsandboxClass">                                            
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="itg_sandbox_add_manually" id="itg_sandbox_add_manually" <?php echo $checkbox_sb_manually; ?> ><?php _e('Add Sandbox Credentials Manually.',ITG_TEXT_DOMAIN); ?>
+                                                    <input type="checkbox" name="itg_sandbox_add_manually" id="itg_sandbox_add_manually" <?php echo $checkbox_sb_manually; ?> ><?php _e('Add Sandbox Credentials Manually.','ifthengive'); ?>
                                                 </label>
                                             </div>
                                             <div class="form-group">
-                                                <label for="SandboxAPIUserName"><?php _e('Sandbox API User Name',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="text" class="form-control" id="itg_sb_api_credentials_username" name="itg_sb_api_credentials_username" value="<?php echo isset($sandbox_api_user_name) ? esc_attr($sandbox_api_user_name,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <label for="SandboxAPIUserName"><?php _e('Sandbox API User Name','ifthengive'); ?></label>
+                                                <input type="text" class="form-control" id="itg_sb_api_credentials_username" name="itg_sb_api_credentials_username" value="<?php echo isset($sandbox_api_user_name) ? esc_attr($sandbox_api_user_name,'ifthengive') : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>
                                             <div class="form-group">
-                                                <label for="SandboxAPIPassword"><?php _e('Sandbox API Password',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="password" class="form-control" id="itg_sb_api_credentials_password" name="itg_sb_api_credentials_password" value="<?php echo isset($sandbox_api_password) ? esc_attr($sandbox_api_password,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <label for="SandboxAPIPassword"><?php _e('Sandbox API Password','ifthengive'); ?></label>
+                                                <input type="password" class="form-control" id="itg_sb_api_credentials_password" name="itg_sb_api_credentials_password" value="<?php echo isset($sandbox_api_password) ? esc_attr($sandbox_api_password,'ifthengive') : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>
                                             <div class="form-group">
-                                                <label for="SandboxAPISignature"><?php _e('Sandbox API Signature',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="password" class="form-control" id="itg_sb_api_credentials_signature" name="itg_sb_api_credentials_signature" value="<?php echo isset($sandbox_signature) ? esc_attr($sandbox_signature,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $sb_disabled; ?>>
+                                                <label for="SandboxAPISignature"><?php _e('Sandbox API Signature','ifthengive'); ?></label>
+                                                <input type="password" class="form-control" id="itg_sb_api_credentials_signature" name="itg_sb_api_credentials_signature" value="<?php echo isset($sandbox_signature) ? esc_attr($sandbox_signature,'ifthengive') : ''; ?>" <?php echo $sb_disabled; ?>>
                                             </div>                                                                                                                
                                         </div>
                                     </div>
@@ -285,7 +285,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                             <div class="table-responsive">
                                                 <table class="table table-responsive">
                                                     <tr>        
-                                                        <td><strong><?php echo __('PayPal Account ID', ITG_TEXT_DOMAIN); ?></strong></td>
+                                                        <td><strong><?php echo __('PayPal Account ID', 'ifthengive'); ?></strong></td>
                                                         <td class="text-primary"><?php echo $live_paypal_account_id; ?></td>
                                                     </tr>                                                
                                                 </table>
@@ -302,23 +302,23 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                          <div class="col-md-6 col-lg-6 col-sm-6">
                                             <?php 
                                             if ($live_paypal_account_id !== false && $connect_to_live_paypal_flag == 'Yes') {
-                                                echo '<span class="label label-success">'.__('You are Connected with Live PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';
+                                                echo '<span class="label label-success">'.__('You are Connected with Live PayPal Environment.','ifthengive').'</span><br><br><br>';
                                             }
                                             else if($connect_to_live_paypal_flag == 'Yes'){
-                                                echo '<br><span class="label label-warning">'.__('You are Partially Connected with Live PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';                                               
+                                                echo '<br><span class="label label-warning">'.__('You are Partially Connected with Live PayPal Environment.','ifthengive').'</span><br><br><br>';                                               
                                             }
                                             else{
-                                                echo '<span class="label label-danger">'.__('You are not Connected with Live PayPal Environment.',ITG_TEXT_DOMAIN).'</span><br><br><br>';
+                                                echo '<span class="label label-danger">'.__('You are not Connected with Live PayPal Environment.','ifthengive').'</span><br><br><br>';
                                             }
                                             if($itg_lv_add_manually !== false  && $itg_lv_add_manually ==='Yes' && $live_paypal_account_id === false){
                                                 $lv_collpase_class = 'in';
-                                                $itg_lv_button_text = __('Hide Advanced Details',ITG_TEXT_DOMAIN);
+                                                $itg_lv_button_text = __('Hide Advanced Details','ifthengive');
                                                 $checkbox_lv_manually = 'checked';
                                                  $lv_disabled = '';
                                             }
                                             else{
                                                 $lv_collpase_class = '';
-                                                $itg_lv_button_text = __('Show Advanced Details',ITG_TEXT_DOMAIN);
+                                                $itg_lv_button_text = __('Show Advanced Details','ifthengive');
                                                 $checkbox_lv_manually = '';
                                                 $lv_disabled = 'disabled';
                                             }
@@ -367,16 +367,16 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                     if(isset($error['error']) || isset($error['error_description'])){                                                                                                            
                                                     ?>
                                                     <div class="alert alert-warning" id="connect_with_paypal_error">
-                                                        <p><?php _e('PayPal Error',ITG_TEXT_DOMAIN); ?></p>
-                                                        <p id="connect_with_paypal_error_p"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo isset($error['error']) ? $error['error'] : ''; ?></p>
-                                                        <p id="connect_with_paypal_error_desc"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo isset($error['error_description']) ? $error['error_description'] : '' ; ?></p>
+                                                        <p><?php _e('PayPal Error','ifthengive'); ?></p>
+                                                        <p id="connect_with_paypal_error_p"><?php _e('Error :','ifthengive'); ?> <?php echo isset($error['error']) ? $error['error'] : ''; ?></p>
+                                                        <p id="connect_with_paypal_error_desc"><?php _e('Error :','ifthengive'); ?> <?php echo isset($error['error_description']) ? $error['error_description'] : '' ; ?></p>
                                                     </div>
                                                     <?php }
                                                     if(isset($ConnectPayPalArray['DATA']['RAWRESPONSE']['name']) || isset($ConnectPayPalArray['DATA']['RAWRESPONSE']['message'])){ ?>
                                                         <div class="alert alert-warning" id="connect_with_paypal_error">
-                                                            <p><?php _e('PayPal Error',ITG_TEXT_DOMAIN); ?></p>
-                                                            <p id="connect_with_paypal_error_p"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['name']; ?></p>
-                                                            <p id="connect_with_paypal_error_desc"><?php _e('Error :',ITG_TEXT_DOMAIN); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['message']; ?></p>
+                                                            <p><?php _e('PayPal Error','ifthengive'); ?></p>
+                                                            <p id="connect_with_paypal_error_p"><?php _e('Error :','ifthengive'); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['name']; ?></p>
+                                                            <p id="connect_with_paypal_error_desc"><?php _e('Error :','ifthengive'); ?> <?php echo $ConnectPayPalArray['DATA']['RAWRESPONSE']['message']; ?></p>
                                                         </div>
                                                     <?php                                                    
                                                     }
@@ -388,20 +388,20 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                         <div class="col-lg-12 col-md-12 col-sm-12 collapse <?php echo $lv_collpase_class; ?>" id="itgliveClass">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="itg_live_add_manually" id="itg_live_add_manually" <?php echo $checkbox_lv_manually; ?> ><?php _e('Add Live Credentials Manually.',ITG_TEXT_DOMAIN); ?>
+                                                    <input type="checkbox" name="itg_live_add_manually" id="itg_live_add_manually" <?php echo $checkbox_lv_manually; ?> ><?php _e('Add Live Credentials Manually.','ifthengive'); ?>
                                                 </label>
                                             </div>
                                             <div class="form-group">
-                                                <label for="APIUserName"><?php _e('API User Name',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="text" class="form-control" id="itg_lv_api_credentials_username" name="itg_lv_api_credentials_username" value="<?php echo isset($live_api_user_name) ? esc_attr($live_api_user_name,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <label for="APIUserName"><?php _e('API User Name','ifthengive'); ?></label>
+                                                <input type="text" class="form-control" id="itg_lv_api_credentials_username" name="itg_lv_api_credentials_username" value="<?php echo isset($live_api_user_name) ? esc_attr($live_api_user_name,'ifthengive') : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                             <div class="form-group">
-                                                <label for="APIPassword"><?php _e('API Password',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="password" class="form-control" id="itg_lv_api_credentials_password" name="itg_lv_api_credentials_password" value="<?php echo isset($live_api_password) ? esc_attr($live_api_password,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <label for="APIPassword"><?php _e('API Password','ifthengive'); ?></label>
+                                                <input type="password" class="form-control" id="itg_lv_api_credentials_password" name="itg_lv_api_credentials_password" value="<?php echo isset($live_api_password) ? esc_attr($live_api_password,'ifthengive') : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                             <div class="form-group">
-                                                <label for="APISignature"><?php _e('API Signature',ITG_TEXT_DOMAIN); ?></label>
-                                                <input type="password" class="form-control" id="itg_lv_api_credentials_signature" name="itg_lv_api_credentials_signature" value="<?php echo isset($live_signature) ? esc_attr($live_signature,ITG_TEXT_DOMAIN) : ''; ?>" <?php echo $lv_disabled; ?>>
+                                                <label for="APISignature"><?php _e('API Signature','ifthengive'); ?></label>
+                                                <input type="password" class="form-control" id="itg_lv_api_credentials_signature" name="itg_lv_api_credentials_signature" value="<?php echo isset($live_signature) ? esc_attr($live_signature,'ifthengive') : ''; ?>" <?php echo $lv_disabled; ?>>
                                             </div>
                                         </div>
                                     </div>
@@ -409,7 +409,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="selectCurrency"><?php _e('Select Currency',ITG_TEXT_DOMAIN); ?></label>;
+                                                <label for="selectCurrency"><?php _e('Select Currency','ifthengive'); ?></label>;
                                                 <?php                                       
                                                     $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();        
                                                     $PayPal_config->set_api_cedentials();        
@@ -424,7 +424,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                     $ccode = get_option('itg_currency_code');
                                                 ?>
                                                 <select class="form-control" name="itg_currency_code">
-                                                    <option value=""><?php _e('Select Currency',ITG_TEXT_DOMAIN); ?></option>
+                                                    <option value=""><?php _e('Select Currency','ifthengive'); ?></option>
                                                    <?php
                                                         foreach ($PayPal->CurrencyCodes as $Key => $Value) {
                                                             if($ccode == $Key){
@@ -442,28 +442,28 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="itg_brandname"><?php _e('Brand Name',ITG_TEXT_DOMAIN);?></label>
-                                            <input type="text" class="form-control" id="itg_brandname" name="itg_brandname" value="<?php echo (isset($brandName) && !empty($brandName)) ? esc_attr($brandName,ITG_TEXT_DOMAIN) : get_bloginfo('name'); ?>" autocomplete="off">
-                                            <p class="help-block"><?php _e('This is the business name that will be displayed on PayPal hosted checkout pages.',ITG_TEXT_DOMAIN);?></p>
+                                            <label for="itg_brandname"><?php _e('Brand Name','ifthengive');?></label>
+                                            <input type="text" class="form-control" id="itg_brandname" name="itg_brandname" value="<?php echo (isset($brandName) && !empty($brandName)) ? esc_attr($brandName,'ifthengive') : get_bloginfo('name'); ?>" autocomplete="off">
+                                            <p class="help-block"><?php _e('This is the business name that will be displayed on PayPal hosted checkout pages.','ifthengive');?></p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="itg_brandlogo"><?php _e('Upload Brand Logo (190x60px)',ITG_TEXT_DOMAIN); ?>&nbsp;&nbsp;<a data-toggle="tooltip" data-placement="top" title="This controls what users see as the logo on PayPal review pages. This image needs to be hosted on an https:// server.  If you do not have one you can use www.sslpick.com to host your image and paste that URL here."><span class="glyphicon glyphicon-info-sign text-info"></span></a></label>
-                                            <input type="text" class="form-control" id="itg_brandlogo" name="itg_brandlogo" value="<?php echo isset($itg_brandlogo) ? esc_attr($itg_brandlogo,ITG_TEXT_DOMAIN) : ''; ?>" autocomplete="off">
+                                            <label for="itg_brandlogo"><?php _e('Upload Brand Logo (190x60px)','ifthengive'); ?>&nbsp;&nbsp;<a data-toggle="tooltip" data-placement="top" title="This controls what users see as the logo on PayPal review pages. This image needs to be hosted on an https:// server.  If you do not have one you can use www.sslpick.com to host your image and paste that URL here."><span class="glyphicon glyphicon-info-sign text-info"></span></a></label>
+                                            <input type="text" class="form-control" id="itg_brandlogo" name="itg_brandlogo" value="<?php echo isset($itg_brandlogo) ? esc_attr($itg_brandlogo,'ifthengive') : ''; ?>" autocomplete="off">
                                             <br>
                                             <a href="#" class="upload_image_button button">Upload Image</a>
-                                            <p class="help-block"><?php _e('This logo will be used on PayPal hosted checkout pages.',ITG_TEXT_DOMAIN); ?></p>
+                                            <p class="help-block"><?php _e('This logo will be used on PayPal hosted checkout pages.','ifthengive'); ?></p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="itg_hd_brandlogo"><?php _e('Upload Header Logo (750x90px)',ITG_TEXT_DOMAIN); ?>&nbsp;&nbsp;<a data-toggle="tooltip" data-placement="top" title="This controls what users see as the logo on PayPal review pages. This image needs to be hosted on an https:// server.  If you do not have one you can use www.sslpick.com to host your image and paste that URL here."><span class="glyphicon glyphicon-info-sign text-info"></span></a></label>
-                                            <input type="text" class="form-control" id="itg_hd_brandlogo" name="itg_hd_brandlogo" value="<?php echo isset($itg_hd_brandlogo) ? esc_attr($itg_hd_brandlogo,ITG_TEXT_DOMAIN) : ''; ?>" autocomplete="off">
+                                            <label for="itg_hd_brandlogo"><?php _e('Upload Header Logo (750x90px)','ifthengive'); ?>&nbsp;&nbsp;<a data-toggle="tooltip" data-placement="top" title="This controls what users see as the logo on PayPal review pages. This image needs to be hosted on an https:// server.  If you do not have one you can use www.sslpick.com to host your image and paste that URL here."><span class="glyphicon glyphicon-info-sign text-info"></span></a></label>
+                                            <input type="text" class="form-control" id="itg_hd_brandlogo" name="itg_hd_brandlogo" value="<?php echo isset($itg_hd_brandlogo) ? esc_attr($itg_hd_brandlogo,'ifthengive') : ''; ?>" autocomplete="off">
                                             <br>
                                             <a href="#" class="upload_hd_image_button button">Upload Image</a>
-                                            <p class="help-block"><?php _e('This logo will be used on PayPal hosted checkout pages.',ITG_TEXT_DOMAIN); ?></p>
+                                            <p class="help-block"><?php _e('This logo will be used on PayPal hosted checkout pages.','ifthengive'); ?></p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="itg_cs_number"><?php _e('Customer Service Number',ITG_TEXT_DOMAIN);?></label>
-                                            <input type="text" class="form-control" id="itg_cs_number" name="itg_cs_number" value="<?php echo isset($itg_cs_number) ? esc_attr($itg_cs_number,ITG_TEXT_DOMAIN) : ''; ?>" autocomplete="off">
-                                            <p class="help-block"><?php _e(' Customer service phone number displayed on PayPal hosted checkout pages.',ITG_TEXT_DOMAIN);?></p>
+                                            <label for="itg_cs_number"><?php _e('Customer Service Number','ifthengive');?></label>
+                                            <input type="text" class="form-control" id="itg_cs_number" name="itg_cs_number" value="<?php echo isset($itg_cs_number) ? esc_attr($itg_cs_number,'ifthengive') : ''; ?>" autocomplete="off">
+                                            <p class="help-block"><?php _e(' Customer service phone number displayed on PayPal hosted checkout pages.','ifthengive');?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -478,7 +478,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                             $checkbox_checked = "";
                                         }
                                     ?>
-                                    <label><input type="checkbox" name="itg_log_enable" id="itg_log_enable" <?php echo $checkbox_checked; ?> ><?php _e('Enable Debug Logging',ITG_TEXT_DOMAIN); ?></label>
+                                    <label><input type="checkbox" name="itg_log_enable" id="itg_log_enable" <?php echo $checkbox_checked; ?> ><?php _e('Enable Debug Logging','ifthengive'); ?></label>
                                 </div>  
                                 <p class="submit">
                                     <input type="submit" name="ifthengive_intigration" class="btn btn-primary" value="<?php esc_attr_e('Save Settings', 'Option'); ?>" />
@@ -490,15 +490,15 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="panel-title"><h4 class="text-info"><?php _e('How to Connect PayPal Account',ITG_TEXT_DOMAIN); ?></h4></div>
+                                <div class="panel-title"><h4 class="text-info"><?php _e('How to Connect PayPal Account','ifthengive'); ?></h4></div>
                             </div>
                             <div class="panel-body">
                                 <ol>
-                                    <li><?php _e('Click the Connect with PayPal button to begin the process.',ITG_TEXT_DOMAIN); ?></li>
-                                    <li><?php _e('Login to your PayPal account, or create an account if necessary.',ITG_TEXT_DOMAIN); ?></li>
-                                    <li><?php _e('Review the authorization details and click the "Yes I Authorize It" button.',ITG_TEXT_DOMAIN); ?></li>
-                                    <li><?php _e('Click the button to "Go back to {My Website Name}".',ITG_TEXT_DOMAIN); ?></li>
-                                    <li><?php _e('Verify that your PayPal Account ID is listed and click to Save Settings.',ITG_TEXT_DOMAIN); ?></li>
+                                    <li><?php _e('Click the Connect with PayPal button to begin the process.','ifthengive'); ?></li>
+                                    <li><?php _e('Login to your PayPal account, or create an account if necessary.','ifthengive'); ?></li>
+                                    <li><?php _e('Review the authorization details and click the "Yes I Authorize It" button.','ifthengive'); ?></li>
+                                    <li><?php _e('Click the button to "Go back to {My Website Name}".','ifthengive'); ?></li>
+                                    <li><?php _e('Verify that your PayPal Account ID is listed and click to Save Settings.','ifthengive'); ?></li>
                                 </ol>
                             </div>
                         </div>
@@ -523,7 +523,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
     }    
     public function sandbox_enabled() {
         if (isset($_POST['sandbox'])) {
-            $sandbox = $_POST['sandbox'];
+            $sandbox = sanitize_key($_POST['sandbox']);
             if ($sandbox == 'true') {
                 update_option('itg_sandbox_enable', 'yes');
             } else {
@@ -560,26 +560,26 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         $Html_output = new AngellEYE_IfThenGive_Html_output();
         $Html_output->save_fields($ifthengive_setting_fields);        
         if (isset($_POST['ifthengive_intigration'])): 
-            if(isset($_POST['itg_sandbox_enable']) && $_POST['itg_sandbox_enable'] == '1'){
+            if(isset($_POST['itg_sandbox_enable']) && sanitize_key($_POST['itg_sandbox_enable']) == '1'){
                 if(isset($_POST['itg_sandbox_add_manually'])){
-                    update_option('itg_sb_api_credentials_username',$_POST["itg_sb_api_credentials_username"]);
-                    update_option('itg_sb_api_credentials_password',$_POST["itg_sb_api_credentials_password"]);
-                    update_option('itg_sb_api_credentials_signature',$_POST["itg_sb_api_credentials_signature"]);
+                    update_option('itg_sb_api_credentials_username',  sanitize_text_field($_POST["itg_sb_api_credentials_username"]));
+                    update_option('itg_sb_api_credentials_password',sanitize_text_field($_POST["itg_sb_api_credentials_password"]));
+                    update_option('itg_sb_api_credentials_signature',sanitize_text_field($_POST["itg_sb_api_credentials_signature"]));
                     update_option('itg_sb_connected_to_paypal', 'Yes');
                     update_option('itg_sb_api_credentials_addded_manually','Yes');
                 }
             }
             else{
                 if(isset($_POST['itg_live_add_manually'])){                
-                    update_option('itg_lv_api_credentials_username',$_POST['itg_lv_api_credentials_username']);
-                    update_option('itg_lv_api_credentials_password',$_POST['itg_lv_api_credentials_password']);
-                    update_option('itg_lv_api_credentials_signature',$_POST['itg_lv_api_credentials_signature']);
+                    update_option('itg_lv_api_credentials_username',sanitize_text_field($_POST['itg_lv_api_credentials_username']));
+                    update_option('itg_lv_api_credentials_password',sanitize_text_field($_POST['itg_lv_api_credentials_password']));
+                    update_option('itg_lv_api_credentials_signature',sanitize_text_field($_POST['itg_lv_api_credentials_signature']));
                     update_option('itg_live_connected_to_paypal', 'Yes');
                     update_option('itg_lv_api_credentials_addded_manually','Yes');
                 }
             }
             if(isset($_POST['itg_currency_code'])){
-                update_option('itg_currency_code', $_POST['itg_currency_code']);
+                update_option('itg_currency_code', sanitize_text_field($_POST['itg_currency_code']));
             }
             else{
                 update_option('itg_currency_code', 'USD');
@@ -591,21 +591,21 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                 update_option('itg_log_enable', 'no');
             }
             if(isset($_POST['itg_brandlogo'])){
-                 update_option('itg_brandlogo', trim($_POST['itg_brandlogo']));
+                 update_option('itg_brandlogo', sanitize_text_field($_POST['itg_brandlogo']));
             }
             if(isset($_POST['itg_hd_brandlogo'])){
-                 update_option('itg_hd_brandlogo', trim($_POST['itg_hd_brandlogo']));
+                 update_option('itg_hd_brandlogo', sanitize_text_field($_POST['itg_hd_brandlogo']));
             }
             if(isset($_POST['itg_brandname'])){
-                 update_option('itg_brandname', trim($_POST['itg_brandname']));
+                 update_option('itg_brandname', sanitize_text_field($_POST['itg_brandname']));
             }
             if(isset($_POST['itg_cs_number'])){
-                 update_option('itg_cs_number', trim($_POST['itg_cs_number']));
+                 update_option('itg_cs_number', sanitize_text_field($_POST['itg_cs_number']));
             }
             
             ?>
             <br><div id="setting-error-settings_updated" class="alert alert-success"> 
-                <p><?php echo '<strong>' . __('Settings were saved successfully.', ITG_TEXT_DOMAIN) . '</strong>'; ?></p></div>
+                <p><?php echo '<strong>' . __('Settings were saved successfully.', 'ifthengive') . '</strong>'; ?></p></div>
 
             <?php
         endif;

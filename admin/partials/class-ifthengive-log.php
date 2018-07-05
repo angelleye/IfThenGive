@@ -33,7 +33,7 @@ class AngellEYE_IfThenGive_Log {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <h4 class="text-info"><?php printf(__('Log file: %s', ITG_TEXT_DOMAIN), str_replace('_',' ',ucwords($directory_name,'_'))); ?></h4>
+                            <h4 class="text-info"><?php printf(__('Log file: %s', 'ifthengive'), str_replace('_',' ',ucwords($directory_name,'_'))); ?></h4>
                         </div>    
                     </div>
                     <div class="clearfix"></div>
@@ -51,7 +51,7 @@ class AngellEYE_IfThenGive_Log {
                                 endforeach;
                                 ?>
                             </select>
-                            <input type="submit" class="button" value="<?php esc_attr_e('View', ITG_TEXT_DOMAIN); ?>" />
+                            <input type="submit" class="button" value="<?php esc_attr_e('View', 'ifthengive'); ?>" />
                         </form>
                       </div>                        
                     </div>
@@ -62,7 +62,7 @@ class AngellEYE_IfThenGive_Log {
                             <div id="log-viewer">
                                 <?php                                                                                                
                                 if ($viewed_log === false) {
-                                    $content = __('There are currently no logs to view.', ITG_TEXT_DOMAIN);
+                                    $content = __('There are currently no logs to view.', 'ifthengive');
                                 }
                                 else{
                                     $content = file_get_contents(ITG_LOG_DIR .'/'.$directory_name.'/'. $viewed_log);
@@ -76,7 +76,7 @@ class AngellEYE_IfThenGive_Log {
             </div>
             </div>                        
         <?php else : ?>
-            <div class="updated woocommerce-message inline"><p><?php _e('There are currently no logs to view.', ITG_TEXT_DOMAIN); ?></p></div>
+            <div class="updated woocommerce-message inline"><p><?php _e('There are currently no logs to view.', 'ifthengive'); ?></p></div>
         <?php
         endif;
     }
