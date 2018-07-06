@@ -47,9 +47,8 @@
                            if( result.Ack == 'ValidationError'){
                              $('.overlay:last').hide();
                              $('#connect_paypal_error_public_'+post_id).show();
-                             $('#connect_paypal_error_p_'+post_id).html('').html('<strong>Acknowledgement :</strong> ' + result.Ack);
-                             $('#connect_paypal_error_p_'+post_id).append('<br><strong>Error Code :</strong> ' + result.ErrorCode);
-                             $('#connect_paypal_error_p_'+post_id).append('<br><strong>Long Message :</strong> ' + result.ErrorLong);
+                             $('#connect_paypal_error_p_'+post_id).html('').html('<strong>Acknowledgement :</strong> ' + result.Ack);                             
+                             $('#connect_paypal_error_p_'+post_id).append('<br><strong>Message :</strong> ' + result.ErrorLong);
                              $('#connect_paypal_error_p_'+post_id).append('<br><strong>Errors :</strong>');
                              $('#connect_paypal_error_p_'+post_id).append('<ul>');
                              jQuery.each( result.Errors , function( i, val ) {                                 

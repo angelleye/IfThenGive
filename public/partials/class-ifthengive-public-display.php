@@ -281,8 +281,161 @@ class AngellEYE_IfThenGive_Public_Display {
         /*valodation End */
         return true;
     }
+    
+    
+    public static function get_userdata_from_userid($user_id){
+        $theUser = new WP_User($user_id);
+        $userdata['ID'] = $user_id;
+        $userdata['user_email'] = isset($theUser->data->user_email) ? $theUser->data->user_email : '' ;
+        $userdata['user_nicename'] = isset($theUser->data->user_nicename) ? $theUser->data->user_nicename : '';
+        $userdata['user_login'] = isset($theUser->data->user_login) ? $theUser->data->user_login : '';
+        $userdata['display_name'] = isset($theUser->data->display_name) ? $theUser->data->display_name : '';
+        $userdata['first_name'] = isset($theUser->data->first_name) ? $theUser->data->first_name : '';
+        $userdata['last_name'] = isset($theUser->data->last_name) ? $theUser->data->last_name : '';
+        /*if user is admin then no change in the role*/
+        $is_admin = user_can($user_id, 'manage_options' );
+        if($is_admin){
+            /* Do nothing */
+        }else{
+            /* if user is not admin then add additional role to the current user */
+            $theUser->add_role( 'giver' );
+        }
+        return $userdata;
+    }
+    
+    public static function is_already_registerd($user_id,$goal_id){        
+        /*Check if user is already signed up for this goal then get him back with info.*/
+        $signnedup_goals = get_user_meta($user_id,'itg_signedup_goals');        
+        $goalArray = explode('|', $signnedup_goals[0]);                
+        if(!empty($goalArray)){
+            if(in_array($goal_id, $goalArray)){
+                return true;
+            }
+        }
+        else{
+            return false;
+        }        
+    }
+    
+    public static function have_biiling_agreement($user_id){
+        /*Check if user have already a Billing Agreement then add just signedup for that goal and get it back with info */
+        $isAvailableBAID = get_user_meta($user_id,'itg_gec_billing_agreement_id',true);
+        if(!empty($isAvailableBAID)){
+            return true;
+        }        
+        return false;        
+    }
+    
+    public static function add_goal_to_signup_list($user_id,$amount,$goal_id){
+        $sanbox_enable = get_option('itg_sandbox_enable');
+        $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
+        /* Create new post for signup post type and save goal_id,user_id,amount */
+        $new_post_id = wp_insert_post( array(
+            'post_author' => $user_id,
+            'post_status' => 'publish',
+            'post_type' => 'itg_sign_up',
+            'post_title' => ('User ID : '.$user_id.'& Goal ID : '.$goal_id)
+        ) );
 
-    public static function start_express_checkout(){        
+        update_post_meta($new_post_id,'itg_signup_amount',  sanitize_key($amount));                    
+        update_post_meta($new_post_id,'itg_signup_wp_user_id',sanitize_key($user_id));
+        update_post_meta($new_post_id,'itg_signup_wp_goal_id',$goal_id);
+        update_post_meta($new_post_id, 'itg_signup_in_sandbox', $sandbox);
+        update_post_meta($new_post_id,'itg_transaction_status','0');
+
+        $amount = base64_encode($amount);
+        $post = get_post($goal_id); 
+        $slug = $post->post_name;
+        $urlusr = base64_encode($user_id);
+        $REDIRECTURL = site_url('itg-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr);
+        /* Add post id in the user's signedup goals */
+        $signedup_goals= get_user_meta($user_id,'itg_signedup_goals',true);
+        if($signedup_goals !=''){
+        $signedup_goals = $signedup_goals."|".$goal_id;
+        }
+        else{
+            $signedup_goals = $goal_id;
+        }        
+        //wp_set_auth_cookie( $user_id, true ); disables this because user is login here.
+        update_user_meta($user_id,'itg_signedup_goals',$signedup_goals);
+        update_user_meta($user_id,'itg_giver_'.$goal_id.'_status','active');                                
+        echo json_encode(array('Ack'=>'Success','RedirectURL'=>$REDIRECTURL));
+        exit;
+    }
+    
+    public static function set_express_checkout($goal_id,$amount,$cancel_page){
+        
+        $brandname = get_option('itg_brandname');
+        $logoimg = get_option('itg_brandlogo');
+        $hdlogoimg = get_option('itg_hd_brandlogo');
+        $customerservicenumber = get_option('itg_cs_number');
+        
+        /*Get trigger_name of Post */        
+        $trigger_name = get_post_meta( $goal_id, 'trigger_name', true );
+        
+        /*PayPal setup */                
+        $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();
+        $PayPal_config->set_api_cedentials();
+        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
+        /*
+         *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
+         *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
+         *   It also reflactes in NVPCredentials string so we are also replcing it.
+         */
+        $PayPal->APIButtonSource = ITG_BUTTON_SOURCE;
+        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
+        $SECFields = array(
+                'maxamt' => round($amount * 2,2),
+                'returnurl' => site_url('?action=ec_return'),
+                'cancelurl' => $cancel_page,
+                'hdrimg' => isset($hdlogoimg) ? $hdlogoimg : '',
+                'logoimg' => isset($logoimg) ? $logoimg : '',
+                'brandname' => (isset($brandname) && !empty($brandname)) ? $brandname : get_bloginfo('name'),
+                'customerservicenumber' => isset($customerservicenumber) ? $customerservicenumber : '',
+        );
+        $Payments = array();
+        $Payment = array(
+            'amt' => 0
+        );
+        array_push($Payments, $Payment);
+        
+        $BillingAgreements = array();
+        $Item = array(
+                'l_billingtype' => apply_filters('itg_ec_billingtype','MerchantInitiatedBilling'),
+                'l_billingagreementdescription' => $trigger_name,
+                'l_paymenttype' => '',
+                'l_billingagreementcustom' => 'ifthengive_'.$goal_id
+        );
+        array_push($BillingAgreements, $Item);
+
+        $PayPalRequestData = array(
+            'SECFields' => $SECFields, 
+            'Payments' => $Payments,
+            'BillingAgreements' => $BillingAgreements,
+        );
+        $PayPalResult = $PayPal->SetExpressCheckout($PayPalRequestData);        
+        if($PayPalResult['RAWRESPONSE'] != false){
+            if(isset($PayPalResult['ACK'])){
+                if($PayPal->APICallSuccessful($PayPalResult['ACK']))
+                {            
+                    echo json_encode(array('Ack'=>'Success','RedirectURL'=>$PayPalResult['REDIRECTURL']));
+                }
+                else
+                {
+                    echo json_encode(array('Ack'=>'Failure','ErrorCode'=>$PayPalResult['L_ERRORCODE0'],'ErrorShort'=>$PayPalResult['L_SHORTMESSAGE0'],'ErrorLong'=>$PayPalResult['L_LONGMESSAGE0']));            
+                }
+            }
+            else{
+                echo json_encode(array('Ack'=>'Failure','ErrorShort'=>__('No PayPal Acknowledgement','ifthengive'),'ErrorLong'=>__('No PayPal Acknowledgement','ifthengive')));
+            }
+        }
+        else{
+            echo json_encode(array('Ack'=>'Failure','ErrorShort'=>__('Something went wrong.','ifthengive'),'ErrorLong'=>__('PayPal Timeout issue or SSL issue.','ifthengive')));
+        }
+    }
+
+    
+    public static function start_express_checkout(){
         global $wpdb;
         /*Getting data from ajax */        
         $post_id = sanitize_key($_POST['post_id']);
@@ -293,10 +446,9 @@ class AngellEYE_IfThenGive_Public_Display {
         parse_str($_POST['formData'], $itguser);
         
         $nonce_value = $itguser['_itg_goal_form_nonce'];
-        if (!wp_verify_nonce(  $nonce_value ,  'itg_goal_form'  )  ) {            
+        if (!wp_verify_nonce(  $nonce_value ,  'itg_goal_form'  )  ) {
             echo json_encode(array(
-                'Ack'=>'Failure',
-                'ErrorCode'=>'0',
+                'Ack'=>'Failure',                
                 'ErrorShort'=>__('Invalid nonce','ifthengive'),
                 'ErrorLong'=>__('WordPress nonce verificaion failed.','ifthengive')
                 ));
@@ -304,29 +456,89 @@ class AngellEYE_IfThenGive_Public_Display {
         }
         
         self::validate_fields($itguser);
-
-            
-        /*Get trigger_name of Post */        
-        $trigger_name = get_post_meta( $post_id, 'trigger_name', true );       
         
-        /*Create cancel page url like return to the cancel page from where it goes.*/        
-        $cancel_page = esc_url($itguser['ifthengive_page_id']);
-            
-        /*if no role defined in the code then it adds new role as giver */
+         /*if no role defined in the code then it adds new role as giver */
         $role = get_role( 'giver' );
         if($role==NULL){
             add_role('giver','Giver');
         }
-        /*Create array of user data */
-        $userdata=array(
-                'user_pass' => isset($itguser['ifthengive_password']) ? sanitize_text_field($itguser['ifthengive_password']) : '',
-                'user_login' => isset($itguser['ifthengive_email']) ? sanitize_email($itguser['ifthengive_email']) : '',
-                'user_email' => isset($itguser['ifthengive_email']) ? sanitize_email($itguser['ifthengive_email']) : '',
-                'display_name' => sanitize_text_field($itguser['ifthengive_firstname']).' '.sanitize_text_field($itguser['ifthengive_lastname']),
-                'first_name' => isset($itguser['ifthengive_firstname']) ? sanitize_text_field($itguser['ifthengive_firstname']) : '',
-                'last_name' => isset($itguser['ifthengive_lastname']) ? sanitize_text_field($itguser['ifthengive_lastname']) : '',
-                'role' => 'giver'
-        );
+        
+        if(!session_id()) {
+            session_start();
+        }
+        
+        if(is_user_logged_in()){
+            // user is login 
+            $user_id = sanitize_key($_POST['login_user_id']);
+            // check if user have billing agreement
+            if (self::have_biiling_agreement($user_id)){
+                // check if user is already register for the goal
+                if(self::is_already_registerd($user_id, $post_id)){                    
+                    echo json_encode(array('Ack'=>__('Information','ifthengive'),'ErrorShort'=>__('You are already signed up for this goal.','ifthengive'),'ErrorLong'=>__('We already have a record of this email address signed up for this goal.','ifthengive')));
+                    exit;
+                }
+                else{
+                   /* User have Billing Agreement but not signedup for the goal                     
+                    * that means adding goals to just in itg_signedup_goals user meta                     
+                    */
+                    self::add_goal_to_signup_list($user_id,$amount,$post_id);
+                }
+            }
+            else{
+                /* user is login but signinup for the first time.
+                 * User doesn't have billing agreement so
+                 * Process user for BA in PayPal.
+                 */
+                /* get user data and set them for session */
+                $userdata = self::get_userdata_from_userid($user_id);
+                
+                $_SESSION['itg_user_data'] = $userdata;          
+                $_SESSION['itg_signup_amount'] = $amount;
+                $_SESSION['itg_signup_wp_user_id'] = $user_id;
+                $_SESSION['itg_signup_wp_goal_id'] = $post_id;
+
+                /*Create cancel page url like return to the cancel page from where it goes.*/        
+                $cancel_page = $itguser['ifthengive_page_id'];
+                self::set_express_checkout($post_id, $amount, $cancel_page);
+            }            
+        }
+        else{
+            /* User is not login */
+            /* Check if the entered email is already in wordpress */
+            $user_email = email_exists(sanitize_email($itguser['ifthengive_email']));
+            if($user_email){
+                $user_id =$user_email;
+            }
+            else{
+                /*
+                 *   User is sigining up for the first time
+                 *   that means always new user.               
+                 */
+                /*Create array of user data */
+                $userdata=array(
+                    'user_pass' => isset($itguser['ifthengive_password']) ? sanitize_text_field($itguser['ifthengive_password']) : '',
+                    'user_login' => isset($itguser['ifthengive_email']) ? sanitize_email($itguser['ifthengive_email']) : '',
+                    'user_email' => isset($itguser['ifthengive_email']) ? sanitize_email($itguser['ifthengive_email']) : '',
+                    'display_name' => sanitize_text_field($itguser['ifthengive_firstname']).' '.sanitize_text_field($itguser['ifthengive_lastname']),
+                    'first_name' => isset($itguser['ifthengive_firstname']) ? sanitize_text_field($itguser['ifthengive_firstname']) : '',
+                    'last_name' => isset($itguser['ifthengive_lastname']) ? sanitize_text_field($itguser['ifthengive_lastname']) : '',
+                    'role' => 'giver'
+                );
+                
+                $_SESSION['itg_user_data'] = $userdata;          
+                $_SESSION['itg_signup_amount'] = $amount;
+                $_SESSION['itg_signup_wp_user_id'] = $user_id;
+                $_SESSION['itg_signup_wp_goal_id'] = $post_id;
+                /*Create cancel page url like return to the cancel page from where it goes.*/        
+                $cancel_page = $itguser['ifthengive_page_id'];
+                self::set_express_checkout($post_id, $amount, $cancel_page);
+            }
+        }
+        
+       
+            
+       
+        
         /*
          * Below code for situations like
          * 1). If user is login and inserts diffrent email then he has on WP user list we will remain login user id.
@@ -341,7 +553,7 @@ class AngellEYE_IfThenGive_Public_Display {
 //            /*Nothing match in database*/
 //            //echo 'here';
 //        }
-        
+                        
         $user_exist = email_exists(sanitize_email($itguser['ifthengive_email']));
         /*If user exist then just add capabilities of giver with current capabilities. */
         if($user_exist){
@@ -405,55 +617,7 @@ class AngellEYE_IfThenGive_Public_Display {
         }        
         
         if(!empty($user_id)){
-            // User login
-            
-            /*Check if user have already a Billing Agreement then add just signedup for that goal and get it back with info */
-            $isAvailableBAID = get_user_meta($user_id,'itg_gec_billing_agreement_id',true);        
-            if(!empty($isAvailableBAID)){
-                /*Check if user is already signed up for this goal then get him back with info.*/
-                $signnedup_goals = get_user_meta($user_id,'itg_signedup_goals');        
-                $goalArray = explode('|', $signnedup_goals[0]);                
-                if(!empty($goalArray)){
-                    if(in_array($post_id, $goalArray)){
-                        echo json_encode(array('Ack'=>__('Information','ifthengive'),'ErrorCode'=>__('001','ifthengive'),'ErrorShort'=>__('You are already signed up for this goal.','ifthengive'),'ErrorLong'=>__('We already have a record of this email address signed up for this goal.','ifthengive')));
-                        exit;
-                    }
-                }
-                $sanbox_enable = get_option('itg_sandbox_enable');
-                $sandbox = ($sanbox_enable === 'yes')  ? 'yes' : 'no';
-                /* Create new post for signup post type and save goal_id,user_id,amount */
-                $new_post_id = wp_insert_post( array(
-                    'post_author' => $user_id,
-                    'post_status' => 'publish',
-                    'post_type' => 'itg_sign_up',
-                    'post_title' => ('User ID : '.$user_id.'& Goal ID : '.$post_id)
-                ) );
-
-                update_post_meta($new_post_id,'itg_signup_amount',  sanitize_key($amount));                    
-                update_post_meta($new_post_id,'itg_signup_wp_user_id',sanitize_key($user_id));
-                update_post_meta($new_post_id,'itg_signup_wp_goal_id',$post_id);
-                update_post_meta($new_post_id, 'itg_signup_in_sandbox', sanitize_text_field($sandbox));
-                update_post_meta($new_post_id,'itg_transaction_status','0');
-                
-                $amount = base64_encode($amount);
-                $post = get_post($post_id); 
-                $slug = $post->post_name;
-                $urlusr = base64_encode($user_id);
-                $REDIRECTURL = esc_url(site_url('itg-thankyou?goal='.$slug.'&amt='.$amount.'&user='.$urlusr));
-                /* Add post id in the user's signedup goals */
-                $signedup_goals= get_user_meta($user_id,'itg_signedup_goals',true);
-                if($signedup_goals !=''){
-                $signedup_goals = $signedup_goals."|".$post_id;
-                }
-                else{
-                    $signedup_goals = $post_id;
-                }        
-                wp_set_auth_cookie( $user_id, true );
-                update_user_meta($user_id,'itg_signedup_goals',$signedup_goals);
-                update_user_meta($user_id,'itg_giver_'.$post_id.'_status','active');                                
-                echo json_encode(array('Ack'=>'Success','RedirectURL'=>$REDIRECTURL));
-                exit;
-            }
+            // User login            
         }
         else{            
             // User not login I.e. Always new user            
@@ -462,7 +626,7 @@ class AngellEYE_IfThenGive_Public_Display {
         /*Save user data in Session. */
         if(!session_id()) {
                 session_start();
-            }            
+        }            
         
         if(isset($itguser['itg_signup_as_guest']) && $itguser['itg_signup_as_guest']=='on' ){
             $_SESSION['itg_guest_user'] = 'no';            
@@ -477,71 +641,7 @@ class AngellEYE_IfThenGive_Public_Display {
         
         $_SESSION['itg_signup_amount'] = $amount;
         $_SESSION['itg_signup_wp_user_id'] = $user_id;
-        $_SESSION['itg_signup_wp_goal_id'] = $post_id;
-                
-        $brandname = get_option('itg_brandname');
-        $logoimg = get_option('itg_brandlogo');
-        $hdlogoimg = get_option('itg_hd_brandlogo');
-        $customerservicenumber = get_option('itg_cs_number');
-        /*PayPal setup */                
-        $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();
-        $PayPal_config->set_api_cedentials();
-        $PayPal = new \angelleye\PayPal\PayPal($PayPal_config->get_configuration());
-        /*
-         *   By default Angell EYE PayPal PHP Library has ButtonSource is "AngellEYE_PHPClass".
-         *   We are overwirting that variable with "AngellEYE_IfThenGive" value.
-         *   It also reflactes in NVPCredentials string so we are also replcing it.
-         */
-        $PayPal->APIButtonSource = ITG_BUTTON_SOURCE;
-        $PayPal->NVPCredentials = str_replace('AngellEYE_PHPClass',ITG_BUTTON_SOURCE,$PayPal->NVPCredentials);        
-        $SECFields = array(
-                'maxamt' => round($amount * 2,2),
-                'returnurl' => site_url('?action=ec_return'),
-                'cancelurl' => $cancel_page,
-                'hdrimg' => isset($hdlogoimg) ? $hdlogoimg : '',
-                'logoimg' => isset($logoimg) ? $logoimg : '',
-                'brandname' => (isset($brandname) && !empty($brandname)) ? $brandname : get_bloginfo('name'),
-                'customerservicenumber' => isset($customerservicenumber) ? $customerservicenumber : '',
-        );
-        $Payments = array();
-        $Payment = array(
-            'amt' => 0
-        );
-        array_push($Payments, $Payment);
-        
-        $BillingAgreements = array();
-        $Item = array(
-                'l_billingtype' => apply_filters('itg_ec_billingtype','MerchantInitiatedBilling'),
-                'l_billingagreementdescription' => $trigger_name,
-                'l_paymenttype' => '',
-                'l_billingagreementcustom' => 'ifthengive_'.$post_id
-        );
-        array_push($BillingAgreements, $Item);
-
-        $PayPalRequestData = array(
-            'SECFields' => $SECFields, 
-            'Payments' => $Payments,
-            'BillingAgreements' => $BillingAgreements,
-        );
-        $PayPalResult = $PayPal->SetExpressCheckout($PayPalRequestData);        
-        if($PayPalResult['RAWRESPONSE'] != false){
-            if(isset($PayPalResult['ACK'])){
-                if($PayPal->APICallSuccessful($PayPalResult['ACK']))
-                {            
-                    echo json_encode(array('Ack'=>'Success','RedirectURL'=>$PayPalResult['REDIRECTURL']));
-                }
-                else
-                {
-                    echo json_encode(array('Ack'=>'Failure','ErrorCode'=>$PayPalResult['L_ERRORCODE0'],'ErrorShort'=>$PayPalResult['L_SHORTMESSAGE0'],'ErrorLong'=>$PayPalResult['L_LONGMESSAGE0']));            
-                }
-            }
-            else{
-                echo json_encode(array('Ack'=>'Failure','ErrorCode'=>'0','ErrorShort'=>__('No PayPal Acknowledgement','ifthengive'),'ErrorLong'=>__('No PayPal Acknowledgement','ifthengive')));
-            }
-        }
-        else{
-            echo json_encode(array('Ack'=>'Failure','ErrorCode'=>'0','ErrorShort'=>__('Something went wrong.','ifthengive'),'ErrorLong'=>__('PayPal Timeout issue or SSL issue.','ifthengive')));
-        }
+        $_SESSION['itg_signup_wp_goal_id'] = $post_id;                       
         exit;
     }
     
