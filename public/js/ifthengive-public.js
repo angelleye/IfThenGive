@@ -62,8 +62,7 @@
                            else{
                             $('.overlay:last').hide();
                             $('#connect_paypal_error_public_'+post_id).show();
-                            $('#connect_paypal_error_p_'+post_id).html('').html('<strong>Acknowledgement :</strong> ' + result.Ack);                           
-                            $('#connect_paypal_error_p_'+post_id).append('<br><strong>Error Code :</strong> ' + result.ErrorCode);
+                            $('#connect_paypal_error_p_'+post_id).html('').html('<strong>Acknowledgement :</strong> ' + result.Ack);                                                       
                             $('#connect_paypal_error_p_'+post_id).append('<br><strong>Short Message :</strong> ' + result.ErrorShort);
                             $('#connect_paypal_error_p_'+post_id).append('<br><strong>Long Message :</strong> ' + result.ErrorLong);                            
                             $('html, body').animate({
