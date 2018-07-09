@@ -207,7 +207,7 @@ class AngellEYE_IfThenGive_Post_types {
             update_post_meta($post_ID, 'trigger_name',sanitize_text_field($_REQUEST['post_title']));
             update_post_meta($post_ID, 'trigger_thing',sanitize_text_field($_POST['trigger_thing']));
             update_post_meta($post_ID, 'trigger_desc',sanitize_text_field($_POST['trigger_desc']));
-            update_post_meta($post_ID, 'image_url',  esc_url($_POST['image_url']));                        
+            update_post_meta($post_ID, 'image_url',  sanitize_text_field($_POST['image_url']));                        
             if($_POST['fixed_radio']=='fixed'){
                 $fixed_amount_input = filter_var(number_format($_POST['fixed_amount_input'],2,'.', ''),FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
                 update_post_meta($post_ID, 'amount','fixed');
@@ -235,17 +235,27 @@ class AngellEYE_IfThenGive_Post_types {
                     }
                 }
                 update_post_meta($post_ID, 'amount','select');
-                update_post_meta($post_ID, 'option_name',sanitize_text_field($_POST['option_name']));
+                update_post_meta($post_ID, 'option_name',array_map('sanitize_text_field',$_POST['option_name']));
                 update_post_meta($post_ID, 'option_amount',$amountArray);
             }
         }
         if(isset($_POST['publish']) && $_POST['post_type']=='ifthengive_goals'){
-            $url = esc_url(admin_url("post.php?post=".$post_ID."&action=edit&view=true&add_post_success=true"));
-            wp_redirect( $url );
+            $url =  add_query_arg( array(
+                                'post' => $post_ID,
+                                'action' => 'edit',
+                                'view' => 'true',
+                                'add_post_success' => 'true'
+                            ), admin_url('post.php'));            
+            wp_safe_redirect($url);
             exit;
         }elseif(isset($_POST['save'])  && $_POST['post_type']=='ifthengive_goals'){
-            $url = esc_url(admin_url("post.php?post=".$post_ID."&action=edit&view=true&update_post_success=true"));
-            wp_redirect( $url );
+            $url =  add_query_arg( array(
+                                'post' => $post_ID,
+                                'action' => 'edit',
+                                'view' => 'true',
+                                'update_post_success' => 'true'
+                            ), admin_url('post.php'));            
+            wp_safe_redirect($url);
             exit;
         }
     }
