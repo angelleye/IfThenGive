@@ -248,8 +248,8 @@ class AngellEYE_IfThenGive_Public_Display {
         return $html;        
     }
     
-    public static function validate_fields($itguser){
-                /*valodation starts */
+    public static function validate_fields($itguser){        
+        /* validation starts */
         $ValidationErrors = array();
         $fname = sanitize_text_field( $itguser['ifthengive_firstname']);
         if (!preg_match("/^[a-zA-Z]+$/",$fname)) {
@@ -278,7 +278,7 @@ class AngellEYE_IfThenGive_Public_Display {
             echo json_encode(array('Ack'=>__('ValidationError','ifthengive'),'ErrorCode'=>__('Invalid Inputs','ifthengive'),'ErrorLong'=>__('Please find Following Error','ifthengive'),'Errors'=>$ValidationErrors));
             exit;
         }            
-        /*valodation End */
+        /* validation End */
         return true;
     }
     
@@ -337,8 +337,8 @@ class AngellEYE_IfThenGive_Public_Display {
             'post_title' => ('User ID : '.$user_id.'& Goal ID : '.$goal_id)
         ) );
 
-        update_post_meta($new_post_id,'itg_signup_amount',  sanitize_key($amount));                    
-        update_post_meta($new_post_id,'itg_signup_wp_user_id',sanitize_key($user_id));
+        update_post_meta($new_post_id,'itg_signup_amount',  $amount);
+        update_post_meta($new_post_id,'itg_signup_wp_user_id',$user_id);
         update_post_meta($new_post_id,'itg_signup_wp_goal_id',$goal_id);
         update_post_meta($new_post_id, 'itg_signup_in_sandbox', $sandbox);
         update_post_meta($new_post_id,'itg_transaction_status','0');
@@ -433,20 +433,58 @@ class AngellEYE_IfThenGive_Public_Display {
             echo json_encode(array('Ack'=>'Failure','ErrorShort'=>__('Something went wrong.','ifthengive'),'ErrorLong'=>__('PayPal Timeout issue or SSL issue.','ifthengive')));
         }
     }
-
     
+    public static function process_before_sec($user_id,$goal_id,$amount,$cancel_page,$itg_guest_user){
+        // check if user have billing agreement
+            if (self::have_biiling_agreement($user_id)){
+                // check if user is already register for the goal
+                if(self::is_already_registerd($user_id, $goal_id)){                    
+                    echo json_encode(array('Ack'=>__('Information','ifthengive'),'ErrorShort'=>__('You are already signed up for this goal.','ifthengive'),'ErrorLong'=>__('We already have a record of this email address signed up for this goal.','ifthengive')));
+                    exit;
+                }
+                else{
+                   /* User have Billing Agreement but not signedup for the goal                     
+                    * that means adding goals to just in itg_signedup_goals user meta                     
+                    */
+                    self::add_goal_to_signup_list($user_id,$amount,$goal_id);
+                }
+            }
+            else{               
+                /* user is login but signinup for the first time.
+                 * User doesn't have billing agreement so
+                 * Process user for BA in PayPal.
+                 */
+                /* get user data and set them for session */
+                $userdata = self::get_userdata_from_userid($user_id);
+                
+                $_SESSION['itg_user_data'] = $userdata;          
+                $_SESSION['itg_signup_amount'] = $amount;
+                $_SESSION['itg_signup_wp_user_id'] = $user_id;
+                $_SESSION['itg_signup_wp_goal_id'] = $goal_id;
+                $_SESSION['itg_guest_user'] = $itg_guest_user;
+                self::set_express_checkout($goal_id, $amount, $cancel_page);
+                exit;
+            }
+    }
+
+    public static function verify_submitted_nonce($nonce_value,$nonce_key){        
+        if (!wp_verify_nonce(  $nonce_value ,  $nonce_key  )  ) {
+            return false;
+        }
+        return true;
+    }
+
     public static function start_express_checkout(){
-        global $wpdb;
+        //global $wpdb;
         /*Getting data from ajax */        
         $post_id = sanitize_key($_POST['post_id']);
         $amount = filter_var(number_format($_POST['amount'],2,'.', ''), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         
         /* Get user information  from Form Data. */
         $itguser = array();
-        parse_str($_POST['formData'], $itguser);
+        parse_str($_POST['formData'], $itguser);       
         
-        $nonce_value = $itguser['_itg_goal_form_nonce'];
-        if (!wp_verify_nonce(  $nonce_value ,  'itg_goal_form'  )  ) {
+        if(self::verify_submitted_nonce($itguser['_itg_goal_form_nonce'],'itg_goal_form') == false){            
             echo json_encode(array(
                 'Ack'=>'Failure',                
                 'ErrorShort'=>__('Invalid nonce','ifthengive'),
@@ -454,7 +492,7 @@ class AngellEYE_IfThenGive_Public_Display {
                 ));
             exit;
         }
-        
+                    
         self::validate_fields($itguser);
         
          /*if no role defined in the code then it adds new role as giver */
@@ -466,41 +504,22 @@ class AngellEYE_IfThenGive_Public_Display {
         if(!session_id()) {
             session_start();
         }
+        /*Create cancel page url like return to the cancel page from where it goes.*/        
+        $cancel_page = $itguser['ifthengive_page_id'];
+        
+        if(isset($itguser['itg_signup_as_guest']) && $itguser['itg_signup_as_guest']=='on' ){
+            $itg_guest_user = 'no';
+        }
+        else{
+            $itg_guest_user = 'yes';
+        }
         
         if(is_user_logged_in()){
-            // user is login 
-            $user_id = sanitize_key($_POST['login_user_id']);
-            // check if user have billing agreement
-            if (self::have_biiling_agreement($user_id)){
-                // check if user is already register for the goal
-                if(self::is_already_registerd($user_id, $post_id)){                    
-                    echo json_encode(array('Ack'=>__('Information','ifthengive'),'ErrorShort'=>__('You are already signed up for this goal.','ifthengive'),'ErrorLong'=>__('We already have a record of this email address signed up for this goal.','ifthengive')));
-                    exit;
-                }
-                else{
-                   /* User have Billing Agreement but not signedup for the goal                     
-                    * that means adding goals to just in itg_signedup_goals user meta                     
-                    */
-                    self::add_goal_to_signup_list($user_id,$amount,$post_id);
-                }
-            }
-            else{
-                /* user is login but signinup for the first time.
-                 * User doesn't have billing agreement so
-                 * Process user for BA in PayPal.
-                 */
-                /* get user data and set them for session */
-                $userdata = self::get_userdata_from_userid($user_id);
-                
-                $_SESSION['itg_user_data'] = $userdata;          
-                $_SESSION['itg_signup_amount'] = $amount;
-                $_SESSION['itg_signup_wp_user_id'] = $user_id;
-                $_SESSION['itg_signup_wp_goal_id'] = $post_id;
-
-                /*Create cancel page url like return to the cancel page from where it goes.*/        
-                $cancel_page = $itguser['ifthengive_page_id'];
-                self::set_express_checkout($post_id, $amount, $cancel_page);
-            }            
+            // user is login            
+            $current_user    = wp_get_current_user();
+            $user_id = $current_user->ID;
+            $itg_guest_user = 'no';
+            self::process_before_sec($user_id, $post_id, $amount, $cancel_page,$itg_guest_user);
         }
         else{
             /* User is not login */
@@ -508,6 +527,8 @@ class AngellEYE_IfThenGive_Public_Display {
             $user_email = email_exists(sanitize_email($itguser['ifthengive_email']));
             if($user_email){
                 $user_id =$user_email;
+                $itg_guest_user = 'no';
+                self::process_before_sec($user_id, $post_id, $amount, $cancel_page,$itg_guest_user);
             }
             else{
                 /*
@@ -529,16 +550,14 @@ class AngellEYE_IfThenGive_Public_Display {
                 $_SESSION['itg_signup_amount'] = $amount;
                 $_SESSION['itg_signup_wp_user_id'] = $user_id;
                 $_SESSION['itg_signup_wp_goal_id'] = $post_id;
+                $_SESSION['itg_guest_user'] = $itg_guest_user;
                 /*Create cancel page url like return to the cancel page from where it goes.*/        
                 $cancel_page = $itguser['ifthengive_page_id'];
                 self::set_express_checkout($post_id, $amount, $cancel_page);
+                exit;
             }
         }
-        
-       
-            
-       
-        
+               
         /*
          * Below code for situations like
          * 1). If user is login and inserts diffrent email then he has on WP user list we will remain login user id.
@@ -552,97 +571,7 @@ class AngellEYE_IfThenGive_Public_Display {
 //        else{
 //            /*Nothing match in database*/
 //            //echo 'here';
-//        }
-                        
-        $user_exist = email_exists(sanitize_email($itguser['ifthengive_email']));
-        /*If user exist then just add capabilities of giver with current capabilities. */
-        if($user_exist){
-            unset($userdata['user_pass']);
-            /*if user is admin then no change in the role*/
-            $is_admin = user_can($user_exist, 'manage_options' );
-            if($is_admin){
-                unset($userdata['role']);
-            }else{
-                /* if user is not admin then add additional role to the current user */
-                $theUser = new WP_User($user_exist);
-                $theUser->add_role( 'giver' );
-                unset($userdata['role']);
-            }                
-            $userdata['ID'] = $user_exist;        
-            $user_id =$user_exist;
-        }
-        else{            
-            /* 1) email not exist. i.e. user is login but enterd new email. 
-             * 2) email not exist and user is not login but Email is already in metakey
-             * first of condition checks if user login then get user id from post
-             * if not login then check for external user id
-             * if both empty then it will go further
-             */
-            if(is_user_logged_in()){
-                $user_id = sanitize_key($_POST['login_user_id']);
-            }
-            else{
-                $user_id = $external_email_userid;
-            }            
-            if(!empty($user_id)){
-                $userdata['ID'] = $user_id;            
-                unset($userdata['user_pass']);
-                unset($userdata['user_login']);
-                unset($userdata['user_email']);
-                unset($userdata['display_name']);
-                unset($userdata['first_name']);
-                unset($userdata['last_name']);
-
-                $theUser = new WP_User($user_id);            
-                $userdata['user_email'] = isset($theUser->data->user_email) ? $theUser->data->user_email : '' ;
-                $userdata['user_nicename'] = isset($theUser->data->user_nicename) ? $theUser->data->user_nicename : '';
-                $userdata['user_login'] = isset($theUser->data->user_login) ? $theUser->data->user_login : '';
-                $userdata['display_name'] = isset($theUser->data->display_name) ? $theUser->data->display_name : '';
-                $userdata['first_name'] = isset($theUser->data->first_name) ? $theUser->data->first_name : '';
-                $userdata['last_name'] = isset($theUser->data->last_name) ? $theUser->data->last_name : '';
-
-                /*if user is admin then no change in the role*/
-                $is_admin = user_can($user_id, 'manage_options' );            
-                if($is_admin){
-                    unset($userdata['role']);
-                }else{
-                    /* if user is not admin then add additional role to the current user */                
-                    $theUser->add_role( 'giver' );                
-                    unset($userdata['role']);
-                } 
-                $itguser['itg_signup_as_guest']='on';
-                //echo "<br>user not exist. i.e. Always new user to signup in goal but user is login<br>";
-                //update_user_meta($user_id,'itg_external_email', $itguser['ifthengive_email']);
-            }            
-        }        
-        
-        if(!empty($user_id)){
-            // User login            
-        }
-        else{            
-            // User not login I.e. Always new user            
-            //echo "<br>i am here User not login I.e. Always new user";
-        }       
-        /*Save user data in Session. */
-        if(!session_id()) {
-                session_start();
-        }            
-        
-        if(isset($itguser['itg_signup_as_guest']) && $itguser['itg_signup_as_guest']=='on' ){
-            $_SESSION['itg_guest_user'] = 'no';            
-        }
-        else{            
-            if(empty($user_id)){
-                $_SESSION['itg_guest_user'] = 'yes';
-                $userdata['user_pass'] = 'ITGPassword';
-            }
-        }        
-        $_SESSION['itg_user_data'] = $userdata;  
-        
-        $_SESSION['itg_signup_amount'] = $amount;
-        $_SESSION['itg_signup_wp_user_id'] = $user_id;
-        $_SESSION['itg_signup_wp_goal_id'] = $post_id;                       
-        exit;
+//        }    
     }
     
     public static function ifthengive_my_transactions(){
