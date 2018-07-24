@@ -67,7 +67,7 @@ class AngellEYE_IfThenGive_My_Goals_Table {
                 t.post_id AS t_postId,
                 p.post_title as GoalName,
                 (SELECT usrmeta.meta_value FROM {$wpdb->prefix}usermeta as usrmeta where usrmeta.user_id = '".$userID."' and usrmeta.meta_key = 'itg_gec_billing_agreement_id') as BillingAgreement,
-                (SELECT us.meta_value from wp_usermeta us where us.user_id =  t.meta_value AND us.meta_key = CONCAT('itg_giver_',e.meta_value,'_status') ) AS giver_status,
+                (SELECT us.meta_value from {$wpdb->prefix}usermeta us where us.user_id =  t.meta_value AND us.meta_key = CONCAT('itg_giver_',e.meta_value,'_status') ) AS giver_status,
                 (SELECT DATE_FORMAT(p2.post_date,'%Y-%m-%d') FROM {$wpdb->prefix}posts as p2 where p2.ID = e.post_id) as post_date,
                 pm.meta_value as amount
                 FROM
