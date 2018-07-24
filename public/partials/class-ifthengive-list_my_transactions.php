@@ -59,7 +59,7 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
         else if($colOrder==3)
             $col='ppack';
         else if($colOrder==4)
-            $col='ppack';        
+            $col='Txn_date';        
         else
             $col='Txn_date';
         
