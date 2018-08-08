@@ -236,8 +236,8 @@ class IfThenGive_Admin {
                $new_links = array(
                    sprintf( '<a href="%s">%s</a>', admin_url('options-general.php?page=ifthengive_option'), __( 'Configure', 'ifthengive' ) ),
                    sprintf( '<a href="%s" target="_blank">%s</a>', 'https://www.angelleye.com/category/docs/wordpress', __( 'Docs', 'ifthengive' ) ),
-                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Support', 'ifthengive' ) ),
-                   sprintf( '<a href="%s" target="_blank">%s</a>', '#', __( 'Write a Review', 'ifthengive' ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/support/plugin/angelleye-ifthengive', __( 'Support', 'ifthengive' ) ),
+                   sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/plugins/angelleye-ifthengive/#reviews', __( 'Write a Review', 'ifthengive' ) ),
                );
 
                $links = array_merge( $links, $new_links );
