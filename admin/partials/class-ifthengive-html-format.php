@@ -468,7 +468,7 @@ class AngellEYE_IfThenGive_interface {
                         </div>
                     <div class="hidden" id="div_goal_in_process">
                         <a href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions&process=continue_old')); ?>" class="btn btn-warning"><?php _e('Continue with remaning','ifthengive') ?></a>
-                        <a href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions$process=start_over')); ?>" class="btn btn-primary"><?php _e('Start Over', 'ifthengive'); ?></a>
+                        <a href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST["post"].'&view=DoTransactions&process=start_over')); ?>" class="btn btn-primary"><?php _e('Start Over', 'ifthengive'); ?></a>
                     </div>
                     
                     <?php                    
