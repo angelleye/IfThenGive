@@ -544,7 +544,9 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT,500);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $httpHeaders);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
         $result = curl_exec($ch);
         return $result;
     }
