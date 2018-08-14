@@ -513,7 +513,12 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
                     <a href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions&process=continue_old')); ?>" class="btn btn-warning"><?php _e('Continue with remaning','ifthengive') ?></a>
                     <a href="<?php echo esc_url(admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions')); ?>" class="btn btn-primary"><?php _e('Start Over', 'ifthengive'); ?></a>
                 </div>
+                <?php
+                $failed = $this->get_all_failed_givers($_REQUEST['post']);
+                if(!empty($failed)){
+                ?>
                 <a class="btn btn-primary btn-sm" id="ifthengive_fun_retry" data-postid="<?php echo sanitize_key($_REQUEST['post']); ?>" data-redirectUrl="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$_REQUEST['post'].'&view=RetryFailedTransactions');?>" href=""><?php _e('Retry Failure Payments','ifthengive') ?></a>
+                <?php } ?>
                 
             </div>
             <?php
