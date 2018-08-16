@@ -321,7 +321,7 @@ class AngellEYE_IfThenGive_Public_Display {
         }        
     }
     
-    public static function have_biiling_agreement($user_id){
+    public static function have_billing_agreement($user_id){
         /*Check if user have already a Billing Agreement then add just signedup for that goal and get it back with info */
         $isAvailableBAID = get_user_meta($user_id,'itg_gec_billing_agreement_id',true);
         if(!empty($isAvailableBAID)){
@@ -440,7 +440,7 @@ class AngellEYE_IfThenGive_Public_Display {
     
     public static function process_before_sec($user_id,$goal_id,$amount,$cancel_page,$itg_guest_user){
         // check if user have billing agreement
-            if (self::have_biiling_agreement($user_id)){
+            if (self::have_billing_agreement($user_id)){
                 // check if user is already register for the goal
                 if(self::is_already_registerd($user_id, $goal_id)){                    
                     echo json_encode(array('Ack'=>__('Information','ifthengive'),'ErrorShort'=>__('You are already signed up for this goal.','ifthengive'),'ErrorLong'=>__('We already have a record of this email address signed up for this goal.','ifthengive')));
