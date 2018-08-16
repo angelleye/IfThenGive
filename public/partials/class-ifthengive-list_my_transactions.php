@@ -73,7 +73,7 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
               b.meta_value as userId,
               c.meta_value as transactionId,
               t.meta_value as ppack,
-              DATE_FORMAT(p.post_date,'%Y-%m-%d') as Txn_date
+              DATE_FORMAT(p.post_date,'%Y-%m-%d %h:%i:%s') as Txn_date
               FROM `{$wpdb->prefix}postmeta` as pm 
               left JOIN {$wpdb->prefix}postmeta b ON b.post_id = pm.post_id AND b.meta_key = 'itg_transactions_wp_user_id'
               LEFT JOIN {$wpdb->prefix}postmeta g ON g.post_id = pm.post_id AND g.meta_key = 'itg_transactions_wp_goal_id'  

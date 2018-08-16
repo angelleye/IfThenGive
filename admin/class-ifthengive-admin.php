@@ -283,7 +283,7 @@ class IfThenGive_Admin {
                                     $goal_title,
                                     __('Transactions Completed.','ifthengive'),
                                     __('See Transactions.','ifthengive'),
-                                    admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$current_process_goal.'&view=ListTransactions')
+                                    admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$current_process_goal.'&view=ListTransactions&orderby=Txn_date&order=desc')
                                     );
                         ?>
                     </p>                    
