@@ -43,6 +43,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
 <script>
     jQuery(document).ready(function ($) {
         var IfThenGive_Transaction_Table = $('#IfThenGive_Transaction_Table').dataTable({
+            "order": [[ 4, "desc" ]],
             "serverSide": true,
             "responsive": true,
             "colReorder": true,
