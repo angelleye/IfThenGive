@@ -265,7 +265,7 @@ class AngellEYE_IfThenGive_Post_types {
         if ($post->post_type == "ifthengive_goals") {           
             $actions['view'] = '<a href="'.site_url().'/wp-admin/post.php?post=' . $post->ID . '&action=edit&view=true">'.__('View','ifthengive').'</a>';
             $actions['givers'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $post->ID . '&view=givers">'.__('Givers','ifthengive').'</a>';
-            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $post->ID . '&view=ListTransactions">'.__('Transactions','ifthengive').'</a>';
+            $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $post->ID . '&view=ListTransactions&orderby=Txn_date&order=desc">'.__('Transactions','ifthengive').'</a>';
         }
         return $actions;
     }    

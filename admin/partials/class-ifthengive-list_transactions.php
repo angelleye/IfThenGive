@@ -82,13 +82,13 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
                 $sql .= ' ORDER BY ' . esc_sql($_REQUEST['orderby']);
             } else {
                 /* by default we will add post time/post type time order by  */
-                $sql .= ' ORDER BY user_display_name ';
+                $sql .= ' ORDER BY Txn_date ';
             }
             $sql .=!empty($_REQUEST['order']) ? ' ' . esc_sql($_REQUEST['order']) : ' ASC';
         } else {
             /* by default we will add post time/post type time order by  */
-            $sql .= ' ORDER BY user_display_name ';
-            $sql .=!empty($_REQUEST['order']) ? ' ' . esc_sql($_REQUEST['order']) : ' ASC';
+            $sql .= ' ORDER BY Txn_date ';
+            $sql .=!empty($_REQUEST['order']) ? ' ' . esc_sql($_REQUEST['order']) : ' DESC';
         }
         if(isset($_REQUEST['records_show-filter'])){
             $per_page = esc_sql($_REQUEST['records_show-filter']);
@@ -318,7 +318,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
                 _e($item['ppack'],'ifthengive');
                 break;
             case 'Txn_date' :
-                _e(date('Y-m-d', strtotime($item['Txn_date'])),'ifthengive');
+                _e(date('Y-m-d h:i:s', strtotime($item['Txn_date'])),'ifthengive');
                 break;
         }
     }

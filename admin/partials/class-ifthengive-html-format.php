@@ -1013,7 +1013,7 @@ class AngellEYE_IfThenGive_interface {
                                     <div class="clearfix"></div>                                                                                   
                                     <div class="col-md-6">
                                         <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=ifthengive_goals'); ?>"><?php _e('Back To Goals','ifthengive'); ?></a>
-                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$goal_id.'&view=ListTransactions'); ?>"><?php _e('Back To Transactions','ifthengive'); ?></a>
+                                        <a class="btn btn-info" href="<?php echo admin_url('edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post='.$goal_id.'&view=ListTransactions&orderby=Txn_date&order=desc'); ?>"><?php _e('Back To Transactions','ifthengive'); ?></a>
                                     </div>
                         </div>                                        
                     </div>                     
