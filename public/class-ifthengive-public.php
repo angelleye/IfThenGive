@@ -110,6 +110,10 @@ class Ifthengive_Public {
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/class-ifthengive-public-display.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/class-ifthengive-list_my_transactions.php';        
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/class-ifthengive-list_my_goals.php';
+        add_action('init', array(__CLASS__,'ifthengive_init_shortcode'));        
+    }
+
+    public static function ifthengive_init_shortcode(){
         add_shortcode( 'ifthengive_transactions', array(__CLASS__,'itg_transactions_shortcode'));
         add_shortcode( 'ifthengive_account', array(__CLASS__,'itg_account_shortcode'));
         add_shortcode( 'ifthengive_goals', array(__CLASS__,'itg_goals_shortcode'));
@@ -138,9 +142,12 @@ class Ifthengive_Public {
     }
     
     public static function itg_get_template( $template_name, $args = array(), $tempate_path = '', $default_path = '' ) {
+        
+        $template_name ='template-ifthengive-'.$template_name.'.php';
+        
 	if ( is_array( $args ) && isset( $args ) ) :
 		extract( $args );
-	endif;
+	endif;        
 	$template_file = self::ifthengive_locate_template( $template_name, $tempate_path, $default_path );
 	if ( ! file_exists( $template_file ) ) :
 		_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_file ), '1.0.0' );
@@ -213,22 +220,34 @@ class Ifthengive_Public {
     }
     
     public static function itg_transactions_shortcode() {
-        $template = self::itg_get_template('template-ifthengive-my-transactions.php');
-        return $template; 
+        if(!is_admin()){
+            ob_start();
+            self::itg_get_template('my-transactions');
+            return ob_get_clean();
+        }
     }
     
-    public static function itg_account_shortcode(){
-        $template = self::itg_get_template('template-ifthengive-my-account.php');
-        return $template; 
+    public static function itg_account_shortcode(){        
+        if(!is_admin()){
+            ob_start();
+            self::itg_get_template('my-account');
+            return ob_get_clean();
+        }
     }
     
     public static function itg_goals_shortcode(){
-        $template = self::itg_get_template('template-ifthengive-my-goals.php');
-        return $template; 
+        if(!is_admin()){
+            ob_start();
+            self::itg_get_template('my-goals');
+            return ob_get_clean();
+        }
     }
     
     public static function itg_account_info_shortcode(){
-        $template = self::itg_get_template('template-ifthengive-account-info.php');
-        return $template; 
+        if(!is_admin()){
+            ob_start();
+            self::itg_get_template('account-info');
+            return ob_get_clean();
+        }
     }
 }
