@@ -77,10 +77,17 @@ class AngellEYE_IfThenGive_Public_Display {
      * @since 1.0.0
      * @access public
      */
-    public static function ifthengive_create_shortcode($atts, $content = null) {        
+    public static function ifthengive_create_shortcode($atts, $content = null) {                
         if(!is_admin()){
+            global $post, $post_ID , $wp;
+            $args = $atts;
+            $args['current_url'] = home_url( $wp->request );
+            $args['ccode'] = get_option('itg_currency_code');            
+            $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
+            $args['symbol'] = $paypal->get_currency_symbol($args['ccode']);
+        
             ob_start();
-            Ifthengive_Public::itg_get_template('display-goal',$atts);
+            Ifthengive_Public::itg_get_template('display-goal',$args);
             return ob_get_clean();
         }
     }
