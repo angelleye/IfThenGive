@@ -12,10 +12,11 @@ if (!defined('ABSPATH')) {
     exit; // Don't allow direct access
 }
 if (!empty($id)) {
-    $post = get_post($id);
+    $post = get_post($id);    
     if (!empty($post->post_type) && $post->post_type == 'ifthengive_goals' && $post->post_status == 'publish') {
+        do_action('before_ifthengive_goal', $id);
         ?>
-
+        
         <div class="overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
             <div class="itg_loader"></div>
             <h1 style="font-weight: 600;"><?php esc_html_e('Processing...', 'ifthengive') ?></h1>
@@ -23,55 +24,42 @@ if (!empty($id)) {
 
         <div class="itg_container">                    
             <div class="itg_post-item">
-
+                
+                <?php do_action('before_ifthengive_goal_trigger_name', $id); ?>
+                
                 <div class="itg_post-title">
                     <h3><?php echo get_post_meta($post->ID, 'trigger_name', true); ?></h3>
                 </div>
-
+                
+                <?php do_action('after_ifthengive_goal_trigger_name', $id); ?>
+                
                 <div class="itg_post-image">
                     <img src="<?php echo get_post_meta($post->ID, 'image_url', true); ?>">
                 </div>
-
+                
+                <?php do_action('after_ifthengive_goal_image', $id); ?>
+                
                 <div class="itg_post-content-details">
                     <div class="itg_post-description" id="scrolltopid_<?php echo $post->ID; ?>">
-                        <p><?php get_post_meta($post->ID, 'trigger_desc', true); ?></p>
+                        <p><?php echo get_post_meta($post->ID, 'trigger_desc', true); ?></p>
                     </div>
                     <?php
-                    echo $post->post_content;
+                    do_action('after_ifthengive_goal_desc', $id);
+                    
                     $amount = get_post_meta($post->ID, 'amount', true);
 
                     if ($amount == 'fixed') {
                         ?>
                         <div class="itg_post-title">
                             <?php $fixed_amount = get_post_meta($post->ID, 'fixed_amount_input', true); ?>
-                            <h4>
-                                <?php
-                                echo esc_html('If ', 'ifthengive') .
-                                get_post_meta($post->ID, 'trigger_thing', true) .
-                                esc_html(' Then I will Give ', 'ifthengive') .
-                                $symbol;
-                                ?>
-                                <span id="ifthengive_fixed_price_span_<?php echo $post->ID; ?>">
-            <?php echo $fixed_amount; ?>
-                                </span>
-                            </h4>
+                            <h4><?php echo esc_html('If ', 'ifthengive') .get_post_meta($post->ID, 'trigger_thing', true) .esc_html(' Then I will Give ', 'ifthengive') .$symbol;?><span id="ifthengive_fixed_price_span_<?php echo $post->ID; ?>"><?php echo $fixed_amount; ?></span></h4>
                         </div>
                         <?php
                     } elseif ($amount == 'manual') {
                         $manual_amount_input_value = get_post_meta($post->ID, 'manual_amount_input', true);
                         ?>
                         <div class="itg_post-title">
-                            <h4>
-                                <?php
-                                echo esc_html('If ', 'ifthengive') .
-                                get_post_meta($post->ID, 'trigger_thing', true) .
-                                esc_html(' Then I will Give ', 'ifthengive') .
-                                $symbol;
-                                ?>
-                                <span id="ifthengive_manual_price_span_<?php echo $post->ID; ?>">
-            <?php echo $manual_amount_input_value; ?>
-                                </span>
-                            </h4>
+                            <h4><?php echo esc_html('If ', 'ifthengive') .get_post_meta($post->ID, 'trigger_thing', true).esc_html(' Then I will Give ', 'ifthengive') .$symbol; ?><span id="ifthengive_manual_price_span_<?php echo $post->ID; ?>"><?php echo $manual_amount_input_value; ?></span></h4>
                         </div>
                         <?php
                     } else {
@@ -80,17 +68,7 @@ if (!empty($id)) {
                         $i = 0;
                         ?>
                         <div class="itg_post-title">
-                            <h4>
-                                <?php
-                                echo esc_html('If ', 'ifthengive') .
-                                get_post_meta($post->ID, 'trigger_thing', true) .
-                                esc_html(' Then I will Give ', 'ifthengive') .
-                                $symbol;
-                                ?>
-                                <span id="ifthengive_fixed_price_span_select_<?php echo $post->ID; ?>">
-            <?php echo isset($option_amount[0]) ? $option_amount[0] : ''; ?>
-                                </span>
-                            </h4>
+                            <h4><?php echo esc_html('If ', 'ifthengive') .get_post_meta($post->ID, 'trigger_thing', true) .esc_html(' Then I will Give ', 'ifthengive') .$symbol; ?><span id="ifthengive_fixed_price_span_select_<?php echo $post->ID; ?>"><?php echo isset($option_amount[0]) ? $option_amount[0] : ''; ?></span></h4>
                         </div>
                         <?php
                     }
@@ -100,12 +78,7 @@ if (!empty($id)) {
 
             <div class="itgcontainer" id="ifthengive_signup_form">
                 <div class="itg_hr-title itg_center">
-                    <abbr>
-                        <?php
-                        echo esc_html('Sign up for ', 'ifthengive') .
-                        get_post_meta($post->ID, 'trigger_name', true);
-                        ?>
-                    </abbr>
+                    <abbr><?php echo esc_html('Sign up for ', 'ifthengive') .get_post_meta($post->ID, 'trigger_name', true);?></abbr>
                 </div>
 
                 <div class="itg_alert itg_alert-warning" id="connect_paypal_error_public_<?php echo $post->ID; ?>" style="display: none">
@@ -133,6 +106,7 @@ if (!empty($id)) {
                     $User_last_name = '';
                     $user_id = '';
                 }
+                do_action('before_ifthengive_goal_signup_form', $id);
                 ?>            
                 <form method="post" name="signup" id="ifthengive_signup_<?php echo $post->ID; ?>">
                     <?php
@@ -268,8 +242,10 @@ if (!empty($id)) {
                         <?php echo esc_html('Sign Up For ', 'ifthengive') . get_post_meta($post->ID, 'trigger_name', true); ?>
                     </button>
                 </form>
+                <?php do_action('after_ifthengive_goal_signup_form', $id); ?>
             </div> <!-- itgcontainer -->
         </div> <!-- itg_container -->
         <?php
+        do_action('after_ifthengive_goal', $id);
     }
 }
