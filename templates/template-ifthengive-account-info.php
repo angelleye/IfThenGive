@@ -1,6 +1,6 @@
 <?php
 /**
- * IfThenGive My Account template.
+ * IfThenGive My Account Info template.
  *
  * This template can be overriden by copying this file to your-theme/IfThenGive/template-ifthengive-account-info.php
  *
@@ -12,12 +12,13 @@
 if (!defined('ABSPATH'))
     exit; // Don't allow direct access
 
-if (!is_admin()) {    
+if (!is_admin()) {
     $userID = get_current_user_id();
     if(is_int($userID) && $userID > 0){
         $BAID = get_user_meta($userID,'itg_gec_billing_agreement_id',true);
         $paypal_email = get_user_meta($userID,'itg_gec_email',true);
-        $paypal_payer_id = get_user_meta($userID,'itg_gec_payer_id',true);        
+        $paypal_payer_id = get_user_meta($userID,'itg_gec_payer_id',true);  
+        do_action('before_ifthengive_account_info', $userID);
 ?>
 <div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php _e('Account Info', 'ifthengive') ?></abbr></div>
 <div class="itgcontainer">
@@ -50,7 +51,8 @@ if (!is_admin()) {
         <div id="itg_cancel_ba_msg"></div>
     </div>         
 </div>
-<?php    
+<?php 
+    do_action('after_ifthengive_account_info', $userID);
     }
     else{
         _e("Please login to site.",'ifthengive');

@@ -16,6 +16,7 @@ if (!defined('ABSPATH'))
 if(! is_admin()){
     $userID = get_current_user_id();
     if(is_int($userID) && $userID > 0){
+    do_action('before_ifthengive_my_transactions', $userID);
 ?>
 <div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php _e('Transactions', 'ifthengive') ?></abbr></div>
 <div class="itg_center_container">   
@@ -36,6 +37,7 @@ if(! is_admin()){
     </div>
 </div>
 <?php
+do_action('after_ifthengive_my_transactions', $userID);
 $ccode = get_option('itg_currency_code');
 $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
 $symbol = $paypal->get_currency_symbol($ccode);
