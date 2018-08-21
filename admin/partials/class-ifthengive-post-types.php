@@ -70,7 +70,7 @@ class AngellEYE_IfThenGive_Post_types {
     
     /**
      * ifthengive_register_post_types function is user for register custom post type
-     * @since    0.1.0
+     * @since    1.0.0
      * @access   public
      */
     public static function ifthengive_register_post_types() {

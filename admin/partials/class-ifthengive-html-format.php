@@ -12,7 +12,7 @@ use Dompdf\Options;
 class AngellEYE_IfThenGive_interface {
     /**
      * Hook in methods
-     * @since    0.1.0
+     * @since    1.0.0
      * @access   static
      */
     public static function init() {
@@ -443,6 +443,12 @@ class AngellEYE_IfThenGive_interface {
         echo apply_filters('itg_filter_goal_view',$final,$post_ID);
     }
 
+    /**
+     * ifthengive_givers_interface_html function is for
+     * html of interface when action is View and page is giver for particular goal.
+     * @since 1.0.0
+     * @access public
+     */
     public static function ifthengive_givers_interface_html() {        
         ?>
         <div class="wrap">            
@@ -493,6 +499,12 @@ class AngellEYE_IfThenGive_interface {
         <?php        
     }
     
+    /**
+     * itg_admin_notice__success function adds success notice when
+     * goal is successfully created or updated.
+     * @since 1.0.0
+     * @access public
+     */
     public static function itg_admin_notice__success() {
         if(isset($_REQUEST['update_post_success']) && $_REQUEST['update_post_success'] == true){
     ?>
@@ -509,7 +521,13 @@ class AngellEYE_IfThenGive_interface {
         }
     }
     
-    public static function ifthengive_do_transactions_interface_html() {                
+    /**
+     * ifthengive_do_transactions_interface_html function display process of the
+     * transactions when action is view with do_transactions page.
+     * @since 1.0.0
+     * @access public
+     */    
+    public static function ifthengive_do_transactions_interface_html() {
         if(!self::is_My_Goal(sanitize_key($_REQUEST['post']))){
             ?>
             <div class="wrap">
@@ -821,6 +839,13 @@ class AngellEYE_IfThenGive_interface {
        }
     }
     
+    /**
+     * ifthengive_list_transactions_interface_html function display list of
+     * transactions in table format for particular goal.
+     * @since 1.0.0
+     * @access public
+     */ 
+    
     public static function ifthengive_list_transactions_interface_html() {        
         if(!self::is_My_Goal(sanitize_key($_REQUEST['post']))){
             ?>
@@ -866,6 +891,13 @@ class AngellEYE_IfThenGive_interface {
         }
     }
 
+     /**
+     * ifthengive_get_transaction_detail_html function display details of
+     * transaction and fetch transaction id from the url.
+     * @since 1.0.0
+     * @access public
+     */ 
+    
     public static function ifthengive_get_transaction_detail_html() {
         if(!self::is_My_Goal(sanitize_key($_REQUEST['post']))){
             ?>
@@ -1040,6 +1072,13 @@ class AngellEYE_IfThenGive_interface {
       }
     }
 
+    /**
+     * ifthengive_retry_failed_transactions_interface_html function display process of
+     * failed transaction for particular goal.
+     * @since 1.0.0
+     * @access public
+     */ 
+    
     public static function ifthengive_retry_failed_transactions_interface_html() {                    
         if(!self::is_My_Goal(sanitize_key($_REQUEST['post']))){
             ?>
@@ -1331,6 +1370,12 @@ class AngellEYE_IfThenGive_interface {
         }
     }
     
+    /**
+     *  ifthengive_disconnect_interface_html function display process of
+     *  failed transaction for particular goal.
+     *  @since 1.0.0
+     *  @access public
+     */ 
     public static function ifthengive_disconnect_interface_html() {
         
         if($_GET['env']=='sandbox'){
@@ -1358,6 +1403,13 @@ class AngellEYE_IfThenGive_interface {
         die();
     }
 
+    /**
+     *  ifthengive_get_users_transactions_interface_html function display list of
+     *  transactions by user id.
+     *  @since 1.0.0
+     *  @access public
+     */ 
+    
     public static function ifthengive_get_users_transactions_interface_html(){
         if(!self::is_My_Goal(sanitize_key($_REQUEST['post']))){
             ?>
@@ -1400,6 +1452,13 @@ class AngellEYE_IfThenGive_interface {
         }
     }
     
+    /**
+     *  ifthengive_hide_publish_button_until function hides the publish button while creating goal page
+     *  and Admin user is not connected with PayPal.
+     *  @since 1.0.0
+     *  @access public
+     */ 
+    
     public static function ifthengive_hide_publish_button_until() {
         if (isset($_REQUEST['post_type'])) {
             if ($_REQUEST['post_type'] == 'ifthengive_goals') {
@@ -1425,6 +1484,13 @@ class AngellEYE_IfThenGive_interface {
         }        
     }
     
+     /**
+     *  cancel_billing_agreement_giver function called when giver status is changed
+     *  for particular goal.
+     *  @since 1.0.0
+     *  @access public
+     */
+    
     public static function cancel_billing_agreement_giver() {
         if (isset($_POST['userid'])) {
             $user_id = sanitize_key($_POST['userid']);
@@ -1441,6 +1507,13 @@ class AngellEYE_IfThenGive_interface {
         }
         exit;
     }
+    
+     /**
+     *  is_My_Goal function checks if user is created the goal or not
+     *  based on the goal id and current user id.
+     *  @since 1.0.0
+     *  @access public
+     */
     
     public static function is_My_Goal($goal_id){
         
@@ -1460,6 +1533,13 @@ class AngellEYE_IfThenGive_interface {
             return false;
         }
     }
+    
+    /**
+     *  check_goal_is_in_process function checks if anyother goal is
+     *  currently being processing or not.
+     *  @since 1.0.0
+     *  @access public
+     */
     
     public static function check_goal_is_in_process(){
         $process_button_postid = isset($_POST['post_id']) ? sanitize_key($_POST['post_id']) : '';
@@ -1489,6 +1569,12 @@ class AngellEYE_IfThenGive_interface {
             exit;
         }        
     }
+    
+    /**
+     *  delete_giver_from_goal function delete the giver from particular goal.     
+     *  @since 1.0.0
+     *  @access public
+     */
     
     public static function delete_giver_from_goal(){
        $signup_postid = sanitize_key($_POST['signup_postid']);

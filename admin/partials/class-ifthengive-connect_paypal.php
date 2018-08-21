@@ -15,7 +15,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
 
     /**
      * Hook in methods
-     * @since    0.1.0
+     * @since    1.0.0
      * @access   static
      */
 
@@ -34,7 +34,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
 
     /**
      * Hook in methods
-     * @since    0.1.0
+     * @since    1.0.0
      * @access   static
      */
     public static function init() {
@@ -44,6 +44,11 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         add_action("wp_ajax_nopriv_sandbox_enabled", array(__CLASS__, 'sandbox_enabled'));
     }
 
+    /**
+     * ifthengive_connect_to_paypal_setting_fields display the toggle for environment.
+     * @since    1.0.0
+     * @access   static
+     */    
     public static function ifthengive_connect_to_paypal_setting_fields() {
         global $wpdb;
         $Logger = new AngellEYE_IfThenGive_Logger();       
@@ -60,6 +65,12 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         return $fields;
     }
 
+    /**
+     * ifthengive_connect_to_paypal_create_setting display the toggle for environment.
+     * @since    1.0.0
+     * @access   static
+     */ 
+    
     public static function ifthengive_connect_to_paypal_create_setting() {
                 
         $connect_to_sandbox_paypal_flag = get_option('itg_sb_connected_to_paypal');
@@ -521,6 +532,14 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
             </div>        
         <?php
     }    
+    
+    /**
+     * sandbox_enabled checks if environment is sandbox or live for the 
+     * connected PayPal account.
+     * @since    1.0.0
+     * @access   static
+     */
+    
     public function sandbox_enabled() {
         if (isset($_POST['sandbox'])) {
             $sandbox = sanitize_key($_POST['sandbox']);

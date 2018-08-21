@@ -103,6 +103,12 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         return $result_array;
     }
     
+    /**
+     * get_all_givers method fetches all the givers based on the PayPal environment's setup.
+     * @since    1.0.0
+     * @access   static
+     */
+    
     public static function get_all_givers() {
         global $wpdb;       
         $sanbox_enable = get_option('itg_sandbox_enable');
@@ -130,6 +136,16 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         return $result_array;
     }
     
+    /**
+     * reset_givers_transaction_status method 
+     * called within the rest_transaction_status() from the admin class and it will called when 
+     * all the transaction process is complete.
+     * While do transaction, we are adding transaction status to 1.
+     * We are resting here to 0 in this function so that means process for that is completed.
+     * and all givers are set to 0.        
+     * @since    1.0.0
+     * @access   static
+     */
     
     public static function reset_givers_transaction_status($goal_id){
         global $wpdb;
@@ -168,6 +184,14 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
         return $result_array;
     }
     
+    /*
+     * If transaction Process stops in the middle of the running process
+     * and when click on the "Remaining records to process"
+     * get_remaining_process_givers method will call and fetch the remaining records
+     * of the goal from database.
+     * @since    1.0.0
+     * @access   static
+     */
     public static function get_remaining_process_givers($goal_id){
         global $wpdb;
         $sanbox_enable = get_option('itg_sandbox_enable');
@@ -220,24 +244,20 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     
     
     /**
-    * Delete a customer record.
+    * Delete a Giver record.
     *
-    * @param int $id customer ID
+    * @param int $id Giver ID
     */
-    public static function delete_customer( $id ) {
-//      global $wpdb;
-//
-//      $wpdb->delete(
-//        "{$wpdb->prefix}customers",
-//        [ 'ID' => $id ],
-//        [ '%d' ]
-//      );
+    public static function delete_giver( $id ) {
+        // used when we implement multiple checkbox in the list.
     }
     
     /**
     * Returns the count of records in the database.
     *
     * @return null|string
+    * @since    1.0.0
+    * @access   static
     */
     public static function record_count() {
       global $wpdb;
@@ -285,17 +305,6 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     * @return string
     */
     public function column_name( $item ) {
-//
-//      // create a nonce
-//      $delete_nonce = wp_create_nonce( 'sp_delete_customer' );
-//
-//      $title = '<strong>' . $item['name'] . '</strong>';
-//
-//      $actions = [
-//        'delete' => sprintf( '<a href="#">Delete</a>')
-//      ];
-//
-//      return $title . $this->row_actions( $actions );
     }
     
     /**
@@ -306,7 +315,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     *
     * @return mixed
     */
-    public function column_default( $item, $column_name ) {        
+    public function column_default( $item, $column_name ) {
       switch ( $column_name ) {
         case 'BillingAgreement':
              _e($item['BillingAgreement'],'ifthengive');
@@ -378,6 +387,11 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
       }
     }
     
+    /*
+     *  Override single_row method to add class based on the giver status.          
+     *  @since    1.0.0
+     *  @access   static
+     */     
     function single_row( $item ) {
         $giverstatus = $item['GiverStatus'];
         if($giverstatus == 'active'){
@@ -544,6 +558,12 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     exit;
   }
 }
+    /*
+     * extra_tablenav method add new navigation tab
+     * we have added filter/select box there.
+     * @since    1.0.0
+     * 
+     */
     public function extra_tablenav($which) {
         global $wpdb, $testiURL, $tablename, $tablet;
         $move_on_url = '&post=' . sanitize_key($_REQUEST['post']) . '&view=ListTransactions&payment_status-filter=';

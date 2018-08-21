@@ -15,14 +15,21 @@
  */
 class AngellEYE_IfThenGive_Cancel_Billing_Agreement {
     /**
-     * Hook in methods
-     * @since    0.1.0
+     * init initialize Hook in methods
+     * @since    1.0.0
      * @access   static
      */
     public static function init() {
         add_action('delete_user', array(__CLASS__, 'Cancel_Billing_Agreement_delete_giver'));
         add_action('delete_user_form', array(__CLASS__, 'Cancel_Billing_Agreement_delete_giver_message'));
     }
+    
+    /**
+     * Cancel_Billing_Agreement_delete_giver method will call
+     * cancel billing agreements from the PayPal.
+     * @since    1.0.0
+     * @access   static
+     */
     public static function Cancel_Billing_Agreement_delete_giver( $user_id ) {        
         $billing_agreement_id = get_user_meta( $user_id, 'itg_gec_billing_agreement_id', true );
         $PayPal_config = new AngellEYE_IfThenGive_PayPal_Helper();        
@@ -45,6 +52,13 @@ class AngellEYE_IfThenGive_Cancel_Billing_Agreement {
         $PayPalResult = $PayPal->BillAgreementUpdate($PayPalRequestData);        
         //print_r($PayPalResult);
     }
+    
+    /**
+     * Cancel_Billing_Agreement_delete_giver_message method will display
+     * message/notice before deleting the giver.
+     * @since    1.0.0
+     * @access   static
+     */
     public static function Cancel_Billing_Agreement_delete_giver_message($users){
         if(isset($_REQUEST['user'])){
             $user_meta=get_userdata(sanitize_key($_REQUEST['user'])); 
