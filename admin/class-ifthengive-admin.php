@@ -208,7 +208,7 @@ class IfThenGive_Admin {
         $post_ID = $post->ID;
         $post_type = get_post_type($post_ID);
         
-        $custom_message = 'Goal Created Successfully';
+        $custom_message = __('Goal Created Successfully','ifthengive');
         $messages['ifthengive_goals'] = array(
 		0 => '', // Unused. Messages start at index 1.
 		1 => sprintf(__('Goal Updated Successfully','ifthengive')),
@@ -229,6 +229,12 @@ class IfThenGive_Admin {
 
         return $messages;
     }
+    
+  /**
+    * Adds three links to plugin's action links.
+    * @since    1.0.0
+    */
+    
     public function ifthengive_plugin_action_links( $links, $file ){
            $plugin_basename = ITG_PLUGIN_BASENAME;
            if($file == $plugin_basename)
@@ -244,7 +250,11 @@ class IfThenGive_Admin {
            }
            return $links;
     }
-    
+   
+   /**
+    * Display the notice while transaction process.
+    * @since    1.0.0
+    */
     function processing_notice(){
             $in_process = get_option('itg_txns_in_process');
             $current_process_goal = get_option('itg_current_process_goal_id');

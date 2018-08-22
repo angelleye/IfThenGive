@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class defines all paypal custom functions
+ * This class defines all PayPal custom functions
  * @class       AngellEYE_IfThenGive_PayPal_Helper
  * @version	1.0.0
  * @package	IfThenGive/partials
@@ -24,6 +24,11 @@ class AngellEYE_IfThenGive_PayPal_Helper {
         var $token='';
         var $token_secret='';                              
         
+       /*
+        * get_configuration method fetch saved configuration        
+        * @since    1.0.0        
+        */
+        
         public function get_configuration(){
             
                 $PayPalConfig = array(
@@ -43,6 +48,12 @@ class AngellEYE_IfThenGive_PayPal_Helper {
                 return $PayPalConfig;
         }
     
+        /*
+        * get_third_party_configuration method called when we have 
+        * hosted solution plugin installed with that.
+        * @since    1.0.0        
+        */
+        
         public function get_third_party_configuration(){
                 $PayPalConfig = array(
                     'Sandbox' => $this->sandbox,
@@ -63,18 +74,34 @@ class AngellEYE_IfThenGive_PayPal_Helper {
                 );
                 return $PayPalConfig;
         }
-    
+        
+        /*
+        * set_tokens method sets the values passed by parameter to the 
+        * class's public variables.
+        * @since    1.0.0        
+        */    
         public function set_tokens($token,$token_secret){
             $this->token = $token;
             $this->token_secret = $token_secret;
             return true;
         }
         
+       /*
+        * set_api_subject called when we are doing third party call
+        * it will only call when hosted solutions is installed.
+        * @since    1.0.0        
+        */  
+        
         public function set_api_subject($goal_id){
             $this->api_subject = apply_filters('itg_api_subject_parameter','',$goal_id);
             return true;
         }
         
+       /*
+        * set_api_cedentials sets the api credentials return from the connect to paypal.
+        * @since    1.0.0        
+        */  
+                
         public function set_api_cedentials(){
             $sanbox_enable = get_option('itg_sandbox_enable');
             if($sanbox_enable === 'yes'){
@@ -92,6 +119,11 @@ class AngellEYE_IfThenGive_PayPal_Helper {
                  $this->application_id='';
              }
         }
+        
+       /*
+        * get_currency_symbol from the array it will fetch the html entity of the currency.
+        * @since    1.0.0        
+        */  
         
         public function get_currency_symbol($Currency){
             $CurrencyCodes = array(

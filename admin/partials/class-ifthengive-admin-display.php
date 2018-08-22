@@ -17,7 +17,7 @@ class AngellEYE_IfThenGive_Admin_Display {
 
     /**
      * Hook in methods
-     * @since    0.1.0
+     * @since    1.0.0
      * @access   static
      */
     public static function init() {
@@ -25,8 +25,8 @@ class AngellEYE_IfThenGive_Admin_Display {
     }
 
     /**
-     * add_settings_menu helper function used for add menu for pluging setting
-     * @since    0.1.0
+     * add_settings_menu helper function used for add menu for plugin setting
+     * @since    1.0.0
      * @access   public
      */
     public static function add_settings_menu() {
@@ -35,7 +35,7 @@ class AngellEYE_IfThenGive_Admin_Display {
 
     /**
      * ifthengive_option helper will trigger hook and handle all the settings section 
-     * @since    0.1.0
+     * @since    1.0.0
      * @access   public
      */
     public static function ifthengive_option() {

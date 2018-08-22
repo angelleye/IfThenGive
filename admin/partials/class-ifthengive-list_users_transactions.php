@@ -38,11 +38,12 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
     }
 
     /**
-     * Retrieve givers’s data from the database
+     * get_transactions Retrieve transactions by user id.
      *
      * @param int $per_page
      * @param int $page_number
-     *
+     * @since    1.0.0
+     * @access   static
      * @return mixed
      */
     public static function get_transactions($per_page = 5, $page_number = 1) {
@@ -346,7 +347,14 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
             exit;
         }
     }
-
+    
+    /*
+     * extra_tablenav method add new navigation tab
+     * we have added filter/select box there.
+     * @since    1.0.0
+     * 
+     */
+    
     public function extra_tablenav($which) {
         global $wpdb, $testiURL, $tablename, $tablet;
         $move_on_url='';

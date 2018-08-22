@@ -32,7 +32,7 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
     }
 
     /**
-     * Retrieve givers’s data from the database
+     * Retrieve givers’s transaction data from the database
      *
      * @param int $per_page
      * @param int $page_number
