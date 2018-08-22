@@ -92,7 +92,13 @@ class AngellEYE_IfThenGive_Public_Display {
         }
     }
     
-    public static function validate_fields($itguser){        
+     /**
+     * validate_fields validates the submitted fields in the goal form.
+     * @since 1.0.0
+     * @access public
+     */
+    
+    public static function validate_fields($itguser){
         /* validation starts */
         $ValidationErrors = array();
         $fname = sanitize_text_field( $itguser['ifthengive_firstname']);
@@ -126,6 +132,11 @@ class AngellEYE_IfThenGive_Public_Display {
         return true;
     }
     
+    /**
+     * get_userdata_from_userid fetch details of user data from user id.
+     * @since 1.0.0
+     * @access public
+     */
     
     public static function get_userdata_from_userid($user_id){
         $theUser = new WP_User($user_id);
@@ -146,6 +157,12 @@ class AngellEYE_IfThenGive_Public_Display {
         }
         return $userdata;
     }
+
+    /**
+     * is_already_registerd checks if user is already registered for goal or not.
+     * @since 1.0.0
+     * @access public
+     */
     
     public static function is_already_registerd($user_id,$goal_id){        
         /*Check if user is already signed up for this goal then get him back with info.*/
@@ -161,6 +178,12 @@ class AngellEYE_IfThenGive_Public_Display {
         }        
     }
     
+    /**
+     * have_billing_agreement checks if user already have billing agreement.
+     * @since 1.0.0
+     * @access public
+     */    
+    
     public static function have_billing_agreement($user_id){
         /*Check if user have already a Billing Agreement then add just signedup for that goal and get it back with info */
         $isAvailableBAID = get_user_meta($user_id,'itg_gec_billing_agreement_id',true);
@@ -169,6 +192,12 @@ class AngellEYE_IfThenGive_Public_Display {
         }        
         return false;        
     }
+    
+    /**
+     * add_goal_to_signup_list inserts goal details in itg_sign_up posttype and related meta data.
+     * @since 1.0.0
+     * @access public
+     */ 
     
     public static function add_goal_to_signup_list($user_id,$amount,$goal_id){
         $sanbox_enable = get_option('itg_sandbox_enable');
@@ -206,6 +235,12 @@ class AngellEYE_IfThenGive_Public_Display {
         echo json_encode(array('Ack'=>'Success','RedirectURL'=>$REDIRECTURL));
         exit;
     }
+
+    /**
+     * set_express_checkout called when user submit the form of goal signup
+     * @since 1.0.0
+     * @access public
+     */ 
     
     public static function set_express_checkout($goal_id,$amount,$cancel_page){
         
@@ -278,6 +313,13 @@ class AngellEYE_IfThenGive_Public_Display {
         }
     }
     
+
+    /**
+     * process_before_sec called before the set express checkout to check the conditions.
+     * @since 1.0.0
+     * @access public
+     */
+    
     public static function process_before_sec($user_id,$goal_id,$amount,$cancel_page,$itg_guest_user){
         // check if user have billing agreement
             if (self::have_billing_agreement($user_id)){
@@ -311,6 +353,12 @@ class AngellEYE_IfThenGive_Public_Display {
             }
     }
 
+    /**
+     * verify_submitted_nonce verify the nonce of the wop submit form of goal sign up.
+     * @since 1.0.0
+     * @access public
+     */
+    
     public static function verify_submitted_nonce($nonce_value,$nonce_key){        
         if (!wp_verify_nonce(  $nonce_value ,  $nonce_key  )  ) {
             return false;
@@ -318,6 +366,12 @@ class AngellEYE_IfThenGive_Public_Display {
         return true;
     }
 
+    /**
+     * start_express_checkout set express checkout for PayPal
+     * @since 1.0.0
+     * @access public
+     */
+    
     public static function start_express_checkout(){
         //global $wpdb;
         /*Getting data from ajax */        
@@ -418,6 +472,12 @@ class AngellEYE_IfThenGive_Public_Display {
 //        }    
     }
     
+    /**
+     * ifthengive_my_transactions fetch transaction records.
+     * @since 1.0.0
+     * @access public
+     */
+    
     public static function ifthengive_my_transactions(){
         $table = new AngellEYE_IfThenGive_My_Transactions_Table();
         $my_transactions_data = $table->get_transactions();        
@@ -430,6 +490,11 @@ class AngellEYE_IfThenGive_Public_Display {
         exit;
     }
     
+    /**
+     * ifthengive_my_goals fetch goal records.
+     * @since 1.0.0
+     * @access public
+     */
     public static function ifthengive_my_goals(){
         $table = new AngellEYE_IfThenGive_My_Goals_Table();
         $my_goals_data = $table->get_goals();        
@@ -441,6 +506,13 @@ class AngellEYE_IfThenGive_Public_Display {
         }
         exit;
     }
+    
+    
+    /**
+     * cancel_my_account_ba calls cancel billing agreement.
+     * @since 1.0.0
+     * @access public
+     */    
     
     public static function cancel_my_account_ba(){        
         $user_id = sanitize_text_field($_POST['userid']);
@@ -484,6 +556,13 @@ class AngellEYE_IfThenGive_Public_Display {
         exit;
     }
     
+    
+    /**
+     * itg_adjust_amount change the amount by user.
+     * @since 1.0.0
+     * @access public
+     */ 
+    
     public static function itg_adjust_amount(){
         if(isset($_POST['changed_amount'])){
             $changed_amount = sanitize_text_field($_POST['changed_amount']);
@@ -493,7 +572,14 @@ class AngellEYE_IfThenGive_Public_Display {
         exit;
     }
     
-    public static function change_giver_status(){       
+    
+    /**
+     * change_giver_status make giver active or suspend status.
+     * @since 1.0.0
+     * @access public
+     */     
+    
+    public static function change_giver_status(){
         if(isset($_POST['userId'])){
             $user_id = sanitize_key($_POST['userId']);
             $data = get_user_meta($user_id,'itg_giver_'.sanitize_key($_POST['goalId']).'_status',true);

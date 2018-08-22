@@ -32,7 +32,7 @@ class AngellEYE_IfThenGive_My_Goals_Table {
     }
 
     /**
-     * Retrieve givers’s data from the database
+     * Retrieve givers’s goal data from the database
      *
      * @param int $per_page
      * @param int $page_number
@@ -91,6 +91,12 @@ class AngellEYE_IfThenGive_My_Goals_Table {
         $result_array = $wpdb->get_results($sql, 'ARRAY_A');        
         return $result_array;
     }
+    
+    /**
+     * get_all_goal_ids fetch all the goals by user id that registered by user.
+     * @since    1.0.0
+     * @access   static
+     */
     
     public static function get_all_goal_ids($user_id){
         global $wpdb;                
