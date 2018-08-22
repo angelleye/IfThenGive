@@ -100,6 +100,13 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
         return $result_array;
     }
 
+    /**
+     * get_all_failed_givers function fetches all the giver's transaction list of the
+     * failed payment.     
+     * @since 1.0.0
+     * @access public
+     */
+    
     public static function get_all_failed_givers($post_id){
         global $wpdb;
         $sanbox_enable = get_option('itg_sandbox_enable');
@@ -128,7 +135,14 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
 
         return $result_array;
     }    
-            
+    
+    /**
+     * get_remaining_process_failed_givers function fetch the transactions list with the
+     * failed payment but only those which are remaining in the current process.
+     * @since 1.0.0
+     * @access public
+     */
+    
     public static function get_remaining_process_failed_givers($post_id){
         global $wpdb;
         $sanbox_enable = get_option('itg_sandbox_enable');
@@ -218,6 +232,13 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
         return $wpdb->num_rows;
     }
     
+   /*
+    *   While do transaction, we are adding transaction status to 1.
+    *   We are resting here to 0 in this function so that means process for that is completed.
+    *   and all givers are set to 0.
+    *   @since 1.0.0
+    *   @access public*   
+    */
     public static function reset_transaction_status($goal_id=''){
         global $wpdb;
         $sanbox_enable = get_option('itg_sandbox_enable');
@@ -254,7 +275,7 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
         return $result_array;
     }
 
-    /** Text displayed when no giver's data is available */
+    /** Text displayed when no transaction's data is available */
     public function no_items() {
         _e('No Transactions avaliable.', 'ifthengive');
     }
@@ -479,7 +500,14 @@ class AngellEYE_IfThenGive_Transactions_Table extends WP_List_Table {
             exit;
         }
     }
-
+    
+    /*
+     * extra_tablenav method add new navigation tab
+     * we have added filter/select box there.
+     * @since    1.0.0
+     * 
+     */
+    
     public function extra_tablenav($which) {
         global $wpdb, $testiURL, $tablename, $tablet;        
         $selected = "selected='selected'";

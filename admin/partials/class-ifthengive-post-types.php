@@ -27,7 +27,12 @@ class AngellEYE_IfThenGive_Post_types {
         add_action( 'admin_menu', array(__CLASS__,'register_ifthengive_submenu_page' ));        
     }
 
-
+    /**
+     * admin_header method sets column width as per the data.
+     * @since    1.0.0
+     * @access   static
+     */
+    
     public static function admin_header() {   
         $page = ( isset($_GET['view'] ) ) ? esc_attr( $_GET['view'] ) : false;
         if( 'givers' == $page ){
@@ -260,6 +265,12 @@ class AngellEYE_IfThenGive_Post_types {
         }
     }
 
+    /**
+     * my_action_row adds new three links in the post type action
+     * view,givers,transactions
+     * @since 1.0.0
+     * @access public
+     */
     public static function my_action_row($actions, $post){
         //check for your post type
         if ($post->post_type == "ifthengive_goals") {           
@@ -268,7 +279,14 @@ class AngellEYE_IfThenGive_Post_types {
             $actions['transactions'] = '<a href="'.site_url().'/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . $post->ID . '&view=ListTransactions&orderby=Txn_date&order=desc">'.__('Transactions','ifthengive').'</a>';
         }
         return $actions;
-    }    
+    }
+
+   /**
+     * register_ifthengive_submenu_adds new submenu pages under the custom post type.
+     * givers,transactions and disconnect interface.
+     * @since 1.0.0
+     * @access public
+     */
     
     public static function register_ifthengive_submenu_page() {
         add_submenu_page( 
@@ -290,6 +308,12 @@ class AngellEYE_IfThenGive_Post_types {
         );
     }
     
+   /**
+     * ifthengive_givers_page_callback callback of the transaction and givers page.
+     * givers,transactions and disconnect interface.
+     * @since 1.0.0
+     * @access public
+     */    
     public static function ifthengive_givers_page_callback(){
         
          ?>
@@ -331,6 +355,13 @@ class AngellEYE_IfThenGive_Post_types {
             return '';
         }        
     }
+
+    /**
+     * ifthengive_givers_page_callback is the callback for the setting page
+     * and display interface of the connect and disconnet with paypal page.
+     * @since 1.0.0
+     * @access public
+     */   
     
     public static function ifthengive_disconnect_paypal_page_callback(){
         if(isset($_REQUEST['page']) && isset($_REQUEST['action'])){

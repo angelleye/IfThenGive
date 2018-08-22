@@ -354,7 +354,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
             echo apply_filters('itg_givers_list_link','<a href="' . esc_url(site_url() . '/wp-admin/edit.php?post_type=ifthengive_goals&page=ifthengive_givers&post=' . sanitize_key($_REQUEST['post']) . '&view=GetUsersTransactions&user_id=' . $item['user_id']) . '">' . esc_html($item['DisplayName']) . '</a>',$item['DisplayName'],$_REQUEST['post']);
             break;
          case 'BADate' :
-            _e(date('Y-m-d',  strtotime($item['BADate'])),'ifthengive');
+            _e(date('Y-m-d h:i:s',  strtotime($item['BADate'])),'ifthengive');
              break;
          case 'Email' :
             _e($item['CoreEmail'],'ifthengive');
