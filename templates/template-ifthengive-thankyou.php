@@ -2,7 +2,7 @@
 /**
  * IfThenGive Thankyou template.
  *
- * This template can be overriden by copying this file to your-theme/IfThenGive/goal-signup-complete.php
+ * This template can be overriden by copying this file to your-theme/ifthengive/template-ifthengive-thankyou.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	IfThenGive

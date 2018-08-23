@@ -39,7 +39,10 @@ class Ifthengive_Public {
      * @var      string    $version    The current version of this plugin.
      */
     private $version;
-
+    
+    private $theme_template_path;
+    private $plugin_template_path;
+    
     /**
      * Initialize the class and set its properties.
      *
@@ -51,6 +54,10 @@ class Ifthengive_Public {
 
         $this->plugin_name = $plugin_name;
         $this->version = $version;
+        
+        $this->plugin_template_path = '/templates/';
+        $this->theme_template_path = 'ifthengive/';
+        
         $this->load_dependencies();        
     }
 
@@ -110,35 +117,30 @@ class Ifthengive_Public {
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/class-ifthengive-public-display.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/class-ifthengive-list_my_transactions.php';        
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/class-ifthengive-list_my_goals.php';
-        add_action('init', array(__CLASS__,'ifthengive_init_shortcode'));        
+        add_action('init', array($this,'ifthengive_init_shortcode'));        
     }
 
-    public static function ifthengive_init_shortcode(){
-        add_shortcode( 'ifthengive_transactions', array(__CLASS__,'itg_transactions_shortcode'));
-        add_shortcode( 'ifthengive_account', array(__CLASS__,'itg_account_shortcode'));
-        add_shortcode( 'ifthengive_goals', array(__CLASS__,'itg_goals_shortcode'));
-        add_shortcode( 'ifthengive_account_info', array(__CLASS__,'itg_account_info_shortcode'));
+    public function ifthengive_init_shortcode(){
+        add_shortcode( 'ifthengive_transactions', array($this,'itg_transactions_shortcode'));
+        add_shortcode( 'ifthengive_account', array($this,'itg_account_shortcode'));
+        add_shortcode( 'ifthengive_goals', array($this,'itg_goals_shortcode'));
+        add_shortcode( 'ifthengive_account_info', array($this,'itg_account_info_shortcode'));
     }
 
-    public static function ifthengive_locate_template($template_name, $template_path = '', $default_path = '') {
-        // Set variable to search in the templates folder of theme.
-        if (!$template_path) :
-            $template_path = 'templates/';
-        endif;
-        // Set default plugin templates path.
-        if (!$default_path) :
-            $default_path = ITG_PLUGIN_DIR . '/templates/'; // Path to the template folder
-        endif;
-        // Search template file in theme folder.
+    public static function ifthengive_locate_template($template_name, $theme_template_path = '', $plugin_template_path = '') {
+
+        // Search template file in theme folder.        
         $template = locate_template(array(
-            $template_path . $template_name,
+            $theme_template_path . $template_name,
             $template_name
                 ));
+        
+        $plugin_path = ITG_PLUGIN_DIR . $plugin_template_path;
         // Get plugins template file.
         if (!$template) :
-            $template = $default_path . $template_name;
+            $template = $plugin_path . $template_name;
         endif;
-        return apply_filters('ifthengive_locate_template', $template, $template_name, $template_path, $default_path);
+        return apply_filters('ifthengive_locate_template', $template, $template_name, $theme_template_path, $plugin_template_path);
     }
     
     public static function itg_get_template( $template_name, $args = array(), $tempate_path = '', $default_path = '' ) {
@@ -179,74 +181,53 @@ class Ifthengive_Public {
         
         public function change_template($template) {       
 
-        if (get_query_var('itgthankyou', false) !== false) {            
-
-            $newTemplate = locate_template(array('template-ifthengive-thankyou.php'));            
-            if ('' != $newTemplate)
-                return $newTemplate;
-
-            //Check plugin directory next
-            $newTemplate = ITG_PLUGIN_DIR . '/templates/template-ifthengive-thankyou.php';
-            if (file_exists($newTemplate))
-                return $newTemplate;
+        if (get_query_var('itgthankyou', false) !== false) {
+            $template_file = self::ifthengive_locate_template( 'template-ifthengive-thankyou.php', $this->theme_template_path, $this->plugin_template_path );
+            return $template_file;
         }
         
-        if (get_query_var('itgerror', false) !== false) {            
-
-            $newTemplate = locate_template(array('template-ifthengive-errors.php'));            
-            if ('' != $newTemplate)
-                return $newTemplate;
-
-            //Check plugin directory next
-            $newTemplate = ITG_PLUGIN_DIR . '/templates/template-ifthengive-errors.php';
-            if (file_exists($newTemplate))
-                return $newTemplate;
+        if (get_query_var('itgerror', false) !== false) {
+            $template_file = self::ifthengive_locate_template( 'template-ifthengive-errors.php', $this->theme_template_path, $this->plugin_template_path );
+            return $template_file;
         }
         
         if (get_query_var('itgmyaccount', false) !== false) {
-
-            $newTemplate = locate_template(array('template-ifthengive-my-account.php'));            
-            if ('' != $newTemplate)
-                return $newTemplate;
-
-            //Check plugin directory next
-            $newTemplate = ITG_PLUGIN_DIR . '/templates/template-ifthengive-my-account.php';
-            if (file_exists($newTemplate))
-                return $newTemplate;
+            $template_file = self::ifthengive_locate_template( 'template-ifthengive-my-account.php', $this->theme_template_path, $this->plugin_template_path );
+            return $template_file;                        
         }
-                
+        
         //Fall back to original template
         return $template;
     }
     
-    public static function itg_transactions_shortcode() {
+    public function itg_transactions_shortcode() {
         if(!is_admin()){
             ob_start();
-            self::itg_get_template('my-transactions');
+            self::itg_get_template('my-transactions',array(), $this->theme_template_path, $this->plugin_template_path);
             return ob_get_clean();
         }
     }
     
-    public static function itg_account_shortcode(){        
+    public function itg_account_shortcode(){        
         if(!is_admin()){
             ob_start();
-            self::itg_get_template('my-account');
+            self::itg_get_template('my-account',array(), $this->theme_template_path, $this->plugin_template_path);
             return ob_get_clean();
         }
     }
     
-    public static function itg_goals_shortcode(){
+    public function itg_goals_shortcode(){
         if(!is_admin()){
             ob_start();
-            self::itg_get_template('my-goals');
+            self::itg_get_template('my-goals',array(), $this->theme_template_path, $this->plugin_template_path);
             return ob_get_clean();
         }
     }
     
-    public static function itg_account_info_shortcode(){
+    public function itg_account_info_shortcode(){
         if(!is_admin()){
             ob_start();
-            self::itg_get_template('account-info');
+            self::itg_get_template('account-info',array(), $this->theme_template_path, $this->plugin_template_path);
             return ob_get_clean();
         }
     }

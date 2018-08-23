@@ -85,9 +85,10 @@ class AngellEYE_IfThenGive_Public_Display {
             $args['ccode'] = get_option('itg_currency_code');            
             $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
             $args['symbol'] = $paypal->get_currency_symbol($args['ccode']);
-        
+            $theme_template_path ='ifthengive/';
+            $plugin_template_path ='/templates/';
             ob_start();
-            Ifthengive_Public::itg_get_template('display-goal',$args);
+            Ifthengive_Public::itg_get_template('display-goal',$args,$theme_template_path,$plugin_template_path);
             return ob_get_clean();
         }
     }

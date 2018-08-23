@@ -2,7 +2,7 @@
 /**
  * Ifthengive Display Goal template.
  *
- * This template can be overriden by copying this file to your-theme/......php
+ * This template can be overriden by copying this file to your-theme/ifthengive/template-ifthengive-display-goal.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	IfThenGive
