@@ -18,18 +18,18 @@ if(! is_admin()){
     if(is_int($userID) && $userID > 0){
     do_action('before_ifthengive_my_transactions', $userID);
 ?>
-<div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php _e('Transactions', 'ifthengive') ?></abbr></div>
+<div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php esc_html_e('Transactions', 'ifthengive') ?></abbr></div>
 <div class="itg_center_container">   
     <div class="itgcontainer">
         <div class="itg_table-responsive">
             <table class="itg_table" id="IfThenGive_Transaction_Table" width="100%">
                 <thead>
                     <tr>
-                        <th><?php _e('Transaction ID', 'ifthengive'); ?></th>                        
-                        <th><?php _e('Amount', 'ifthengive'); ?></th>
-                        <th><?php _e('Goal Name', 'ifthengive'); ?></th>                                                
-                        <th><?php _e('Payment Status', 'ifthengive'); ?></th>
-                        <th><?php _e('Payment Date', 'ifthengive'); ?></th>
+                        <th><?php esc_html_e('Transaction ID', 'ifthengive'); ?></th>                        
+                        <th><?php esc_html_e('Amount', 'ifthengive'); ?></th>
+                        <th><?php esc_html_e('Goal Name', 'ifthengive'); ?></th>                                                
+                        <th><?php esc_html_e('Payment Status', 'ifthengive'); ?></th>
+                        <th><?php esc_html_e('Payment Date', 'ifthengive'); ?></th>
                     </tr>
                 </thead>
             </table>            
@@ -44,7 +44,7 @@ $symbol = $paypal->get_currency_symbol($ccode);
 ?>
 <script>
     jQuery(document).ready(function ($) {
-        var IfThenGive_Transaction_Table = $('#IfThenGive_Transaction_Table').dataTable({
+        $('#IfThenGive_Transaction_Table').dataTable({
             "order": [[ 4, "desc" ]],
             "serverSide": true,
             "responsive": true,
@@ -95,6 +95,6 @@ $symbol = $paypal->get_currency_symbol($ccode);
 </script>
 <?php }
     else{
-        _e("Please login to site.",'ifthengive');
+        esc_html_e("Please login to site.",'ifthengive');
     }
 }

@@ -24,13 +24,13 @@ if (!is_admin()) {
     <div class="itg_center_container">
         <div class="itgcontainer">
             <div class="itg_heading itg_heading-center" style="padding-top: 10px;padding-bottom: 10px">                        
-                <h3><?php _e("Account", 'ifthengive'); ?></h3>
+                <h3><?php esc_html_e("Account", 'ifthengive'); ?></h3>
             </div>   
             <div id="itg-tabs" class="tabs border">                    
                 <ul class="tabs-navigation">
-                    <li class="active"><span href="#itg_account_txns"><?php _e('Transactions','ifthengive'); ?></span></li>
-                    <li><span href="#itg_account_goals"><?php _e('Goals','ifthengive'); ?></span></li>
-                    <li><span href="#itg_account_info"><?php _e('Account','ifthengive'); ?></span></li>
+                    <li class="active"><span href="#itg_account_txns"><?php esc_html_e('Transactions','ifthengive'); ?></span></li>
+                    <li><span href="#itg_account_goals"><?php esc_html_e('Goals','ifthengive'); ?></span></li>
+                    <li><span href="#itg_account_info"><?php esc_html_e('Account','ifthengive'); ?></span></li>
                 </ul>
                 <div class="tabs-content">
                     <div class="tab-pane active" id="itg_account_txns">                        

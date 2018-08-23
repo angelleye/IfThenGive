@@ -2,7 +2,7 @@
 /**
  * IfThenGive Transaction template.
  *
- * This template can be overriden by copying this file to your-theme/ifthengive//template-ifthengive-my-goals.php
+ * This template can be overriden by copying this file to your-theme/ifthengive/template-ifthengive-my-goals.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	IfThenGive
@@ -20,20 +20,20 @@ if(! is_admin()){
 ?>
 <div id="adjust_amount_overlay" style=" background: #d9d9da;opacity: 0.9;width: 100%;float: left;height: 100%;position: fixed;top: 0;left:0;right:0;z-index: 1031;text-align: center; display: none;">
     <div class="itg_loader"></div>
-    <h1 style="font-weight: 600;">Processing...</h1>
+    <h1 style="font-weight: 600;"><?php esc_html_e('Processing...','ifthengive')?></h1>
 </div>
-<div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php _e('Goals', 'ifthengive') ?></abbr></div>
+<div class="itg_hr-title itg_hr-long itg_center" style="margin: 10px auto 25px;"><abbr><?php esc_html_e('Goals', 'ifthengive') ?></abbr></div>
 <div class="itg_center_container">   
     <div class="itgcontainer">
         <div class="itg_table-responsive">
             <table class="itg_table" id="IfThenGive_Goals_Table" width="100%">
                 <thead>
                     <tr>
-                        <th><?php _e('Goal Name', 'ifthengive'); ?></th>                        
-                        <th><?php _e('Amount', 'ifthengive'); ?></th>           
-                        <th><?php _e('Adjust Amount', 'ifthengive'); ?></th>
-                        <th><?php _e('Action', 'ifthengive'); ?></th>
-                        <th><?php _e('Date', 'ifthengive'); ?></th>
+                        <th><?php esc_html_e('Goal Name', 'ifthengive'); ?></th>                        
+                        <th><?php esc_html_e('Amount', 'ifthengive'); ?></th>           
+                        <th><?php esc_html_e('Adjust Amount', 'ifthengive'); ?></th>
+                        <th><?php esc_html_e('Action', 'ifthengive'); ?></th>
+                        <th><?php esc_html_e('Date', 'ifthengive'); ?></th>
                     </tr>
                 </thead>
             </table>            

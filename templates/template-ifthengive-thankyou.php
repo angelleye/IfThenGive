@@ -88,8 +88,8 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
 }
 else{
     ?>
-            <h3><?php echo __("You are accessing this page without signed up for Goal",'ifthengive'); ?></h3>
-            <span><?php echo __("Try again Sigining in for Goals.",'ifthengive'); ?></span>
+            <h3><?php esc_html_e("You are accessing this page without signed up for Goal",'ifthengive'); ?></h3>
+            <span><?php esc_html_e("Try again Sigining in for Goals.",'ifthengive'); ?></span>
 <?php
     }
 ?>
