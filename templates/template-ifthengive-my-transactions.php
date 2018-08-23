@@ -2,7 +2,7 @@
 /**
  * IfThenGive Transaction template.
  *
- * This template can be overriden by copying this file to your-theme/IfThenGive/template-ifthengive-my-transactions.php
+ * This template can be overriden by copying this file to your-theme/ifthengive/template-ifthengive-my-transactions.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	IfThenGive

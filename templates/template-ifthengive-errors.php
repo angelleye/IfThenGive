@@ -2,7 +2,7 @@
 /**
  * IfThenGive Error template.
  *
- * This template can be overriden by copying this file to your-theme/IfThenGive/template-ifthengive-errors.php
+ * This template can be overriden by copying this file to your-theme/ifthengive/template-ifthengive-errors.php
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	IfThenGive
