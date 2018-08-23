@@ -2,7 +2,7 @@
 
 /**
  * @class       AngellEYE_IfThenGive_Html_output
- * @version	1.0.0
+ * @version	0.1.0
  * @package     IfThenGive
  * @subpackage  IfThenGive/admin/partials
  * @category	Class
@@ -14,7 +14,7 @@ class AngellEYE_IfThenGive_Html_output {
      * Output admin fields.
      * Loops though the admin options array and outputs each field.
      * @param array $options Opens array to output
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function init($options = array()) {
@@ -335,7 +335,7 @@ class AngellEYE_IfThenGive_Html_output {
 
     /**
      * Get a setting from the settings API.
-     * @since    1.0.0
+     * @since    0.1.0
      * @param mixed $option_name
      * @return string
      */

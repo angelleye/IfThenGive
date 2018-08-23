@@ -9,7 +9,7 @@
  * that starts the plugin.
  *
  * @link              http://www.angelleye.com/
- * @since             1.0.0
+ * @since             0.1.0
  * @package           IfThenGive
  *
  * @wordpress-plugin
@@ -106,7 +106,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-ifthengive.php';
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.0.0
+ * @since    0.1.0
  */
 function run_ifthengive() {
 

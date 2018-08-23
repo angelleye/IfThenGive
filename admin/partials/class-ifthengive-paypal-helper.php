@@ -3,7 +3,7 @@
 /**
  * This class defines all PayPal custom functions
  * @class       AngellEYE_IfThenGive_PayPal_Helper
- * @version	1.0.0
+ * @version	0.1.0
  * @package	IfThenGive/partials
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
@@ -26,7 +26,7 @@ class AngellEYE_IfThenGive_PayPal_Helper {
         
        /*
         * get_configuration method fetch saved configuration        
-        * @since    1.0.0        
+        * @since    0.1.0
         */
         
         public function get_configuration(){
@@ -51,7 +51,7 @@ class AngellEYE_IfThenGive_PayPal_Helper {
         /*
         * get_third_party_configuration method called when we have 
         * hosted solution plugin installed with that.
-        * @since    1.0.0        
+        * @since    0.1.0
         */
         
         public function get_third_party_configuration(){
@@ -78,7 +78,7 @@ class AngellEYE_IfThenGive_PayPal_Helper {
         /*
         * set_tokens method sets the values passed by parameter to the 
         * class's public variables.
-        * @since    1.0.0        
+        * @since    0.1.0
         */    
         public function set_tokens($token,$token_secret){
             $this->token = $token;
@@ -89,7 +89,7 @@ class AngellEYE_IfThenGive_PayPal_Helper {
        /*
         * set_api_subject called when we are doing third party call
         * it will only call when hosted solutions is installed.
-        * @since    1.0.0        
+        * @since    0.1.0
         */  
         
         public function set_api_subject($goal_id){
@@ -99,7 +99,7 @@ class AngellEYE_IfThenGive_PayPal_Helper {
         
        /*
         * set_api_cedentials sets the api credentials return from the connect to paypal.
-        * @since    1.0.0        
+        * @since    0.1.0
         */  
                 
         public function set_api_cedentials(){
@@ -122,7 +122,7 @@ class AngellEYE_IfThenGive_PayPal_Helper {
         
        /*
         * get_currency_symbol from the array it will fetch the html entity of the currency.
-        * @since    1.0.0        
+        * @since    0.1.0
         */  
         
         public function get_currency_symbol($Currency){

@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @link       http://www.angelleye.com/
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    IfThenGive
  * @subpackage IfThenGive/admin
@@ -25,7 +25,7 @@ class IfThenGive_Admin {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
@@ -34,7 +34,7 @@ class IfThenGive_Admin {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -43,7 +43,7 @@ class IfThenGive_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
@@ -57,7 +57,7 @@ class IfThenGive_Admin {
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function enqueue_styles() {
 
@@ -84,7 +84,7 @@ class IfThenGive_Admin {
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function enqueue_scripts() {
 
@@ -232,7 +232,7 @@ class IfThenGive_Admin {
     
   /**
     * Adds three links to plugin's action links.
-    * @since    1.0.0
+    * @since    0.1.0
     */
     
     public function ifthengive_plugin_action_links( $links, $file ){
@@ -253,7 +253,7 @@ class IfThenGive_Admin {
    
    /**
     * Display the notice while transaction process.
-    * @since    1.0.0
+    * @since    0.1.0
     */
     function processing_notice(){
             $in_process = get_option('itg_txns_in_process');

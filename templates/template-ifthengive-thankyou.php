@@ -6,7 +6,7 @@
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	IfThenGive
- * @version     1.0.0
+ * @version     0.1.0
  */
 if ( ! defined( 'ABSPATH' ) ) exit; // Don't allow direct access
 ?>

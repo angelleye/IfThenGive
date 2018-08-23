@@ -142,7 +142,7 @@ PayPal PHP SDK release notes
 * Updated OAuthToken to throw proper error on not receiving access token.
 * Minor Bug Fixes and Documentation Updates.
 
-1.0.0
+0.1.0
 ----
 * Enabled Payouts API Support.
 * Authorization Cache Custom Path Directory Configuration.
@@ -182,7 +182,7 @@ PayPal PHP SDK release notes
   * PayPal\Api\Invoice->getPaymentDetails() was renamed to getPayments().
   * PayPal\Api\Invoice->getRefundDetails() was renamed to getRefunds().
 
-1.0.0-beta
+0.1.0-beta
 ----
 * Namespace Changes and Class Naming Convention.
 * Helper Functions to retrieve specific HATEOS Links.

@@ -5,7 +5,7 @@
  * This file is used to markup the public-facing aspects of the plugin.
  *
  * @link       http://www.angelleye.com/
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    IfThenGive
  * @subpackage IfThenGive/public/partials
@@ -65,7 +65,7 @@ class AngellEYE_IfThenGive_Public_Display {
             && array_key_exists( 2, $matches )
             && in_array( 'ifthengive_goal', $matches[2] ) )
         {            
-            //wp_enqueue_style( 'ifthengive-one', ITG_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '1.0.0','all' );
+            //wp_enqueue_style( 'ifthengive-one', ITG_PLUGIN_URL . 'includes/css/bootstrap/css/bootstrap.css', array(), '0.1.0','all' );
         }
     }*/
     public static function ifthengive_call_shortcode(){
@@ -74,7 +74,7 @@ class AngellEYE_IfThenGive_Public_Display {
 
     /**
      * ifthengive_create_shortcode function is for generate
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     public static function ifthengive_create_shortcode($atts, $content = null) {                
@@ -95,7 +95,7 @@ class AngellEYE_IfThenGive_Public_Display {
     
      /**
      * validate_fields validates the submitted fields in the goal form.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     
@@ -135,7 +135,7 @@ class AngellEYE_IfThenGive_Public_Display {
     
     /**
      * get_userdata_from_userid fetch details of user data from user id.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     
@@ -161,7 +161,7 @@ class AngellEYE_IfThenGive_Public_Display {
 
     /**
      * is_already_registerd checks if user is already registered for goal or not.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     
@@ -181,7 +181,7 @@ class AngellEYE_IfThenGive_Public_Display {
     
     /**
      * have_billing_agreement checks if user already have billing agreement.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */    
     
@@ -196,7 +196,7 @@ class AngellEYE_IfThenGive_Public_Display {
     
     /**
      * add_goal_to_signup_list inserts goal details in itg_sign_up posttype and related meta data.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */ 
     
@@ -239,7 +239,7 @@ class AngellEYE_IfThenGive_Public_Display {
 
     /**
      * set_express_checkout called when user submit the form of goal signup
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */ 
     
@@ -317,7 +317,7 @@ class AngellEYE_IfThenGive_Public_Display {
 
     /**
      * process_before_sec called before the set express checkout to check the conditions.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     
@@ -356,7 +356,7 @@ class AngellEYE_IfThenGive_Public_Display {
 
     /**
      * verify_submitted_nonce verify the nonce of the wop submit form of goal sign up.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     
@@ -369,7 +369,7 @@ class AngellEYE_IfThenGive_Public_Display {
 
     /**
      * start_express_checkout set express checkout for PayPal
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     
@@ -475,7 +475,7 @@ class AngellEYE_IfThenGive_Public_Display {
     
     /**
      * ifthengive_my_transactions fetch transaction records.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     
@@ -493,7 +493,7 @@ class AngellEYE_IfThenGive_Public_Display {
     
     /**
      * ifthengive_my_goals fetch goal records.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     public static function ifthengive_my_goals(){
@@ -511,7 +511,7 @@ class AngellEYE_IfThenGive_Public_Display {
     
     /**
      * cancel_my_account_ba calls cancel billing agreement.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */    
     
@@ -560,7 +560,7 @@ class AngellEYE_IfThenGive_Public_Display {
     
     /**
      * itg_adjust_amount change the amount by user.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */ 
     
@@ -576,7 +576,7 @@ class AngellEYE_IfThenGive_Public_Display {
     
     /**
      * change_giver_status make giver active or suspend status.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */     
     

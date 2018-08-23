@@ -4,7 +4,7 @@
  * Display Giver's Data
  *
  * @class       AngellEYE_IfThenGive_Givers_Table
- * @version		1.0.0
+ * @version		0.1.0
  * @package		ifthengive
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
@@ -13,7 +13,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     
     /**
      * Class Constructor
-     * @since    1.0.0     
+     * @since    0.1.0
      */
 
     /**     * ***********************************************************************
@@ -32,7 +32,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     
     /**
      * Hook in methods
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function init() {
@@ -105,7 +105,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     
     /**
      * get_all_givers method fetches all the givers based on the PayPal environment's setup.
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     
@@ -143,7 +143,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
      * While do transaction, we are adding transaction status to 1.
      * We are resting here to 0 in this function so that means process for that is completed.
      * and all givers are set to 0.        
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     
@@ -189,7 +189,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
      * and when click on the "Remaining records to process"
      * get_remaining_process_givers method will call and fetch the remaining records
      * of the goal from database.
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function get_remaining_process_givers($goal_id){
@@ -256,7 +256,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     * Returns the count of records in the database.
     *
     * @return null|string
-    * @since    1.0.0
+    * @since    0.1.0
     * @access   static
     */
     public static function record_count() {
@@ -389,7 +389,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     
     /*
      *  Override single_row method to add class based on the giver status.          
-     *  @since    1.0.0
+     *  @since    0.1.0
      *  @access   static
      */     
     function single_row( $item ) {
@@ -561,7 +561,7 @@ class AngellEYE_IfThenGive_Givers_Table extends WP_List_Table {
     /*
      * extra_tablenav method add new navigation tab
      * we have added filter/select box there.
-     * @since    1.0.0
+     * @since    0.1.0
      * 
      */
     public function extra_tablenav($which) {

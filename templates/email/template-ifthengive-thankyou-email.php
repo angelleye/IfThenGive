@@ -6,7 +6,7 @@
  *
  * @author 	Angell EYE <andrew@angelleye.com>
  * @package 	IfThenGive
- * @version     1.0.0
+ * @version     0.1.0
  */
 ?>
 <div dir="ltr" style="background-color: rgb(245, 245, 245); margin: 0; padding: 70px 0 70px 0; width: 100%; height:100%">

@@ -4,7 +4,7 @@
  * The public-facing functionality of the plugin.
  *
  * @link       http://www.angelleye.com/
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    IfThenGive
  * @subpackage IfThenGive/public
@@ -25,7 +25,7 @@ class Ifthengive_Public {
     /**
      * The ID of this plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      * @var      string    $plugin_name    The ID of this plugin.
      */
@@ -34,7 +34,7 @@ class Ifthengive_Public {
     /**
      * The version of this plugin.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   private
      * @var      string    $version    The current version of this plugin.
      */
@@ -46,7 +46,7 @@ class Ifthengive_Public {
     /**
      * Initialize the class and set its properties.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      * @param      string    $plugin_name       The name of the plugin.
      * @param      string    $version    The version of this plugin.
      */
@@ -64,7 +64,7 @@ class Ifthengive_Public {
     /**
      * Register the stylesheets for the public-facing side of the site.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function enqueue_styles() {
 
@@ -88,7 +88,7 @@ class Ifthengive_Public {
     /**
      * Register the JavaScript for the public-facing side of the site.
      *
-     * @since    1.0.0
+     * @since    0.1.0
      */
     public function enqueue_scripts() {
 
@@ -152,7 +152,7 @@ class Ifthengive_Public {
 	endif;        
 	$template_file = self::ifthengive_locate_template( $template_name, $tempate_path, $default_path );
 	if ( ! file_exists( $template_file ) ) :
-		_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_file ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_file ), '0.1.0' );
 		return;
 	endif;
 	include $template_file;

@@ -6,7 +6,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  *
  * @link       http://www.angelleye.com/
- * @since      1.0.0
+ * @since      0.1.0
  * @class      AngellEYE_IfThenGive_Cancel_Billing_Agreement
  * @package    IfThenGive
  * @subpackage IfThenGive/admin/partials
@@ -16,7 +16,7 @@
 class AngellEYE_IfThenGive_Cancel_Billing_Agreement {
     /**
      * init initialize Hook in methods
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function init() {
@@ -27,7 +27,7 @@ class AngellEYE_IfThenGive_Cancel_Billing_Agreement {
     /**
      * Cancel_Billing_Agreement_delete_giver method will call
      * cancel billing agreements from the PayPal.
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function Cancel_Billing_Agreement_delete_giver( $user_id ) {        
@@ -56,7 +56,7 @@ class AngellEYE_IfThenGive_Cancel_Billing_Agreement {
     /**
      * Cancel_Billing_Agreement_delete_giver_message method will display
      * message/notice before deleting the giver.
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function Cancel_Billing_Agreement_delete_giver_message($users){

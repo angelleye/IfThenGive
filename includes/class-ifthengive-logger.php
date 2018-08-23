@@ -4,7 +4,7 @@
  * Allows log files to be written to for debugging purposes.
  *
  * @class       AngellEYE_IfThenGive_Logger
- * @version	1.0.0
+ * @version	0.1.0
  * @package     IfThenGive
  * @subpackage  IfThenGive/includes
  * @category	Class

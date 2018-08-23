@@ -6,7 +6,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  *
  * @link        http://www.angelleye.com/
- * @since       1.0.0
+ * @since       0.1.0
  * @class       AngellEYE_IfThenGive_Admin_Display
  * @package     IfThenGive
  * @subpackage  IfThenGive/admin/partials
@@ -17,7 +17,7 @@ class AngellEYE_IfThenGive_Admin_Display {
 
     /**
      * Hook in methods
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function init() {
@@ -26,7 +26,7 @@ class AngellEYE_IfThenGive_Admin_Display {
 
     /**
      * add_settings_menu helper function used for add menu for plugin setting
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   public
      */
     public static function add_settings_menu() {
@@ -35,7 +35,7 @@ class AngellEYE_IfThenGive_Admin_Display {
 
     /**
      * ifthengive_option helper will trigger hook and handle all the settings section 
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   public
      */
     public static function ifthengive_option() {

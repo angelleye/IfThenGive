@@ -4,7 +4,7 @@
  * Display Transactions's Data
  *
  * @class       AngellEYE_IfThenGive_users_Transactions_Table
- * @version	1.0.0
+ * @version	0.1.0
  * @package	ifthengive
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
@@ -12,7 +12,7 @@
 class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
     /**
      * Class Constructor
-     * @since    1.0.0     
+     * @since    0.1.0
      */
 
     /**     * ***********************************************************************
@@ -30,7 +30,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
 
     /**
      * Hook in methods
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function init() {
@@ -42,7 +42,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
      *
      * @param int $per_page
      * @param int $page_number
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      * @return mixed
      */
@@ -351,7 +351,7 @@ class AngellEYE_IfThenGive_users_Transactions_Table extends WP_List_Table {
     /*
      * extra_tablenav method add new navigation tab
      * we have added filter/select box there.
-     * @since    1.0.0
+     * @since    0.1.0
      * 
      */
     

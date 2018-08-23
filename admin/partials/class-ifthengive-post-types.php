@@ -4,7 +4,7 @@
  * Registers post types and taxonomies
  *
  * @class       AngellEYE_IfThenGive_Post_types
- * @version		1.0.0
+ * @version		0.1.0
  * @package		ifthengive
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
@@ -12,7 +12,7 @@
 class AngellEYE_IfThenGive_Post_types {
     /**
      * Hook in methods
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function init() {      
@@ -29,7 +29,7 @@ class AngellEYE_IfThenGive_Post_types {
 
     /**
      * admin_header method sets column width as per the data.
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     
@@ -75,7 +75,7 @@ class AngellEYE_IfThenGive_Post_types {
     
     /**
      * ifthengive_register_post_types function is user for register custom post type
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   public
      */
     public static function ifthengive_register_post_types() {
@@ -123,7 +123,7 @@ class AngellEYE_IfThenGive_Post_types {
      * ifthengive_edit_ifthengive_columns function
      * is use for register button shortcode column.
      * @param type $columns returns attribute for custom column.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     public static function ifthengive_edit_ifthengive_columns($columns) {
@@ -146,7 +146,7 @@ class AngellEYE_IfThenGive_Post_types {
      * @param type $column Column name in which we want to write content.
      * @param type $post_id Post id of post in which content will be written for
      * the column.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     public static function ifthengive_buttons_columns($column, $post_id) {
@@ -172,7 +172,7 @@ class AngellEYE_IfThenGive_Post_types {
     /**
      * ifthengive_add_meta_boxes function is use for
      * register metabox for ifthengive custom post type.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     public static function ifthengive_add_meta_boxes() {
@@ -184,7 +184,7 @@ class AngellEYE_IfThenGive_Post_types {
      * in metabox.
      * @global type $post returns the post variable values.
      * @global type $post_ID returns the post id of a post.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     
@@ -202,7 +202,7 @@ class AngellEYE_IfThenGive_Post_types {
      * ifthengive_save_data is use for display    
      * @global type $post returns the post variable values.
      * @global type $post_ID returns the post id of a post.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     public static function ifthengive_save_data() {
@@ -268,7 +268,7 @@ class AngellEYE_IfThenGive_Post_types {
     /**
      * my_action_row adds new three links in the post type action
      * view,givers,transactions
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     public static function my_action_row($actions, $post){
@@ -284,7 +284,7 @@ class AngellEYE_IfThenGive_Post_types {
    /**
      * register_ifthengive_submenu_adds new submenu pages under the custom post type.
      * givers,transactions and disconnect interface.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */
     
@@ -311,7 +311,7 @@ class AngellEYE_IfThenGive_Post_types {
    /**
      * ifthengive_givers_page_callback callback of the transaction and givers page.
      * givers,transactions and disconnect interface.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */    
     public static function ifthengive_givers_page_callback(){
@@ -359,7 +359,7 @@ class AngellEYE_IfThenGive_Post_types {
     /**
      * ifthengive_givers_page_callback is the callback for the setting page
      * and display interface of the connect and disconnet with paypal page.
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public
      */   
     

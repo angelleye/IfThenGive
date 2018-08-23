@@ -4,7 +4,7 @@
  * Registers post types and taxonomies
  *
  * @class       AngellEYE_IfThenGive_Post_type_Transactions
- * @version		1.0.0
+ * @version		0.1.0
  * @package		ifthengive
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
@@ -12,7 +12,7 @@
 class AngellEYE_IfThenGive_Post_type_Transactions {
     /**
      * Hook in methods
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function init() {      
@@ -21,7 +21,7 @@ class AngellEYE_IfThenGive_Post_type_Transactions {
 
     /**
      * ifthengive_register_post_type_transactions function is user for register custom post type
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   public
      */
     public static function ifthengive_register_post_type_transactions() {

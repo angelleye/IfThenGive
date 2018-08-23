@@ -3,7 +3,7 @@
 /**
  * This class defines all code necessary to Companies Setting from admin side
  * @class       AngellEYE_IfThenGive_PayPal_Connect_Setting
- * @version	1.0.0
+ * @version	0.1.0
  * @package     IfThenGive
  * @subpackage  IfThenGive/admin/partials
  * @category	Class
@@ -15,7 +15,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
 
     /**
      * Hook in methods
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
 
@@ -34,7 +34,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
 
     /**
      * Hook in methods
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function init() {
@@ -46,7 +46,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
 
     /**
      * ifthengive_connect_to_paypal_setting_fields display the toggle for environment.
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */    
     public static function ifthengive_connect_to_paypal_setting_fields() {
@@ -67,7 +67,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
 
     /**
      * ifthengive_connect_to_paypal_create_setting display the toggle for environment.
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */ 
     
@@ -536,7 +536,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
     /**
      * sandbox_enabled checks if environment is sandbox or live for the 
      * connected PayPal account.
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     
@@ -572,7 +572,7 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
 
     /**
      * ifthengive_connect_to_paypal_setting_save_field function used for save general setting field value
-     * @since 1.0.0
+     * @since 0.1.0
      * @access public static
      * 
      */

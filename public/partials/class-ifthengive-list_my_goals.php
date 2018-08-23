@@ -4,7 +4,7 @@
  * Display Goals's Data
  *
  * @class       AngellEYE_IfThenGive_My_Goals_Table
- * @version	1.0.0
+ * @version	0.1.0
  * @package	ifthengive
  * @category	Class
  * @author      Angell EYE <service@angelleye.com>
@@ -12,7 +12,7 @@
 class AngellEYE_IfThenGive_My_Goals_Table {
     /**
      * Class Constructor
-     * @since    1.0.0     
+     * @since    0.1.0
      */
 
     /**     * ***********************************************************************
@@ -24,7 +24,7 @@ class AngellEYE_IfThenGive_My_Goals_Table {
 
     /**
      * Hook in methods
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     public static function init() {
@@ -94,7 +94,7 @@ class AngellEYE_IfThenGive_My_Goals_Table {
     
     /**
      * get_all_goal_ids fetch all the goals by user id that registered by user.
-     * @since    1.0.0
+     * @since    0.1.0
      * @access   static
      */
     
