@@ -41,57 +41,40 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $ccode = get_option('itg_currency_code');
         $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
-        echo "<h2>".__('Hi ','ifthengive'). $user->display_name . __(', Thank you for giving to ','ifthengive') . __($trigger_name,'ifthengive'). "</h2>";
-        echo "<h3>" . __('If', 'ifthengive') . ' ' . __($trigger_thing, 'ifthengive') . ' ' . __('Then Give', 'ifthengive') . ' ' . $symbol.$amount . "</h3>";
-        echo '<div class="itg_post-image" style="margin-top: 30px;margin-top: 30px;max-width: 600px;margin-left: auto;margin-right: auto;">
-                <img src="'.$image_url.'" alt="Goal Image">
-              </div>
-              <div class="itg_post-description" style="    max-width: 600px;margin-left: auto;margin-right: auto;">
-                <p>'.__($trigger_desc,'ifthengive').'</p>
-              </div>';
-        $EmailString='';
-        $EmailString .= '<div style="margin-right: -15px; margin-left: -15px;">
-            <div style="width: 100%;">                
-                <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634; font-weight: 600; text-align: center;">
-                    <strong style="line-height: 25px;padding: 10px 10px 10px 10px;font-weight: 300; letter-spacing: 1px;text-transform: uppercase; margin-bottom:10px; font-size: 15px;">'. __('Hi '.$current_user->display_name.',Thank You for signed up in '.$trigger_name,'ifthengive').'</strong>
-                    <p style="padding: 10px 10px 10px 10px;font-size: 12px;text-align: center;font-family: inherit; color: #076799"><strong>'.__('Each time you will give '.$symbol.$amount.' when '.$trigger_thing,'ifthengive').'</strong></p>      
-                </div>
+        ?>
+            <h2><?php echo sprintf('%1$s %2$s %3$s %4$s',
+                    esc_html__('Hi','ifthengive'),
+                    $user->display_name,
+                    esc_html__(', Thank you for giving to ','ifthengive'),
+                    esc_html__($trigger_name,'ifthengive')
+                );
+            ?></h2>
+            <h3><?php
+                    echo sprintf('%1$s %2$s %3$s %4$s %5$s',
+                        esc_html__('If', 'ifthengive'),
+                        esc_html__($trigger_thing, 'ifthengive'),
+                        esc_html__('Then Give', 'ifthengive'),                        
+                        $symbol,
+                        $amount
+                    );
+            ?></h3>
+            <div class="itg_post-image" style="margin-top:30px;max-width: 600px;margin-left: auto;margin-right: auto;">
+                <img src="<?php esc_attr_e($image_url);?>" alt="Goal Image">
             </div>
-        </div>';        
-
-        
-        $EmailHeader = '<div dir="ltr" style="background-color: rgb(245, 245, 245); margin: 0; padding: 70px 0 70px 0; width: 100%; height:100%">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" min-height="100%">
-                                <tbody>
-                                    <tr>
-                                        <td align="center" valign="top">
-                                            <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: rgb(253, 253, 253); border: 1px solid rgb(220, 220, 220)">
-                                                <tbody>
-                                                    <tr>
-                                                        <td align="center" valign="top">
-                                                            <table border="0" cellpadding="0" cellspacing="0" width="600" style=" color: rgb(255, 255, 255); border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td style="padding: 10px; display: block">
-                                                                          <h1 style="color: rgb(255, 255, 255); font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: center; text-shadow: 0 1px 0 rgb(119, 151, 180)"><img src="'.ITG_PLUGIN_URL.'/admin/images/ifthengive.png" alt="IfThenGive"></h1> </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                    <td align="center" valign="top">';
-        
-        
-        $EmailFooter = '</td></tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    </div>';
-        
+            <div class="itg_post-description" style="max-width: 600px;margin-left: auto;margin-right: auto;">
+                <p><?php esc_html_e($trigger_desc,'ifthengive'); ?></p>
+            </div>
+            <?php          
+        $args = array(
+            'display_name' => $current_user->display_name,
+            'trigger_name' => $trigger_name,
+            'symbol'       => $symbol,
+            'amount'       => $amount,
+            'trigger_thing' => $trigger_thing
+        );
+        ob_start();
+        Ifthengive_Public::itg_get_template('thankyou-email', $args, 'ifthengive/email/', '/templates/email/');              
+        $email_data = ob_get_clean();
         
         $headers = "From: IfThenGive <info@ifthengive.com> \r\n";
         $headers .= "MIME-Version: 1.0\r\n";
@@ -99,7 +82,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
 
         $to = $current_user->user_email;
         $subject = __($trigger_name,'ifthengive');
-        $message = $EmailHeader .$EmailString . $EmailFooter;
+        $message = $email_data;
         wp_mail($to, $subject, $message, $headers);
     }
 }
