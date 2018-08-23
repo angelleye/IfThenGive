@@ -52,7 +52,7 @@ class AngellEYE_IfThenGive_interface {
             <div style="padding-top: 25px"></div>
             <div class="container" style="max-width: 100%">
                 <div class="bs-callout bs-callout-warning">
-                    <h4><?php echo __('You are not Connected with PayPal.', 'ifthengive'); ?></h4>
+                    <h4><?php echo __('Your PayPal account is not connected.', 'ifthengive'); ?></h4>
                     <a href="<?php echo site_url(); ?>/wp-admin/options-general.php?page=ifthengive_option"><?php echo __('Click Here', 'ifthengive'); ?></a><?php echo __(' for Setting page to Connect With PayPal.', 'ifthengive'); ?>
                 </div>               
             </div>

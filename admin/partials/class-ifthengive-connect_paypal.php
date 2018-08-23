@@ -179,13 +179,13 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                          <div class="col-md-6 col-lg-6 col-sm-6">
                                             <?php
                                             if ($sb_paypal_account_id !== false && $connect_to_sandbox_paypal_flag == 'Yes') {
-                                                echo '<span class="label label-success">'.__('You are Connected with SandBox PayPal Environment.','ifthengive').'</span><br><br><br>';
+                                                echo '<span class="label label-success">'.__('Your PayPal Sandbox account is connected and ready for use.','ifthengive').'</span><br><br><br>';
                                             }
                                             else if($connect_to_sandbox_paypal_flag == 'Yes'){
-                                                echo '<br><span class="label label-warning">'.__('You are Partially Connected with SandBox PayPal Environment.','ifthengive').'</span><br><br><br>';                                               
+                                                echo '<br><span class="label label-warning">'.__('Your PayPal Sandbox account is partially connected.','ifthengive').'</span><br><br><br>';
                                             }
                                             else{
-                                                echo '<span class="label label-danger">'.__('You are not Connected with SandBox PayPal Environment.','ifthengive').'</span><br><br><br>';
+                                                echo '<span class="label label-danger">'.__('You do not have a PayPal Sandbox account connected.','ifthengive').'</span><br><br><br>';
                                             }
                                             if($itg_sb_add_manually !== false  && $itg_sb_add_manually ==='Yes' && $sb_paypal_account_id === false){
                                                 $collpase_class = 'in';
@@ -313,13 +313,13 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                          <div class="col-md-6 col-lg-6 col-sm-6">
                                             <?php 
                                             if ($live_paypal_account_id !== false && $connect_to_live_paypal_flag == 'Yes') {
-                                                echo '<span class="label label-success">'.__('You are Connected with Live PayPal Environment.','ifthengive').'</span><br><br><br>';
+                                                echo '<span class="label label-success">'.__('Your PayPal account is connected and ready for use.','ifthengive').'</span><br><br><br>';
                                             }
                                             else if($connect_to_live_paypal_flag == 'Yes'){
-                                                echo '<br><span class="label label-warning">'.__('You are Partially Connected with Live PayPal Environment.','ifthengive').'</span><br><br><br>';                                               
+                                                echo '<br><span class="label label-warning">'.__('Your PayPal account is partially connected.','ifthengive').'</span><br><br><br>';
                                             }
                                             else{
-                                                echo '<span class="label label-danger">'.__('You are not Connected with Live PayPal Environment.','ifthengive').'</span><br><br><br>';
+                                                echo '<span class="label label-danger">'.__('Your PayPal account is not connected.','ifthengive').'</span><br><br><br>';
                                             }
                                             if($itg_lv_add_manually !== false  && $itg_lv_add_manually ==='Yes' && $live_paypal_account_id === false){
                                                 $lv_collpase_class = 'in';
