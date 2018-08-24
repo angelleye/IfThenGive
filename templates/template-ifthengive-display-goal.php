@@ -247,7 +247,7 @@ if (!empty($id)) {
                     <input type="hidden" name="ifthengive_page_id" id="ifthengive_page_id_<?php echo $post->ID; ?>" value="<?php echo $current_url; ?>" />
                         <?php wp_nonce_field('itg_goal_form', '_itg_goal_form_nonce'); ?>
                     <button type="button" class="itg_btn itg_btn-primary ifthengive_angelleye_checkout" data-postid="<?php echo $post->ID; ?>" data-userid="<?php echo $user_id; ?>">
-                        <?php echo esc_html('Sign Up For ', 'ifthengive') . $trigger_name; ?>
+                        <?php echo sprintf('%1$s %2$s',esc_html('Sign Up For', 'ifthengive'),$trigger_name);?>
                     </button>
                 </form>
                 <?php do_action('after_ifthengive_goal_signup_form', $id); ?>
