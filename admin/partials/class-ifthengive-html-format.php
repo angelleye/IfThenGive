@@ -258,7 +258,7 @@ class AngellEYE_IfThenGive_interface {
                                                 <div class="itg_post-title">
                                                     <div class="manual_amount" style="display: none">                                                        
                                                         <div class="itg_form-group">
-                                                            <label for="manualamout" class="control-label"><?php _e('Enter Amount','ifthengive'); ?></label>
+                                                            <label for="manualamout" class="itg_upper"><?php _e('Enter Amount','ifthengive'); ?></label>
                                                             <input type="text" name="itg_manual_amount_input" value="50" class="itg_form-control" autocomplete="off" id="itg_manual_amount_input" placeholder="Enter Amount"/>
                                                         </div>
                                                     </div>
