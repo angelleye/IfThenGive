@@ -42,15 +42,16 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
         ?>
-            <h2><?php echo sprintf('%1$s %2$s %3$s %4$s',
-                    esc_html__('Hi','ifthengive'),
+            <img src="<?php echo ITG_PLUGIN_URL.'/admin/images/ifthengive.png'; ?>" alt="IfThenGive" class="itg_image_ty_page">
+            <h2><?php echo sprintf('%1$s %2$s ! <br><br> %3$s <span class="itg_make_bold">%4$s</span>',
+                    esc_html__('Thank you','ifthengive'),
                     $user->display_name,
-                    esc_html__(', Thank you for giving to ','ifthengive'),
+                    esc_html__('For giving to ','ifthengive'),
                     esc_html__($trigger_name,'ifthengive')
                 );
             ?></h2>
             <h3><?php
-                    echo sprintf('%1$s %2$s %3$s %4$s %5$s',
+                    echo sprintf('%1$s %2$s %3$s <span class="itg_make_bold">%4$s%5$s</span>',
                         esc_html__('If', 'ifthengive'),
                         esc_html__($trigger_thing, 'ifthengive'),
                         esc_html__('Then Give', 'ifthengive'),                        
@@ -58,12 +59,15 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
                         $amount
                     );
             ?></h3>
-            <div class="itg_post-image" style="margin-top:30px;max-width: 600px;margin-left: auto;margin-right: auto;">
+            <a class="itg_btn itg_btn-primary ifthengive_angelleye_checkout" href="<?php echo site_url('itg-account'); ?>">
+                <?php echo sprintf('%1$s', esc_html__('MANAGE YOUR ACCOUNT','ifthengive')); ?>
+            </a>
+<!--            <div class="itg_post-image" style="margin-top:30px;max-width: 600px;margin-left: auto;margin-right: auto;">
                 <img src="<?php esc_attr_e($image_url);?>" alt="Goal Image">
             </div>
             <div class="itg_post-description" style="max-width: 600px;margin-left: auto;margin-right: auto;">
                 <p><?php esc_html_e($trigger_desc,'ifthengive'); ?></p>
-            </div>
+            </div>-->
             <?php          
         $args = array(
             'display_name' => $current_user->display_name,

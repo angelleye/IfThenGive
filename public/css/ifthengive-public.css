@@ -110,7 +110,7 @@
     padding-bottom: 50px;
 }
 .itg_table.dataTable.no-footer{
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #eee;
 }
 select[name=IfThenGive_Transaction_Table_length],select[name=IfThenGive_Goals_Table_length]{   
     width: 75px;
@@ -772,7 +772,26 @@ ul.tabs-navigation {
     font-weight: 500;
     width: 60%;
 }
+.itg_image_ty_page{
+    height: 100px;
+    width: auto;
+}
+.itg_make_bold{
+    font-weight: 400;
+}
+.itg_checkbox{
+    margin-bottom: 15px;
+}
+.itg_post-image{
+    text-align: center;
+}
 
+.itg_endpoint_class{
+    width: 80%;
+    margin: 0 auto;
+    padding-bottom: 150px;
+    padding-top: 50px;
+}
 
 /*Responsive Tabs */
 

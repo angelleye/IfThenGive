@@ -28,19 +28,19 @@ if (!empty($id)) {
         <div class="itg_container">                    
             <div class="itg_post-item">
                 
-                <?php do_action('before_ifthengive_goal_trigger_name', $id); ?>
-                
-                <div class="itg_post-title">
-                    <h3><?php echo $trigger_name ?></h3>
-                </div>
-                
-                <?php do_action('after_ifthengive_goal_trigger_name', $id); ?>
+                <?php do_action('before_ifthengive_goal_image', $id); ?>
                 
                 <div class="itg_post-image">
                     <img src="<?php echo $image_url; ?>">
                 </div>
                 
-                <?php do_action('after_ifthengive_goal_image', $id); ?>
+                <?php do_action('after_ifthengive_goal_image', $id); ?>                                
+                
+                <div class="itg_post-title">
+                    <h3><?php echo $trigger_name ?></h3>
+                </div>
+
+                <?php do_action('after_ifthengive_goal_trigger_name', $id); ?>
                 
                 <div class="itg_post-content-details">
                     <div class="itg_post-description" id="scrolltopid_<?php echo $post->ID; ?>">
@@ -206,7 +206,7 @@ if (!empty($id)) {
 
         <?php if (!is_user_logged_in()) { ?>
 
-                        <div class="checkbox">
+                        <div class="checkbox itg_checkbox">
                             <label class="itg_upper" for="itg_signup_as_guest_<?php echo $post->ID; ?>">
                                 <input type="checkbox" 
                                        name="itg_signup_as_guest"
@@ -214,7 +214,7 @@ if (!empty($id)) {
                                        checked />&nbsp;<?php esc_html_e('Create an account', 'ifthengive'); ?></label>
                         </div>
 
-                        <div class="itg_form-group itg-password_'.$post->ID.'">
+                        <div class="itg_form-group itg-password_<?php echo $post->ID; ?>">
                             <label class="itg_upper" for="ifthengive_password_<?php echo $post->ID; ?>"><?php esc_html_e('Password', 'ifthengive'); ?></label>
                             <input type="password"
                                    class="itg_form-control"
