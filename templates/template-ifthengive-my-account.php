@@ -19,9 +19,10 @@ if (!is_admin()) {
     ?>
 
     <?php
-    if($is_endpoint) { get_header(); }
+    $add_class = '';
+    if($is_endpoint) { get_header(); $add_class='itg_endpoint_class'; }
     ?>
-    <div class="itg_center_container">
+    <div class="itg_center_container <?php echo $add_class; ?>">
         <div class="itgcontainer">
             <div class="itg_heading itg_heading-center" style="padding-top: 10px;padding-bottom: 10px">                        
                 <h3><?php esc_html_e("Account", 'ifthengive'); ?></h3>
