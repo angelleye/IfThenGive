@@ -43,34 +43,34 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $symbol = $paypal->get_currency_symbol($ccode);
         ?>
             <img src="<?php echo ITG_PLUGIN_URL.'/admin/images/itg_success.png'; ?>" alt="IfThenGive" class="itg_image_ty_page">
-            <h2 class="itg_blue"><?php echo sprintf('%1$s, %2$s <br><br> %3$s <span class="itg_make_bold">%4$s</span>!',
+            <h2 class="itg_blue"><?php echo sprintf('%1$s, %2$s <br><br> %3$s <span style="font-weight: 400;">%4$s</span>!',
                     esc_html__('Thank you','ifthengive'),
                     $user->display_name,
-                    esc_html__('For giving to ','ifthengive'),
-                    esc_html__($trigger_name,'ifthengive')
-                );
+                    esc_html__('For giving to','ifthengive'),
+                    $trigger_name
+                    );
             ?></h2>
             <h3 class="itg_blue"><?php
                     echo sprintf('<span class="itg_ty">%1$s</span> %2$s <span class="itg_ty">%3$s</span> <span class="itg_make_bold">%4$s%5$s</span>',
                         esc_html__('If', 'ifthengive'),
-                        esc_html__($trigger_thing, 'ifthengive'),
+                        $trigger_thing,
                         esc_html__('Then Give', 'ifthengive'),                        
                         $symbol,
                         $amount
                     );
             ?></h3>
+            <?php
+            if (is_user_logged_in()) {                            
+            ?>
             <a class="itg_btn itg_btn-primary ifthengive_angelleye_checkout" href="<?php echo site_url('itg-account'); ?>">
                 <?php echo sprintf('%1$s', esc_html__('MANAGE YOUR ACCOUNT','ifthengive')); ?>
             </a>
-<!--            <div class="itg_post-image" style="margin-top:30px;max-width: 600px;margin-left: auto;margin-right: auto;">
-                <img src="<?php esc_attr_e($image_url);?>" alt="Goal Image">
-            </div>
-            <div class="itg_post-description" style="max-width: 600px;margin-left: auto;margin-right: auto;">
-                <p><?php esc_html_e($trigger_desc,'ifthengive'); ?></p>
-            </div>-->
+            <?php 
+            }
+            ?>
             <?php          
         $args = array(
-            'display_name' => $current_user->display_name,
+            'display_name' => $user->display_name,
             'trigger_name' => $trigger_name,
             'symbol'       => $symbol,
             'amount'       => $amount,
@@ -84,7 +84,7 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-        $to = $current_user->user_email;
+        $to = $user->user_email;
         $subject = __($trigger_name,'ifthengive');
         $message = $email_data;
         wp_mail($to, $subject, $message, $headers);

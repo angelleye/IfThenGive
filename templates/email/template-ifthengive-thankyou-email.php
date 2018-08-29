@@ -14,17 +14,17 @@
         <tbody>
             <tr>
                 <td align="center" valign="top">
-                    <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: rgb(253, 253, 253); border: 1px solid rgb(220, 220, 220)">
+                    <table border="0" cellpadding="0" cellspacing="0" style="background-color: rgb(253, 253, 253); border: 1px solid rgb(220, 220, 220)">
                         <tbody>
                             <tr>
                                 <td align="center" valign="top">
                                     <table border="0" cellpadding="0" cellspacing="0" width="600" style=" color: rgb(255, 255, 255); border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif">
                                         <tbody>
                                             <tr>
-                                                <td style="padding: 10px; display: block">
-                                                    <h1 style="color: rgb(255, 255, 255); font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: center; text-shadow: 0 1px 0 rgb(119, 151, 180)">
-                                                        <img src="<?php echo ITG_PLUGIN_URL.'/admin/images/ifthengive.png'; ?>" alt="IfThenGive">
-                                                    </h1>
+                                                <td style="padding-top: 10px; display: block">
+                                                    <div style="text-align: center">
+                                                        <img src="<?php echo ITG_PLUGIN_URL . '/admin/images/itg_success.png'; ?>" alt="IfThenGive" style="height: 75px">
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -35,26 +35,49 @@
                                 <td align="center" valign="top">
                                     <div style="margin-right: -15px; margin-left: -15px;">
                                         <div style="width: 100%;">
-                                            <div style="width: 100%; margin: 10px auto 25px; float: none; height: auto; color: #f58634; font-weight: 600; text-align: center;">
-                                                <strong style="line-height: 25px;padding: 10px 10px 10px 10px;font-weight: 300; letter-spacing: 1px;text-transform: uppercase; margin-bottom:10px; font-size: 15px;">
-                                                    <?php echo sprintf('%1$s %2$s<br>%3$s <b>%4$s</b>',
-                                                            esc_html__('Hi','ifthengive'),
-                                                            $display_name,
-                                                            esc_html__(',Thank You for signed up in ','ifthengive'),
-                                                            $trigger_name
-                                                    );?></strong>
-                                                <p style="padding: 10px 10px 10px 10px;font-size: 12px;text-align: center;font-family: inherit; color: #076799">
-                                                    <strong>
-                                                        <?php
-                                                        echo sprintf('%1$s %2$s%3$s %4$s %5$s',
-                                                                esc_html__('Each time you will give','ifthengive'),
-                                                                $symbol,
-                                                                $amount,
-                                                                esc_html__('when','ifthengive'),
-                                                                $trigger_thing
-                                                        );
-                                                        ?></strong>
-                                                </p>
+                                            <div style="width: 100%; margin: 0 auto 25px; float: none; height: auto; color: #0b79bc; text-align: center; text-transform: uppercase;font-size:16px;line-height: 30px;letter-spacing: 1px;">
+                                                <?php
+                                                echo sprintf('%1$s, %2$s <br> %3$s <span style="font-weight: 600;">%4$s</span>!', esc_html__('Thank you', 'ifthengive'), $display_name, esc_html__('For giving to', 'ifthengive'), $trigger_name
+                                                );
+                                                ?>
+                                                <div style="color: #0b79bc;">                                                    
+                                                <?php
+                                                echo sprintf('<span style="color: #f36f21;font-weight: bold;font-size:larger;">%1$s</span> %2$s <span style="color: #f36f21;font-weight: bold;font-size: larger;">%3$s</span> <span style="font-weight: 600;">%4$s%5$s</span>', esc_html__('If', 'ifthengive'), $trigger_thing, esc_html__('Then Give', 'ifthengive'), $symbol, $amount
+                                                );
+                                                ?>
+                                                </div>
+                                                <?php
+                                                if (is_user_logged_in()) {
+                                                ?>
+                                                <div>
+                                                    <br>
+                                                    <a style="    background-color: #26B8F3;
+                                                       border-color: #26B8F3;
+                                                       color: #fff;
+                                                       border-radius: 4px;
+                                                       padding: 12px 20px;
+                                                       display: inline-block;
+                                                       /* padding: 6px 12px; */
+                                                       /* margin-bottom: 0; */
+                                                       font-size: 14px;
+                                                       font-weight: 400;
+                                                       line-height: 1.42857143;
+                                                       text-align: center;
+                                                       white-space: nowrap;
+                                                       /* vertical-align: middle; */
+                                                       -ms-touch-action: manipulation;
+                                                       touch-action: manipulation;
+                                                       cursor: pointer;
+                                                       /* -webkit-user-select: none; */
+                                                       -moz-user-select: none;
+                                                       -ms-user-select: none;
+                                                       user-select: none;
+                                                       border: 1px solid transparent;
+                                                       text-decoration: none;" href="<?php echo site_url('itg-account'); ?>">
+<?php echo sprintf('%1$s', esc_html__('MANAGE YOUR ACCOUNT', 'ifthengive')); ?>
+                                                    </a>
+                                                </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
