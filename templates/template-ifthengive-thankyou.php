@@ -42,16 +42,16 @@ if(isset($_REQUEST['goal']) && isset($_REQUEST['amt'])){
         $paypal = new AngellEYE_IfThenGive_PayPal_Helper();
         $symbol = $paypal->get_currency_symbol($ccode);
         ?>
-            <img src="<?php echo ITG_PLUGIN_URL.'/admin/images/ifthengive.png'; ?>" alt="IfThenGive" class="itg_image_ty_page">
-            <h2><?php echo sprintf('%1$s %2$s ! <br><br> %3$s <span class="itg_make_bold">%4$s</span>',
+            <img src="<?php echo ITG_PLUGIN_URL.'/admin/images/itg_success.png'; ?>" alt="IfThenGive" class="itg_image_ty_page">
+            <h2 class="itg_blue"><?php echo sprintf('%1$s, %2$s <br><br> %3$s <span class="itg_make_bold">%4$s</span>!',
                     esc_html__('Thank you','ifthengive'),
                     $user->display_name,
                     esc_html__('For giving to ','ifthengive'),
                     esc_html__($trigger_name,'ifthengive')
                 );
             ?></h2>
-            <h3><?php
-                    echo sprintf('%1$s %2$s %3$s <span class="itg_make_bold">%4$s%5$s</span>',
+            <h3 class="itg_blue"><?php
+                    echo sprintf('<span class="itg_ty">%1$s</span> %2$s <span class="itg_ty">%3$s</span> <span class="itg_make_bold">%4$s%5$s</span>',
                         esc_html__('If', 'ifthengive'),
                         esc_html__($trigger_thing, 'ifthengive'),
                         esc_html__('Then Give', 'ifthengive'),                        

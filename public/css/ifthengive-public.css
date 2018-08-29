@@ -178,8 +178,7 @@ select[name=IfThenGive_Goals_Table_length]:focus{
     font-size: 30px;
     line-height: 42px;
 }
-.itg_heading h1, .itg_heading h2, .itg_heading h3, .itg_heading h4 {
-    color: #303030;
+.itg_heading h1, .itg_heading h2, .itg_heading h3, .itg_heading h4 {    
     font-weight: 300;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -791,6 +790,14 @@ ul.tabs-navigation {
     margin: 0 auto;
     padding-bottom: 150px;
     padding-top: 50px;
+}
+.itg_ty{
+    color: #f36f21;
+    font-weight: bold;
+    font-size: larger;
+}
+.itg_blue{
+    color: #0b79bc;
 }
 
 /*Responsive Tabs */
