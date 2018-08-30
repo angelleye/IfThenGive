@@ -258,7 +258,7 @@ class AngellEYE_IfThenGive_interface {
                                                 <div class="itg_post-title">
                                                     <div class="manual_amount" style="display: none">                                                        
                                                         <div class="itg_form-group">
-                                                            <label for="manualamout" class="control-label"><?php _e('Enter Amount','ifthengive'); ?></label>
+                                                            <label for="manualamout" class="itg_upper"><?php _e('Enter Amount','ifthengive'); ?></label>
                                                             <input type="text" name="itg_manual_amount_input" value="50" class="itg_form-control" autocomplete="off" id="itg_manual_amount_input" placeholder="Enter Amount"/>
                                                         </div>
                                                     </div>
@@ -272,23 +272,23 @@ class AngellEYE_IfThenGive_interface {
                                                     </div>
                                                 </div>
                                                 <div class="itg_form-group">
-                                                    <label for="itg_upper"><?php _e('First Name',ITG_TEXT_DOMAIN); ?></label>
+                                                    <label class="itg_upper"><?php _e('First Name',ITG_TEXT_DOMAIN); ?></label>
                                                     <input disabled="disabled" type="text" class="itg_form-control" name="ifthengive_firstname" id="ifthengive_firstname" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-group">
-                                                     <label for="itg_upper"><?php _e('Last Name','ifthengive'); ?></label>
+                                                     <label class="itg_upper"><?php _e('Last Name','ifthengive'); ?></label>
                                                       <input disabled="disabled" type="text" class="itg_form-control" name="ifthengive_lastname" id="ifthengive_lastname" required="required" value="" autocomplete="off">
                                                 </div>
                                                  <div class="itg_form-group">
-                                                    <label for="itg_upper"><?php _e('Email address','ifthengive'); ?></label>
+                                                    <label class="itg_upper"><?php _e('Email address','ifthengive'); ?></label>
                                                     <input disabled="disabled" type="email" class="itg_form-control" name="ifthengive_email" id="ifthengive_email" required="required" value="" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-group">
-                                                    <label for="itg_upper"><?php _e('Password','ifthengive'); ?></label>
+                                                    <label class="itg_upper"><?php _e('Password','ifthengive'); ?></label>
                                                     <input disabled="disabled" type="password" class="itg_form-control" name="ifthengive_password" id="ifthengive_password" required="required" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-group">
-                                                    <label for="itg_upper"><?php _e('Re-type Password','ifthengive'); ?></label>
+                                                    <label class="itg_upper"><?php _e('Re-type Password','ifthengive'); ?></label>
                                                     <input disabled="disabled" type="password" class="itg_form-control" name="ifthengive_retype_password" id="ifthengive_retype_password" required="required" autocomplete="off">
                                                 </div>
                                                 <div class="itg_form-inline itg_form-group">
