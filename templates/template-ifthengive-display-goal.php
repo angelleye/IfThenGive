@@ -53,7 +53,7 @@ if (!empty($id)) {
                     $label =  sprintf('%1$s %2$s %3$s %4$s',
                                         esc_html__('If', 'ifthengive'),
                                         get_post_meta($post->ID, 'trigger_thing', true),
-                                        esc_html__('Then I will Give', 'ifthengive'),
+                                        esc_html__('Then Give', 'ifthengive'),
                                         $symbol
                                     );
                     if ($amount == 'fixed') {
