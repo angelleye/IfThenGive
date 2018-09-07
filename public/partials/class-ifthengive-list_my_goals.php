@@ -85,8 +85,13 @@ class AngellEYE_IfThenGive_My_Goals_Table {
         $sql .= ' GROUP BY  e.meta_value, t.meta_value';
         if (isset($search)) {
             $sql .= "  Having (( GoalName LIKE '%{$search}%' ) OR ( amount LIKE '%{$search}%' ) OR ( post_date LIKE '%{$search}%' ) ) ";
-        }                            
-        $sql .= "ORDER BY {$col} {$coldir} LIMIT {$start}, {$length}";
+        }
+        if($colOrder==1){
+            $sql .= "ORDER BY {$col} + 0  {$coldir} LIMIT {$start}, {$length}";
+        }
+        else{
+            $sql .= "ORDER BY {$col} {$coldir} LIMIT {$start}, {$length}";
+        }        
         
         $result_array = $wpdb->get_results($sql, 'ARRAY_A');        
         return $result_array;
