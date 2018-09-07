@@ -87,8 +87,13 @@ class AngellEYE_IfThenGive_My_Transactions_Table {
         }
         if(isset($_REQUEST['payment_status-filter'])  && $_REQUEST['payment_status-filter'] != 'all' ){
           $sql .= "  Having (( ppack LIKE '".esc_sql($_REQUEST['payment_status-filter'])."' ) ) ";     
-        }                    
-        $sql .= "ORDER BY {$col} {$coldir} LIMIT {$start}, {$length}";
+        }
+        if($colOrder==1){
+            $sql .= "ORDER BY {$col} + 0  {$coldir} LIMIT {$start}, {$length}";
+        }
+        else{
+            $sql .= "ORDER BY {$col} {$coldir} LIMIT {$start}, {$length}";
+        }        
         
         if(isset($_REQUEST['records_show-filter'])){
             $per_page = esc_sql($_REQUEST['records_show-filter']);
