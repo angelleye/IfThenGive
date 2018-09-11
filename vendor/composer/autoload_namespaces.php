@@ -7,5 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'angelleye\\PayPal' => array($vendorDir . '/angelleye/paypal-php-library/src'),
-    'PayPal' => array($vendorDir . '/paypal/rest-api-sdk-php/lib'),
 );
