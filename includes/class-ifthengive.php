@@ -355,10 +355,10 @@ class Ifthengive {
                         if( is_wp_error( $goal_user_id ) ) {
                             $error = __('Error on user creation.','ifthengive');
                             $_SESSION['ITG_Error'] = true;
-                            $_SESSION['ITG_Error_Type'] = 'WP Error.';
-                            $_SESSION['ITG_Error_Array']['ACK'] = 'Failed';
-                            $_SESSION['ITG_Error_Array']['L_SHORTMESSAGE0'] = 'Error on user creation:';
-                            $_SESSION['ITG_Error_Array']['L_LONGMESSAGE0'] = 'You are facing problem while creating user for site. Please Contact Administrator for this error.';
+                            $_SESSION['ITG_Error_Type'] = __('WP Error.','ifthengive');
+                            $_SESSION['ITG_Error_Array']['ACK'] = __('Failed','ifthengive');
+                            $_SESSION['ITG_Error_Array']['L_SHORTMESSAGE0'] = __('Error on user creation:','ifthengive');
+                            $_SESSION['ITG_Error_Array']['L_LONGMESSAGE0'] = __('You are facing problem while creating user for site. Please Contact Administrator for this error.','ifthengive');
                             wp_redirect(site_url('itg-error'));
                             exit;
                         }
@@ -409,7 +409,8 @@ class Ifthengive {
 
                         update_post_meta($new_post_id,'itg_signup_amount',$amount);                    
                         update_post_meta($new_post_id,'itg_signup_wp_user_id',$goal_user_id);
-                        update_post_meta($new_post_id,'itg_signup_wp_goal_id',$goal_post_id);  
+                        update_post_meta($new_post_id,'itg_signup_wp_goal_id',$goal_post_id);
+                        update_post_meta($new_post_id,'itg_signup_corelation_id',$PayPalResultCBA['CORRELATIONID']);
                         if($sanbox_enable === 'yes'){
                             update_post_meta($new_post_id,'itg_signup_in_sandbox','yes');
                         }
