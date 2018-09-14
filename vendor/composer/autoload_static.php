@@ -6,20 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInita244edd13b9c281ca3578ba45c2bf467
 {
-    public static $prefixLengthsPsr4 = array (
-        'P' => 
-        array (
-            'Psr\\Log\\' => 8,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'Psr\\Log\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
-        ),
-    );
-
     public static $prefixesPsr0 = array (
         'a' => 
         array (
@@ -28,20 +14,11 @@ class ComposerStaticInita244edd13b9c281ca3578ba45c2bf467
                 0 => __DIR__ . '/..' . '/angelleye/paypal-php-library/src',
             ),
         ),
-        'P' => 
-        array (
-            'PayPal' => 
-            array (
-                0 => __DIR__ . '/..' . '/paypal/rest-api-sdk-php/lib',
-            ),
-        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita244edd13b9c281ca3578ba45c2bf467::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita244edd13b9c281ca3578ba45c2bf467::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInita244edd13b9c281ca3578ba45c2bf467::$prefixesPsr0;
 
         }, null, ClassLoader::class);
