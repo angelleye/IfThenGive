@@ -8,16 +8,27 @@ Stable tag: 0.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-A creative fundraising tool allowing your donors to Give a donation When an event or goal occurs.
+A creative way to generate donations for a nonprofit or general cause.
 
 == Description ==
 
-Allow donors to create a billing agreement for automatic donations based on events / goals.  For example, If {event occurs} Then Give $x.xx.
+IfThenGive allows donors to create a billing agreement for automatic donations based on specific events / achieved goals.  For example, If {event occurs} Then Give {donation amount}.
 
 Examples:
 
-* [Home Run Challenge](http://rizzo44.com/product/2017-home-run-challenge/) - If Anthony Rizzo hits a home run during a baseball game, Then Give $5.00 towards the cause.
-* [HALO](http://www.haloworldwide.org) - Helping Art Liberate Orphans - If a child graduates high school Then Give a $10.00 donation.
+* If {baseball player} hits a home run, Then Give $5.00.
+* If {football player} scores a touchdown, Then Give $10.00.
+* If {student} runs in the fundraiser race, Then Give $1.00 for each mile completed.
+* If {politician} participates in a debate, Then Give $100.00.
+* If {child is baptized}, Then Give $25.00.
+* If {national disaster occurs}, Then Give $500.00.
+* If {it rains} Then Give $1.00.
+
+The possibilities are endless!
+
+= BETA RELEASE =
+
+Please note that this is a BETA release!  We would love you to install the plugin, use it, and [provide feedback](https://www.angelleye.com/support) on how we can make it better.  Thanks!
 
 == Installation ==
 
@@ -38,9 +49,17 @@ In the search field type IfThenGive and click Search Plugins. Once you've found 
 
 == Frequently Asked Questions ==
 
+= What does BETA mean? =
+
+This plugin is being released to the public to get feedback and improve.  It has been tested internally and functions well, but there might be some bugs or general user experience problems.  If you find these, please [let us know](https://www.angelleye.com/support)!
+
 = Do I have to have a PayPal account in order to use IfThenGive? =
 
 Yes.  The IfThenGive system is built entirely on the PayPal platform.
+
+= What does it mean that Billing Agreements are required? =
+
+When somebody sets up a billing agreement with you, this allows you (your application) to process payments on their behalf at any time.  This requires approval by PayPal, and it needs to be specifically enabled on your account.  If this is not done, this plugin will not work properly for you!
 
 == Changelog ==
 
