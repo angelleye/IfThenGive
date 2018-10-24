@@ -44,5 +44,8 @@ Yes.  The IfThenGive system is built entirely on the PayPal platform.
 
 == Changelog ==
 
+= 0.2.0 =
+* [ITG-63](https://github.com/angelleye/IfThenGive/pull/138) - Feature - Adds PayPal API response correlation ID to data columns.
+
 = 0.1.0 =
 * Initial BETA Release
