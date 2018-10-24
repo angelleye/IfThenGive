@@ -736,7 +736,7 @@ class AngellEYE_IfThenGive_interface {
                 update_post_meta($new_post_id, 'itg_transactions_wp_user_id', sanitize_key($value['user_id']));
                 update_post_meta($new_post_id, 'itg_transactions_wp_goal_id', sanitize_key($goal_id));
                 update_post_meta($new_post_id, 'itg_transactions_transaction_id', $PayPalResultDRT['TRANSACTIONID']);
-                update_post_meta($new_post_id, 'itg_transactions_corelation_id', $PayPalResultDRT['CORRELATIONID']);
+                update_post_meta($new_post_id, 'itg_transactions_correlation_id', $PayPalResultDRT['CORRELATIONID']);
                 update_post_meta($new_post_id, 'itg_transactions_ack', $PayPalResultDRT['ACK']);
                 update_post_meta($new_post_id, 'itg_signup_in_sandbox', $sandbox);
                 update_post_meta($new_post_id, 'itg_txn_pt_status', '0');
@@ -1274,7 +1274,7 @@ class AngellEYE_IfThenGive_interface {
                                                 $EmailString.= $trEmailString;
                                             }
                                             update_post_meta($value['post_id'], 'itg_transactions_ack', $PayPalResultDRT['ACK']);
-                                            update_post_meta($value['post_id'], 'itg_transactions_corelation_id', $PayPalResultDRT['CORRELATIONID']);
+                                            update_post_meta($value['post_id'], 'itg_transactions_correlation_id', $PayPalResultDRT['CORRELATIONID']);
                                             update_post_meta($value['post_id'], 'itg_signup_in_sandbox', $sandbox);
                                             update_post_meta($value['post_id'], 'itg_txn_pt_status', '1');
                                         }

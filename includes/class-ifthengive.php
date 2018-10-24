@@ -410,7 +410,7 @@ class Ifthengive {
                         update_post_meta($new_post_id,'itg_signup_amount',$amount);                    
                         update_post_meta($new_post_id,'itg_signup_wp_user_id',$goal_user_id);
                         update_post_meta($new_post_id,'itg_signup_wp_goal_id',$goal_post_id);
-                        update_post_meta($new_post_id,'itg_signup_corelation_id',$PayPalResultCBA['CORRELATIONID']);
+                        update_post_meta($new_post_id,'itg_signup_correlation_id',$PayPalResultCBA['CORRELATIONID']);
                         if($sanbox_enable === 'yes'){
                             update_post_meta($new_post_id,'itg_signup_in_sandbox','yes');
                         }
