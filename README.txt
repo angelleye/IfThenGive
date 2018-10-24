@@ -63,5 +63,8 @@ When somebody sets up a billing agreement with you, this allows you (your applic
 
 == Changelog ==
 
+= 0.2.0 =
+* [ITG-63](https://github.com/angelleye/IfThenGive/pull/138) - Feature - Adds PayPal API response correlation ID to data columns.
+
 = 0.1.0 =
 * Initial BETA Release
