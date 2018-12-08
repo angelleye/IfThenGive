@@ -231,4 +231,12 @@ class Ifthengive_Public {
             return ob_get_clean();
         }
     }
+
+    public function itg_block_cgb_block_assets(){
+        wp_enqueue_style(
+            'itg_block-cgb-block-editor-css',
+            ITG_PLUGIN_URL.'includes/gutenberg/blocks.style.build.css',
+            array()
+        );
+    }
 }
