@@ -330,4 +330,21 @@ class IfThenGive_Admin {
                 }                
             }
         }
+
+        public function itg_block_cgb_editor_assets(){
+
+            wp_enqueue_script(
+                'itg_block-cgb-block-js',
+                ITG_PLUGIN_URL.'includes/gutenberg/blocks.build.js',
+                array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
+                $this->version,
+                true
+            );
+
+            wp_enqueue_style(
+                'itg_block-cgb-block-editor-css',
+                ITG_PLUGIN_URL.'includes/gutenberg/blocks.editor.build.css',
+                array( 'wp-edit-blocks' )
+            );
+        }
     }

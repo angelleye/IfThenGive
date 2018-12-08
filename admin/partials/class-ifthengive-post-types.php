@@ -114,7 +114,8 @@ class AngellEYE_IfThenGive_Post_types {
                     'menu_icon' => ITG_PLUGIN_URL . '/admin/images/dashicon-itg.png',
                     'supports' => array('title'),
                     'has_archive' => true,
-                    'show_in_nav_menus' => true
+                    'show_in_nav_menus' => true,
+                    'show_in_rest' => true
                         )
                 )
         );

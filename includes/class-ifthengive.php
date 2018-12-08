@@ -190,6 +190,7 @@ class Ifthengive {
                 $this->loader->add_filter('post_updated_messages', $plugin_admin, 'ifthengive_messages');
                 $this->loader->add_filter('plugin_row_meta', $plugin_admin, 'ifthengive_plugin_action_links', 10, 2);
                 $this->loader->add_action('admin_notices', $plugin_admin, 'processing_notice');
+        $this->loader->add_action('enqueue_block_editor_assets', $plugin_admin, 'itg_block_cgb_editor_assets');
     }
 
 	/**
@@ -209,6 +210,7 @@ class Ifthengive {
                 $this->loader->add_action( 'init', $plugin_public, 'rewrite');
                 $this->loader->add_filter( 'query_vars', $plugin_public, 'query_vars');
                 $this->loader->add_action( 'template_include', $plugin_public, 'change_template');
+        $this->loader->add_action( 'enqueue_block_assets', $plugin_public, 'itg_block_cgb_block_assets');
 	}
 
 	/**
