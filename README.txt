@@ -64,6 +64,7 @@ When somebody sets up a billing agreement with you, this allows you (your applic
 == Changelog ==
 
 = 0.2.0 =
+* Feature - WordPress 5.0 (Gutenberg) Compatibility. ([ITG-74](https://github.com/angelleye/IfThenGive/pull/139))
 * [ITG-63](https://github.com/angelleye/IfThenGive/pull/138) - Feature - Adds PayPal API response correlation ID to data columns.
 
 = 0.1.0 =
