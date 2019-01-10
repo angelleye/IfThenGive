@@ -220,8 +220,26 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                     $log_write = new AngellEYE_IfThenGive_Logger();
                                                     $log_write->add('angelleye_itg_connect_to_paypal', 'Connect With PayPal RequestData : ' . print_r($log_sandbox_connect, true), 'connect_to_paypal');
                                                 }
-                                                $ConnectPayPalJson = self::curl_request($url, $postData);
-                                                $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
+
+                                                $response = wp_remote_post($url, array(
+                                                        'method' => 'POST',
+                                                        'timeout' => 500,
+                                                        'body' => $postData,
+	                                                    'headers'=>array('Content-Type' =>'application/x-www-form-urlencoded')
+                                                ));
+	                                            if ( is_wp_error( $response ) ) {
+		                                            $error_message = $response->get_error_message();
+		                                            ?>
+                                                    <div class="alert alert-warning" id="connect_with_paypal_error">
+                                                        <p><?php echo $error_message; ?></p>
+                                                    </div>
+		                                            <?php
+		                                            exit;
+	                                            }
+	                                            else{
+		                                            $ConnectPayPalJson = wp_remote_retrieve_body( $response );
+		                                            $ConnectPayPalArray = json_decode($ConnectPayPalJson,true);
+	                                            }
                                                 //save log
                                                 $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                                                 if ('yes' == $debug) {
@@ -354,8 +372,26 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
                                                     $log_write = new AngellEYE_IfThenGive_Logger();
                                                     $log_write->add('angelleye_itg_connect_to_paypal', 'Connect With PayPal RequestData : ' . print_r($log_live_connect, true), 'connect_to_paypal');
                                                 }
-                                                $ConnectPayPalJson = self::curl_request($url, $postData);
-                                                $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
+	                                            $response = wp_remote_post($url, array(
+		                                            'method' => 'POST',
+		                                            'timeout' => 500,
+		                                            'body' => $postData,
+		                                            'headers'=>array('Content-Type' =>'application/x-www-form-urlencoded')
+	                                            ));
+                                                if ( is_wp_error( $response ) ) {
+	                                                $error_message = $response->get_error_message();
+	                                                ?>
+	                                                <div class="alert alert-warning" id="connect_with_paypal_error">
+                                                        <p><?php echo $error_message; ?></p>
+                                                    </div>
+                                                    <?php
+                                                    exit;
+                                                }
+                                                else{
+	                                                $ConnectPayPalJson = wp_remote_retrieve_body( $response );
+	                                                $ConnectPayPalArray = json_decode($ConnectPayPalJson,true);
+                                                }
+
                                                 //save log
                                                 $debug = (get_option('itg_log_enable') == 'yes') ? 'yes' : 'no';
                                                 if ('yes' == $debug) {
@@ -552,24 +588,6 @@ class AngellEYE_IfThenGive_PayPal_Connect_Setting {
         }
         exit;
     }
-
-    public static function curl_request($url, $postData) {
-        $httpHeaders = array(
-            'Content-Type:application/x-www-form-urlencoded'
-        );
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT,500);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $httpHeaders);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
-        $result = curl_exec($ch);
-        return $result;
-    }
-
     /**
      * ifthengive_connect_to_paypal_setting_save_field function used for save general setting field value
      * @since 0.1.0

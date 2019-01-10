@@ -273,8 +273,14 @@ class Ifthengive {
                 if(isset($_GET['merchantIdInPayPal'])){
                     $url = ITG_ISU_URL;
                     $postData = "sandbox={$sandbox}&api=account_detail&merchantIdInPayPal={$_GET['merchantIdInPayPal']}";
-                    $AccountDetail = AngellEYE_IfThenGive_PayPal_Connect_Setting::curl_request($url,$postData);
-                    $AccountDetailArray = json_decode($AccountDetail,true);
+	                $response = wp_remote_post($url, array(
+		                'method' => 'POST',
+		                'timeout' => 500,
+		                'body' => $postData,
+		                'headers'=>array('Content-Type' =>'application/x-www-form-urlencoded')
+	                ));
+	                $AccountDetail = wp_remote_retrieve_body( $response );
+	                $AccountDetailArray = json_decode($AccountDetail,true);
                                         
                     if($sandbox=='true'){
                         update_option('itg_permission_sb_connected_person_merchant_id',$AccountDetailArray['DATA']['merchant_id']);
