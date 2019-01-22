@@ -63,6 +63,9 @@ When somebody sets up a billing agreement with you, this allows you (your applic
 
 == Changelog ==
 
+= 0.3.0 =
+* Tweak - Replaces all CURL requests with WordPress HTTP API. ([ITG-75](https://github.com/angelleye/IfThenGive/pull/140))
+
 = 0.2.0 =
 * Feature - WordPress 5.0 (Gutenberg) Compatibility. ([ITG-74](https://github.com/angelleye/IfThenGive/pull/139))
 * Feature - Adds PayPal API response correlation ID to data columns. ([ITG-63](https://github.com/angelleye/IfThenGive/pull/138))
