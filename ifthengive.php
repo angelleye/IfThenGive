@@ -72,6 +72,17 @@ if (!defined('ITG_TEXT_DOMAIN')) {
     define('ITG_TEXT_DOMAIN', 'ifthengive');
 }
 
+if (!defined('AEU_ZIP_URL')) {
+    define('AEU_ZIP_URL', 'https://github.com/angelleye/angelleye-updater/archive/master.zip');
+}
+
+/**
+ * Required functions
+ */
+if (!function_exists('angelleye_queue_update')) {
+    require_once( 'includes/angelleye-functions.php' );
+}
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-ifthengive-activator.php
