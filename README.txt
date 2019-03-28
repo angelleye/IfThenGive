@@ -63,10 +63,8 @@ When somebody sets up a billing agreement with you, this allows you (your applic
 
 == Changelog ==
 
-= 0.4.0 =
-* Feature - Adds AE Updater compatibility for future notices and automated updates. [ITG-A1]
-
-= 0.3.0 =
+= 0.3.0  - xx.xx.2019 =
+* Feature - Adds AE Updater compatibility for future notices and automated updates. [ITGA-1]
 * Tweak - Replaces all CURL requests with WordPress HTTP API. ([ITG-75](https://github.com/angelleye/IfThenGive/pull/140))
 
 = 0.2.0 =
