@@ -16,7 +16,7 @@
  * Plugin Name:       IfThenGive
  * Plugin URI:        http://www.angelleye.com/product/ifthengive-wordpress-donation-plugin/
  * Description:       Allow donors to create a billing agreement for automatic donations based on events / goals.  For example, If {event occurs} Then Give $x.xx.
- * Version:           0.2.0
+ * Version:           0.3.0
  * Author:            Angell EYE
  * Author URI:        https://www.angelleye.com/
  * License:           GPL-3.0+

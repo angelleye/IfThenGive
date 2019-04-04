@@ -3,8 +3,8 @@ Contributors: angelleye
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HCRT25BHSMRAA
 Tags: paypal, donation, donations, giving, charity, goals, fundraising, fundraiser, funds
 Requires at least: 3.0.1
-Tested up to: 5.0.0
-Stable tag: 0.2.0
+Tested up to: 5.1.1
+Stable tag: 0.3.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -63,7 +63,7 @@ When somebody sets up a billing agreement with you, this allows you (your applic
 
 == Changelog ==
 
-= 0.3.0  - xx.xx.2019 =
+= 0.3.0  - 04.04.2019 =
 * Feature - Adds AE Updater compatibility for future notices and automated updates. [ITGA-1][ITGA-13]
 * Tweak - Replaces all CURL requests with WordPress HTTP API. ([ITG-75](https://github.com/angelleye/IfThenGive/pull/140))
 
