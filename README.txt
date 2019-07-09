@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: paypal, donation, donations, giving, charity, goals, fundraising, fundraiser, funds
 Requires at least: 3.0.1
 Tested up to: 5.1.1
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,9 @@ Yes.  The IfThenGive system is built entirely on the PayPal platform.
 When somebody sets up a billing agreement with you, this allows you (your application) to process payments on their behalf at any time.  This requires approval by PayPal, and it needs to be specifically enabled on your account.  If this is not done, this plugin will not work properly for you!
 
 == Changelog ==
+
+= 0.3.1 - 07.09.2019 =
+* Tweak - Minor adjustment to PayPal API requests.
 
 = 0.3.0  - 04.04.2019 =
 * Feature - Adds AE Updater compatibility for future notices and automated updates. [ITGA-1][ITGA-13]
