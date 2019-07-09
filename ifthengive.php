@@ -57,7 +57,7 @@ if (!defined('ITG_PLUGIN_BASENAME')) {
 }
 
 if (!defined('ITG_BUTTON_SOURCE')) {
-    define('ITG_BUTTON_SOURCE', 'AngellEYE_GiveWhen');
+    define('ITG_BUTTON_SOURCE', '');
 }
 /* This is passed to set_time_limit() at various points, to try to maximise run-time.  The effect of this varies according to the hosting setup - it can't necessarily always be controlled. */
 if (!defined('ITG_PLUGIN_SET_TIME_LIMIT')) { 
