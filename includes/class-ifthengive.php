@@ -69,7 +69,7 @@ class Ifthengive {
 	public function __construct() {
 
 		$this->plugin_name = 'ifthengive';
-		$this->version = '0.3.1';
+		$this->version = '0.3.2';
 
 		$this->load_dependencies();
 		$this->set_locale();
