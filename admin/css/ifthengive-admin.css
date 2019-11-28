@@ -513,3 +513,8 @@ tr.strikeout td:before {
 .post-type-ifthengive_goals .updated {
     opacity: 1;        
 }
+
+.updater-dismissible {
+    padding-right: 38px;
+    position: relative;
+}
