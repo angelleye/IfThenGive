@@ -342,11 +342,10 @@
                         $('#itg_brandlogo').val(image_url);
                     });
         });    
-        
-        $(document).on('click', '#angelleye-updater-notice .notice-dismiss', function( event ) {
+        $(document).off('click', '#angelleye-updater-notice .notice-dismiss').on('click', '#angelleye-updater-notice .notice-dismiss',function(event) {
             var r = confirm("If you do not install the Updater plugin you will not receive automated updates for Angell EYE products going forward!");
             if (r == true) {
-                data = {
+                var data = {
                     action : 'angelleye_updater_dismissible_admin_notice'
                 };
                 $.post(ajaxurl, data, function (response) {
