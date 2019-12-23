@@ -63,6 +63,9 @@ When somebody sets up a billing agreement with you, this allows you (your applic
 
 == Changelog ==
 
+= 0.3.2 - 23.12.2019 =
+* Tweak - Adjustment to Updater plugin notice dismissible. ([ITGA-16](https://github.com/angelleye/IfThenGive/pull/143))
+
 = 0.3.2 - 11.20.2019 =
 * Verification - WordPress 5.3 compatibility.
 
